@@ -40,8 +40,11 @@ function decorativeColors() {
 	MODE_ENTER_STANDOUT=$(tput smso)
 	MODE_EXIT_STANDOUT=$(tput rmso)
 
-	# clear styles using ANSI escape
+	## clear styles using ANSI escape
 	STYLES_OFF=$(tput sgr0)
+
+	## Clear screen and home cursor
+	CLR_ALL=$(tput clear)
 
 	## horizontal line across scrren
 	unicodeLine=($'\u2500\n')
@@ -61,11 +64,31 @@ function splashScreen() {
 	echo $str
 }
 
+function goodbyscreen() {
+	#clear
+	echo "$CLR_ALL"
+	
+	width=$(tput cols)
+	height=$(tput lines)
+	str="Termainal Rosary using Jq and Bash"
+	length=${#str}
+	tput cup $((height/2)) $(((width/ 2)-(length/2)))
+	echo $MODE_BEGIN_UNDERLINE$str$MODE_EXIT_UNDERLINE
+	str="Thank you"
+	length=${#str}
+	tput cup $height $(((width/ 2)-(length/2)))
+	echo $str
+
+	sleep 2
+}
+
 function inputControlls() {
 	arrowUp=$'\e[A'
 	arrowDown=$'\e[B'
 	arrowRt=$'\e[C'
 	arrowLt=$'\e[D'
+	# escKey=$'\['
+	# f1Key=$'\[OP'
 }
 
 ## JQ
@@ -110,30 +133,34 @@ function jqQuery() {
 
 function decade_progressbar() {
 	echo ""
-	echo "decade progressbar: $thisDecadeSet/10"
+	
 	if [ -z ${thisDecadeSet+set} ]; then
-		echo "introduction prayer beads"
+		echo "introduction prayer beads: $initialHailMaryCounter/3"
 	else
+		echo "decade progressbar: $thisDecadeSet/10"
 		proportion=$thisDecadeSet/10
 		width=$(tput cols)
 		width=$((width*$proportion))
 		barDecade=$(printf '%*s\n' "${COLUMNS:-$width}" '' | tr ' ' '|')
-		echo $BG_GREEN$FG_BLACK$barDecade$BG_BLACK$FG_GREEN		
-	fi	
+		echo $BAR_BG$BAR_FG$barDecade$BACKGROUNDCOLOR$FOREGROUNDCOLOR
+	fi
 	echo ""
 }
 
 function mystery_progressbar() {
-	echo "mystery peogressbar: $mysteryProgress/50"
+	
 	if [ -z ${mysteryProgress+set} ]; then
-		echo "introduction prayer beads"
+		# echo "introduction prayer beads"
+		echo "Progressbars will be applied once the mystery circuit begins"
 	else
+		echo "mystery peogressbar: $mysteryProgress/50"
 		proportion=$mysteryProgress/50
 		width=$(tput cols)
 		width=$((width*$proportion))
 		barMystery=$(printf '%*s\n' "${COLUMNS:-$width}" '' | tr ' ' '|')
-		echo $BG_GREEN$FG_BLACK$barMystery$BG_BLACK$FG_GREEN
+		echo $BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR
 	fi
+	
 	echo ""
 }
 
@@ -256,6 +283,10 @@ function beadProgress() {
 ## Display
 
 function blank_transition_display() {
+	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
+	#clear
+	echo "$CLR_ALL"
+	
 	echo " $translationName"
 	width=$(tput cols)
 	str="Termainal Rosary using Jq and Bash"
@@ -265,28 +296,28 @@ function blank_transition_display() {
 	
 	echo "$hr"
 	echo "$MODE_BEGIN_UNDERLINE Mystery Name: $MODE_EXIT_UNDERLINE"; echo ""
-	echo ""; echo ""
+	echo "	loading ..."; echo ""
 	echo "$MODE_BEGIN_UNDERLINE Mystery Message: $MODE_EXIT_UNDERLINE"; echo ""
-	echo ""; echo ""
+	echo "	loading ..."; echo ""
 	echo "$MODE_BEGIN_UNDERLINE Mystery Decade: $MODE_EXIT_UNDERLINE"; echo ""
-	echo ""; echo ""
+	echo "	loading ..."; echo ""
 	echo "$MODE_BEGIN_UNDERLINE Scripture Text: $MODE_EXIT_UNDERLINE"; echo ""
-	echo ""; echo ""
+	echo "	loading ..."; echo ""
 	echo "$MODE_BEGIN_UNDERLINE Prayer Text: $MODE_EXIT_UNDERLINE"; echo ""
-	echo ""; echo ""
+	echo "	loading ...
+	"; echo ""
 	echo "$MODE_BEGIN_UNDERLINE Bead Type: $MODE_EXIT_UNDERLINE"; echo ""
-	echo ""; echo ""
+	echo "	loading ..."
 	echo "$hr"
 
 	decade_progressbar
 	mystery_progressbar
-	
-	
 }
 
 function tputBeadDisplay() {
-	echo ${BG_BLACK}${FG_GREEN}
-	clear
+	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
+	#clear
+	echo "$CLR_ALL"
 		
 	echo " $translationName"
 	tput cup $(tput lines)-1 $[$(tput cols)-28]; echo `date`
@@ -311,7 +342,8 @@ function tputBeadDisplay() {
 	return_beadType=$temp
 
 	htmlHR="\<hr\>"
-	bashEcho="${MODE_DIM} \\nTranslation: "
+	bashEcho="${MODE_DIM}
+	Translation: "
 	return_scriptureText=${return_scriptureText/$htmlHR/$bashEcho}
 	
 	echo "$hr"
@@ -322,7 +354,7 @@ function tputBeadDisplay() {
 	echo "$MODE_BEGIN_UNDERLINE Mystery Decade: $MODE_EXIT_UNDERLINE"; echo ""
 	echo "	$return_decadeName"; echo ""
 	echo "$MODE_BEGIN_UNDERLINE Scripture Text: $MODE_EXIT_UNDERLINE"; echo ""
-	echo "	$return_scriptureText"${STYLES_OFF}${BG_BLACK}${FG_GREEN}; echo ""
+	echo "	$return_scriptureText"${STYLES_OFF}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}; echo ""
 	echo "$MODE_BEGIN_UNDERLINE Prayer Text: $MODE_EXIT_UNDERLINE"; echo ""
 	echo "	$return_prayerText"; echo ""
 	echo "$MODE_BEGIN_UNDERLINE Bead Type: $MODE_EXIT_UNDERLINE"; echo ""
@@ -337,8 +369,7 @@ function beadFWD() {
 	beadCounter=$((beadCounter+1))
 	
 	rosaryBeadID=$beadCounter				
-	jqQuery				
-	tputBeadDisplay
+	jqQuery
 
 	## keep the terminal from looping too fast
 	# sleep 1
@@ -356,11 +387,7 @@ function beadREV() {
 		beadCounter=$((beadCounter-1))
 		
 		rosaryBeadID=$beadCounter				
-		jqQuery				
-		tputBeadDisplay
-
-		## keep the terminal from looping too fast
-		# sleep 1
+		jqQuery
 	fi
 }
 
@@ -373,7 +400,7 @@ function menuUP() {
 		--ok-label "Ok" \
 		--cancel-label "Cancel" \
 		--menu "Select an option:\
-		\n Use space bar to toggle" \
+		\n WIP" \
 		0 0 0 \
 		"1" "Instruction/About"\
 		"2" "Start Joyful Mystery"\
@@ -381,13 +408,22 @@ function menuUP() {
 		"4" "Start Sorrowfull Mystery"\
 		"5" "Start Glorious Mystery"\
 		"6"	"View Prayers"\
-		"7" "Exit/Close App")
+		"7" "Change Color Theme"\
+		"8" "Exit/Close App")
 
-	if [ $selectedMenuItem -eq 7 ]; then
-		exit
-	fi
+	case "$selectedMenuItem" in
+		7)	## Color Theme
+			change_color_menu
+			;;
+		8)	## exit app
+			goodbyscreen
+			exit
+			;;
+		*)	## na
+	esac
 
 	tputBeadDisplay
+	
 	echo $hr
 	decade_progressbar
 	mystery_progressbar
@@ -417,9 +453,47 @@ function menuDN() {
 	fi
 	
 	tputBeadDisplay
+	
 	echo $hr
 	decade_progressbar
 	mystery_progressbar
+}
+
+function change_color_menu() {
+	screenTitle="Termainal Rosary using Jq and Bash"
+	dialogTitle="Color Theme Menu"
+	selectedTheme=$(dialog 2>&1 >/dev/tty \
+		--backtitle "$screenTitle" \
+		--title "$dialogTitle" \
+		--ok-label "Ok" \
+		--cancel-label "Cancel" \
+		--menu "Select an color theme:\
+		\n WIP" \
+		0 0 0 \
+		"1" "Green on Black"\
+		"2" "Black on White")
+		
+	case "$selectedTheme" in
+		1) # Green on Black
+		
+			BACKGROUNDCOLOR=${BG_BLACK}
+			FOREGROUNDCOLOR=${FG_GREEN}
+			BAR_BG=${BG_GREEN}
+			BAR_FG=${FG_BLACK}
+			
+			echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
+			;;
+		2) # Black on White
+		
+			BACKGROUNDCOLOR=${BG_WHITE}
+			FOREGROUNDCOLOR=${FG_BLACK}
+			BAR_BG=${BG_BLACK}
+			BAR_FG=${FG_WHITE}
+			
+			echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
+			;;
+		*) # echo "waiting" ;;
+	esac
 }
 
 ## Vars
@@ -444,6 +518,13 @@ function translationDB() {
 function initialize() {
 	# Save screen
     tput smcup
+
+    BACKGROUNDCOLOR=${BG_BLACK}
+	FOREGROUNDCOLOR=${FG_GREEN}
+	BAR_BG=${BG_GREEN}
+	BAR_FG=${FG_BLACK}
+	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
+	clear
     
 	initialMysteryFlag=0
 	showBibleListFlag=0
@@ -459,23 +540,16 @@ function initialize() {
 	translation=1
 	
 	translationDB
-	
-	echo ${BG_BLACK}${FG_GREEN}
-	clear
 }
 
 ## UI
-function arrowInputs() {	
-	# counter=0
+function arrowInputs() {
 	counterMIN=0
 	counterMAX=315
 
 	while read -sN1 key
-	do
-		# echo ${BG_BLACK}${FG_GREEN}
-		
-		
-		## catch 3 multi char sequence
+	do		
+		## catch 3 multi char sequence within a time window
 		## null outputs in case of random error msg
 		read -s -n1 -t 0.0001 k1 &>/dev/null
 		read -s -n1 -t 0.0001 k2 &>/dev/null
@@ -483,31 +557,43 @@ function arrowInputs() {
 		key+=${k1}${k2}${k3} &>/dev/null
 		
 		case "$key" in
-			$arrowUp)
-				# echo "menu"
+			$arrowUp) # menu
+			
 				menuUP
 				;;
-			$arrowDown)
-				# echo "language"
+			$arrowDown) # language
+			
 				menuDN
 				;;
-			$arrowRt)
-				clear
+			$arrowRt) # navigate forward
+			
+				#clear
+				echo "$CLR_ALL"
+				
 				blank_transition_display
 				beadFWD
-				echo $hr
-				beadProgress
 				
+				tputBeadDisplay
+				echo $hr
+				
+				beadProgress
 				decade_progressbar
 				mystery_progressbar
-				
 				;;
-			$arrowLt)
-				clear
+			$arrowLt) # navigate back
+			
+				#clear
+				echo "$CLR_ALL"
+				
 				blank_transition_display
 				beadREV
+
+				tputBeadDisplay
 				echo $hr
+				
 				beadProgress
+				decade_progressbar
+				mystery_progressbar
 				;;
 			*) # echo "waiting" ;;
 		esac
