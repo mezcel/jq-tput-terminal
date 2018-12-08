@@ -62,6 +62,8 @@ function inputControlls() {
 ## JQ
 
 function jqQuery() {
+	## The logest query rout
+	
 	query_beadIndex=.rosaryBead[$rosaryBeadID].beadIndex
 	query_decadeIndex=.rosaryBead[$rosaryBeadID].decadeIndex
 	query_mysteryIndex=.rosaryBead[$rosaryBeadID].mysteryIndex
@@ -87,6 +89,7 @@ function jqQuery() {
 
 	return_beadID=$(jq $query_beadID $rosaryJSON)
 	return_beadType=$(jq $query_beadType $rosaryJSON)
+	# return_decadeID=$(jq $query_decadeID $rosaryJSON)
 	return_decadeName=$(jq $query_decadeName $rosaryJSON)
 	return_mysteryName=$(jq $query_mysteryName $rosaryJSON)
 	return_prayerText=$(jq $query_prayerText $rosaryJSON)
@@ -142,8 +145,10 @@ function beadProgress() {
 			if [ $decadeIndex -ne 0 ]; then
 			
 				if [ $directionFwRw -eq 1 ]; then
+					## fwd
 					hailmaryCounter=$(( $hailmaryCounter + 1))
 				else
+					## rev
 					hailmaryCounter=$(( $hailmaryCounter - 1))
 				fi
 	
@@ -253,6 +258,14 @@ function beadProgress() {
 }
 
 ## Display
+
+function myAbout() {
+	aboutText="This is a Rosary App for the Linux Bast terminal.\nThis app was tested on the default Xterm on Arch.\n\nGithub: https://github.com/mezcel/jq-tpy-terminal.git"
+	
+	whiptail \
+        --title "About" \
+        --msgbox "$aboutText" 0 0
+}
 
 function splashScreen() {
 	echo "$CLR_ALL"
@@ -563,10 +576,16 @@ function menuUP() {
 		"8" "Exit App")
 
 	case "$selectedMenuItem" in
+		1)	## About
+			myAbout
+			;;
 		2)	## Joyful
 			mysteryJumpPosition=7
 			beadCounter=$mysteryJumpPosition
 			rosaryBeadID=$beadCounter
+			hailmaryCounter=0
+			thisDecadeSet=0
+			mysteryProgress=0
 			initialMysteryFlag=1
 			jqQuery
 			;;
@@ -574,6 +593,9 @@ function menuUP() {
 			mysteryJumpPosition=86
 			beadCounter=$mysteryJumpPosition
 			rosaryBeadID=$beadCounter
+			hailmaryCounter=0
+			thisDecadeSet=0
+			mysteryProgress=0
 			initialMysteryFlag=1
 			jqQuery
 			;;
@@ -581,6 +603,9 @@ function menuUP() {
 			mysteryJumpPosition=165
 			beadCounter=$mysteryJumpPosition
 			rosaryBeadID=$beadCounter
+			hailmaryCounter=0
+			thisDecadeSet=0
+			mysteryProgress=0
 			initialMysteryFlag=1
 			jqQuery
 			;;
@@ -588,8 +613,14 @@ function menuUP() {
 			mysteryJumpPosition=244
 			beadCounter=$mysteryJumpPosition
 			rosaryBeadID=$beadCounter
+			hailmaryCounter=0
+			thisDecadeSet=0
+			mysteryProgress=0
 			initialMysteryFlag=1
 			jqQuery
+			;;
+		6)	## Prayer Menu
+			prayerMenu
 			;;
 		7)	## Color Theme
 			change_color_menu
@@ -603,7 +634,8 @@ function menuUP() {
 
 	tputBeadDisplay
 	
-	echo $hr
+	# echo $hr
+	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
 	decade_progressbar
 	mystery_progressbar
 }
@@ -633,9 +665,68 @@ function menuDN() {
 	
 	tputBeadDisplay
 	
-	echo $hr
+	# echo $hr
+	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
 	decade_progressbar
 	mystery_progressbar
+}
+
+function prayerMenu() {
+	prayerName=$(jq .prayer[1].prayerName $rosaryJSON)
+	
+	screenTitle="Termainal Rosary using Jq and Bash"
+	dialogTitle="Prayer Menu"
+	selectedPrayer=$(dialog 2>&1 >/dev/tty \
+		--backtitle "$screenTitle" \
+		--title "$dialogTitle" \
+		--ok-label "Ok" \
+		--cancel-label "Cancel" \
+		--menu "Select an option:\
+		\n WIP" \
+		0 0 0 \
+		"1" "$(jq .prayer[1].prayerName $rosaryJSON)"\
+		"2" "$(jq .prayer[2].prayerName $rosaryJSON)"\
+		"3" "$(jq .prayer[3].prayerName $rosaryJSON)"\
+		"4" "$(jq .prayer[4].prayerName $rosaryJSON)"\
+		"5" "$(jq .prayer[5].prayerName $rosaryJSON)"\
+		"6" "$(jq .prayer[6].prayerName $rosaryJSON)"\
+		"7" "$(jq .prayer[7].prayerName $rosaryJSON)"\
+		"8" "$(jq .prayer[8].prayerName $rosaryJSON)"\
+		"9" "$(jq .prayer[9].prayerName $rosaryJSON)"\
+		"10" "$(jq .prayer[10].prayerName $rosaryJSON)"\
+		"11" "$(jq .prayer[11].prayerName $rosaryJSON)"\
+		"12" "$(jq .prayer[12].prayerName $rosaryJSON)"\
+		"13" "$(jq .prayer[13].prayerName $rosaryJSON)"\
+		"14" "$(jq .prayer[14].prayerName $rosaryJSON)"\
+		"15" "$(jq .prayer[15].prayerName $rosaryJSON)"\
+		"16" "$(jq .prayer[16].prayerName $rosaryJSON)" )
+
+	dialogPrayerName=$(jq .prayer[$selectedPrayer].prayerName $rosaryJSON)
+	
+	dialogPrayerText=$(jq .prayer[$selectedPrayer].prayerText $rosaryJSON)
+	htmlPattern="\<br\>"
+	bashEcho="\n"
+	dialogPrayerText=${dialogPrayerText//$htmlPattern/$bashEcho}
+	htmlPattern="\<\/p\>\<p\>"
+	bashEcho="\n\n"
+	dialogPrayerText=${dialogPrayerText//$htmlPattern/$bashEcho}
+	htmlPattern="\<\/p\>"
+	bashEcho=""
+	dialogPrayerText=${dialogPrayerText//$htmlPattern/$bashEcho}
+	htmlPattern="\<p\>"
+	bashEcho=""
+	dialogPrayerText=${dialogPrayerText//$htmlPattern/$bashEcho}
+
+	# dialog \
+    #    --backtitle "Termainal Rosary using Jq and Bash" \
+    #    --title "$dialogPrayerName" \
+    #    --infobox "$dialogPrayerText" 0 0
+    # read -s
+
+    whiptail \
+        --title "$dialogPrayerName" \
+        --msgbox "$dialogPrayerText" 0 0
+		
 }
 
 function arrowInputs() {
