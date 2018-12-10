@@ -275,7 +275,7 @@ function splashScreen() {
 	length=${#str}
 	tput cup $((height/2)) $(((width/ 2)-(length/2)))
 	echo $MODE_BEGIN_UNDERLINE$str$MODE_EXIT_UNDERLINE
-	str="< Lt navigate Rt > ( Up menus Dn )"
+	str="< Lt navigate Rt > ( Up menus Dn ) [Enter]"
 	length=${#str}
 	tput cup $height $(((width/ 2)-(length/2)))
 	echo $str
@@ -480,6 +480,7 @@ function bundledDisplay() {
 }
 
 function change_color_menu() {
+	
 	screenTitle="Termainal Rosary using Jq and Bash"
 	dialogTitle="Background Color Menu"
 	selectedBackgroundColor=$(dialog 2>&1 >/dev/tty \
