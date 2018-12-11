@@ -260,7 +260,7 @@ function beadProgress() {
 ## Display
 
 function myAbout() {
-	aboutText="This is a Rosary App for the Linux Bast terminal.\nThis app was tested on the default Xterm on Arch.\n\nGithub: https://github.com/mezcel/jq-tpy-terminal.git"
+	aboutText="This is a Rosary App for the Linux Bash terminal.\nThis app was tested on the default Xterm on Arch.\n\nGithub: https://github.com/mezcel/jq-tpy-terminal.git"
 	
 	whiptail \
         --title "About" \
@@ -275,7 +275,7 @@ function splashScreen() {
 	length=${#str}
 	tput cup $((height/2)) $(((width/ 2)-(length/2)))
 	echo $MODE_BEGIN_UNDERLINE$str$MODE_EXIT_UNDERLINE
-	str="< Lt navigate Rt > ( Up menus Dn )"
+	str="< Lt navigate Rt > ( Up menus Dn ) [Enter]"
 	length=${#str}
 	tput cup $height $(((width/ 2)-(length/2)))
 	echo $str
@@ -480,50 +480,126 @@ function bundledDisplay() {
 }
 
 function change_color_menu() {
+	
 	screenTitle="Termainal Rosary using Jq and Bash"
-	dialogTitle="Color Theme Menu"
-	selectedTheme=$(dialog 2>&1 >/dev/tty \
+	dialogTitle="Background Color Menu"
+	selectedBackgroundColor=$(dialog 2>&1 >/dev/tty \
 		--backtitle "$screenTitle" \
 		--title "$dialogTitle" \
 		--ok-label "Ok" \
 		--cancel-label "Cancel" \
-		--menu "Select an color theme:\
+		--menu "Select a background color: \
 		\n WIP" \
 		0 0 0 \
-		"1" "Green on Black"\
-		"2" "Black on White"\
-		"3" "No Styles")
+		"1" "Black"\
+		"2" "Magenta"\
+		"3" "Red"\
+		"4" "Yellow"\
+		"5" "Cyan"\
+		"6" "Blue"\
+		"7" "White"\
+		"8" "Green"\
+		"9"	"No Style")
 		
-	case "$selectedTheme" in
-		1) # Green on Black
-		
-			BACKGROUNDCOLOR=${BG_BLACK}
-			FOREGROUNDCOLOR=${FG_GREEN}
-			BAR_BG=${BG_GREEN}
+	case "$selectedBackgroundColor" in
+		1) # Black
+			BACKGROUNDCOLOR=${BG_BLACK}; echo ${BACKGROUNDCOLOR}
 			BAR_FG=${FG_BLACK}
-			
-			echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 			;;
-		2) # Black on White
-		
-			BACKGROUNDCOLOR=${BG_WHITE}
-			FOREGROUNDCOLOR=${FG_BLACK}
-			BAR_BG=${BG_BLACK}
+		2) # Magenta
+			BACKGROUNDCOLOR=${BG_MAGENTA}; echo ${BACKGROUNDCOLOR}
+			BAR_FG=${FG_MAGENTA}
+			;;
+		3) # Red
+			BACKGROUNDCOLOR=${BG_RED}; echo ${BACKGROUNDCOLOR}
+			BAR_FG=${FG_RED}
+			;;
+		4) #Yellow
+			BACKGROUNDCOLOR=${BG_YELLOW}; echo ${BACKGROUNDCOLOR}
+			BAR_FG=${FG_YELLOW}
+			;;
+		5) # Cyan
+			BACKGROUNDCOLOR=${BG_CYAN}; echo ${BACKGROUNDCOLOR}
+			BAR_FG=${FG_CYAN}
+			;;
+		6) # Blue
+			BACKGROUNDCOLOR=${BG_BLUE}; echo ${BACKGROUNDCOLOR}
+			BAR_FG=${FG_BLUE}
+			;;
+		7) # White
+			BACKGROUNDCOLOR=${BG_WHITE}; echo ${BACKGROUNDCOLOR}
 			BAR_FG=${FG_WHITE}
-			
-			echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 			;;
-		3) # No Style
-		
-			BACKGROUNDCOLOR=${STYLES_OFF}
-			FOREGROUNDCOLOR=${STYLES_OFF}
-			BAR_BG=${STYLES_OFF}
-			BAR_FG=${STYLES_OFF}
-			
-			echo ${STYLES_OFF}${STYLES_OFF}
+		8) # Green
+			BACKGROUNDCOLOR=${BG_GREEN}; echo ${BACKGROUNDCOLOR}
+			BAR_FG=${FG_GREEN}
+			;;
+		9) # No Style
+			BACKGROUNDCOLOR=${BG_NoColor}; echo ${BACKGROUNDCOLOR}
+			BAR_FG=${FG_NoColor}
 			;;
 		*) # echo "waiting" ;;
 	esac
+
+	dialogTitle="Foreground Color Menu"
+	selectedForegroundColor=$(dialog 2>&1 >/dev/tty \
+		--backtitle "$screenTitle" \
+		--title "$dialogTitle" \
+		--ok-label "Ok" \
+		--cancel-label "Cancel" \
+		--menu "Select a foreground color: \
+		\n WIP" \
+		0 0 0 \
+		"1" "Black"\
+		"2" "Magenta"\
+		"3" "Red"\
+		"4" "Yellow"\
+		"5" "Cyan"\
+		"6" "Blue"\
+		"7" "White"\
+		"8" "Green"\
+		"9"	"No Style")
+		
+	case "$selectedForegroundColor" in
+		1) # Black
+			FOREGROUNDCOLOR=${FG_BLACK}; echo ${FOREGROUNDCOLOR}
+			BAR_BG=${BG_BLACK}
+			;;
+		2) # Magenta
+			FOREGROUNDCOLOR=${FG_MAGENTA}; echo ${FOREGROUNDCOLOR}
+			BAR_BG=${BG_MAGENTA}
+			;;
+		3) # Red
+			FOREGROUNDCOLOR=${FG_RED}; echo ${FOREGROUNDCOLOR}
+			BAR_BG=${BG_RED}}
+			;;
+		4) #Yellow
+			FOREGROUNDCOLOR=${FG_YELLOW}; echo ${FOREGROUNDCOLOR}
+			BAR_BG=${BG_YELLOW}
+			;;
+		5) # Cyan
+			FOREGROUNDCOLOR=${FG_CYAN}; echo ${FOREGROUNDCOLOR}
+			BAR_BG=${BG_CYAN}}
+			;;
+		6) # Blue
+			FOREGROUNDCOLOR=${FG_BLUE}; echo ${FOREGROUNDCOLOR}
+			BAR_BG=${BG_BLUE}
+			;;
+		7) # White
+			FOREGROUNDCOLOR=${FG_WHITE}; echo ${FOREGROUNDCOLOR}
+			BAR_BG=${BG_WHITE}
+			;;
+		8) # Green
+			FOREGROUNDCOLOR=${FG_GREEN}; echo ${FOREGROUNDCOLOR}
+			BAR_BG=${BG_GREEN}
+			;;
+		9) # No Style
+			FOREGROUNDCOLOR=${FG_NoColor}; echo ${FOREGROUNDCOLOR}
+			BAR_BG=${BG_NoColor}
+			;;
+		*) # echo "waiting" ;;
+	esac
+	
 }
 
 ## Arrows
