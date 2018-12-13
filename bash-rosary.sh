@@ -257,6 +257,64 @@ function beadProgress() {
       esac
 }
 
+## Calculation
+function special_day_colors() {
+	dayNo=$(date +%d)
+	monthNo=$(date +%m) ## Jan=1
+	weekdayNo=$(date +%w) ## Sun=0
+	anualWeekNo=$(date +%U) ##00..53
+
+	calendarNotes="
+	Ordinary Time comprises two periods: the first period begins on Epiphany Day (in the Anglican Communion and Methodist churches) or the day after the Feast of the Baptism of the Lord (in the Catholic Church) and ends on the day before Ash Wednesday; the second period begins on the Monday after Pentecost, the conclusion of the Easter season, and continues until the Saturday before the First Sunday of Advent.
+
+	The weeks of Ordinary Time are numbered. Several Sundays bear the name of feasts or solemnities celebrated on those days, including Trinity Sunday and the Feast of Christ the King.
+
+	The liturgical color normally assigned to Ordinary Time is green.
+
+	Monday, January 1, 2018 	Solemnity of Mary, Mother of God 	
+	Saturday, January 6, 2018 	Epiphany 	
+	Tuesday, February 13, 2018 	Shrove Tuesday (Mardi Gras) 	
+	Wednesday, February 14, 2018 	Ash Wednesday 	
+	Sunday, March 25, 2018 	Palm Sunday 	
+	Thursday, March 29, 2018 	Maundy Thursday 	
+	Friday, March 30, 2018 	Good Friday 	
+	Sunday, April 1, 2018 	Easter 	
+	Monday, April 2, 2018 	Easter Monday 	
+	Thursday, May 10, 2018 	Ascension of Jesus 	
+	Sunday, May 20, 2018 	Pentecost 	
+	Thursday, May 31, 2018 	Corpus Christi 	
+	Wednesday, August 15, 2018 	Assumption of the Blessed Virgin Mary 	
+	Thursday, November 1, 2018 	All Saints' Day 	
+	Saturday, December 8, 2018 	The Immaculate Conception of The Blessed Virgin Mary 	
+	Tuesday, December 25, 2018 	Christmas
+
+	Solemnities and feasts in Ordinary Time
+
+	In addition, certain solemnities and feasts that fall on Sundays during Ordinary Time preempt the observance of an ordinarily numbered Sunday. On preempted Sundays, the liturgical color of the feast or solemnity replaces the liturgical color green. These feast days include, in the Roman Catholic calendar, any holy day of obligation, any other solemnity, any feast of the Lord, and the Commemoration of All Faithful Departed Souls.
+
+	On the universal calendar, these include:
+
+    Feast of the Presentation of the Lord on 2 February (liturgical color: white),
+    Solemnity of the Nativity of Saint John the Baptist on 24 June (liturgical color: white),
+    Solemnity of Saints Peter and Paul on 29 June (liturgical color: red)
+    Feast of the Transfiguration of the Lord on 6 August (liturgical color: white)
+    Feast of the Exaltation of the Holy Cross on 14 September (liturgical color: red)
+    Solemnity of All Saints on 1 November (liturgical color: white)
+    Commemoration of All Faithful Departed Souls on 2 November (liturgical color: violet or black[8]), and
+    Feast of the Dedication of the Basilica of Saint John Lateran in Rome on 9 November (liturgical color: white).
+
+	The following observances always preempt a Sunday in Ordinary Time:
+
+    Feast of the Baptism of the Lord or Solemnity of the Epiphany of the Lord always preempts the First Sunday in Ordinary Time
+    Solemnity of Pentecost always begins the first week of Ordinary Time after Eastertide
+    Solemnity of the Most Holy Trinity always preempts the Sunday immediately after Pentecost
+    Solemnity of Our Lord Jesus Christ the King of the Universe always preempts the 34th (and final) Sunday in Ordinary Time
+
+    https://en.wikipedia.org/wiki/Ordinary_Time#/media/File:Liturgical_year.svg
+	"
+}
+
+
 ## Display
 
 function myAbout() {
@@ -317,38 +375,6 @@ function mystery_Day() {
 			;;
 		*) # echo "waiting" ;;
 	esac
-}
-
-function special_day_colors() {
-	dayNo=$(date +%d)
-	monthNo=$(date +%m) ## Jan=1
-	weekdayNo=$(date +%w) ## Sun=0
-	anualWeekNo=$(date +%U) ##00..53
-
-	calendarNotes="
-	Ordinary Time comprises two periods: the first period begins on Epiphany Day (in the Anglican Communion and Methodist churches) or the day after the Feast of the Baptism of the Lord (in the Catholic Church) and ends on the day before Ash Wednesday; the second period begins on the Monday after Pentecost, the conclusion of the Easter season, and continues until the Saturday before the First Sunday of Advent.
-
-	The weeks of Ordinary Time are numbered. Several Sundays bear the name of feasts or solemnities celebrated on those days, including Trinity Sunday and the Feast of Christ the King.
-
-	The liturgical color normally assigned to Ordinary Time is green.
-
-	Monday, January 1, 2018 	Solemnity of Mary, Mother of God 	
-	Saturday, January 6, 2018 	Epiphany 	
-	Tuesday, February 13, 2018 	Shrove Tuesday (Mardi Gras) 	
-	Wednesday, February 14, 2018 	Ash Wednesday 	
-	Sunday, March 25, 2018 	Palm Sunday 	
-	Thursday, March 29, 2018 	Maundy Thursday 	
-	Friday, March 30, 2018 	Good Friday 	
-	Sunday, April 1, 2018 	Easter 	
-	Monday, April 2, 2018 	Easter Monday 	
-	Thursday, May 10, 2018 	Ascension of Jesus 	
-	Sunday, May 20, 2018 	Pentecost 	
-	Thursday, May 31, 2018 	Corpus Christi 	
-	Wednesday, August 15, 2018 	Assumption of the Blessed Virgin Mary 	
-	Thursday, November 1, 2018 	All Saints' Day 	
-	Saturday, December 8, 2018 	The Immaculate Conception of The Blessed Virgin Mary 	
-	Tuesday, December 25, 2018 	Christmas
-	"
 }
 
 function welcomepage() {
