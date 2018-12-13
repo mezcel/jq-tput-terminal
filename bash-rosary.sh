@@ -284,39 +284,71 @@ function splashScreen() {
 	read -s welcomeVar
 }
 
-function mysteryDay() {
-	dayOfWeek=$(date +"%a")
+function mystery_Day() {
+	dayOfWeek=$(date +"%A")
 	case "$dayOfWeek" in
-		"Sun")
+		"Sunday")
 			dayMysteryIndex=4
 			mysteryJumpPosition=244
 			;;
-		"Mon")
+		"Monday")
 			dayMysteryIndex=1
 			mysteryJumpPosition=7
 			;;
-		"Tue")
+		"Tuesday")
 			dayMysteryIndex=3
 			mysteryJumpPosition=165
 			;;
-		"Wed")
+		"Wednesday")
 			dayMysteryIndex=4
 			mysteryJumpPosition=244
 			;;
-		"Thu")
+		"Thursday")
 			dayMysteryIndex=2
 			mysteryJumpPosition=86
 			;;
-		"Fri")
+		"Friday")
 			dayMysteryIndex=3
 			mysteryJumpPosition=165
 			;;
-		"Sat")
+		"Saturday")
 			dayMysteryIndex=1
 			mysteryJumpPosition=7
 			;;
 		*) # echo "waiting" ;;
 	esac
+}
+
+function special_day_colors() {
+	dayNo=$(date +%d)
+	monthNo=$(date +%m) ## Jan=1
+	weekdayNo=$(date +%w) ## Sun=0
+	anualWeekNo=$(date +%U) ##00..53
+
+	calendarNotes="
+	Ordinary Time comprises two periods: the first period begins on Epiphany Day (in the Anglican Communion and Methodist churches) or the day after the Feast of the Baptism of the Lord (in the Catholic Church) and ends on the day before Ash Wednesday; the second period begins on the Monday after Pentecost, the conclusion of the Easter season, and continues until the Saturday before the First Sunday of Advent.
+
+	The weeks of Ordinary Time are numbered. Several Sundays bear the name of feasts or solemnities celebrated on those days, including Trinity Sunday and the Feast of Christ the King.
+
+	The liturgical color normally assigned to Ordinary Time is green.
+
+	Monday, January 1, 2018 	Solemnity of Mary, Mother of God 	
+	Saturday, January 6, 2018 	Epiphany 	
+	Tuesday, February 13, 2018 	Shrove Tuesday (Mardi Gras) 	
+	Wednesday, February 14, 2018 	Ash Wednesday 	
+	Sunday, March 25, 2018 	Palm Sunday 	
+	Thursday, March 29, 2018 	Maundy Thursday 	
+	Friday, March 30, 2018 	Good Friday 	
+	Sunday, April 1, 2018 	Easter 	
+	Monday, April 2, 2018 	Easter Monday 	
+	Thursday, May 10, 2018 	Ascension of Jesus 	
+	Sunday, May 20, 2018 	Pentecost 	
+	Thursday, May 31, 2018 	Corpus Christi 	
+	Wednesday, August 15, 2018 	Assumption of the Blessed Virgin Mary 	
+	Thursday, November 1, 2018 	All Saints' Day 	
+	Saturday, December 8, 2018 	The Immaculate Conception of The Blessed Virgin Mary 	
+	Tuesday, December 25, 2018 	Christmas
+	"
 }
 
 function welcomepage() {
@@ -899,7 +931,7 @@ function initialize() {
 	translation=1
 
 	## determine mystery of the day
-	mysteryDay
+	mystery_Day
 	
 	## declare init language translation
 	translationDB
