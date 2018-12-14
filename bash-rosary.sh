@@ -59,7 +59,9 @@ function inputControlls() {
 	# f1Key=$'\[OP'
 }
 
+###################################################
 ## JQ
+###################################################
 
 function jqQuery() {
 	## The logest query rout
@@ -100,7 +102,9 @@ function jqQuery() {
 	beadType=$return_beadType
 }
 
+###################################################
 ## Progressbars
+###################################################
 
 function decade_progressbar() {
 	echo ""
@@ -257,65 +261,231 @@ function beadProgress() {
       esac
 }
 
-## Calculation
-function special_day_colors() {
-	dayNo=$(date +%d)
-	monthNo=$(date +%m) ## Jan=1
-	weekdayNo=$(date +%w) ## Sun=0
-	anualWeekNo=$(date +%U) ##00..53
+###################################################
+## Holliday Dates Calculation
+###################################################
 
-	calendarNotes="
-	Ordinary Time comprises two periods: the first period begins on Epiphany Day (in the Anglican Communion and Methodist churches) or the day after the Feast of the Baptism of the Lord (in the Catholic Church) and ends on the day before Ash Wednesday; the second period begins on the Monday after Pentecost, the conclusion of the Easter season, and continues until the Saturday before the First Sunday of Advent.
+function pfmTableDate() {
+	thisYear=$(date +%Y)
 
-	The weeks of Ordinary Time are numbered. Several Sundays bear the name of feasts or solemnities celebrated on those days, including Trinity Sunday and the Feast of Christ the King.
+	## Divide the current year by 19 and get the 1st 3 digits after the decimal
+	
+	yearDiv3_decimal=$(echo "scale=3; $thisYear / 19" | bc)
+	yearDiv3_int=$(( $thisYear / 19 ))
+	last3dec=$(echo "scale=3; $yearDiv3_decimal - $yearDiv3_int" | bc)
+	wholeNum=$( echo "scale=0; $last3dec * 1000" | bc )
+	wholeNum=$( echo $wholeNum | awk '{print int($0)}' ) ## Floor Round
+	
+	## Paschal Full Moon (PFM) Date for Years 326 to 2599 (M=March, A=April)
+	
+	pmfArray[0]=A14
+	pmfArray[52]=A3
+	pmfArray[105]=M23
+	pmfArray[157]=A11
+	pmfArray[210]=M31
+	pmfArray[263]=A18
+	pmfArray[315]=A8
+	pmfArray[368]=M28
+	pmfArray[421]=A16
+	pmfArray[473]=A5
+	pmfArray[526]=M25
+	pmfArray[578]=A13
+	pmfArray[631]=A2
+	pmfArray[684]=M22
+	pmfArray[736]=A10
+	pmfArray[789]=M30
+	pmfArray[842]=A17
+	pmfArray[894]=A7
+	pmfArray[947]=M27
 
-	The liturgical color normally assigned to Ordinary Time is green.
-
-	Monday, January 1, 2018 	Solemnity of Mary, Mother of God 	
-	Saturday, January 6, 2018 	Epiphany 	
-	Tuesday, February 13, 2018 	Shrove Tuesday (Mardi Gras) 	
-	Wednesday, February 14, 2018 	Ash Wednesday 	
-	Sunday, March 25, 2018 	Palm Sunday 	
-	Thursday, March 29, 2018 	Maundy Thursday 	
-	Friday, March 30, 2018 	Good Friday 	
-	Sunday, April 1, 2018 	Easter 	
-	Monday, April 2, 2018 	Easter Monday 	
-	Thursday, May 10, 2018 	Ascension of Jesus 	
-	Sunday, May 20, 2018 	Pentecost 	
-	Thursday, May 31, 2018 	Corpus Christi 	
-	Wednesday, August 15, 2018 	Assumption of the Blessed Virgin Mary 	
-	Thursday, November 1, 2018 	All Saints' Day 	
-	Saturday, December 8, 2018 	The Immaculate Conception of The Blessed Virgin Mary 	
-	Tuesday, December 25, 2018 	Christmas
-
-	Solemnities and feasts in Ordinary Time
-
-	In addition, certain solemnities and feasts that fall on Sundays during Ordinary Time preempt the observance of an ordinarily numbered Sunday. On preempted Sundays, the liturgical color of the feast or solemnity replaces the liturgical color green. These feast days include, in the Roman Catholic calendar, any holy day of obligation, any other solemnity, any feast of the Lord, and the Commemoration of All Faithful Departed Souls.
-
-	On the universal calendar, these include:
-
-    Feast of the Presentation of the Lord on 2 February (liturgical color: white),
-    Solemnity of the Nativity of Saint John the Baptist on 24 June (liturgical color: white),
-    Solemnity of Saints Peter and Paul on 29 June (liturgical color: red)
-    Feast of the Transfiguration of the Lord on 6 August (liturgical color: white)
-    Feast of the Exaltation of the Holy Cross on 14 September (liturgical color: red)
-    Solemnity of All Saints on 1 November (liturgical color: white)
-    Commemoration of All Faithful Departed Souls on 2 November (liturgical color: violet or black[8]), and
-    Feast of the Dedication of the Basilica of Saint John Lateran in Rome on 9 November (liturgical color: white).
-
-	The following observances always preempt a Sunday in Ordinary Time:
-
-    Feast of the Baptism of the Lord or Solemnity of the Epiphany of the Lord always preempts the First Sunday in Ordinary Time
-    Solemnity of Pentecost always begins the first week of Ordinary Time after Eastertide
-    Solemnity of the Most Holy Trinity always preempts the Sunday immediately after Pentecost
-    Solemnity of Our Lord Jesus Christ the King of the Universe always preempts the 34th (and final) Sunday in Ordinary Time
-
-    https://en.wikipedia.org/wiki/Ordinary_Time#/media/File:Liturgical_year.svg
-	"
+	pfmDate=${pmfArray[$wholeNum]}
 }
 
+function pfmTableMonth(){
+	## determine month according to PMF Date
+	firstLetter=${pfmDate:0:1}
 
+	## 1st letter
+	if [[ $firstLetter == "M" ]]; then
+		virtualMonthName="March"; # march
+		virtualMonthNo=03
+	else
+		virtualMonthName="April"; # april
+		virtualMonthNo=04
+	fi
+
+	## last 2 numbers
+	if [ ${#pfmDate} -lt 3 ]; then
+		last2numbers=$( echo -n $pfmDate | tail -c 1 )
+		estimatedDay=0$last2numbers
+	else
+		last2numbers=$( echo -n $pfmDate | tail -c 2 )
+		estimatedDay=$last2numbers
+	fi
+}
+
+function pfmTableYear() {
+	## PFM Date for year (M=March, A=April)
+	
+	case "$pmfDate" in
+		"A2" | "A9" | "A16" | "M26" )
+			annualNo=0
+			;;
+		"A3" | "A10" | "A17" | "M27" )
+			annualNo=1
+			;;
+		"A4" | "A11" | "A18" | "M21" | "M28" )
+			annualNo=2
+			;;
+		"A5" | "A12" | "M29" | "M22" )
+			annualNo=3
+			;;
+		"A6" | "A13" | "M23" | "M30" )
+			annualNo=4
+			;;
+		"A7" | "A14" | "M24" | "M31" )
+			annualNo=5
+			;;
+		"A1" | "A8" | "A15" | "M25" )
+			annualNo=6
+			;;
+		
+	esac
+}
+
+function pfmTableDecade() {
+	## Last 2 digits in the current year
+	## I am just going to use 18-21 and a few more future years just to fill it out
+
+	last2numbers=$( echo -n $thisYear | tail -c 2 )
+	
+	case "$last2numbers" in
+		23 | 28 )
+			decadeNo=0
+			;;
+		18 | 29 )
+			decadeNo=1
+			;;
+		19 | 24 )
+			decadeNo=2
+			;;
+		25 | 31 )
+			decadeNo=3
+			;;
+		20 | 26 )
+			decadeNo=4
+			;;
+		21 | 27 )
+			decadeNo=5
+			;;
+		22 | 33 )
+			decadeNo=6
+			;;
+
+	esac
+}
+
+function pfmTableCentury() {
+	## First 2 digits if current year
+	## I expect it will be 20 for the next +900 years... but the calander has changed more than once in the last 900 years
+	## There is a lookup table for this... but we do not need to do that, 20 is just 0
+	
+	centuryNo=0
+}
+
+function pfmTableSum() {
+	## Add results from all 3 tables
+	tableSum=$(( $annualNo + $centuryNo + $decadeNo ))
+
+	case $tableSum in
+		0 | 7 | 14 )
+			pfmWeekDay=Sunday
+			daysToAdd=1
+			;;
+		1 | 8 | 15 )
+			pfmWeekDay=Monday
+			daysToAdd=2
+			;;
+		2 | 9 | 19 )
+			pfmWeekDay=Tuesday
+			daysToAdd=3
+			;;
+		3 | 10 | 17 )
+			pfmWeekDay=Wednesday
+			daysToAdd=4
+			;;
+		4 | 11 | 18 )
+			pfmWeekDay=Thursday
+			daysToAdd=5
+			;;
+		5 | 12 )
+			pfmWeekDay=Friday
+			daysToAdd=6
+			;;
+		6 | 13 )
+			pfmWeekDay=Saturday
+			daysToAdd=7
+			;;
+	esac
+}
+
+function calculate_Paschal_Full_Moon() {
+	## Easter Sunday is the Sunday following the Paschal Full Moon (PFM) date for the year.
+	## In June 325 A.D. astronomers approximated astronomical full moon dates for the Christian church, calling them Ecclesiastical Full Moon (EFM) dates. From 326 A.D. the PFM date has always been the EFM date after March 20 (which was the equinox date in 325 A.D.)
+	## Table Data derived from https://www.assa.org.au/edm
+	## http://orthodox-theology.com/media/PDF/1.2017/Erekle.Tsakadze.pdf
+
+	## Ordinary Time comprises two periods: the first period begins on Epiphany Day (in the Anglican Communion and Methodist churches) or the day after the Feast of the Baptism of the Lord (in the Catholic Church) and ends on the day before Ash Wednesday; the second period begins on the Monday after Pentecost, the conclusion of the Easter season, and continues until the Saturday before the First Sunday of Advent.
+	
+	pfmTableDate
+	
+	pfmTableMonth
+	pfmTableYear
+	pfmTableDecade
+	pfmTableCentury
+	pfmTableSum
+	
+	## Desired date - today
+	tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
+	daysUntillEaster=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+
+	if [ $daysUntillEaster -lt 0 ]; then
+		thisYear=$(( $thisYear + 1 ))
+		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
+		daysUntillEaster=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+	fi
+
+	# echo $daysUntillEaster
+	if [ $ $daysUntillEaster -eq 0 ]; then
+		isEaster=1
+	else
+		isEaster=0
+	fi
+	
+	
+	
+}
+
+function days_untill_Christmas() {
+	tabulatedDate=$(date +%Y)1225
+	daysUntillChristmas=$(( ($(date --date="$tabulatedDate" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+
+	if [ $daysUntillChristmas -lt 0 ]; then
+		thisYear=$(( $thisYear + 1 ))
+		daysUntillChristmas=$(( ($(date --date="$tabulatedDate" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+	fi
+
+	# echo $daysUntillChristmas
+	if [ $ $daysUntillChristmas -eq 0 ]; then
+		isChristmas=1
+	else
+		isChristmas=0
+	fi
+}
+
+###################################################
 ## Display
+###################################################
 
 function myAbout() {
 	aboutText="This is a Rosary App for the Linux Bash terminal.\nThis app was tested on the default Xterm on Arch.\n\nGithub: https://github.com/mezcel/jq-tpy-terminal.git"
@@ -375,6 +545,21 @@ function mystery_Day() {
 			;;
 		*) # echo "waiting" ;;
 	esac
+
+
+	if [ $isEaster -eq 1 ]; then
+		## Glorious Mystery
+		dayMysteryIndex=4
+		mysteryJumpPosition=244			
+	fi
+
+	if [ $isChristmas -eq 1 ]; then
+		## Joyful Mystery
+		dayMysteryIndex=1
+		mysteryJumpPosition=7
+	fi	
+
+	
 }
 
 function welcomepage() {
@@ -660,7 +845,9 @@ function change_color_menu() {
 	
 }
 
+###################################################
 ## Arrows
+###################################################
 
 function beadFWD() {
 	directionFwRw=1
@@ -911,7 +1098,10 @@ function arrowInputs() {
     tput rmcup
 }
 
+###################################################
 ## Vars
+###################################################
+
 function translationDB() {
 	
 	hostedDirPath=$(dirname $0)
@@ -940,6 +1130,9 @@ function initialize() {
 	BAR_FG=${FG_BLACK}
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 	clear
+
+	isChristmas=0
+	isEaster=0
     
 	initialMysteryFlag=0
 	showBibleListFlag=0
@@ -970,10 +1163,33 @@ function myMian() {
 	inputControlls
 	initialize
 	
+	calculate_Paschal_Full_Moon
+	days_untill_Christmas
+	
+	if [ $isEaster -eq 1 ]; then
+		## Yellow
+		BACKGROUNDCOLOR=${BG_YELLOW}; echo ${BACKGROUNDCOLOR}
+		BAR_FG=${FG_YELLOW}
+		FOREGROUNDCOLOR=${FG_BLACK}; echo ${FOREGROUNDCOLOR}
+		BAR_BG=${BG_BLACK}
+			
+	fi
+
+	if [ $isChristmas -eq 1 ]; then
+
+		## Magent/Purple/Violet
+		BACKGROUNDCOLOR=${BG_MAGENTA}; echo ${BACKGROUNDCOLOR}
+		BAR_FG=${FG_MAGENTA}		
+		FOREGROUNDCOLOR=${FG_BLACK}; echo ${FOREGROUNDCOLOR}
+		BAR_BG=${BG_BLACK}	
+	fi
+	
 	splashScreen
 	welcomepage
 	
 	arrowInputs
+
+	
 }
 
 ## Run
