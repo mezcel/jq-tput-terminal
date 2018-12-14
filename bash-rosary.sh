@@ -265,6 +265,21 @@ function beadProgress() {
 ## Holliday Dates Calculation
 ###################################################
 
+function initializeFeastFlags() {
+	isEaster=0
+	isAsh_Wednesday=0
+	isJesus_Assension=0
+	isPentecost=0	
+	isImmaculateConception=0
+	isChristmas=0
+	isSolemnityOfMary=0
+	isAll_Saints=0
+}
+
+#
+## PFM Table Calculations
+#
+
 function pfmTableDate() {
 	thisYear=$(date +%Y)
 
@@ -307,10 +322,10 @@ function pfmTableMonth(){
 
 	## 1st letter
 	if [[ $firstLetter == "M" ]]; then
-		virtualMonthName="March"; # march
+		virtualMonthName="March"
 		virtualMonthNo=03
 	else
-		virtualMonthName="April"; # april
+		virtualMonthName="April"
 		virtualMonthNo=04
 	fi
 
@@ -349,7 +364,6 @@ function pfmTableYear() {
 		"A1" | "A8" | "A15" | "M25" )
 			annualNo=6
 			;;
-		
 	esac
 }
 
@@ -381,7 +395,6 @@ function pfmTableDecade() {
 		22 | 33 )
 			decadeNo=6
 			;;
-
 	esac
 }
 
@@ -429,13 +442,24 @@ function pfmTableSum() {
 	esac
 }
 
-function calculate_Paschal_Full_Moon() {
-	## Easter Sunday is the Sunday following the Paschal Full Moon (PFM) date for the year.
-	## In June 325 A.D. astronomers approximated astronomical full moon dates for the Christian church, calling them Ecclesiastical Full Moon (EFM) dates. From 326 A.D. the PFM date has always been the EFM date after March 20 (which was the equinox date in 325 A.D.)
-	## Table Data derived from https://www.assa.org.au/edm
-	## http://orthodox-theology.com/media/PDF/1.2017/Erekle.Tsakadze.pdf
+#
+## Calculate Days Untill Feast
+#
 
-	## Ordinary Time comprises two periods: the first period begins on Epiphany Day (in the Anglican Communion and Methodist churches) or the day after the Feast of the Baptism of the Lord (in the Catholic Church) and ends on the day before Ash Wednesday; the second period begins on the Monday after Pentecost, the conclusion of the Easter season, and continues until the Saturday before the First Sunday of Advent.
+function days_Untill_Count() {
+	thisYear=$(date +%Y)
+	tabulatedDate=$thisYear$monthDay
+	saveTheDate=$(( ($(date --date="$tabulatedDate" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+
+	if [ $saveTheDate -lt 0 ]; then
+		nextYear=$(( $thisYear + 1 ))
+		tabulatedDate=$nextYear$monthDay
+		saveTheDate=$(( ($(date --date="$tabulatedDate" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+	fi
+}
+
+function calculate_Paschal_Full_Moon() {
+	## Easter
 	
 	pfmTableDate
 	
@@ -447,40 +471,151 @@ function calculate_Paschal_Full_Moon() {
 	
 	## Desired date - today
 	tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
-	daysUntillEaster=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+	daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
 
-	if [ $daysUntillEaster -lt 0 ]; then
+	if [ $daysUntill -lt 0 ]; then
 		thisYear=$(( $thisYear + 1 ))
 		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
-		daysUntillEaster=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+		daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))	
 	fi
 
-	# echo $daysUntillEaster
-	if [ $ $daysUntillEaster -eq 0 ]; then
+	daysUntillEaster=$daysUntill
+	if [ $daysUntillEaster == 0 ]; then
 		isEaster=1
 	else
 		isEaster=0
 	fi
 	
+}
+
+function days_untill_Ash_Wednesday() {
+	## Lent begins on Ash Wednesday, which is always held 46 days (40 fasting days and 6 Sundays) before Easter Sunday.
+
+	calculate_Paschal_Full_Moon
 	
+	daysToRemove=$(( $daysToAdd - 46 ))
+	daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+
+	if [ $daysUntill -lt 0 ]; then
+		thisYear=$(( $thisYear + 1 ))
+		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
+		daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+	fi
+
+	daysUntillAshWednesday=$daysUntill
+	if [ $daysUntillAshWednesday == 0 ]; then
+		isAsh_Wednesday=1
+	else
+		isAsh_Wednesday=0
+	fi
+}
+
+function days_untill_Jesus_Assension() {
+	## 40 Days After Easter, Thursday
+	
+	calculate_Paschal_Full_Moon
+
+	daysToAdd=$(( $daysToAdd + 40 ))
+	daysUntillJesusAssension=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+
+	if [ $daysUntillJesusAssension == 0 ]; then
+		isJesus_Assension=1
+	else
+		isJesus_Assension=0
+	fi
+}
+
+function days_untill_Pentecost() {
+	## 7 Sundays after Easter
+
+	calculate_Paschal_Full_Moon
+
+	daysToAdd=$(( $daysToAdd + 49 ))
+	daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+
+	if [ $daysUntill -lt 0 ]; then
+		thisYear=$(( $thisYear + 1 ))
+		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
+		daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))	
+	fi
+
+	daysUntillPentecost=$daysUntill
+	if [ $daysUntillPentecost == 0 ]; then
+		isPentecost=1
+	else
+		isPentecost=0
+	fi
+}
+
+function days_untill_Immaculate_Conception() {
+	## Dec 8
+	
+	monthDay="1208"
+	days_Untill_Count
+
+	daysUntillImmaculateConception=$saveTheDate
+
+	if [ $daysUntillImmaculateConception == 0 ]; then
+		isImmaculateConception=1
+	else
+		isImmaculateConception=0
+	fi
 	
 }
 
 function days_untill_Christmas() {
-	tabulatedDate=$(date +%Y)1225
-	daysUntillChristmas=$(( ($(date --date="$tabulatedDate" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+	## Dec 25
+	
+	monthDay="1225"
+	days_Untill_Count
 
-	if [ $daysUntillChristmas -lt 0 ]; then
-		thisYear=$(( $thisYear + 1 ))
-		daysUntillChristmas=$(( ($(date --date="$tabulatedDate" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
-	fi
+	daysUntillChristmas=$saveTheDate
 
-	# echo $daysUntillChristmas
-	if [ $ $daysUntillChristmas -eq 0 ]; then
+	if [ $daysUntillChristmas == 0 ]; then
 		isChristmas=1
 	else
 		isChristmas=0
 	fi
+}
+
+function days_untill_All_Saints() {
+	## Nov 1
+	
+	monthDay="1101"
+	days_Untill_Count
+
+	daysUntillAllSaints=$saveTheDate
+
+	if [ $daysUntillAllSaints == 0 ]; then
+		isAll_Saints=1
+	else
+		isAll_Saints=0
+	fi
+}
+
+function days_untill_Solemnity_of_Mary() {
+	## Jan 1
+	monthDay="0101"
+	days_Untill_Count
+
+	daysUntillSolemnityOfMary=$saveTheDate
+
+	if [ $daysUntillSolemnityOfMary == 0 ]; then
+		isSolemnityOfMary=1
+	else
+		isSolemnityOfMary=0
+	fi
+}
+
+function trigger_feastDay() {
+	calculate_Paschal_Full_Moon
+	days_untill_Ash_Wednesday
+	days_untill_Jesus_Assension
+	days_untill_Pentecost
+	days_untill_Immaculate_Conception
+	days_untill_Christmas
+	days_untill_All_Saints
+	days_untill_Solemnity_of_Mary	
 }
 
 ###################################################
@@ -607,7 +742,7 @@ function welcomepage() {
 	# key=$arrowRt
 }
 
-function goodbyscreen() {
+function goodbyescreen() {
 	#clear
 	echo "$CLR_ALL"
 	
@@ -617,7 +752,7 @@ function goodbyscreen() {
 	length=${#str}
 	tput cup $((height/2)) $(((width/ 2)-(length/2)))
 	echo $MODE_BEGIN_UNDERLINE$str$MODE_EXIT_UNDERLINE
-	str="Thank you"
+	str="Goodbye"
 	length=${#str}
 	tput cup $height $(((width/ 2)-(length/2)))
 	echo $str
@@ -947,7 +1082,7 @@ function menuUP() {
 			change_color_menu
 			;;
 		8)	## exit app
-			goodbyscreen
+			goodbyescreen
 			exit
 			;;
 		*)	## na
@@ -1130,10 +1265,7 @@ function initialize() {
 	BAR_FG=${FG_BLACK}
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 	clear
-
-	isChristmas=0
-	isEaster=0
-    
+	
 	initialMysteryFlag=0
 	showBibleListFlag=0
 	showPrayerListFlag=0
@@ -1150,21 +1282,20 @@ function initialize() {
 	translation=1
 
 	## determine mystery of the day
+	initializeFeastFlags
+	trigger_feastDay
 	mystery_Day
 	
 	## declare init language translation
 	translationDB
-
-	
 }
 
 function myMian() {
 	decorativeColors
 	inputControlls
 	initialize
-	
-	calculate_Paschal_Full_Moon
-	days_untill_Christmas
+
+	## Feast Day Colors
 	
 	if [ $isEaster -eq 1 ]; then
 		## Yellow
@@ -1177,7 +1308,7 @@ function myMian() {
 
 	if [ $isChristmas -eq 1 ]; then
 
-		## Magent/Purple/Violet
+		## Magenta/Purple/Violet
 		BACKGROUNDCOLOR=${BG_MAGENTA}; echo ${BACKGROUNDCOLOR}
 		BAR_FG=${FG_MAGENTA}		
 		FOREGROUNDCOLOR=${FG_BLACK}; echo ${FOREGROUNDCOLOR}
