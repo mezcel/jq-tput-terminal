@@ -1,6 +1,8 @@
 # jq-tput-terminal
 
-Termainal Rosary using Jq and Bash
+Terminal Rosary using Jq and Bash
+
+Youtube: [Demo Preview](https://youtu.be/tLnbFUbL0rE)
 
 ### About:
 
