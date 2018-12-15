@@ -689,7 +689,7 @@ function splashScreen() {
 	echo $str
 
 	## prompt for enter
-	read -p "[Enter]" -s welcomeVar
+	read -p "[Press Enter]" -s welcomeVar
 }
 
 function mystery_Day() {
@@ -764,13 +764,14 @@ function welcomepage() {
 	Note:	Do not navigate too fast. Allow a moment to complete text querying.
 		JQ is a C based JSON Parser & I took the longest query rout to retrieve text.
 	
-	"	
-			
-	read -p "[Enter]" -s welcomeVar
+	"
+	
+	read -p "[Press Enter]" -s welcomeVar
 	# key=$arrowRt
 }
 
 function signOfTheCross() {
+	echo "${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 	clear
 	
 	str="Termainal Rosary using Jq and Bash"
@@ -788,17 +789,20 @@ function signOfTheCross() {
 	htmlHR="\<hr\>"
 	bashEcho="${MODE_DIM}Guidance: "
 	return_prayerText=${return_prayerText/$htmlHR/$bashEcho}
-	
+
+	echo ""
+	echo "$MODE_BEGIN_UNDERLINE Make the sign of the cross: $MODE_EXIT_UNDERLINE
+	"
 	echo "$return_prayerText"
-	echo "$FG_NoColor$BACKGROUNDCOLOR $FOREGROUNDCOLOR
+	echo "$FG_NoColor${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 
 	Use the Arrow keys to navigate."
-	introFlag=0
+	
 }
 
 function goodbyescreen() {
-	#clear
 	echo "$CLR_ALL"
+	clear
 	
 	width=$(tput cols)
 	height=$(tput lines)
@@ -1146,12 +1150,17 @@ function menuUP() {
 		*)	## na
 	esac
 
-	tputBeadDisplay
+	if [ $introFlag -eq 1 ]; then
+		signOfTheCross
+	else
+		tputBeadDisplay
+		
+		# echo $hr
+		printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+		decade_progressbar
+		mystery_progressbar
+	fi
 	
-	# echo $hr
-	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
-	decade_progressbar
-	mystery_progressbar
 }
 
 function menuDN() {
@@ -1167,22 +1176,28 @@ function menuDN() {
 		--radiolist "Switch language:\
 		\n\n Use space bar to toggle\n" \
 		0 0 0 \
-		1 "English - New American Bible" ON\
-		2	"Latin - Vulaget" OFF)
+		"1" "English - New American Bible" ON\
+		"2"	"Latin - Vulaget" OFF)
 		
 	if [ $selectedMenuTranslation -gt 0 ]; then
 		translation=$selectedMenuTranslation
 		
 		translationDB
 		jqQuery
+
+		if [ $introFlag -eq 1 ]; then
+			signOfTheCross
+		else
+			tputBeadDisplay
+			
+			# echo $hr
+			printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+			decade_progressbar
+			mystery_progressbar
+		fi
 	fi
 	
-	tputBeadDisplay
 	
-	# echo $hr
-	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
-	decade_progressbar
-	mystery_progressbar
 }
 
 function prayerMenu() {
@@ -1376,6 +1391,10 @@ function myMian() {
 	splashScreen
 	welcomepage
 	signOfTheCross
+
+	## turn off intro flag
+	introFlag=0
+		
 	arrowInputs
 }
 
