@@ -4,9 +4,8 @@ function decorativeColors() {
 	## ${Black}
 	## https://en.wikipedia.org/wiki/ANSI_escape_code
 	## https://linux.101hacks.com/ps1-examples/prompt-color-using-tput/
-	## Usage example: echo "abcd $MODE_BEGIN_UNDERLINE edf $MODE_EXIT_UNDERLINE $FG_RED hijk $STYLES_OFF
 
-	## Forground Color using ANSI escape
+	## Forground Color using tput
 
 	FG_BLACK=$(tput setaf 0)
 	FG_RED=$(tput setaf 1)
@@ -18,7 +17,7 @@ function decorativeColors() {
 	FG_WHITE=$(tput setaf 7)
 	FG_NoColor=$(tput sgr0)
 
-	## Background Color using ANSI escape
+	## Background Color using tput
 
 	BG_BLACK=$(tput setab 0)
 	BG_RED=$(tput setab 1)
@@ -30,7 +29,7 @@ function decorativeColors() {
 	BG_WHITE=$(tput setab 7)
 	BG_NoColor=$(tput sgr0)
 
-	## set mode using ANSI escape
+	## set mode using tput
 
 	MODE_BOLD=$(tput bold)
 	MODE_DIM=$(tput dim)
@@ -40,7 +39,7 @@ function decorativeColors() {
 	MODE_ENTER_STANDOUT=$(tput smso)
 	MODE_EXIT_STANDOUT=$(tput rmso)
 
-	## clear styles using ANSI escape
+	## clear styles using tput
 	STYLES_OFF=$(tput sgr0)
 
 	## Clear screen and home cursor
@@ -281,7 +280,7 @@ function initializeFeastFlags() {
 #
 
 function pfmTableDate() {
-	thisYear=$(date +%Y)
+	# thisYear=$(date +%Y)
 
 	## Divide the current year by 19 and get the 1st 3 digits after the decimal
 	
@@ -447,7 +446,7 @@ function pfmTableSum() {
 #
 
 function days_Untill_Count() {
-	thisYear=$(date +%Y)
+	# thisYear=$(date +%Y)
 	tabulatedDate=$thisYear$monthDay
 	saveTheDate=$(( ($(date --date="$tabulatedDate" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
 
@@ -461,8 +460,8 @@ function days_Untill_Count() {
 function calculate_Paschal_Full_Moon() {
 	## Easter
 	
+	# thisYear=$(date +%Y)
 	pfmTableDate
-	
 	pfmTableMonth
 	pfmTableYear
 	pfmTableDecade
@@ -475,6 +474,13 @@ function calculate_Paschal_Full_Moon() {
 
 	if [ $daysUntill -lt 0 ]; then
 		thisYear=$(( $thisYear + 1 ))
+		pfmTableDate
+		pfmTableMonth
+		pfmTableYear
+		pfmTableDecade
+		pfmTableCentury
+		pfmTableSum
+	
 		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
 		daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))	
 	fi
@@ -490,7 +496,8 @@ function calculate_Paschal_Full_Moon() {
 
 function days_untill_Ash_Wednesday() {
 	## Lent begins on Ash Wednesday, which is always held 46 days (40 fasting days and 6 Sundays) before Easter Sunday.
-
+	
+	thisYear=$(date +%Y)
 	calculate_Paschal_Full_Moon
 	
 	daysToRemove=$(( $daysToAdd - 46 ))
@@ -498,7 +505,11 @@ function days_untill_Ash_Wednesday() {
 
 	if [ $daysUntill -lt 0 ]; then
 		thisYear=$(( $thisYear + 1 ))
+		
+		calculate_Paschal_Full_Moon
+
 		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
+		daysToRemove=$(( $daysToAdd - 46 ))
 		daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
 	fi
 
@@ -513,11 +524,23 @@ function days_untill_Ash_Wednesday() {
 function days_untill_Jesus_Assension() {
 	## 40 Days After Easter, Thursday
 	
+	thisYear=$(date +%Y)
 	calculate_Paschal_Full_Moon
 
 	daysToAdd=$(( $daysToAdd + 40 ))
-	daysUntillJesusAssension=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+	daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
 
+	if [ $daysUntill -lt 0 ]; then
+		thisYear=$(( $thisYear + 1 ))
+		
+		calculate_Paschal_Full_Moon
+	
+		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
+		daysToAdd=$(( $daysToAdd + 49 ))
+		daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))	
+	fi
+
+	daysUntillJesusAssension=$daysUntill
 	if [ $daysUntillJesusAssension == 0 ]; then
 		isJesus_Assension=1
 	else
@@ -527,7 +550,8 @@ function days_untill_Jesus_Assension() {
 
 function days_untill_Pentecost() {
 	## 7 Sundays after Easter
-
+	
+	thisYear=$(date +%Y)
 	calculate_Paschal_Full_Moon
 
 	daysToAdd=$(( $daysToAdd + 49 ))
@@ -535,7 +559,11 @@ function days_untill_Pentecost() {
 
 	if [ $daysUntill -lt 0 ]; then
 		thisYear=$(( $thisYear + 1 ))
+		
+		calculate_Paschal_Full_Moon
+	
 		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
+		daysToAdd=$(( $daysToAdd + 49 ))
 		daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))	
 	fi
 
@@ -549,7 +577,7 @@ function days_untill_Pentecost() {
 
 function days_untill_Immaculate_Conception() {
 	## Dec 8
-	
+	thisYear=$(date +%Y)
 	monthDay="1208"
 	days_Untill_Count
 
@@ -565,7 +593,7 @@ function days_untill_Immaculate_Conception() {
 
 function days_untill_Christmas() {
 	## Dec 25
-	
+	thisYear=$(date +%Y)
 	monthDay="1225"
 	days_Untill_Count
 
@@ -580,7 +608,7 @@ function days_untill_Christmas() {
 
 function days_untill_All_Saints() {
 	## Nov 1
-	
+	thisYear=$(date +%Y)
 	monthDay="1101"
 	days_Untill_Count
 
@@ -608,6 +636,8 @@ function days_untill_Solemnity_of_Mary() {
 }
 
 function trigger_feastDay() {
+	thisYear=$(date +%Y)
+	
 	calculate_Paschal_Full_Moon
 	days_untill_Ash_Wednesday
 	days_untill_Jesus_Assension
@@ -616,6 +646,21 @@ function trigger_feastDay() {
 	days_untill_Christmas
 	days_untill_All_Saints
 	days_untill_Solemnity_of_Mary	
+}
+
+function feastDayCountdown() {
+
+	msgCountdownList="Easter:	$daysUntillEaster \nAssension of Jesus:	$daysUntillJesusAssension \nPentecost:	$daysUntillPentecost \nAll Saints:	$daysUntillAllSaints \nConception:	 $daysUntillImmaculateConception \nChristmas:	$daysUntillChristmas \nSolemnity of Mary:	$daysUntillSolemnityOfMary \nAsh Wednesday / Lent:	$daysUntillAshWednesday "
+	
+	screenTitle="Termainal Rosary using Jq and Bash"
+	dialogTitle="Feast Day Countdown"
+	
+	dialog \
+        --backtitle "$screenTitle" \
+        --title "$dialogTitle" \
+        --infobox "$msgCountdownList" 0 0
+
+	read
 }
 
 ###################################################
@@ -638,13 +683,13 @@ function splashScreen() {
 	length=${#str}
 	tput cup $((height/2)) $(((width/ 2)-(length/2)))
 	echo $MODE_BEGIN_UNDERLINE$str$MODE_EXIT_UNDERLINE
-	str="< Lt navigate Rt > ( Up menus Dn ) [Enter]"
+	str="< Lt navigate Rt > ( Up menus Dn )"
 	length=${#str}
 	tput cup $height $(((width/ 2)-(length/2)))
 	echo $str
 
 	## prompt for enter
-	read -s welcomeVar
+	read -p "[Enter]" -s welcomeVar
 }
 
 function mystery_Day() {
@@ -709,14 +754,7 @@ function welcomepage() {
 	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
 
 	query_mysteryName=.mystery[$dayMysteryIndex].mysteryName
-	query_prayerText=.prayer[1].prayerText
-
-	return_mysteryName=$(jq $query_mysteryName $rosaryJSON)
-	return_prayerText=$(jq $query_prayerText $rosaryJSON)
-
-	htmlHR="\<hr\>"
-	bashEcho="${MODE_DIM}Guidance: "
-	return_prayerText=${return_prayerText/$htmlHR/$bashEcho}
+	return_mysteryName=$(jq $query_mysteryName $rosaryJSON)	
 	
 	echo "
 	Today is a: $dayOfWeek
@@ -726,20 +764,36 @@ function welcomepage() {
 	Note:	Do not navigate too fast. Allow a moment to complete text querying.
 		JQ is a C based JSON Parser & I took the longest query rout to retrieve text.
 	
-	"
-	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "~"
-	echo " Begin:
-
 	"	
-	echo "$return_prayerText
-
-	${STYLES_OFF}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
-	"
-	echo "Use the Arrow keys to navigate."
-	
 			
-	introFlag=0
+	read -p "[Enter]" -s welcomeVar
 	# key=$arrowRt
+}
+
+function signOfTheCross() {
+	clear
+	
+	str="Termainal Rosary using Jq and Bash"
+	width=$(tput cols)
+	length=${#str}
+	tput cup 0 $(((width/ 2)-(length/2)))
+	echo $str
+	
+	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+	
+	query_mysteryName=.mystery[$dayMysteryIndex].mysteryName
+	query_prayerText=.prayer[1].prayerText
+	return_prayerText=$(jq $query_prayerText $rosaryJSON)
+
+	htmlHR="\<hr\>"
+	bashEcho="${MODE_DIM}Guidance: "
+	return_prayerText=${return_prayerText/$htmlHR/$bashEcho}
+	
+	echo "$return_prayerText"
+	echo "$FG_NoColor$BACKGROUNDCOLOR $FOREGROUNDCOLOR
+
+	Use the Arrow keys to navigate."
+	introFlag=0
 }
 
 function goodbyescreen() {
@@ -1029,7 +1083,8 @@ function menuUP() {
 		"5" "Start Glorious Mystery"\
 		"6"	"View Prayers"\
 		"7" "Change Color Theme"\
-		"8" "Exit App")
+		"8" "Feast Day Countdown"\
+		"9" "Exit App")
 
 	case "$selectedMenuItem" in
 		1)	## About
@@ -1081,7 +1136,10 @@ function menuUP() {
 		7)	## Color Theme
 			change_color_menu
 			;;
-		8)	## exit app
+		8)	## Feast Day List
+			feastDayCountdown
+			;;
+		9)	## exit app
 			goodbyescreen
 			exit
 			;;
@@ -1317,10 +1375,8 @@ function myMian() {
 	
 	splashScreen
 	welcomepage
-	
+	signOfTheCross
 	arrowInputs
-
-	
 }
 
 ## Run
