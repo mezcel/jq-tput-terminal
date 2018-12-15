@@ -4,6 +4,8 @@ Terminal Rosary using Jq and Bash
 
 Youtube: [Demo Preview](https://youtu.be/tLnbFUbL0rE)
 
+Demo Preview (recorded on [ansiinema](https://asciinema.org)): [video link](https://asciinema.org/a/N8DVeuG2VmirEsymnMtbmqF3T)
+
 ### About:
 
 This is an app which runs within a command line terminal GUI. Text content is provided by a json db which I ported in from my [Electron Rosary App](https://github.com/mezcel/electron-container), as text content.
