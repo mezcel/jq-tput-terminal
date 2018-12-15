@@ -2,8 +2,6 @@
 
 Terminal Rosary using Jq and Bash
 
-Youtube: [Demo Preview](https://youtu.be/tLnbFUbL0rE)
-
 Demo Preview (recorded on ansiinema): [video link](https://asciinema.org/a/N8DVeuG2VmirEsymnMtbmqF3T)
 
 ### About:
