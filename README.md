@@ -2,7 +2,7 @@
 
 Termainal Rosary using Jq and Bash
 
-Demo Preview (recorded on [ansiinema](https://asciinema.org)): [video link](https://asciinema.org/a/N8DVeuG2VmirEsymnMtbmqF3T)
+Demo Preview (recorded on ansiinema): [video link](https://asciinema.org/a/N8DVeuG2VmirEsymnMtbmqF3T)
 
 ### About:
 
