@@ -108,36 +108,24 @@ function jqQuery() {
 function decade_progressbar() {
 	echo ""
 	
-	if [ -z ${thisDecadeSet+set} ]; then
-		# echo "introduction prayer beads: $initialHailMaryCounter/3"
-		# printf '%*s\n' "${COLUMNS:-$width}" '' | tr ' ' '-'
-		echo
-	else
-		echo "decade progressbar: $thisDecadeSet/10"
-		proportion=$thisDecadeSet/10
-		width=$(tput cols)
-		width=$((width*$proportion))
-		barDecade=$(printf '%*s\n' "${COLUMNS:-$width}" '' | tr ' ' '|')
-		echo $BAR_BG$BAR_FG$barDecade$BACKGROUNDCOLOR$FOREGROUNDCOLOR
-	fi
+	echo " decade progressbar: $thisDecadeSet/10"
+	proportion=$thisDecadeSet/10
+	width=$(tput cols)
+	width=$((width*$proportion))
+	barDecade=$(printf '%*s\n' "${COLUMNS:-$width}" ' ' | tr ' ' '|')
+	echo $BAR_BG$BAR_FG$barDecade$BACKGROUNDCOLOR$FOREGROUNDCOLOR
 	echo ""
+	
 }
 
 function mystery_progressbar() {
 	
-	if [ -z ${mysteryProgress+set} ]; then
-		# echo "introduction prayer beads"
-		# echo "Progressbars will be applied once the mystery circuit begins"
-		# printf '%*s\n' "${COLUMNS:-$width}" '' | tr ' ' '-'
-		echo
-	else
-		echo "mystery peogressbar: $mysteryProgress/50"
-		proportion=$mysteryProgress/50
-		width=$(tput cols)
-		width=$((width*$proportion))
-		barMystery=$(printf '%*s\n' "${COLUMNS:-$width}" '' | tr ' ' '|')
-		echo $BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR
-	fi
+	echo " mystery peogressbar: $mysteryProgress/50"
+	proportion=$mysteryProgress/50
+	width=$(tput cols)
+	width=$((width*$proportion))
+	barMystery=$(printf '%*s\n' "${COLUMNS:-$width}" ' ' | tr ' ' '|')
+	echo $BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR
 	
 	echo ""
 }
@@ -195,6 +183,7 @@ function beadProgress() {
 		3)	## big bead
 			stringSpaceCounter=0
             initialHailMaryCounter=0
+            thisDecadeSet=0
 
             if [ $directionFwRw -ne 1 ]; then
 				moddivision=$(( hailmaryCounter % 10 ))
@@ -259,11 +248,6 @@ function beadProgress() {
             ;;
       esac
 }
-
-###################################################
-## Holliday Dates Calculation
-###################################################
-
 
 ###################################################
 ## Holliday Dates Calculation
@@ -704,8 +688,7 @@ function days_untill_Solemnity_of_Mary() {
 	fi
 }
 
-function days_untill_Epiphany() {
-	
+function days_untill_Epiphany() {	
 	## Aprox: Jan 6
 	## Start of the 1st segment of ordinary time
 	## Sunday closest to 12 days after Christmas
@@ -732,13 +715,6 @@ function days_untill_Epiphany() {
 	
 }
 
-function ordinary_Time() {
-	## Monday after the 1st Sun after the Epifany Mass through Ash Wed
-	## Monday after Pentecost through Advent
-	echo ""
-}
-
-
 function trigger_feastDay() {
 	thisYear=$(date +%Y)
 	
@@ -752,7 +728,6 @@ function trigger_feastDay() {
 	days_untill_All_Saints
 	days_untill_Epiphany
 	days_untill_Solemnity_of_Mary
-	# ordinary_Time
 }
 
 function feastDayCountdown() {
@@ -882,13 +857,73 @@ function welcomepage() {
 	return_mysteryName=$(jq $query_mysteryName $rosaryJSON)	
 	
 	echo "
-	Today is a: $dayOfWeek
-	The Mystery of the day is: $return_mysteryName
+	Today is:				$dayOfWeek
+	The default \"Mystery of the day\" is:	$return_mysteryName
 
+	Liturgical Callendar:"
 
-	Note:	Do not navigate too fast. Allow a moment to complete text querying.
-		JQ is a C based JSON Parser & I took the longest query rout to retrieve text.
+	if [ $isTodayEaster -eq 1 ]; then
+		echo "		Easter Day"
+	fi
+	if [ $isEasterSeason -eq 1 ]; then
+		echo "		This is the Easter Season"
+	fi
+	if [ $isTodayAsh_Wednesday -eq 1 ]; then
+		echo "		Today is Ash Wednesday"
+	fi
+	if [ $isLentSeasion -eq 1 ]; then
+		echo "		This is the Lent Season"
+	fi
+	if [ $isTodayJesus_Assension -eq 1 ]; then
+		echo "		Today is the Feast of Jesus's Assension"
+	fi
+	if [ $isTodayPentecost -eq 1 ]; then
+		echo "		Tday is Pentecost"
+	fi
+	if [ $isTodayImmaculateConception -eq 1 ]; then
+		echo "		Today is the feast of the Immaculate Conception"
+	fi
+	if [ $isTodayAdventStart -eq 1 ]; then
+		echo "		Advent Starts Today"
+	fi
+	if [ $isAdventSeasion -eq 1 ]; then
+		echo "		This is the Advent Season"
+	fi
+	if [ $isTodayChristmas -eq 1 ]; then
+		echo "		Today is Christmas"
+	fi
+	if [ $isTodaySolemnityOfMary -eq 1 ]; then
+		echo "		Today is the Feast of the Solemnity of Mary"
+	fi
+	if [ $isTodayEpiphany -eq 1 ]; then
+		echo "		Today is the Feast of the Epiphany"
+	fi
+	if [ $isTodayAll_Saints -eq 1 ]; then
+		echo "		Today is All Saints Day"
+	fi
+	if [ $isOrdinaryTime -eq 1 ]; then
+		echo "		This is the Ordinary Time Season"
+	fi
 	
+	
+	echo "
+	Basic Instructions:
+		Use the Rt and Lt arrow keyboard keys to progress forward or backwards.
+		Use the Down arrow key to select the Scripture Language Transation
+			( English NAB or Latin Vulgate )
+		Use the Up arrow key to access the main Menu
+
+	Advice:
+		Do not navigate too fast. Allow a moment to complete text querying.
+		JQ is a C based JSON Parser & I took the longest query rout to retrieve text.
+
+	Software Dependancies:
+		* jq with gcc
+		* dialog
+
+		If \"Mystery of the day\", has a value, you probably have everything.
+		If the menu does not work after this page, you need \"dialog\"
+		
 	"
 	
 	read -p "[Press Enter]" -s welcomeVar
@@ -926,7 +961,7 @@ function signOfTheCross() {
 }
 
 function goodbyescreen() {
-	echo "$CLR_ALL"
+	# echo "$CLR_ALL"
 	clear
 	
 	width=$(tput cols)
@@ -940,7 +975,8 @@ function goodbyescreen() {
 	tput cup $height $(((width/ 2)-(length/2)))
 	echo $str
 
-	sleep 4
+	read -t 3 -p "" exitVar
+	echo "$CLR_ALL"
 }
 
 function blank_transition_display() {
@@ -949,7 +985,7 @@ function blank_transition_display() {
 	# echo "$CLR_ALL"
 	
 	echo " $translationName"
-	tput cup $(tput lines)-1 $[$(tput cols)-28]; echo `date`
+	tput cup $(tput lines)-1 $[$(tput cols)-29]; echo `date`
 	
 	width=$(tput cols)
 	str="Termainal Rosary using Jq and Bash"
@@ -959,21 +995,23 @@ function blank_transition_display() {
 	# echo "$hr"
 	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
 	
-	echo "$MODE_BEGIN_UNDERLINE Mystery Name: $MODE_EXIT_UNDERLINE"; echo ""
+	echo " ${MODE_BEGIN_UNDERLINE}Mystery Name$MODE_EXIT_UNDERLINE:"; echo ""
 	echo "	loading ..."; echo ""
-	echo "$MODE_BEGIN_UNDERLINE Mystery Message: $MODE_EXIT_UNDERLINE"; echo ""
+	# echo "	$return_mysteryName"; echo ""
+	echo " ${MODE_BEGIN_UNDERLINE}Mystery Message$MODE_EXIT_UNDERLINE:"; echo ""
 	echo "	loading ..."; echo ""
-	echo "$MODE_BEGIN_UNDERLINE Mystery Decade: $MODE_EXIT_UNDERLINE"; echo ""
+	# echo "	$return_mesageText"; echo ""
+	echo " ${MODE_BEGIN_UNDERLINE}Mystery Decade$MODE_EXIT_UNDERLINE:"; echo ""
 	echo "	loading ..."; echo ""
-	echo "$MODE_BEGIN_UNDERLINE Scripture Text: $MODE_EXIT_UNDERLINE"; echo ""
+	# echo "	$return_decadeName"; echo ""
+	echo " ${MODE_BEGIN_UNDERLINE}Scripture Text$MODE_EXIT_UNDERLINE:"; echo ""
 	echo "	loading ..."; echo ""
-	echo "$MODE_BEGIN_UNDERLINE Prayer Text: $MODE_EXIT_UNDERLINE"; echo ""
+	echo " ${MODE_BEGIN_UNDERLINE}Prayer Text$MODE_EXIT_UNDERLINE:"; echo ""
 	echo "	loading ...
 	"; echo ""
-	echo "$MODE_BEGIN_UNDERLINE Bead Type: $MODE_EXIT_UNDERLINE"; echo ""
+	echo " ${MODE_BEGIN_UNDERLINE}Bead Type$MODE_EXIT_UNDERLINE:"; echo ""
 	echo "	loading ..."
 	
-	# echo "$hr"
 	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
 
 	decade_progressbar
@@ -986,7 +1024,7 @@ function tputBeadDisplay() {
 	# echo "$CLR_ALL"
 		
 	echo " $translationName"
-	tput cup $(tput lines)-1 $[$(tput cols)-28]; echo `date`
+	tput cup $(tput lines)-1 $[$(tput cols)-29]; echo `date`
 	
 	width=$(tput cols)
 	str="Termainal Rosary using Jq and Bash"
@@ -1012,20 +1050,19 @@ function tputBeadDisplay() {
 	Translation: "
 	return_scriptureText=${return_scriptureText/$htmlHR/$bashEcho}
 	
-	#echo "$hr"
 	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
 	
-	echo "$MODE_BEGIN_UNDERLINE Mystery Name: $MODE_EXIT_UNDERLINE"; echo ""
+	echo " ${MODE_BEGIN_UNDERLINE}Mystery Name$MODE_EXIT_UNDERLINE:"; echo ""
 	echo "	$return_mysteryName"; echo ""
-	echo "$MODE_BEGIN_UNDERLINE Mystery Message: $MODE_EXIT_UNDERLINE"; echo ""
+	echo " ${MODE_BEGIN_UNDERLINE}Mystery Message$MODE_EXIT_UNDERLINE:"; echo ""
 	echo "	$return_mesageText"; echo ""
-	echo "$MODE_BEGIN_UNDERLINE Mystery Decade: $MODE_EXIT_UNDERLINE"; echo ""
+	echo " ${MODE_BEGIN_UNDERLINE}Mystery Decade$MODE_EXIT_UNDERLINE:"; echo ""
 	echo "	$return_decadeName"; echo ""
-	echo "$MODE_BEGIN_UNDERLINE Scripture Text: $MODE_EXIT_UNDERLINE"; echo ""
+	echo " ${MODE_BEGIN_UNDERLINE}Scripture Text$MODE_EXIT_UNDERLINE:"; echo ""
 	echo "	$return_scriptureText"${STYLES_OFF}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}; echo ""
-	echo "$MODE_BEGIN_UNDERLINE Prayer Text: $MODE_EXIT_UNDERLINE"; echo ""
+	echo " ${MODE_BEGIN_UNDERLINE}Prayer Text$MODE_EXIT_UNDERLINE:"; echo ""
 	echo "	$return_prayerText"; echo ""
-	echo "$MODE_BEGIN_UNDERLINE Bead Type: $MODE_EXIT_UNDERLINE"; echo ""
+	echo " ${MODE_BEGIN_UNDERLINE}Bead Type$MODE_EXIT_UNDERLINE:"; echo ""
 	echo "	$return_beadType"
 	
 }
@@ -1371,12 +1408,6 @@ function prayerMenu() {
 	bashEcho=""
 	dialogPrayerText=${dialogPrayerText//$htmlPattern/$bashEcho}
 
-	# dialog \
-    #    --backtitle "Termainal Rosary using Jq and Bash" \
-    #    --title "$dialogPrayerName" \
-    #    --infobox "$dialogPrayerText" 0 0
-    # read -s
-
     whiptail \
         --title "$dialogPrayerName" \
         --msgbox "$dialogPrayerText" 0 0
@@ -1388,7 +1419,7 @@ function arrowInputs() {
 	counterMAX=315
 
 	while read -sN1 key
-	do		
+	do
 		## catch 3 multi char sequence within a time window
 		## null outputs in case of random error msg
 		read -s -n1 -t 0.0001 k1 &>/dev/null
@@ -1405,23 +1436,19 @@ function arrowInputs() {
 				;;
 			$arrowRt) # navigate forward
 				if [ $introFlag -ne 1 ]; then
-				
 					clear
 					blank_transition_display
 					beadFWD
 
 					bundledDisplay
-					
 				fi
 				;;
 			$arrowLt) # navigate back
-			
 				clear				
 				blank_transition_display
 				beadREV
 
 				bundledDisplay
-				
 				;;
 			*) # echo "waiting" ;;
 		esac
@@ -1465,15 +1492,17 @@ function initialize() {
 	clear
 	
 	initialMysteryFlag=0
-	showBibleListFlag=0
-	showPrayerListFlag=0
-	iamtyping=0
-	mainPageLoaded=0
+	#showBibleListFlag=0
+	#showPrayerListFlag=0
+	#iamtyping=0
+	#mainPageLoaded=0
     
 	initialHailMaryCounter=0
 	stringSpaceCounter=0
 	hailmaryCounter=0
 	beadCounter=0
+	thisDecadeSet=0
+	mysteryProgress=0
 
 	introFlag=1
 	
@@ -1489,6 +1518,9 @@ function initialize() {
 }
 
 function myMian() {
+	## hide cursor
+	tput civis
+	
 	decorativeColors
 	inputControlls
 	initialize
@@ -1525,3 +1557,7 @@ function myMian() {
 
 ## Run
 myMian
+
+## Restore cursor
+tput cnorm
+tput sgr0
