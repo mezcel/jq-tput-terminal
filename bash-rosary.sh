@@ -264,15 +264,30 @@ function beadProgress() {
 ## Holliday Dates Calculation
 ###################################################
 
+
+###################################################
+## Holliday Dates Calculation
+###################################################
+
 function initializeFeastFlags() {
-	isEaster=0
-	isAsh_Wednesday=0
-	isJesus_Assension=0
-	isPentecost=0	
-	isImmaculateConception=0
-	isChristmas=0
-	isSolemnityOfMary=0
-	isAll_Saints=0
+	## I assume this app will be turned on/off therfore fefreshing as-needed
+	## I did not make a perpetual clock
+	
+	isTodayEaster=0
+	isEasterSeason=0
+	isTodayAsh_Wednesday=0
+	isLentSeasion=0
+	isTodayJesus_Assension=0
+	isTodayPentecost=0	
+	isTodayImmaculateConception=0
+	isTodayAdventStart=0
+	isAdventSeasion=0
+	isTodayChristmas=0
+	isTodaySolemnityOfMary=0
+	isTodayEpiphany=0
+	isTodayAll_Saints=0
+	
+	isOrdinaryTime=1
 }
 
 #
@@ -487,12 +502,15 @@ function calculate_Paschal_Full_Moon() {
 
 	daysUntillEaster=$daysUntill
 	if [ $daysUntillEaster == 0 ]; then
-		isEaster=1
+		isTodayEaster=1
 	else
-		isEaster=0
+		isTodayEaster=0
 	fi
-	
 }
+
+#
+# Liturgical Callendar Flags
+#
 
 function days_untill_Ash_Wednesday() {
 	## Lent begins on Ash Wednesday, which is always held 46 days (40 fasting days and 6 Sundays) before Easter Sunday.
@@ -515,10 +533,19 @@ function days_untill_Ash_Wednesday() {
 
 	daysUntillAshWednesday=$daysUntill
 	if [ $daysUntillAshWednesday == 0 ]; then
-		isAsh_Wednesday=1
+		isTodayAsh_Wednesday=1
 	else
-		isAsh_Wednesday=0
+		isTodayAsh_Wednesday=0
 	fi
+
+	## Determine Lent Season
+
+	if [ $daysUntillEaster -le 46 ]; then
+		isLentSeasion=1
+	else
+		isLentSeasion=0
+	fi
+	
 }
 
 function days_untill_Jesus_Assension() {
@@ -542,9 +569,9 @@ function days_untill_Jesus_Assension() {
 
 	daysUntillJesusAssension=$daysUntill
 	if [ $daysUntillJesusAssension == 0 ]; then
-		isJesus_Assension=1
+		isTodayJesus_Assension=1
 	else
-		isJesus_Assension=0
+		isTodayJesus_Assension=0
 	fi
 }
 
@@ -569,10 +596,21 @@ function days_untill_Pentecost() {
 
 	daysUntillPentecost=$daysUntill
 	if [ $daysUntillPentecost == 0 ]; then
-		isPentecost=1
+		isTodayPentecost=1
 	else
-		isPentecost=0
+		isTodayPentecost=0
 	fi
+
+	## Determine Easter Season
+	## 50 days after Easter up to Pentecost
+	if [ $daysUntillPentecost -lt 50 ]; then
+		isEasterSeason=1
+		isOrdinaryTime=0
+	else
+		isEasterSeason=0
+	fi
+
+	
 }
 
 function days_untill_Immaculate_Conception() {
@@ -584,25 +622,56 @@ function days_untill_Immaculate_Conception() {
 	daysUntillImmaculateConception=$saveTheDate
 
 	if [ $daysUntillImmaculateConception == 0 ]; then
-		isImmaculateConception=1
+		isTodayImmaculateConception=1
 	else
-		isImmaculateConception=0
+		isTodayImmaculateConception=0
 	fi
 	
+}
+
+function days_untill_Advent() {
+	## 1st sunday of Dec through Dec 24
+	## Start of Liturgical Year
+	## Min 4 sunday durations
+
+	thisYear=$(date +%Y)
+	calday=$( cal 12 "$thisYear" | awk 'NF==7 && !/^Su/{print $1;exit}' )
+	monthDay="120"$calday
+	adventDurration=$(( 25 - $calday ))
+	
+	days_Untill_Count
+
+	daysUntillAdvent=$saveTheDate
+
+	if [ $daysUntillAdvent -eq 0 ]; then
+		isTodayAdventStart=1
+	else
+		isTodayAdventStart=0
+	fi
+
+	## Determine Advent Season
+		
+	if [ "$daysUntillChristmas" -le "$adventDurration" ]; then
+		isAdventSeasion=1
+		isOrdinaryTime=0
+	else
+		isAdventSeasion=0
+	fi
 }
 
 function days_untill_Christmas() {
 	## Dec 25
 	thisYear=$(date +%Y)
 	monthDay="1225"
+	
 	days_Untill_Count
 
 	daysUntillChristmas=$saveTheDate
 
 	if [ $daysUntillChristmas == 0 ]; then
-		isChristmas=1
+		isTodayChristmas=1
 	else
-		isChristmas=0
+		isTodayChristmas=0
 	fi
 }
 
@@ -615,9 +684,9 @@ function days_untill_All_Saints() {
 	daysUntillAllSaints=$saveTheDate
 
 	if [ $daysUntillAllSaints == 0 ]; then
-		isAll_Saints=1
+		isTodayAll_Saints=1
 	else
-		isAll_Saints=0
+		isTodayAll_Saints=0
 	fi
 }
 
@@ -629,11 +698,46 @@ function days_untill_Solemnity_of_Mary() {
 	daysUntillSolemnityOfMary=$saveTheDate
 
 	if [ $daysUntillSolemnityOfMary == 0 ]; then
-		isSolemnityOfMary=1
+		isTodaySolemnityOfMary=1
 	else
-		isSolemnityOfMary=0
+		isTodaySolemnityOfMary=0
 	fi
 }
+
+function days_untill_Epiphany() {
+	
+	## Aprox: Jan 6
+	## Start of the 1st segment of ordinary time
+	## Sunday closest to 12 days after Christmas
+	## If Jan 6 is >= friday add days forward to Sun
+	## If Jan 6 is < friday subtract days back to Sun
+
+	thisYear=$(date +%Y)
+	monthDay="0106"
+
+	days_Untill_Count
+
+	daysUntillEpiphany=$saveTheDate
+	
+	## Shift day into a Sunday
+	weekdayEpiphany=$(date --date="$(date) +$daysUntillEpiphany days" +%u) # mon is 1
+	daysFromSunday=$((  7 - $weekdayEpiphany ))
+	daysUntillEpiphany=$((  $daysUntillEpiphany - $daysFromSunday ))
+	
+	if [ $daysUntillEpiphany == 0 ]; then
+		isTodayEpiphany=1
+	else
+		isTodayEpiphany=0
+	fi
+	
+}
+
+function ordinary_Time() {
+	## Monday after the 1st Sun after the Epifany Mass through Ash Wed
+	## Monday after Pentecost through Advent
+	echo ""
+}
+
 
 function trigger_feastDay() {
 	thisYear=$(date +%Y)
@@ -642,15 +746,34 @@ function trigger_feastDay() {
 	days_untill_Ash_Wednesday
 	days_untill_Jesus_Assension
 	days_untill_Pentecost
-	days_untill_Immaculate_Conception
 	days_untill_Christmas
+	days_untill_Advent
+	days_untill_Immaculate_Conception
 	days_untill_All_Saints
-	days_untill_Solemnity_of_Mary	
+	days_untill_Epiphany
+	days_untill_Solemnity_of_Mary
+	# ordinary_Time
 }
 
 function feastDayCountdown() {
 
-	msgCountdownList="Easter:	$daysUntillEaster \nAssension of Jesus:	$daysUntillJesusAssension \nPentecost:	$daysUntillPentecost \nAll Saints:	$daysUntillAllSaints \nConception:	 $daysUntillImmaculateConception \nChristmas:	$daysUntillChristmas \nSolemnity of Mary:	$daysUntillSolemnityOfMary \nAsh Wednesday / Lent:	$daysUntillAshWednesday "
+	dialogEaster="Easter:	$daysUntillEaster \n"
+	dialogAssension="Assension of Jesus:	$daysUntillJesusAssension \n"
+	dialogPentecost="Pentecost:	$daysUntillPentecost \n"
+	dialogAllSaints="All Saints:	$daysUntillAllSaints \n"
+	dialogAdvent="Start Advent:	$daysUntillAdvent \n"
+	dialogConception="Conception:	 $daysUntillImmaculateConception \n"
+	dialogChristmas="Christmas:	$daysUntillChristmas \n"
+	dialogSolemnity="Solemnity of Mary:	$daysUntillSolemnityOfMary \n"
+	dialogEpiphany="Epiphany:	$daysUntillEpiphany \n"
+	dialogAsh="Ash Wednesday:	$daysUntillAshWednesday \n"
+	dialogHR="--- \n"
+	dialogOrdinaryTimeSeason="Ordinary Time Season: $isOrdinaryTime \n"
+	dialogLentSeason="Lent Season: $isLentSeasion \n"
+	dialogAdventSeason="Advent Season: $isAdventSeasion \n"
+	dialogEasterSeason="Easter Season: $isEasterSeason \n"
+	
+	msgCountdownList="$dialogEaster$dialogAssension$dialogPentecost$dialogAllSaints$dialogAdvent$dialogConception$dialogChristmas$dialogSolemnity$dialogEpiphany$dialogAsh$dialogHR$dialogOrdinaryTimeSeason$dialogLentSeason$dialogAdventSeason$dialogEasterSeason"
 	
 	screenTitle="Termainal Rosary using Jq and Bash"
 	dialogTitle="Feast Day Countdown"
@@ -727,13 +850,15 @@ function mystery_Day() {
 	esac
 
 
-	if [ $isEaster -eq 1 ]; then
+	## This is just so we dont start on Sorrowfull Mysteries on these "Non Lent/Non Gloomy" days.
+	
+	if [ $isTodayEaster -eq 1 ]; then
 		## Glorious Mystery
 		dayMysteryIndex=4
 		mysteryJumpPosition=244			
 	fi
 
-	if [ $isChristmas -eq 1 ]; then
+	if [ $isTodayChristmas -eq 1 ]; then
 		## Joyful Mystery
 		dayMysteryIndex=1
 		mysteryJumpPosition=7
