@@ -101,29 +101,43 @@ function jqQuery() {
 ## Progressbars
 ###################################################
 
-function decade_progressbar() {
-	echo ""
-	
-	echo " decade progressbar: $thisDecadeSet/10"
+function progressbars() {
+	height=$(tput lines)
+	width=$(tput cols)
+	if [ $height -ge 34 ]; then
+		tput cup $[$(tput lines)-9]
+		printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+		str="PROGRESS BARS"
+		length=${#str}
+		# tput cup $[$(tput lines)-8] $[$(tput cols)/2]
+		tput cup $[$(tput lines)-8] $(((width/ 2)-(length/2)))
+		echo $str
+	else
+		printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+		str="PROGRESS BARS"
+		length=${#str}
+		tput cup $[$(tput lines)] $(((width/ 2)-(length/2)))
+		echo $str
+	fi
+		
+	## decade_progressbar
+	echo " decade: $thisDecadeSet/10"
 	proportion=$thisDecadeSet/10
 	width=$(tput cols)
 	width=$((width*$proportion))
-	barDecade=$(printf '%*s\n' "${COLUMNS:-$width}" ' ' | tr ' ' '|')
-	echo $BAR_BG$BAR_FG$barDecade$BACKGROUNDCOLOR$FOREGROUNDCOLOR
+	width=$((width - 2))
+	barDecade=$(printf '%*s\n' "${COLUMNS:-$width}" '' | tr ' ' '|')
+	echo " "$BAR_BG$BAR_FG$barDecade$BACKGROUNDCOLOR$FOREGROUNDCOLOR
 	echo ""
 	
-}
-
-function mystery_progressbar() {
-	
-	echo " mystery peogressbar: $mysteryProgress/50"
+	## mystery_progressbar
+	echo " mystery: $mysteryProgress/50"
 	proportion=$mysteryProgress/50
 	width=$(tput cols)
 	width=$((width*$proportion))
+	width=$((width - 2))
 	barMystery=$(printf '%*s\n' "${COLUMNS:-$width}" ' ' | tr ' ' '|')
-	echo $BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR
-	
-	echo ""
+	echo " "$BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR
 }
 
 function beadProgress() {
@@ -235,6 +249,7 @@ function beadProgress() {
             fi            
 			;;
 		6)	## cross
+			hailmaryCounter=0
 			initialHailMaryCounter=0
             stringSpaceCounter=0
 			;;
@@ -863,16 +878,17 @@ function liturgicalYearPi() {
 	echo $str
 	
 	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+	
 	str="Liturgical Year Pie Chart"
 	width=$(tput cols)
 	length=${#str}
-	tput cup 2 $(((width/ 2)-(length/2)))
+	tput cup 3 $(((width/ 2)-(length/2)))
 	echo $str
-	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
-	echo ""
+	echo "
+	"
 	# cat ascii-pie-chart.txt
 	cat ./Liturgical-Calendar-Notes/tiny-pie.txt
-	read
+	read -s
 }
 
 ###################################################
@@ -1047,9 +1063,12 @@ function welcomepage() {
 		If the menu does not work after this page, you need \"dialog\"
 		
 	"
-	
-	read -p "[Press Enter]" -s welcomeVar
-	# key=$arrowRt
+
+	height=$(tput lines)
+	if [ $height -ge 34 ]; then
+		tput cup $[$(tput lines)-2]
+	fi
+	read -p "[Press Enter]" -s enterVar
 }
 
 function signOfTheCross() {
@@ -1072,13 +1091,15 @@ function signOfTheCross() {
 	bashEcho="${MODE_DIM}Guidance: "
 	return_prayerText=${return_prayerText/$htmlHR/$bashEcho}
 
-	echo ""
-	echo "$MODE_BEGIN_UNDERLINE Make the sign of the cross: $MODE_EXIT_UNDERLINE
+	echo "
 	"
-	echo "$return_prayerText"
-	echo "$FG_NoColor${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
-
-	Use the Arrow keys to navigate."
+	echo "$MODE_BEGIN_UNDERLINE Make the sign of the cross: $MODE_EXIT_UNDERLINE
+	
+	"
+	echo "$return_prayerText $FG_NoColor${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
+	"
+	
+	
 	
 }
 
@@ -1111,6 +1132,7 @@ function blank_transition_display() {
 	
 	width=$(tput cols)
 	str="Termainal Rosary using Jq and Bash"
+	length=${#str}
 	tput cup 0 $(((width/ 2)-(length/2)))
 	echo $str
 	
@@ -1129,15 +1151,14 @@ function blank_transition_display() {
 	echo " ${MODE_BEGIN_UNDERLINE}Scripture Text$MODE_EXIT_UNDERLINE:"; echo ""
 	echo "	loading ..."; echo ""
 	echo " ${MODE_BEGIN_UNDERLINE}Prayer Text$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	loading ...
-	"; echo ""
+	echo "	loading ..."; echo ""
 	echo " ${MODE_BEGIN_UNDERLINE}Bead Type$MODE_EXIT_UNDERLINE:"; echo ""
 	echo "	loading ..."
 	
-	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
-
-	decade_progressbar
-	mystery_progressbar
+	# tput cup $[$(tput lines)-10]
+	# printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+	
+	progressbars
 }
 
 function tputBeadDisplay() {
@@ -1147,9 +1168,10 @@ function tputBeadDisplay() {
 		
 	echo " $translationName"
 	tput cup $(tput lines)-1 $[$(tput cols)-29]; echo `date`
-	
+
 	width=$(tput cols)
 	str="Termainal Rosary using Jq and Bash"
+	length=${#str}
 	tput cup 0 $(((width/ 2)-(length/2)))
 	echo $str
 	
@@ -1187,16 +1209,16 @@ function tputBeadDisplay() {
 	echo " ${MODE_BEGIN_UNDERLINE}Bead Type$MODE_EXIT_UNDERLINE:"; echo ""
 	echo "	$return_beadType"
 	
+	# tput cup $[$(tput lines)-10]
 }
 
 function bundledDisplay() {
 	tputBeadDisplay
 	# echo $hr
-	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+	# printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
 	
 	beadProgress
-	decade_progressbar
-	mystery_progressbar
+	progressbars
 }
 
 function change_color_menu() {
@@ -1258,7 +1280,9 @@ function change_color_menu() {
 			BACKGROUNDCOLOR=${BG_NoColor}; echo ${BACKGROUNDCOLOR}
 			BAR_FG=${FG_NoColor}
 			;;
-		*) # echo "waiting" ;;
+		*) # echo "waiting"
+			return
+			;;
 	esac
 
 	dialogTitle="Foreground Color Menu"
@@ -1317,7 +1341,9 @@ function change_color_menu() {
 			FOREGROUNDCOLOR=${FG_NoColor}; echo ${FOREGROUNDCOLOR}
 			BAR_BG=${BG_NoColor}
 			;;
-		*) # echo "waiting" ;;
+		*) # echo "waiting"
+			return
+			;;
 	esac
 	
 }
@@ -1441,15 +1467,22 @@ function menuUP() {
 		tputBeadDisplay
 		
 		# echo $hr
-		printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
-		decade_progressbar
-		mystery_progressbar
+		# printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+		progressbars
 	fi
 	
 }
 
 function menuDN() {
 	## English / Latin translation
+
+	if [ $translation == 1 ]; then
+		nabSwitch=ON
+		vulgateSwitch=OFF
+	else
+		nabSwitch=OFF
+		vulgateSwitch=ON
+	fi
 	
 	screenTitle="Termainal Rosary using Jq and Bash"
 	dialogTitle="Language Selector"
@@ -1461,27 +1494,25 @@ function menuDN() {
 		--radiolist "Switch language:\
 		\n\n Use space bar to toggle\n" \
 		0 0 0 \
-		"1" "English - New American Bible" ON\
-		"2"	"Latin - Vulaget" OFF)
-		
-	if [ $selectedMenuTranslation -gt 0 ]; then
-		translation=$selectedMenuTranslation
-		
-		translationDB
-		jqQuery
+		"1" "English - New American Bible" "$nabSwitch" \
+		"2"	"Latin - Vulgate" "$vulgateSwitch" ) || selectedMenuTranslation=$translation
 
-		if [ $introFlag -eq 1 ]; then
-			signOfTheCross
-		else
-			tputBeadDisplay
-			
-			# echo $hr
-			printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
-			decade_progressbar
-			mystery_progressbar
-		fi
-	fi
+		
+	translation=$selectedMenuTranslation
 	
+	translationDB
+	jqQuery
+
+	if [ $introFlag -eq 1 ]; then
+		signOfTheCross
+	else
+		tputBeadDisplay
+		
+		# echo $hr
+		# printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+		progressbars
+	fi
+		
 	
 }
 
@@ -1538,6 +1569,12 @@ function prayerMenu() {
 }
 
 function arrowInputs() {
+	height=$(tput lines)
+	if [ $height -ge 34 ]; then
+		tput cup $[$(tput lines)-2]
+	fi
+	echo "Use the Arrow keys to navigate."
+	
 	counterMIN=0
 	counterMAX=315
 
@@ -1605,12 +1642,16 @@ function translationDB() {
 		# NAB
 		rosaryJSON=`echo $hostedDirPath/json-db/rosaryJSON-nab.json`
 		translationName="The New American Bible (NAB)"
+		# isNAB=1
+		# isVulgate=0
 	fi
 	
 	if [ $translation -eq 2 ]; then
 		# Vulgate
 		rosaryJSON=`echo $hostedDirPath/json-db/rosaryJSON-vulgate.json`
 		translationName="Vulgate (Latin)"
+		# isNAB=0
+		# isVulgate=1
 	fi
 }
 
