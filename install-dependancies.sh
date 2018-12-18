@@ -10,6 +10,9 @@ function arch_linux() {
 	## json parser
 	sudo pacman -S --needed jq
 
+	## midi player with soundfont
+	sudo pacman -S --needed fluidsynth
+	sudo pacman -S --needed soundfont-fluid
 	## c ompiler
 	sudo pacman -S --needed gcc
 }
