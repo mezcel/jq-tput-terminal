@@ -895,7 +895,7 @@ function splashScreen() {
 	length=${#str}
 	tput cup $((height/2)) $(((width/ 2)-(length/2)))
 	echo $MODE_BEGIN_UNDERLINE$str$MODE_EXIT_UNDERLINE
-	str="< Lt navigate Rt > ( Up menus Dn )"
+	str="< Lt navigate Rt > ( Up menus Dn ) [ 'm' - toggle midi ]"
 	length=${#str}
 	tput cup $height $(((width/ 2)-(length/2)))
 	echo $str
@@ -1428,6 +1428,7 @@ function menuUP() {
 			feastDayCountdown
 			;;
 		9)	## exit app
+			killall fluidsynth &>/dev/null
 			goodbyescreen
 			exit
 			;;
@@ -1572,7 +1573,18 @@ function arrowInputs() {
 
 				bundledDisplay
 				;;
-			*) # echo "waiting" ;;
+			"m" | "M") # midi play
+				if ! pgrep -x "fluidsynth" > /dev/null
+				then
+					fluidsynth -a alsa -m alsa_seq -l -i /usr/share/soundfonts/FluidR3_GM.sf2 ./midi/FranzSchubert-AveMaria.mid &>/dev/null &
+				else
+					killall fluidsynth &>/dev/null
+				fi
+				## Flicker to show ui activity
+				clear
+				blank_transition_display
+				bundledDisplay
+				;;
 		esac
 	done
 

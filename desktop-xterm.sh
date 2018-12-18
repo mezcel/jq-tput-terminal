@@ -25,9 +25,11 @@ function launch_new_window() {
 
 }
 
-function startMidi() {
-	fluidsynth -a alsa -m alsa_seq -l -i /usr/share/soundfonts/FluidR3_GM.sf2 /midi/FranzSchubert-AveMaria.mid
+function startMidiDemo() {
+	## audio requires fluidsynth and a midi soundfont
+	fluidsynth -a alsa -m alsa_seq -l -i -R 1 -C 1 /usr/share/soundfonts/FluidR3_GM.sf2 ./midi/FranzSchubert-AveMaria.mid &>/dev/null &
 }
 
+# startMidiDemo
 splashScreen
 launch_new_window
