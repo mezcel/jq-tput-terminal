@@ -8,7 +8,7 @@ function splashScreen() {
 	length=${#str}
 	tput cup $((height/2)) $(((width/ 2)-(length/2)))
 	echo $MODE_BEGIN_UNDERLINE$str$MODE_EXIT_UNDERLINE
-	str="( A new 120x40 window will popup )"
+	str="( A new 140x40 window will popup )"
 	length=${#str}
 	tput cup $height $(((width/ 2)-(length/2)))
 	echo $str
@@ -20,8 +20,8 @@ function launch_new_window() {
 	hostedDirPath=$(dirname $0)
 
 	## most linux systems have xterm
-	# XTerm*geometry: 120x40
-	xterm -geometry 120x40+0+0 $hostedDirPath/bash-rosary.sh
+	# XTerm*geometry: 140x40
+	xterm -geometry 140x40+0+0 $hostedDirPath/bash-rosary.sh
 
 }
 
