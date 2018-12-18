@@ -737,6 +737,13 @@ function liturgicalYearPi() {
 ## Progressbars
 #
 
+function resizeWindow() {
+	## Optimal desktop gui terminal Size
+	resize -s 40 140 &>/dev/null
+	stty rows 40
+	stty cols 140
+}
+
 function myAbout() {
 	aboutText="This is a Rosary App for the Linux Bash terminal.\nThis app was tested on the default Xterm on Arch.\n\nGithub: https://github.com/mezcel/jq-tpy-terminal.git"
 	
@@ -1747,6 +1754,8 @@ function initialize() {
 }
 
 function myMian() {
+	resizeWindow
+	
 	## hide cursor
 	tput civis
 	
@@ -1783,6 +1792,8 @@ function myMian() {
 	
 	arrowInputs
 }
+
+
 
 ## Run
 myMian
