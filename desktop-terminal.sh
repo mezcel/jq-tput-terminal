@@ -13,7 +13,7 @@ function splashScreen() {
 	tput cup $height $(((width/ 2)-(length/2)))
 	echo $str
 
-	read -s -t 2 -p "" exitVar &>/dev/null
+	read -s -t 1 -p "" exitVar &>/dev/null
 }
 
 function launch_new_window() {

@@ -1,10 +1,6 @@
 #!/bin/sh
 
 function decorativeColors() {
-	## ${Black}
-	## https://en.wikipedia.org/wiki/ANSI_escape_code
-	## https://linux.101hacks.com/ps1-examples/prompt-color-using-tput/
-
 	## Forground Color using tput
 
 	FG_BLACK=$(tput setaf 0)
@@ -261,6 +257,10 @@ function initializeFeastFlags() {
 	isEasterSeason=0
 	isTodayAsh_Wednesday=0
 	isLentSeasion=0
+	isTodayHoly_Thursday=0
+	isTodayGood_Friday=0
+	isTodayHoly_Saturday=0
+	isTodayAsh_Wednesday=0
 	isTodayJesus_Assension=0
 	isTodayPentecost=0	
 	isTodayImmaculateConception=0
@@ -493,8 +493,89 @@ function calculate_Paschal_Full_Moon() {
 }
 
 #
-# Liturgical Callendar Flags
+## Liturgical Callendar Flags
 #
+
+function days_untill_Holy_Thursday() {
+	## Triduum Thursday
+	
+	thisYear=$(date +%Y)
+	calculate_Paschal_Full_Moon
+	
+	daysToRemove=$(( $daysToAdd - 3 ))
+	daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+
+	if [ $daysUntill -lt 0 ]; then
+		thisYear=$(( $thisYear + 1 ))
+		
+		calculate_Paschal_Full_Moon
+
+		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
+		daysToRemove=$(( $daysToAdd - 3 ))
+		daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+	fi
+
+	daysUntillHolyThursday=$daysUntill
+	if [ $daysUntillHolyThursday == 0 ]; then
+		isTodayHoly_Thursday=1
+	else
+		isTodayHoly_Thursday=0
+	fi
+}
+
+function days_untill_Good_Friday() {
+	## Triduum Friday
+	
+		thisYear=$(date +%Y)
+	calculate_Paschal_Full_Moon
+	
+	daysToRemove=$(( $daysToAdd - 2 ))
+	daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+
+	if [ $daysUntill -lt 0 ]; then
+		thisYear=$(( $thisYear + 1 ))
+		
+		calculate_Paschal_Full_Moon
+
+		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
+		daysToRemove=$(( $daysToAdd - 2 ))
+		daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+	fi
+
+	daysUntillGoodFriday=$daysUntill
+	if [ $daysUntillGoodFriday == 0 ]; then
+		isTodayGood_Friday=1
+	else
+		isTodayGood_Friday=0
+	fi
+}
+
+function days_untill_Easter_Eve() {
+	## Triduum Saturday
+	
+		thisYear=$(date +%Y)
+	calculate_Paschal_Full_Moon
+	
+	daysToRemove=$(( $daysToAdd - 1 ))
+	daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+
+	if [ $daysUntill -lt 0 ]; then
+		thisYear=$(( $thisYear + 1 ))
+		
+		calculate_Paschal_Full_Moon
+
+		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
+		daysToRemove=$(( $daysToAdd - 1 ))
+		daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+	fi
+
+	daysUntillHolySaturday=$daysUntill
+	if [ $daysUntillHolySaturday == 0 ]; then
+		isTodayHoly_Saturday=1
+	else
+		isTodayHoly_Saturday=0
+	fi
+}
 
 function days_untill_Ash_Wednesday() {
 	## Lent begins on Ash Wednesday, which is always held 46 days (40 fasting days and 6 Sundays) before Easter Sunday.
@@ -720,6 +801,9 @@ function trigger_feastDay() {
 	
 	calculate_Paschal_Full_Moon
 	days_untill_Ash_Wednesday
+	days_untill_Holy_Thursday
+	days_untill_Good_Friday
+	days_untill_Easter_Eve
 	days_untill_Jesus_Assension
 	days_untill_Pentecost
 	days_untill_Christmas
@@ -742,13 +826,17 @@ function feastDayCountdown() {
 	dialogSolemnity="Solemnity of Mary:	$daysUntillSolemnityOfMary \n"
 	dialogEpiphany="Epiphany:	$daysUntillEpiphany \n"
 	dialogAsh="Ash Wednesday:	$daysUntillAshWednesday \n"
+	dilogHolyThursday="Holy Thursday: $daysUntillHolyThursday \n"
+	dialogGoodFriday="Good Friday: $daysUntillGoodFriday \n"
+	dialogHolySaturday="Holy Saturday: $daysUntillHolySaturday \n"
+	
 	dialogHR="--- \n"
 	dialogOrdinaryTimeSeason="Ordinary Time Season: $isOrdinaryTime \n"
 	dialogLentSeason="Lent Season: $isLentSeasion \n"
 	dialogAdventSeason="Advent Season: $isAdventSeasion \n"
 	dialogEasterSeason="Easter Season: $isEasterSeason \n"
 	
-	msgCountdownList="$dialogEaster$dialogAssension$dialogPentecost$dialogAllSaints$dialogAdvent$dialogConception$dialogChristmas$dialogSolemnity$dialogEpiphany$dialogAsh$dialogHR$dialogOrdinaryTimeSeason$dialogLentSeason$dialogAdventSeason$dialogEasterSeason"
+	msgCountdownList="$dialogEaster$dialogAssension$dialogPentecost$dialogAllSaints$dialogAdvent$dialogConception$dialogChristmas$dialogSolemnity$dialogEpiphany$dialogAsh$dilogHolyThursday$dialogGoodFriday$dialogHolySaturday$dialogHR$dialogOrdinaryTimeSeason$dialogLentSeason$dialogAdventSeason$dialogEasterSeason"
 	
 	screenTitle="Termainal Rosary using Jq and Bash"
 	dialogTitle="Feast Day Countdown"
@@ -758,6 +846,32 @@ function feastDayCountdown() {
         --title "$dialogTitle" \
         --infobox "$msgCountdownList" 0 0
 
+	read
+
+	## Disp an Ascii Pie Chart
+	liturgicalYearPi
+}
+
+function liturgicalYearPi() {
+	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
+	clear
+	# pieChart="$(cat ascii-pie-chart.txt)"
+	str="Termainal Rosary using Jq and Bash"
+	width=$(tput cols)
+	length=${#str}
+	tput cup 0 $(((width/ 2)-(length/2)))
+	echo $str
+	
+	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+	str="Liturgical Year Pie Chart"
+	width=$(tput cols)
+	length=${#str}
+	tput cup 2 $(((width/ 2)-(length/2)))
+	echo $str
+	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+	echo ""
+	# cat ascii-pie-chart.txt
+	cat ./Liturgical-Calendar-Notes/tiny-pie.txt
 	read
 }
 
@@ -874,6 +988,15 @@ function welcomepage() {
 	if [ $isLentSeasion -eq 1 ]; then
 		echo "		This is the Lent Season"
 	fi
+	if [ $isTodayHoly_Thursday -eq 1 ]; then
+		echo "		This is Holy Thursday"
+	fi
+	if [ $isTodayGood_Friday -eq 1 ]; then
+		echo "		This is the Good Friday"
+	fi
+	if [ $isTodayHoly_Saturday -eq 1 ]; then
+		echo "		This is the Holy Saturday"
+	fi	
 	if [ $isTodayJesus_Assension -eq 1 ]; then
 		echo "		Today is the Feast of Jesus's Assension"
 	fi
@@ -904,7 +1027,6 @@ function welcomepage() {
 	if [ $isOrdinaryTime -eq 1 ]; then
 		echo "		This is the Ordinary Time Season"
 	fi
-	
 	
 	echo "
 	Basic Instructions:
@@ -1527,7 +1649,7 @@ function myMian() {
 
 	## Feast Day Colors
 	
-	if [ $isEaster -eq 1 ]; then
+	if [ $isTodayEaster -eq 1 ]; then
 		## Yellow
 		BACKGROUNDCOLOR=${BG_YELLOW}; echo ${BACKGROUNDCOLOR}
 		BAR_FG=${FG_YELLOW}
@@ -1536,7 +1658,7 @@ function myMian() {
 			
 	fi
 
-	if [ $isChristmas -eq 1 ]; then
+	if [ $isTodayChristmas -eq 1 ]; then
 
 		## Magenta/Purple/Violet
 		BACKGROUNDCOLOR=${BG_MAGENTA}; echo ${BACKGROUNDCOLOR}
@@ -1551,7 +1673,7 @@ function myMian() {
 
 	## turn off intro flag
 	introFlag=0
-		
+	
 	arrowInputs
 }
 

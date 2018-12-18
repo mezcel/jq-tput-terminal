@@ -10,8 +10,6 @@ function arch_linux() {
 	## json parser
 	sudo pacman -S --needed jq
 
-	## jpg to ascii
-	sudo pacman -S --needed jp2a
 	## c ompiler
 	sudo pacman -S --needed gcc
 }
@@ -24,8 +22,6 @@ function debian_linux() {
 	## json parser
 	sudo apt-get install jq
 
-	## jpg to ascii
-	sudo apt-get install jp2a
 	## c ompiler
 	sudo apt-get install gcc
 }

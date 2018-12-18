@@ -21,6 +21,10 @@ function initializeFeastFlags() {
 	isEasterSeason=0
 	isTodayAsh_Wednesday=0
 	isLentSeasion=0
+	isTodayHoly_Thursday=0
+	isTodayGood_Friday=0
+	isTodayHoly_Saturday=0
+	isTodayAsh_Wednesday=0
 	isTodayJesus_Assension=0
 	isTodayPentecost=0	
 	isTodayImmaculateConception=0
@@ -253,8 +257,89 @@ function calculate_Paschal_Full_Moon() {
 }
 
 #
-# Liturgical Callendar Flags
+## Liturgical Callendar Flags
 #
+
+function days_untill_Holy_Thursday() {
+	## Triduum Thursday
+	
+	thisYear=$(date +%Y)
+	calculate_Paschal_Full_Moon
+	
+	daysToRemove=$(( $daysToAdd - 3 ))
+	daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+
+	if [ $daysUntill -lt 0 ]; then
+		thisYear=$(( $thisYear + 1 ))
+		
+		calculate_Paschal_Full_Moon
+
+		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
+		daysToRemove=$(( $daysToAdd - 3 ))
+		daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+	fi
+
+	daysUntillHolyThursday=$daysUntill
+	if [ $daysUntillHolyThursday == 0 ]; then
+		isTodayHoly_Thursday=1
+	else
+		isTodayHoly_Thursday=0
+	fi
+}
+
+function days_untill_Good_Friday() {
+	## Triduum Friday
+	
+		thisYear=$(date +%Y)
+	calculate_Paschal_Full_Moon
+	
+	daysToRemove=$(( $daysToAdd - 2 ))
+	daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+
+	if [ $daysUntill -lt 0 ]; then
+		thisYear=$(( $thisYear + 1 ))
+		
+		calculate_Paschal_Full_Moon
+
+		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
+		daysToRemove=$(( $daysToAdd - 2 ))
+		daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+	fi
+
+	daysUntillGoodFriday=$daysUntill
+	if [ $daysUntillGoodFriday == 0 ]; then
+		isTodayGood_Friday=1
+	else
+		isTodayGood_Friday=0
+	fi
+}
+
+function days_untill_Easter_Eve() {
+	## Triduum Saturday
+	
+		thisYear=$(date +%Y)
+	calculate_Paschal_Full_Moon
+	
+	daysToRemove=$(( $daysToAdd - 1 ))
+	daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+
+	if [ $daysUntill -lt 0 ]; then
+		thisYear=$(( $thisYear + 1 ))
+		
+		calculate_Paschal_Full_Moon
+
+		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
+		daysToRemove=$(( $daysToAdd - 1 ))
+		daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+	fi
+
+	daysUntillHolySaturday=$daysUntill
+	if [ $daysUntillHolySaturday == 0 ]; then
+		isTodayHoly_Saturday=1
+	else
+		isTodayHoly_Saturday=0
+	fi
+}
 
 function days_untill_Ash_Wednesday() {
 	## Lent begins on Ash Wednesday, which is always held 46 days (40 fasting days and 6 Sundays) before Easter Sunday.
@@ -448,8 +533,7 @@ function days_untill_Solemnity_of_Mary() {
 	fi
 }
 
-function days_untill_Epiphany() {
-	
+function days_untill_Epiphany() {	
 	## Aprox: Jan 6
 	## Start of the 1st segment of ordinary time
 	## Sunday closest to 12 days after Christmas
@@ -476,18 +560,14 @@ function days_untill_Epiphany() {
 	
 }
 
-function ordinary_Time() {
-	## Monday after the 1st Sun after the Epifany Mass through Ash Wed
-	## Monday after Pentecost through Advent
-	echo ""
-}
-
-
 function trigger_feastDay() {
 	thisYear=$(date +%Y)
 	
 	calculate_Paschal_Full_Moon
 	days_untill_Ash_Wednesday
+	days_untill_Holy_Thursday
+	days_untill_Good_Friday
+	days_untill_Easter_Eve
 	days_untill_Jesus_Assension
 	days_untill_Pentecost
 	days_untill_Christmas
@@ -496,7 +576,6 @@ function trigger_feastDay() {
 	days_untill_All_Saints
 	days_untill_Epiphany
 	days_untill_Solemnity_of_Mary
-	# ordinary_Time
 }
 
 function feastDayCountdown() {
@@ -511,13 +590,17 @@ function feastDayCountdown() {
 	dialogSolemnity="Solemnity of Mary:	$daysUntillSolemnityOfMary \n"
 	dialogEpiphany="Epiphany:	$daysUntillEpiphany \n"
 	dialogAsh="Ash Wednesday:	$daysUntillAshWednesday \n"
+	dilogHolyThursday="Holy Thursday: $daysUntillHolyThursday \n"
+	dialogGoodFriday="Good Friday: $daysUntillGoodFriday \n"
+	dialogHolySaturday="Holy Saturday: $daysUntillHolySaturday \n"
+	
 	dialogHR="--- \n"
 	dialogOrdinaryTimeSeason="Ordinary Time Season: $isOrdinaryTime \n"
 	dialogLentSeason="Lent Season: $isLentSeasion \n"
 	dialogAdventSeason="Advent Season: $isAdventSeasion \n"
 	dialogEasterSeason="Easter Season: $isEasterSeason \n"
 	
-	msgCountdownList="$dialogEaster$dialogAssension$dialogPentecost$dialogAllSaints$dialogAdvent$dialogConception$dialogChristmas$dialogSolemnity$dialogEpiphany$dialogAsh$dialogHR$dialogOrdinaryTimeSeason$dialogLentSeason$dialogAdventSeason$dialogEasterSeason"
+	msgCountdownList="$dialogEaster$dialogAssension$dialogPentecost$dialogAllSaints$dialogAdvent$dialogConception$dialogChristmas$dialogSolemnity$dialogEpiphany$dialogAsh$dilogHolyThursday$dialogGoodFriday$dialogHolySaturday$dialogHR$dialogOrdinaryTimeSeason$dialogLentSeason$dialogAdventSeason$dialogEasterSeason"
 	
 	screenTitle="Termainal Rosary using Jq and Bash"
 	dialogTitle="Feast Day Countdown"
@@ -528,6 +611,31 @@ function feastDayCountdown() {
         --infobox "$msgCountdownList" 0 0
 
 	read
+
+	liturgicalYearPi
+}
+
+function liturgicalYearPi() {
+	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
+	clear
+	# pieChart="$(cat ascii-pie-chart.txt)"
+	str="Termainal Rosary using Jq and Bash"
+	width=$(tput cols)
+	length=${#str}
+	tput cup 0 $(((width/ 2)-(length/2)))
+	echo $str
+	
+	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+	str="Liturgical Year Pie Chart"
+	width=$(tput cols)
+	length=${#str}
+	tput cup 2 $(((width/ 2)-(length/2)))
+	echo $str
+	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+	
+	# cat ascii-pie-chart.txt
+	cat tiny-pie.txt
+	read
 }
 
 ###################################################
@@ -537,7 +645,7 @@ function feastDayCountdown() {
 ###################################################
 
 ###################################################
-## function initialize() 
+## function initialize()
 ###################################################
 
 initializeFeastFlags
