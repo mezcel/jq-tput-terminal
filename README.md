@@ -2,11 +2,15 @@
 
 Terminal Rosary using Jq and Bash
 
-Demo Preview (recorded on ansiinema): [video link](https://asciinema.org/a/N8DVeuG2VmirEsymnMtbmqF3T)
+Demo Preview:
+
+* video was from an early stage stop point
+
+* (recorded on ansiinema): [video link](https://asciinema.org/a/N8DVeuG2VmirEsymnMtbmqF3T)
 
 ### About:
 
-This is an app which runs within a command line terminal GUI. Text content is provided by a json db which I ported in from my [Electron Rosary App](https://github.com/mezcel/electron-container), as text content.
+This is an app which runs within a CLI GUI. Text content is provided by a json db which I ported in from my [Electron Rosary App](https://github.com/mezcel/electron-container), as text content.
 
 It is pretty much the same app as the [Electron Rosary App](https://github.com/mezcel/electron-container); even the logic is the same. There are far less features in this version though. The "longest rout" query approach was intentional. I want to monitor and experience the difference in performance between this app and the jquery/electron version.
 

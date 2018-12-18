@@ -3,20 +3,26 @@
 ## Install dependancies if needed
 
 function arch_linux() {
+	## xorg shell emulator
 	sudo pacman -S --needed xterm
+	## bash gui menu
 	sudo pacman -S --needed dialog
+	## json parser
 	sudo pacman -S --needed jq
 
-	## not sure if this is needed, it is just a C compiler
+	## c ompiler
 	sudo pacman -S --needed gcc
 }
 
 function debian_linux() {
+	## xorg shell emulator
 	sudo apt-get install xterm
+	## bash gui menu
 	sudo apt-get install dialog
+	## json parser
 	sudo apt-get install jq
 
-	## not sure if this is needed, it is just a C compiler
+	## c ompiler
 	sudo apt-get install gcc
 }
 
