@@ -59,7 +59,7 @@ function inputControlls() {
 ###################################################
 
 function jqQuery() {
-	## The logest query rout
+	## The longest rout for query
 	
 	query_beadIndex=.rosaryBead[$rosaryBeadID].beadIndex
 	query_decadeIndex=.rosaryBead[$rosaryBeadID].decadeIndex
@@ -728,24 +728,113 @@ function liturgicalYearPi() {
 	read -s
 }
 
-
 ###################################################
 ## tput Page Display
 ###################################################
-
-#
-## Progressbars
-#
 
 function resizeWindow() {
 	## Optimal desktop gui terminal Size
 	resize -s 40 140 &>/dev/null
 	stty rows 40
 	stty cols 140
+
+	currentScrrenWidth=$(tput cols)
+	currentScreenHeight=$(tput lines)
+}
+
+function updateScreenSize() {
+	if [ $currentScrrenWidth -ne $(tput cols) ]; then
+		currentScrrenWidth=$(tput cols)
+		echo "$CLR_ALL$BACKGROUNDCOLOR$FOREGROUNDCOLOR"
+		clear
+	fi
+
+	if [ $currentScreenHeight -ne $(tput lines) ]; then
+		currentScreenHeight=$(tput lines)
+		echo "$CLR_ALL$BACKGROUNDCOLOR$FOREGROUNDCOLOR"
+		clear
+	fi
+}
+
+function initTputStingVars() {
+	#clearTpuLine=$(printf "%${width}s" "")
+	clearTpuLine=$(tput el)
+	
+	width=$(tput cols)
+	height=$(tput lines)
+	str="Termainal Rosary using Jq and Bash"
+	length=${#str}	
+	tputAppTitle=$(tput cup 0 $(( (width/2)-(length/2) )); echo "$str")
+
+	tputAppTranslation=$(tput cup $(tput lines)-1 0; echo $translationName)
+	tputAppClock=$(tput cup $(tput lines)-1 $[$(tput cols)-29]; echo `date`)	
+	tputAppHeaderLine=$(tput cup 1 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
+
+	tputAppMysteryLabel=$(tput cup 4 0; echo "Mystery Name" )
+	tputAppMystery=$(tput cup 6 0; printf "%${width}s" ""; tput cup 6 4; echo "	loading..." )
+	
+	tputAppDecadeLabel=$(tput cup 8 0; echo "Mystery Decade")
+	tputAppDecade=$(tput cup 10 0; printf "%${width}s" ""; tput cup 10 4; echo "	loading..."  )
+	
+	tputAppMessageLabel=$(tput cup 12 0; echo "Mystery Message")
+	tputAppMessage=$(tput cup 14 0; printf "%${width}s" ""; tput cup 14 4; echo "	loading..."  )
+	
+	tputAppScriptureLabel=$(tput cup 16 0; echo "Scripture Text")
+	tputAppScripture=$(tput cup 18 0; printf "%${width}s" "" )$(tput cup 19 0; printf "%${width}s" "" )$(tput cup 20 0; printf "%${width}s" "" )$(tput cup 21 0; printf "%${width}s" "" )$( tput cup 18 4; echo "	loading..." )
+	
+	tputAppPrayerLabel=$(tput cup 22 0; echo "Prayer Text")
+	tputAppPrayer=$(tput cup 24 0; printf "%${width}s" "" )$(tput cup 25 0; printf "%${width}s" "" )$(tput cup 26 0; printf "%${width}s" "" )$(tput cup 27 0; printf "%${width}s" "" )$(tput cup 28 0; printf "%${width}s" "" )$(tput cup 24 4; echo "	loading..." )
+	
+	# tputAppBeadTypeNameLabel=$(tput cup 29 0; echo "")
+	# tputAppBeadTypeName=$(tput cup 30 0; printf "%${COLUMNS}s" "" )
+
+	# tputClearProgressFooter=$(tput cup 31 0 && tput ed)
+
+	# echo "initTputStingVars loading ..."
+}
+
+function tputStingVars() {
+
+	formatJqText
+	
+	width=$(tput cols)
+	height=$(tput lines)
+	str="Termainal Rosary using Jq and Bash"
+	length=${#str}	
+	tputAppTitle=$(tput cup 0 $(( (width/2)-(length/2) )); echo "$str")
+
+	tputAppTranslation=$(tput cup $(tput lines)-1 0; echo $translationName)
+	tputAppClock=$(tput cup $(tput lines)-1 $[$(tput cols)-29]; echo `date`)	
+	tputAppHeaderLine=$(tput cup 1 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
+
+	tputAppMysteryLabel=$(tput cup 4 0; echo "Mystery Name")
+	# tputAppMystery=$(tput cup 6 8; echo $return_mysteryName)
+	tputAppMystery=$(tput cup 6 0; printf "%${width}s" ""; tput cup 6 8; echo $return_mysteryName)
+	
+	tputAppDecadeLabel=$(tput cup 8 0; echo "Mystery Decade")
+	# tputAppDecade=$(tput cup 10 8; echo $return_decadeName)
+	tputAppDecade=$(tput cup 10 0; printf "%${width}s" ""; tput cup 10 8; echo $return_decadeName)
+	
+	tputAppMessageLabel=$(tput cup 12 0; echo "Mystery Message")
+	# tputAppMessage=$(tput cup 14 8; echo $return_mesageText)
+	tputAppMessage=$(tput cup 14 0; printf "%${width}s" ""; tput cup 14 8; echo $return_mesageText)
+	
+	tputAppScriptureLabel=$(tput cup 16 0; echo "Scripture Text")
+	# tputAppScripture=$(tput cup 18 8; echo $return_scriptureText)
+	tputAppScripture=$(tput cup 18 0; printf "%${width}s" ""; tput cup 18 8; echo $return_scriptureText)$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR
+	
+	tputAppPrayerLabel=$(tput cup 22 0; echo "Prayer Text")
+	# tputAppPrayer=$(tput cup 24 8; echo $return_prayerText)
+	tputAppPrayer=$(tput cup 24 0; printf "%${width}s" ""; tput cup 24 8; echo $return_prayerText)
+	
+	# tputAppBeadTypeNameLabel=$(tput cup 26 0; echo "")
+	# tputAppBeadTypeName=$(tput cup 28 8; echo $return_beadType)
+
+	# tputClearProgressFooter=$(tput cup 30 0 && tput ed)
 }
 
 function myAbout() {
-	aboutText="This is a Rosary App for the Linux Bash terminal.\nThis app was tested on the default Xterm on Arch.\n\nGithub: https://github.com/mezcel/jq-tpy-terminal.git"
+	aboutText="This is a Rosary App for the Linux Bash terminal.\nThis app was tested on the default Xterm on Arch.\nThe best UI for this app is sytem's login console TTY CLI\n\nSource Code:\nGithub: https://github.com/mezcel/jq-tpy-terminal.git"
 	
 	whiptail \
         --title "About" \
@@ -948,10 +1037,33 @@ function signOfTheCross() {
 	echo "$MODE_BEGIN_UNDERLINE Make the sign of the cross: $MODE_EXIT_UNDERLINE
 	
 	"
-	echo "$return_prayerText $FG_NoColor${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
-	"
+	echo "$return_prayerText 
+	${FG_NoColor}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 	
 	
+	height=$(tput lines)
+	if [ $height -ge 34 ]; then
+		tput cup $[$(tput lines)-2]
+	fi
+	echo "Use the Arrow keys to navigate."
+	
+	while read -sN1 key
+	do
+	case "$key" in
+	esac
+		read -s -n1 -t 0.0001 k1 &>/dev/null
+		read -s -n1 -t 0.0001 k2 &>/dev/null
+		read -s -n1 -t 0.0001 k3 &>/dev/null
+		key+=${k1}${k2}${k3} &>/dev/null
+		
+		case "$key" in
+			$arrowRt )
+				echo "${FG_NoColor}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
+				clear
+				return
+				;;
+		esac
+	done
 	
 }
 
@@ -977,7 +1089,6 @@ function goodbyescreen() {
 function blank_transition_display() {
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 	clear
-	# echo "$CLR_ALL"
 	
 	echo " $translationName"
 	tput cup $(tput lines)-1 $[$(tput cols)-29]; echo `date`
@@ -1011,6 +1122,17 @@ function blank_transition_display() {
 	# printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
 	
 	progressbars
+}
+
+function blank_transition_display2() {
+	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
+	updateScreenSize
+
+	initTputStingVars
+	
+	echo "${tputAppTitle}${tputAppClock}${tputAppTranslation}${tputAppHeaderLine}${tputAppMysteryLabel}${tputAppMystery}${tputAppDecadeLabel}${tputAppDecade}${tputAppMessageLabel}${tputAppMessage}${tputAppScriptureLabel}${tputAppScripture}${tputAppPrayerLabel}${tputAppPrayer}${tputAppBeadTypeNameLabel}${tputAppBeadTypeName}${tputClearProgressFooter}"
+
+	# echo "blank_transition_display2"
 }
 
 function formatJqText() {
@@ -1079,20 +1201,19 @@ function formatJqText() {
 function tputBeadDisplay() {
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 	clear
-	# echo "$CLR_ALL"
-		
+	
 	echo " $translationName"
 	tput cup $(tput lines)-1 $[$(tput cols)-29]; echo `date`
-
+	
 	width=$(tput cols)
 	str="Termainal Rosary using Jq and Bash"
 	length=${#str}
 	tput cup 0 $(((width/ 2)-(length/2)))
 	echo $str
-
-	formatJqText
 	
 	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+
+	formatJqText
 	
 	echo " ${MODE_BEGIN_UNDERLINE}Mystery Name$MODE_EXIT_UNDERLINE:"; echo ""
 	echo "	$return_mysteryName"; echo ""
@@ -1110,40 +1231,71 @@ function tputBeadDisplay() {
 	# tput cup $[$(tput lines)-10]
 }
 
+function tputBeadDisplay2() {
+	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
+	updateScreenSize
+
+	tputStingVars
+	
+	echo "$tputAppTitle$tputAppClock$tputAppTranslation$tputAppHeaderLine$tputAppMysteryLabel$tputAppMystery$tputAppDecadeLabel$tputAppDecade$tputAppMessageLabel$tputAppMessage$tputAppScriptureLabel$tputAppScripture$tputAppPrayerLabel$tputAppPrayer$tputAppBeadTypeNameLabel$tputAppBeadTypeName$tputClearProgressFooter"
+}
+
+#
+## Progressbars
+#
+
 function progressbars() {	
 	height=$(tput lines)
 	width=$(tput cols)
-	str=" PROGRESS BARS "
+	
 	if [ $height -ge 34 ]; then
-		tput cup $[$(tput lines)-9]
-		printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+		str=" PROGRESS BARS "
+		progressBarDivider=$(tput el $[$(tput lines)-9]; tput cup $[$(tput lines)-9]; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
 		length=${#str}
-		tput cup $[$(tput lines)-8] $(((width/ 2)-(length/2)))		
+		progressBarTitle=$(tput el $[$(tput lines)-8]; tput cup $[$(tput lines)-8] $(((width/ 2)-(length/2))); echo $BAR_BG$BAR_FG$str$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
+
+		tputDecadeBarLabel=$(tput el $[$(tput lines)-7] 0; tput cup $[$(tput lines)-7] 0; echo " decade: $thisDecadeSet/10")
+		proportion=$thisDecadeSet/10
+		barWidth=$((width*$proportion))
+		barWidth=$((barWidth - 2))
+		barDecade=$(printf '%*s\n' "${COLUMNS:-$barWidth}" '' | tr ' ' '|')
+		tputDecadeBar=$(tput el $[$(tput lines)-6] 0; tput cup $[$(tput lines)-6] 0; echo $BAR_BG$BAR_FG$barDecade$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
+
+		tputMysteryBarLabel=$(tput el $[$(tput lines)-4] 0; tput cup $[$(tput lines)-4] 0; echo " mystery: $mysteryProgress/50")
+		proportion=$mysteryProgress/50
+		barWidth=$((width*$proportion))
+		barWidth=$((barWidth - 2))
+		barMystery=$(printf '%*s\n' "${COLUMNS:-$barWidth}" ' ' | tr ' ' '|')
+		tputMysteryBar=$(tput el $[$(tput lines)-3] 0; tput cup $[$(tput lines)-3] 0; echo $BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
+
+		echo "$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR$progressBarDivider$progressBarTitle$tputDecadeBarLabel$tputDecadeBar$tputMysteryBarLabel$tputMysteryBar"
 	else
+		str=" PROGRESS BARS "
 		printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."		
 		length=${#str}
 		tput cup $[$(tput lines)] $(((width/ 2)-(length/2)))
-	fi
-	echo $BAR_BG$BAR_FG$str$BACKGROUNDCOLOR$FOREGROUNDCOLOR
+		echo $BAR_BG$BAR_FG$str$BACKGROUNDCOLOR$FOREGROUNDCOLOR
+
+		## decade_progressbar
+		echo " decade: $thisDecadeSet/10"
+		proportion=$thisDecadeSet/10
+		width=$(tput cols)
+		width=$((width*$proportion))
+		width=$((width - 2))
+		barDecade=$(printf '%*s\n' "${COLUMNS:-$width}" '' | tr ' ' '|')
+		echo " "$BAR_BG$BAR_FG$barDecade$BACKGROUNDCOLOR$FOREGROUNDCOLOR
+		echo ""
 		
-	## decade_progressbar
-	echo " decade: $thisDecadeSet/10"
-	proportion=$thisDecadeSet/10
-	width=$(tput cols)
-	width=$((width*$proportion))
-	width=$((width - 2))
-	barDecade=$(printf '%*s\n' "${COLUMNS:-$width}" '' | tr ' ' '|')
-	echo " "$BAR_BG$BAR_FG$barDecade$BACKGROUNDCOLOR$FOREGROUNDCOLOR
-	echo ""
+		## mystery_progressbar
+		echo " mystery: $mysteryProgress/50"
+		proportion=$mysteryProgress/50
+		width=$(tput cols)
+		width=$((width*$proportion))
+		width=$((width - 2))
+		barMystery=$(printf '%*s\n' "${COLUMNS:-$width}" ' ' | tr ' ' '|')
+		echo " "$BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR
+	fi
 	
-	## mystery_progressbar
-	echo " mystery: $mysteryProgress/50"
-	proportion=$mysteryProgress/50
-	width=$(tput cols)
-	width=$((width*$proportion))
-	width=$((width - 2))
-	barMystery=$(printf '%*s\n' "${COLUMNS:-$width}" ' ' | tr ' ' '|')
-	echo " "$BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR
 }
 
 function beadProgress() {
@@ -1170,9 +1322,6 @@ function beadProgress() {
 				if [ $moddivision -eq 0 ]; then
 					mysteryProgress=50
 				fi
-
-				# decade_progressbar
-				# mystery_progressbar
 
 			fi
 
@@ -1267,9 +1416,8 @@ function beadProgress() {
 }
 
 function bundledDisplay() {
-	tputBeadDisplay
-	# echo $hr
-	# printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+	# tputBeadDisplay
+	tputBeadDisplay2
 	
 	beadProgress
 	progressbars
@@ -1300,6 +1448,7 @@ function change_color_menu() {
 		"7" "White"\
 		"8" "Green"\
 		"9"	"No Style")
+		
 		
 	case "$selectedBackgroundColor" in
 		1) # Black
@@ -1406,37 +1555,6 @@ function change_color_menu() {
 	
 }
 
-###################################################
-## Arrows
-###################################################
-
-function beadFWD() {
-	directionFwRw=1
-	beadCounter=$((beadCounter+1))
-	
-	rosaryBeadID=$beadCounter				
-	jqQuery
-
-	## keep the terminal from looping too fast
-	# sleep 1
-	
-	if [ $beadCounter -eq $counterMAX ]; then
-		# reset counter
-		beadCounter=0
-	fi
-}
-	
-function beadREV() {
-	
-	if [ $beadCounter -gt $counterMIN ]; then
-		directionFwRw=0
-		beadCounter=$((beadCounter-1))
-		
-		rosaryBeadID=$beadCounter				
-		jqQuery
-	fi
-}
-
 function menuUP() {
 	screenTitle="Termainal Rosary using Jq and Bash"
 	dialogTitle="Menu"
@@ -1523,12 +1641,12 @@ function menuUP() {
 	esac
 
 	if [ $introFlag -eq 1 ]; then
+		clear
 		signOfTheCross
 	else
-		tputBeadDisplay
-		
-		# echo $hr
-		# printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+		clear
+		# tputBeadDisplay
+		tputBeadDisplay2
 		progressbars
 	fi
 	
@@ -1565,12 +1683,14 @@ function menuDN() {
 	jqQuery
 
 	if [ $introFlag -eq 1 ]; then
+		clear
 		signOfTheCross
 	else
-		tputBeadDisplay
+		clear
 		
-		# echo $hr
-		# printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+		# tputBeadDisplay
+		tputBeadDisplay2
+		
 		progressbars
 	fi
 		
@@ -1629,15 +1749,46 @@ function prayerMenu() {
 		
 }
 
-function arrowInputs() {
-	height=$(tput lines)
-	if [ $height -ge 34 ]; then
-		tput cup $[$(tput lines)-2]
+
+###################################################
+## Arrows
+###################################################
+
+function beadFWD() {
+	directionFwRw=1
+	beadCounter=$((beadCounter+1))
+	
+	rosaryBeadID=$beadCounter				
+	jqQuery
+
+	## keep the terminal from looping too fast
+	# sleep 1
+	
+	if [ $beadCounter -eq $counterMAX ]; then
+		# reset counter
+		beadCounter=0
 	fi
-	echo "Use the Arrow keys to navigate."
+}
+	
+function beadREV() {
+	
+	if [ $beadCounter -gt $counterMIN ]; then
+		directionFwRw=0
+		beadCounter=$((beadCounter-1))
+		
+		rosaryBeadID=$beadCounter				
+		jqQuery
+	fi
+}
+
+
+function arrowInputs() {
 	
 	counterMIN=0
 	counterMAX=315
+
+	bundledDisplay
+	# signOfTheCross
 
 	while read -sN1 key
 	do
@@ -1658,7 +1809,8 @@ function arrowInputs() {
 			$arrowRt) # navigate forward
 				if [ $introFlag -ne 1 ]; then
 					#clear
-					blank_transition_display
+					# blank_transition_display
+					blank_transition_display2
 					beadFWD
 
 					bundledDisplay
@@ -1666,7 +1818,8 @@ function arrowInputs() {
 				;;
 			$arrowLt) # navigate back
 				#clear				
-				blank_transition_display
+				# blank_transition_display
+				blank_transition_display2
 				beadREV
 
 				bundledDisplay
@@ -1680,7 +1833,8 @@ function arrowInputs() {
 				fi
 				## Flicker to show ui activity
 				clear
-				blank_transition_display
+				# blank_transition_display
+				blank_transition_display2
 				bundledDisplay
 				;;
 		esac
@@ -1715,6 +1869,7 @@ function translationDB() {
 		# isVulgate=1
 	fi
 }
+
 
 function initialize() {
 	# Save screen
@@ -1792,8 +1947,6 @@ function myMian() {
 	
 	arrowInputs
 }
-
-
 
 ## Run
 myMian

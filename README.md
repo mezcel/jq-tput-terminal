@@ -4,9 +4,13 @@ Terminal Rosary using Jq and Bash
 
 Demo Preview:
 
-* video was from an early stage stop point
+* outdated video from an early stage stop point
 
 * (recorded on ansiinema): [video link](https://asciinema.org/a/N8DVeuG2VmirEsymnMtbmqF3T)
+
+## Status:
+
+```v0.1.5``` is focused on changing my tput technique and screen rendering
 
 ### About:
 
