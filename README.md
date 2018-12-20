@@ -31,6 +31,6 @@ This is an app which runs within a CLI GUI. I prefer either the ```login termina
 
 (Main) Terminal App: ```./bash-rosary.sh```
 
-- Destop Terminal Emulator App: ```./xterm-launcher.sh```
+- Desktop Terminal Emulator App: ```./xterm-launcher.sh```
 
-- (Optional) Install Dependancies: ```./install-dependancies.sh```
+- (Optional) Install Dependencies: ```./install-dependancies.sh```
