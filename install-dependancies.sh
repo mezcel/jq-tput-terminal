@@ -5,8 +5,10 @@
 function arch_linux() {
 	## xorg shell emulator
 	sudo pacman -S --needed xterm
+	
 	## bash gui menu
 	sudo pacman -S --needed dialog
+	
 	## json parser
 	sudo pacman -S --needed jq
 
