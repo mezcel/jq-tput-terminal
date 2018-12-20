@@ -904,7 +904,7 @@ function tputStingVars() {
 }
 
 function myAbout() {
-	aboutText="This is a Rosary App for the Linux Bash terminal.\nThis app was tested on the default Xterm on Arch.\nThe best UI for this app is sytem's login console TTY CLI\n\nSource Code:\nGithub: https://github.com/mezcel/jq-tpy-terminal.git"
+	aboutText="This is a Rosary App for the Linux Bash terminal.\nThis app was tested on the default Xterm on Arch.\nThe best UI experience for this app is through a login console TTY CLI\n\nThis App is just a (personal) technical exercise. This App is a linguistic and scriptural \"refference\". \n\nSource Code:\nGithub: https://github.com/mezcel/jq-tpy-terminal.git"
 	
 	whiptail \
         --title "About" \
@@ -1118,7 +1118,7 @@ function howToPage() {
 
 	Reality Check:
 	
-	* This App is just an (personal) technical exercise, This App is a linguistic and scriptural \"refference\".
+	* This App is just a (personal) technical exercise. This App is a linguistic and scriptural \"refference\".
 	* Try focusing more on the mysteries than on the actual prayers. But focus on the prayers too.
 	* Use a blessed rosary. Some blessed rosaries may be associated with additional benefits.
 	* Take a moment at the beginning of each decade to reflect on the mystery it represents"
@@ -1498,7 +1498,7 @@ function menuUP() {
 		--menu "Select an option:\
 		\n WIP" \
 		0 0 0 \
-		"1" "Instruction/About"\
+		"1" "About"\
 		"2" "Start Joyful Mystery"\
 		"3" "Start Luminous Mystery"\
 		"4" "Start Sorrowfull Mystery"\
@@ -1731,9 +1731,15 @@ function arrowInputs() {
 		case "$key" in
 			$arrowUp) # menu				
 				menuUP
+
+				## hide cursor
+				tput civis
 				;;
 			$arrowDown) # language toggle
 				menuDN
+
+				## hide cursor
+				tput civis
 				;;
 			$arrowRt) # navigate forward
 				if [ $introFlag -ne 1 ]; then
