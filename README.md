@@ -5,6 +5,7 @@ Terminal Rosary using Jq and Bash
 Demo Preview:
 
 * [Live asciinema link](https://asciinema.org/a/217793) Quick preview demo
+* [Redundant Youtube version](https://youtu.be/PceKrX4uI-I)
 
 ## Status:
 
