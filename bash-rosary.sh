@@ -1,5 +1,9 @@
 #!/bin/sh
 
+###################################################
+## UI Appearance Vars
+###################################################
+
 function decorativeColors() {
 	## Forground Color using tput
 
@@ -54,12 +58,54 @@ function inputControlls() {
 	# f1Key=$'\[OP'
 }
 
+function resizeWindow() {
+	## Initial resize
+	## I designed this App with Xterm in mind. Other terminals may not look how I intended.
+	## Optimal desktop gui terminal Size
+
+	if [ $(tput cols) -lt 140 ]; then
+		isWideEnough=0
+	else
+		isWideEnough=1
+	fi
+
+	if [ $(tput lines) -lt 40 ]; then
+		isTallEnough=0
+	else
+		isTallEnough=1
+	fi
+
+	if [ $isWideEnough -eq 0 ] || [ $isTallEnough -eq 0 ]; then
+		resize -s 40 140 &>/dev/null
+		stty rows 40
+		stty cols 140
+	fi
+	
+
+	currentScrrenWidth=$(tput cols)
+	currentScreenHeight=$(tput lines)
+}
+
+function updateScreenSize() {
+	if [ $currentScrrenWidth -ne $(tput cols) ]; then
+		currentScrrenWidth=$(tput cols)
+		echo "$CLR_ALL$BACKGROUNDCOLOR$FOREGROUNDCOLOR"
+		clear
+	fi
+
+	if [ $currentScreenHeight -ne $(tput lines) ]; then
+		currentScreenHeight=$(tput lines)
+		echo "$CLR_ALL$BACKGROUNDCOLOR$FOREGROUNDCOLOR"
+		clear
+	fi
+}
+
 ###################################################
 ## JQ
 ###################################################
 
 function jqQuery() {
-	## The logest query rout
+	## The longest rout for query, 1N DB Query
 	
 	query_beadIndex=.rosaryBead[$rosaryBeadID].beadIndex
 	query_decadeIndex=.rosaryBead[$rosaryBeadID].decadeIndex
@@ -97,6 +143,70 @@ function jqQuery() {
 	beadType=$return_beadType
 }
 
+function formatJqText() {
+	## Undo formatting and modify Jq generated text
+
+	## Remove Quotes from vars
+	temp="${return_mysteryName%\"}"; temp="${temp#\"}"
+	return_mysteryName=$temp
+	temp="${return_mesageText%\"}"; temp="${temp#\"}"
+	return_mesageText=$temp
+	temp="${return_decadeName%\"}"; temp="${temp#\"}"
+	return_decadeName=$temp
+	temp="${return_beadType%\"}"; temp="${temp#\"}"
+	return_beadType=$temp
+
+	## Dim after <hr>
+	htmlHR="\<hr\>"
+	bashEcho="${MODE_DIM}"
+	return_prayerText=${return_prayerText/$htmlHR/$bashEcho}
+	temp="${return_prayerText%\"}"; temp="${temp#\"}"
+	return_prayerText=$temp
+
+	## Dim after <hr>
+	htmlHR="\<hr\>"
+	bashEcho="${MODE_DIM}
+	Translation: "
+	return_scriptureText=${return_scriptureText/$htmlHR/$bashEcho}
+
+	## Split Prayer into 2 lines
+	first2letters=$(echo $return_prayerText | grep -Po "^..")
+	
+	case $first2letters in
+		"OU") ## Enlgish Our Father
+			newLineWith="Give"
+			;;
+		"Pa") ## Latin Our Father
+			newLineWith="Panem"
+			;;
+		"HA") ## Enlgish Hail Mary
+			newLineWith="Holy"
+			;;
+		"Av") ## Latin Hail Mary
+			newLineWith="Sancta"
+			;;
+		"GL") ## Enlgish Glory Be
+			newLineWith="As"
+			;;
+		"Gl") ## Latin Glory Be
+			newLineWith="Sicut"
+			;;
+		"O ") ## Enlgish Oh my Jesus
+			newLineWith="lead"
+			;;
+		"Do") ## Latin Oh my Jesus
+			newLineWith="perduc"
+			;;
+		* ) ## na
+			## echo "idk" 7
+			;;
+	esac
+
+	bashEcho="
+	$newLineWith"
+	return_prayerText=${return_prayerText/$newLineWith/$bashEcho}	
+}
+
 ###################################################
 ## Holliday Dates Calculation
 ###################################################
@@ -123,7 +233,7 @@ function initializeFeastFlags() {
 	isTodayEpiphany=0
 	isTodayAll_Saints=0
 	
-	isOrdinaryTime=1
+	isOrdinaryTime=0
 }
 
 #
@@ -131,8 +241,6 @@ function initializeFeastFlags() {
 #
 
 function pfmTableDate() {
-	# thisYear=$(date +%Y)
-
 	## Divide the current year by 19 and get the 1st 3 digits after the decimal
 	
 	yearDiv3_decimal=$(echo "scale=3; $thisYear / 19" | bc)
@@ -644,8 +752,7 @@ function days_untill_Epiphany() {
 		isTodayEpiphany=1
 	else
 		isTodayEpiphany=0
-	fi
-	
+	fi	
 }
 
 function trigger_feastDay() {
@@ -725,20 +832,79 @@ function liturgicalYearPi() {
 	"
 	# cat ascii-pie-chart.txt
 	cat ./Liturgical-Calendar-Notes/tiny-pie.txt
-	read -s
-}
 
+	height=$(tput lines)
+	if [ $height -ge 34 ]; then
+		tput cup $[$(tput lines)-2]
+	fi
+	
+	read -p "[Enter]" -s
+}
 
 ###################################################
 ## tput Page Display
 ###################################################
 
-#
-## Progressbars
-#
+function initTputStingVars() {
+	clearTpuLine=$(tput el)
+	
+	width=$(tput cols)
+	height=$(tput lines)
+	str="Termainal Rosary using Jq and Bash"
+	length=${#str}	
+	tputAppTitle=$(tput cup 0 $(( (width/2)-(length/2) )); echo "$str")
+
+	tputAppTranslation=$(tput cup $(tput lines)-1 0; echo $translationName)
+	tputAppClock=$(tput cup $(tput lines)-1 $[$(tput cols)-29]; echo `date`)	
+	tputAppHeaderLine=$(tput cup 1 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
+
+	tputAppMysteryLabel=$(tput cup 4 0; echo "Mystery Name" )
+	tputAppMystery=$(tput cup 6 0; printf "%${width}s" ""; tput cup 6 4; echo "	loading..." )
+	
+	tputAppDecadeLabel=$(tput cup 8 0; echo "Mystery Decade")
+	tputAppDecade=$(tput cup 10 0; printf "%${width}s" ""; tput cup 10 4; echo "	loading..."  )
+	
+	tputAppMessageLabel=$(tput cup 12 0; echo "Mystery Message")
+	tputAppMessage=$(tput cup 14 0; printf "%${width}s" ""; tput cup 14 4; echo "	loading..."  )
+	
+	tputAppScriptureLabel=$(tput cup 16 0; echo "Scripture Text")
+	tputAppScripture=$(tput cup 18 0; printf "%${width}s" "" )$(tput cup 19 0; printf "%${width}s" "" )$(tput cup 20 0; printf "%${width}s" "" )$(tput cup 21 0; printf "%${width}s" "" )$( tput cup 18 4; echo "	loading..." )
+	
+	tputAppPrayerLabel=$(tput cup 22 0; echo "Prayer Text")
+	tputAppPrayer=$(tput cup 24 0; printf "%${width}s" "" )$(tput cup 25 0; printf "%${width}s" "" )$(tput cup 26 0; printf "%${width}s" "" )$(tput cup 27 0; printf "%${width}s" "" )$(tput cup 28 0; printf "%${width}s" "" )$(tput cup 24 4; echo "	loading..." )
+}
+
+function tputStingVars() {
+	formatJqText
+	
+	width=$(tput cols)
+	height=$(tput lines)
+	str="Termainal Rosary using Jq and Bash"
+	length=${#str}	
+	tputAppTitle=$(tput cup 0 $(( (width/2)-(length/2) )); echo "$str")
+
+	tputAppTranslation=$(tput cup $(tput lines)-1 0; echo $translationName)
+	tputAppClock=$(tput cup $(tput lines)-1 $[$(tput cols)-29]; echo `date`)	
+	tputAppHeaderLine=$(tput cup 1 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
+
+	tputAppMysteryLabel=$(tput cup 4 0; echo "${MODE_BEGIN_UNDERLINE}Mystery Name${MODE_EXIT_UNDERLINE}:")
+	tputAppMystery=$(tput cup 6 0; printf "%${width}s" ""; tput cup 6 8; echo $return_mysteryName)
+	
+	tputAppDecadeLabel=$(tput cup 8 0; echo "${MODE_BEGIN_UNDERLINE}Mystery Decade${MODE_EXIT_UNDERLINE}:")
+	tputAppDecade=$(tput cup 10 0; printf "%${width}s" ""; tput cup 10 8; echo $return_decadeName)
+	
+	tputAppMessageLabel=$(tput cup 12 0; echo "${MODE_BEGIN_UNDERLINE}Mystery Message${MODE_EXIT_UNDERLINE}:")
+	tputAppMessage=$(tput cup 14 0; printf "%${width}s" ""; tput cup 14 8; echo $return_mesageText)
+	
+	tputAppScriptureLabel=$(tput cup 16 0; echo "${MODE_BEGIN_UNDERLINE}Scripture Text${MODE_EXIT_UNDERLINE}:")
+	tputAppScripture=$(tput cup 18 0; printf "%${width}s" ""; tput cup 18 8; echo $return_scriptureText)$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR
+	
+	tputAppPrayerLabel=$(tput cup 22 0; echo "${MODE_BEGIN_UNDERLINE}Prayer Text${MODE_EXIT_UNDERLINE}:")
+	tputAppPrayer=$(tput cup 24 0; printf "%${width}s" ""; tput cup 24 8; echo $return_prayerText)	
+}
 
 function myAbout() {
-	aboutText="This is a Rosary App for the Linux Bash terminal.\nThis app was tested on the default Xterm on Arch.\n\nGithub: https://github.com/mezcel/jq-tpy-terminal.git"
+	aboutText="This is a Rosary App for the Linux Bash terminal.\nThis app was tested on the default Xterm on Arch.\nThe best UI for this app is sytem's login console TTY CLI\n\nSource Code:\nGithub: https://github.com/mezcel/jq-tpy-terminal.git"
 	
 	whiptail \
         --title "About" \
@@ -753,7 +919,7 @@ function splashScreen() {
 	length=${#str}
 	tput cup $((height/2)) $(((width/ 2)-(length/2)))
 	echo $MODE_BEGIN_UNDERLINE$str$MODE_EXIT_UNDERLINE
-	str="< Lt navigate Rt > ( Up menus Dn ) [ 'm' - toggle midi ]"
+	str="< Lt navigate Rt > ( Up menus Dn )"
 	length=${#str}
 	tput cup $height $(((width/ 2)-(length/2)))
 	echo $str
@@ -796,7 +962,6 @@ function mystery_Day() {
 		*) # echo "waiting" ;;
 	esac
 
-
 	## This is just so we dont start on Sorrowfull Mysteries on these "Non Lent/Non Gloomy" days.
 	
 	if [ $isTodayEaster -eq 1 ]; then
@@ -809,9 +974,7 @@ function mystery_Day() {
 		## Joyful Mystery
 		dayMysteryIndex=1
 		mysteryJumpPosition=7
-	fi	
-
-	
+	fi
 }
 
 function welcomepage() {
@@ -830,82 +993,88 @@ function welcomepage() {
 	
 	echo "
 	Today is:				$dayOfWeek
+	
 	The default \"Mystery of the day\" is:	$return_mysteryName
 
 	Liturgical Callendar:"
 
 	if [ $isTodayEaster -eq 1 ]; then
-		echo "		Easter Day"
+		echo "						Easter Day"
 	fi
 	if [ $isEasterSeason -eq 1 ]; then
-		echo "		This is the Easter Season"
+		echo "						This is the Easter Season"
 	fi
 	if [ $isTodayAsh_Wednesday -eq 1 ]; then
-		echo "		Today is Ash Wednesday"
+		echo "						Today is Ash Wednesday"
 	fi
 	if [ $isLentSeasion -eq 1 ]; then
-		echo "		This is the Lent Season"
+		echo "						This is the Lent Season"
 	fi
 	if [ $isTodayHoly_Thursday -eq 1 ]; then
-		echo "		This is Holy Thursday"
+		echo "						This is Holy Thursday"
 	fi
 	if [ $isTodayGood_Friday -eq 1 ]; then
-		echo "		This is the Good Friday"
+		echo "						This is the Good Friday"
 	fi
 	if [ $isTodayHoly_Saturday -eq 1 ]; then
-		echo "		This is the Holy Saturday"
+		echo "						This is the Holy Saturday"
 	fi	
 	if [ $isTodayJesus_Assension -eq 1 ]; then
-		echo "		Today is the Feast of Jesus's Assension"
+		echo "						Today is the Feast of Jesus's Assension"
 	fi
 	if [ $isTodayPentecost -eq 1 ]; then
-		echo "		Tday is Pentecost"
+		echo "						Tday is Pentecost"
 	fi
 	if [ $isTodayImmaculateConception -eq 1 ]; then
-		echo "		Today is the feast of the Immaculate Conception"
+		echo "						Today is the feast of the Immaculate Conception"
 	fi
 	if [ $isTodayAdventStart -eq 1 ]; then
-		echo "		Advent Starts Today"
+		echo "						Advent Starts Today"
 	fi
 	if [ $isAdventSeasion -eq 1 ]; then
-		echo "		This is the Advent Season"
+		echo "						This is the Advent Season"
 	fi
 	if [ $isTodayChristmas -eq 1 ]; then
-		echo "		Today is Christmas"
+		echo "						Today is Christmas"
 	fi
 	if [ $isTodaySolemnityOfMary -eq 1 ]; then
-		echo "		Today is the Feast of the Solemnity of Mary"
+		echo "						Today is the Feast of the Solemnity of Mary"
 	fi
 	if [ $isTodayEpiphany -eq 1 ]; then
-		echo "		Today is the Feast of the Epiphany"
+		echo "						Today is the Feast of the Epiphany"
 	fi
 	if [ $isTodayAll_Saints -eq 1 ]; then
-		echo "		Today is All Saints Day"
+		echo "						Today is All Saints Day"
 	fi
 	if [ $isOrdinaryTime -eq 1 ]; then
-		echo "		This is the Ordinary Time Season"
+		echo "						This is the Ordinary Time Season"
 	fi
 	
 	echo "
-	Basic Instructions:
+	
+	Basic UI Instructions:
 		Use the Rt and Lt arrow keyboard keys to progress forward or backwards.
-		Use the Down arrow key to select the Scripture Language Transation
-			( English NAB or Latin Vulgate )
+		Use the Down arrow key to select the Scripture Language Transation ( English NAB or Latin Vulgate )
 		Use the Up arrow key to access the main Menu
+		The 'M' Key will toggle ON/OFF app audio (not necessary, it is just a feature placeholder)
 
+	
 	Advice:
-		Do not navigate too fast. Allow a moment to complete text querying.
-		JQ is a C based JSON Parser & I took the longest query rout to retrieve text.
+		Do not navigate too fast. Allow a moment for text querying to complete.
+		JQ is a C based JSON Parser & I took the longest 1N query rout to retrieve text.
 
 		Optimal screen height is 40 lines (using factory default fonts)
-		Optimal screen width is [ cols >= 120 ], [ cols = 140 ] (using factory default fonts)
+		Optimal screen width is 140 cols (using factory default fonts)
 
+	
 	Software Dependancies:
+		* Linux Bash, NOT Win10's Gitbash
 		* jq with gcc
 		* dialog
+		* fluidsynth with soundfont-fluid or MPlayer (optional audio)
 
-		If \"Mystery of the day\", has a value, you probably have everything.
-		If the menu does not work after this page, you need \"dialog\"
+		If \"Mystery of the day\", has a value, you probably have all the software requirements.
+		If the menu does not work after this page, you need to install \"dialog\"
 		
 	"
 
@@ -916,10 +1085,10 @@ function welcomepage() {
 	read -p "[Press Enter]" -s enterVar
 }
 
-function signOfTheCross() {
+function howToPage() {
 	echo "${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 	clear
-	
+
 	str="Termainal Rosary using Jq and Bash"
 	width=$(tput cols)
 	length=${#str}
@@ -928,23 +1097,62 @@ function signOfTheCross() {
 	
 	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
 	
-	query_mysteryName=.mystery[$dayMysteryIndex].mysteryName
-	query_prayerText=.prayer[1].prayerText
-	return_prayerText=$(jq $query_prayerText $rosaryJSON)
+	instructionList="
 
-	htmlHR="\<hr\>"
-	bashEcho="${MODE_DIM}Guidance: "
-	return_prayerText=${return_prayerText/$htmlHR/$bashEcho}
+	How to pray The Rosary:
+	
+	1.	Make the Sign of the Cross and say the Apostles Creed.
+	2.	Say the Our Father.
+	3.	Say three Hail Marys.
+	4.	Say the Glory be to the Father.
+	5.	Announce the first mystery; then say the Our Father.
+	6.	Say ten Hail Marys, while meditating on the mystery.
+	7.	Say the Glory be to the Father and the Fatima Prayer.
+	8.	Announce the second mystery; then say the Our Father.
+	9.	Repeat 6 and 7, and continue with third, fourth, and fifth mysteries in the same manner.
+	10.	Say the Hail Holy Queen.
+	11.	Say the Prayer After the Rosary.
 
-	echo "
-	"
-	echo "$MODE_BEGIN_UNDERLINE Make the sign of the cross: $MODE_EXIT_UNDERLINE
+
+
+
+	Reality Check:
 	
-	"
-	echo "$return_prayerText $FG_NoColor${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
-	"
+	* This App is just an (personal) technical exercise, This App is a linguistic and scriptural \"refference\".
+	* Try focusing more on the mysteries than on the actual prayers. But focus on the prayers too.
+	* Use a blessed rosary. Some blessed rosaries may be associated with additional benefits.
+	* Take a moment at the beginning of each decade to reflect on the mystery it represents"
+
+	echo "${instructionList}${FG_NoColor}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 	
+	height=$(tput lines)
+	if [ $height -ge 34 ]; then
+		tput cup $[$(tput lines)-2]
+	fi
+	echo "Use the Arrow keys to navigate."
 	
+	while read -sN1 key
+	do
+	case "$key" in
+	esac
+		read -s -n1 -t 0.0001 k1 &>/dev/null
+		read -s -n1 -t 0.0001 k2 &>/dev/null
+		read -s -n1 -t 0.0001 k3 &>/dev/null
+		key+=${k1}${k2}${k3} &>/dev/null
+		
+		case "$key" in
+			$arrowRt )
+				## Start the bead sequence
+				
+				query_mysteryName=.mystery[$dayMysteryIndex].mysteryName
+				query_prayerText=.prayer[1].prayerText
+				return_prayerText=$(jq $query_prayerText $rosaryJSON)
+				echo "${FG_NoColor}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
+				clear
+				return
+				;;
+		esac
+	done
 	
 }
 
@@ -967,176 +1175,62 @@ function goodbyescreen() {
 	echo "$CLR_ALL"
 }
 
+#
+## Bead Display
+#
+
 function blank_transition_display() {
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
-	clear
-	# echo "$CLR_ALL"
-	
-	echo " $translationName"
-	tput cup $(tput lines)-1 $[$(tput cols)-29]; echo `date`
-	
-	width=$(tput cols)
-	str="Termainal Rosary using Jq and Bash"
-	length=${#str}
-	tput cup 0 $(((width/ 2)-(length/2)))
-	echo $str
-	
-	# echo "$hr"
-	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
-	
-	echo " ${MODE_BEGIN_UNDERLINE}Mystery Name$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	loading ..."; echo ""
-	# echo "	$return_mysteryName"; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Mystery Message$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	loading ..."; echo ""
-	# echo "	$return_mesageText"; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Mystery Decade$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	loading ..."; echo ""
-	# echo "	$return_decadeName"; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Scripture Text$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	loading ..."; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Prayer Text$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	loading ..."; echo ""; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Bead Type$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	loading ..."
-	
-	# tput cup $[$(tput lines)-10]
-	# printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
-	
-	progressbars
-}
+	updateScreenSize
 
-function formatJqText() {
-	## Undo formatting and modify Jq generated text
-
-	## Remove Quotes from vars
-	temp="${return_mysteryName%\"}"; temp="${temp#\"}"
-	return_mysteryName=$temp
-	temp="${return_mesageText%\"}"; temp="${temp#\"}"
-	return_mesageText=$temp
-	temp="${return_decadeName%\"}"; temp="${temp#\"}"
-	return_decadeName=$temp
-	# temp="${return_scriptureText%\"}"; temp="${temp#\"}"
-	# return_scriptureText=$temp
-	temp="${return_prayerText%\"}"; temp="${temp#\"}"
-	return_prayerText=$temp
-	temp="${return_beadType%\"}"; temp="${temp#\"}"
-	return_beadType=$temp
-
-	## Dim after <hr>
-	htmlHR="\<hr\>"
-	bashEcho="${MODE_DIM}
-	Translation: "
-	return_scriptureText=${return_scriptureText/$htmlHR/$bashEcho}
-
-	## Split Prayer into 2 lines
-	first2letters=$(echo $return_prayerText | grep -Po "^..")
+	initTputStingVars
 	
-	case $first2letters in
-		"OU") ## Enlgish Our Father
-			newLineWith="Give"
-			;;
-		"Pa") ## Latin Our Father
-			newLineWith="Panem"
-			;;
-		"HA") ## Enlgish Hail Mary
-			newLineWith="Holy"
-			;;
-		"Av") ## Latin Hail Mary
-			newLineWith="Sancta"
-			;;
-		"GL") ## Enlgish Glory Be
-			newLineWith="As"
-			;;
-		"Gl") ## Latin Glory Be
-			newLineWith="Sicut"
-			;;
-		"O ") ## Enlgish Oh my Jesus
-			newLineWith="lead"
-			;;
-		"Do") ## Latin Oh my Jesus
-			newLineWith="perduc"
-			;;
-		* ) ## na
-			## echo "idk" 7
-			;;
-	esac
-
-	bashEcho="
-	$newLineWith"
-	return_prayerText=${return_prayerText/$newLineWith/$bashEcho}
-	
-	
+	echo "${tputAppTitle}${tputAppClock}${tputAppTranslation}${tputAppHeaderLine}${tputAppMysteryLabel}${tputAppMystery}${tputAppDecadeLabel}${tputAppDecade}${tputAppMessageLabel}${tputAppMessage}${tputAppScriptureLabel}${tputAppScripture}${tputAppPrayerLabel}${tputAppPrayer}${tputAppBeadTypeNameLabel}${tputAppBeadTypeName}${tputClearProgressFooter}"
 }
 
 function tputBeadDisplay() {
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
-	clear
-	# echo "$CLR_ALL"
-		
-	echo " $translationName"
-	tput cup $(tput lines)-1 $[$(tput cols)-29]; echo `date`
+	updateScreenSize
 
-	width=$(tput cols)
-	str="Termainal Rosary using Jq and Bash"
-	length=${#str}
-	tput cup 0 $(((width/ 2)-(length/2)))
-	echo $str
-
-	formatJqText
+	tputStingVars
 	
-	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
-	
-	echo " ${MODE_BEGIN_UNDERLINE}Mystery Name$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	$return_mysteryName"; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Mystery Message$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	$return_mesageText"; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Mystery Decade$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	$return_decadeName"; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Scripture Text$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	$return_scriptureText"${STYLES_OFF}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Prayer Text$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	$return_prayerText"; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Bead Type$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	$return_beadType"
-	
-	# tput cup $[$(tput lines)-10]
+	echo "$tputAppTitle$tputAppClock$tputAppTranslation$tputAppHeaderLine$tputAppMysteryLabel$tputAppMystery$tputAppDecadeLabel$tputAppDecade$tputAppMessageLabel$tputAppMessage$tputAppScriptureLabel$tputAppScripture$tputAppPrayerLabel$tputAppPrayer$tputAppBeadTypeNameLabel$tputAppBeadTypeName$tputClearProgressFooter"
 }
+
+#
+## Progressbars
+#
 
 function progressbars() {	
 	height=$(tput lines)
 	width=$(tput cols)
-	str=" PROGRESS BARS "
-	if [ $height -ge 34 ]; then
-		tput cup $[$(tput lines)-9]
-		printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
-		length=${#str}
-		tput cup $[$(tput lines)-8] $(((width/ 2)-(length/2)))		
-	else
-		printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."		
-		length=${#str}
-		tput cup $[$(tput lines)] $(((width/ 2)-(length/2)))
-	fi
-	echo $BAR_BG$BAR_FG$str$BACKGROUNDCOLOR$FOREGROUNDCOLOR
-		
-	## decade_progressbar
-	echo " decade: $thisDecadeSet/10"
-	proportion=$thisDecadeSet/10
-	width=$(tput cols)
-	width=$((width*$proportion))
-	width=$((width - 2))
-	barDecade=$(printf '%*s\n' "${COLUMNS:-$width}" '' | tr ' ' '|')
-	echo " "$BAR_BG$BAR_FG$barDecade$BACKGROUNDCOLOR$FOREGROUNDCOLOR
-	echo ""
 	
-	## mystery_progressbar
-	echo " mystery: $mysteryProgress/50"
-	proportion=$mysteryProgress/50
-	width=$(tput cols)
-	width=$((width*$proportion))
-	width=$((width - 2))
-	barMystery=$(printf '%*s\n' "${COLUMNS:-$width}" ' ' | tr ' ' '|')
-	echo " "$BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR
+	if [ $height -ge 34 ]; then
+
+	tputAppPrayer=$(tput cup $[$(tput lines)-9] 0; printf "%${width}s" ""; tput cup 24 8; echo $return_prayerText)
+	
+		str=" PROGRESS BARS "
+		progressBarDivider=$(tput cup $[$(tput lines)-9] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-9] 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
+		length=${#str}
+		progressBarTitle=$(tput cup $[$(tput lines)-8] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-8] $(((width/ 2)-(length/2))); echo $BAR_BG$BAR_FG$str$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
+		
+		tputDecadeBarLabel=$(tput cup $[$(tput lines)-7] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-7] 0; echo " decade: $thisDecadeSet/10	$return_beadType")
+		proportion=$thisDecadeSet/10
+		barWidth=$((width*$proportion))
+		barWidth=$((barWidth - 2))
+		barDecade=$(printf '%*s\n' "${COLUMNS:-$barWidth}" '' | tr ' ' '|')
+		tputDecadeBar=$(tput cup $[$(tput lines)-6] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-6] 1; echo $BAR_BG$BAR_FG$barDecade$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
+
+		tputMysteryBarLabel=$(tput cup $[$(tput lines)-4] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-4] 0; echo " mystery: $mysteryProgress/50")
+		proportion=$mysteryProgress/50
+		barWidth=$((width*$proportion))
+		barWidth=$((barWidth - 2))
+		barMystery=$(printf '%*s\n' "${COLUMNS:-$barWidth}" ' ' | tr ' ' '|')
+		tputMysteryBar=$(tput cup $[$(tput lines)-3] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-3] 1; echo $BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
+		
+		echo "$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR$progressBarDivider$progressBarTitle$tputDecadeBarLabel$tputDecadeBar$tputMysteryBarLabel$tputMysteryBar"
+	fi
+	
 }
 
 function beadProgress() {
@@ -1163,9 +1257,6 @@ function beadProgress() {
 				if [ $moddivision -eq 0 ]; then
 					mysteryProgress=50
 				fi
-
-				# decade_progressbar
-				# mystery_progressbar
 
 			fi
 
@@ -1261,9 +1352,6 @@ function beadProgress() {
 
 function bundledDisplay() {
 	tputBeadDisplay
-	# echo $hr
-	# printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
-	
 	beadProgress
 	progressbars
 }
@@ -1292,7 +1380,7 @@ function change_color_menu() {
 		"6" "Blue"\
 		"7" "White"\
 		"8" "Green"\
-		"9"	"No Style")
+		"9"	"No Style")		
 		
 	case "$selectedBackgroundColor" in
 		1) # Black
@@ -1399,37 +1487,6 @@ function change_color_menu() {
 	
 }
 
-###################################################
-## Arrows
-###################################################
-
-function beadFWD() {
-	directionFwRw=1
-	beadCounter=$((beadCounter+1))
-	
-	rosaryBeadID=$beadCounter				
-	jqQuery
-
-	## keep the terminal from looping too fast
-	# sleep 1
-	
-	if [ $beadCounter -eq $counterMAX ]; then
-		# reset counter
-		beadCounter=0
-	fi
-}
-	
-function beadREV() {
-	
-	if [ $beadCounter -gt $counterMIN ]; then
-		directionFwRw=0
-		beadCounter=$((beadCounter-1))
-		
-		rosaryBeadID=$beadCounter				
-		jqQuery
-	fi
-}
-
 function menuUP() {
 	screenTitle="Termainal Rosary using Jq and Bash"
 	dialogTitle="Menu"
@@ -1506,6 +1563,8 @@ function menuUP() {
 			;;
 		9)	## exit app
 			killall fluidsynth &>/dev/null
+			killall mplayer &>/dev/null
+			
 			goodbyescreen
 			tput cnorm
 			tput sgr0
@@ -1516,15 +1575,16 @@ function menuUP() {
 	esac
 
 	if [ $introFlag -eq 1 ]; then
-		signOfTheCross
+		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
+		clear
+		howToPage
 	else
+	
+		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
+		clear
 		tputBeadDisplay
-		
-		# echo $hr
-		# printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
 		progressbars
 	fi
-	
 }
 
 function menuDN() {
@@ -1558,16 +1618,15 @@ function menuDN() {
 	jqQuery
 
 	if [ $introFlag -eq 1 ]; then
-		signOfTheCross
+		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
+		clear
+		howToPage
 	else
+		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
+		clear
 		tputBeadDisplay
-		
-		# echo $hr
-		# printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
 		progressbars
 	fi
-		
-	
 }
 
 function prayerMenu() {
@@ -1622,15 +1681,43 @@ function prayerMenu() {
 		
 }
 
-function arrowInputs() {
-	height=$(tput lines)
-	if [ $height -ge 34 ]; then
-		tput cup $[$(tput lines)-2]
+###################################################
+## Keyboard Arrows UI
+###################################################
+
+function beadFWD() {
+	directionFwRw=1
+	beadCounter=$((beadCounter+1))
+	
+	rosaryBeadID=$beadCounter				
+	jqQuery
+
+	## keep the terminal from looping too fast
+	# sleep 1
+	
+	if [ $beadCounter -eq $counterMAX ]; then
+		# reset counter
+		beadCounter=0
 	fi
-	echo "Use the Arrow keys to navigate."
+}
+	
+function beadREV() {
+	
+	if [ $beadCounter -gt $counterMIN ]; then
+		directionFwRw=0
+		beadCounter=$((beadCounter-1))
+		
+		rosaryBeadID=$beadCounter				
+		jqQuery
+	fi
+}
+
+function arrowInputs() {
 	
 	counterMIN=0
 	counterMAX=315
+
+	bundledDisplay
 
 	while read -sN1 key
 	do
@@ -1642,7 +1729,7 @@ function arrowInputs() {
 		key+=${k1}${k2}${k3} &>/dev/null
 		
 		case "$key" in
-			$arrowUp) # menu
+			$arrowUp) # menu				
 				menuUP
 				;;
 			$arrowDown) # language toggle
@@ -1650,28 +1737,29 @@ function arrowInputs() {
 				;;
 			$arrowRt) # navigate forward
 				if [ $introFlag -ne 1 ]; then
-					#clear
 					blank_transition_display
 					beadFWD
-
 					bundledDisplay
 				fi
 				;;
 			$arrowLt) # navigate back
-				#clear				
 				blank_transition_display
 				beadREV
 
 				bundledDisplay
 				;;
-			"m" | "M") # midi play
-				if ! pgrep -x "fluidsynth" > /dev/null
+			"m" | "M") # midi or mplayer audio
+				# if ! pgrep -x "fluidsynth" > /dev/null
+				if ! pgrep -x "mplayer" > /dev/null
 				then
-					fluidsynth -a alsa -m alsa_seq -l -i /usr/share/soundfonts/FluidR3_GM.sf2 ./midi/FranzSchubert-AveMaria.mid &>/dev/null &
+					# fluidsynth -a alsa -m alsa_seq -l -i /usr/share/soundfonts/FluidR3_GM.sf2 ./audio/FranzSchubert-AveMaria.mid &>/dev/null &
+					mplayer ./audio/*.mp3 </dev/null >/dev/null 2>&1 &
 				else
-					killall fluidsynth &>/dev/null
+					# killall fluidsynth &>/dev/null
+					killall mplayer &>/dev/null
 				fi
 				## Flicker to show ui activity
+				sleep 0.5
 				clear
 				blank_transition_display
 				bundledDisplay
@@ -1696,16 +1784,12 @@ function translationDB() {
 		# NAB
 		rosaryJSON=`echo $hostedDirPath/json-db/rosaryJSON-nab.json`
 		translationName="The New American Bible (NAB)"
-		# isNAB=1
-		# isVulgate=0
 	fi
 	
 	if [ $translation -eq 2 ]; then
 		# Vulgate
 		rosaryJSON=`echo $hostedDirPath/json-db/rosaryJSON-vulgate.json`
 		translationName="Vulgate (Latin)"
-		# isNAB=0
-		# isVulgate=1
 	fi
 }
 
@@ -1721,10 +1805,6 @@ function initialize() {
 	clear
 	
 	initialMysteryFlag=0
-	#showBibleListFlag=0
-	#showPrayerListFlag=0
-	#iamtyping=0
-	#mainPageLoaded=0
     
 	initialHailMaryCounter=0
 	stringSpaceCounter=0
@@ -1747,6 +1827,8 @@ function initialize() {
 }
 
 function myMian() {
+	resizeWindow
+	
 	## hide cursor
 	tput civis
 	
@@ -1754,7 +1836,7 @@ function myMian() {
 	inputControlls
 	initialize
 
-	## Feast Day Colors
+	## Feast Day App Color Theme
 	
 	if [ $isTodayEaster -eq 1 ]; then
 		## Yellow
@@ -1766,7 +1848,6 @@ function myMian() {
 	fi
 
 	if [ $isTodayChristmas -eq 1 ]; then
-
 		## Magenta/Purple/Violet
 		BACKGROUNDCOLOR=${BG_MAGENTA}; echo ${BACKGROUNDCOLOR}
 		BAR_FG=${FG_MAGENTA}		
@@ -1776,7 +1857,7 @@ function myMian() {
 	
 	splashScreen
 	welcomepage
-	signOfTheCross
+	howToPage
 
 	## turn off intro flag
 	introFlag=0
