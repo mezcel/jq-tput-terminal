@@ -60,16 +60,27 @@ function inputControlls() {
 
 function resizeWindow() {
 	## Initial resize
-	## I designed this App with Xterm in mind.
+	## I designed this App with Xterm in mind. Other terminals may not look how I intended.
 	## Optimal desktop gui terminal Size
 
-	terminalPIDName=$(cat "/proc/$PPID/comm")
-	
-	if [ $terminalPIDName -eq "xterm" ]; then
+	if [ $(tput cols) -lt 140 ]; then
+		isWideEnough=0
+	else
+		isWideEnough=1
+	fi
+
+	if [ $(tput lines) -lt 40 ]; then
+		isTallEnough=0
+	else
+		isTallEnough=1
+	fi
+
+	if [ $isWideEnough -eq 0 ] || [ $isTallEnough -eq 0 ]; then
 		resize -s 40 140 &>/dev/null
 		stty rows 40
 		stty cols 140
 	fi
+	
 
 	currentScrrenWidth=$(tput cols)
 	currentScreenHeight=$(tput lines)
@@ -794,7 +805,6 @@ function initTputStingVars() {
 	
 	tputAppPrayerLabel=$(tput cup 22 0; echo "Prayer Text")
 	tputAppPrayer=$(tput cup 24 0; printf "%${width}s" "" )$(tput cup 25 0; printf "%${width}s" "" )$(tput cup 26 0; printf "%${width}s" "" )$(tput cup 27 0; printf "%${width}s" "" )$(tput cup 28 0; printf "%${width}s" "" )$(tput cup 24 4; echo "	loading..." )
-
 }
 
 function tputStingVars() {
@@ -926,69 +936,71 @@ function welcomepage() {
 	
 	echo "
 	Today is:				$dayOfWeek
+	
 	The default \"Mystery of the day\" is:	$return_mysteryName
 
 	Liturgical Callendar:"
 
 	if [ $isTodayEaster -eq 1 ]; then
-		echo "		Easter Day"
+		echo "						Easter Day"
 	fi
 	if [ $isEasterSeason -eq 1 ]; then
-		echo "		This is the Easter Season"
+		echo "						This is the Easter Season"
 	fi
 	if [ $isTodayAsh_Wednesday -eq 1 ]; then
-		echo "		Today is Ash Wednesday"
+		echo "						Today is Ash Wednesday"
 	fi
 	if [ $isLentSeasion -eq 1 ]; then
-		echo "		This is the Lent Season"
+		echo "						This is the Lent Season"
 	fi
 	if [ $isTodayHoly_Thursday -eq 1 ]; then
-		echo "		This is Holy Thursday"
+		echo "						This is Holy Thursday"
 	fi
 	if [ $isTodayGood_Friday -eq 1 ]; then
-		echo "		This is the Good Friday"
+		echo "						This is the Good Friday"
 	fi
 	if [ $isTodayHoly_Saturday -eq 1 ]; then
-		echo "		This is the Holy Saturday"
+		echo "						This is the Holy Saturday"
 	fi	
 	if [ $isTodayJesus_Assension -eq 1 ]; then
-		echo "		Today is the Feast of Jesus's Assension"
+		echo "						Today is the Feast of Jesus's Assension"
 	fi
 	if [ $isTodayPentecost -eq 1 ]; then
-		echo "		Tday is Pentecost"
+		echo "						Tday is Pentecost"
 	fi
 	if [ $isTodayImmaculateConception -eq 1 ]; then
-		echo "		Today is the feast of the Immaculate Conception"
+		echo "						Today is the feast of the Immaculate Conception"
 	fi
 	if [ $isTodayAdventStart -eq 1 ]; then
-		echo "		Advent Starts Today"
+		echo "						Advent Starts Today"
 	fi
 	if [ $isAdventSeasion -eq 1 ]; then
-		echo "		This is the Advent Season"
+		echo "						This is the Advent Season"
 	fi
 	if [ $isTodayChristmas -eq 1 ]; then
-		echo "		Today is Christmas"
+		echo "						Today is Christmas"
 	fi
 	if [ $isTodaySolemnityOfMary -eq 1 ]; then
-		echo "		Today is the Feast of the Solemnity of Mary"
+		echo "						Today is the Feast of the Solemnity of Mary"
 	fi
 	if [ $isTodayEpiphany -eq 1 ]; then
-		echo "		Today is the Feast of the Epiphany"
+		echo "						Today is the Feast of the Epiphany"
 	fi
 	if [ $isTodayAll_Saints -eq 1 ]; then
-		echo "		Today is All Saints Day"
+		echo "						Today is All Saints Day"
 	fi
 	if [ $isOrdinaryTime -eq 1 ]; then
-		echo "		This is the Ordinary Time Season"
+		echo "						This is the Ordinary Time Season"
 	fi
 	
 	echo "
-	Basic Instructions:
+	
+	Basic UI Instructions:
 		Use the Rt and Lt arrow keyboard keys to progress forward or backwards.
-		Use the Down arrow key to select the Scripture Language Transation
-			( English NAB or Latin Vulgate )
+		Use the Down arrow key to select the Scripture Language Transation ( English NAB or Latin Vulgate )
 		Use the Up arrow key to access the main Menu
 
+	
 	Advice:
 		Do not navigate too fast. Allow a moment to complete text querying.
 		JQ is a C based JSON Parser & I took the longest query rout to retrieve text.
@@ -996,9 +1008,11 @@ function welcomepage() {
 		Optimal screen height is 40 lines (using factory default fonts)
 		Optimal screen width is [ cols >= 120 ], [ cols = 140 ] (using factory default fonts)
 
+	
 	Software Dependancies:
 		* jq with gcc
 		* dialog
+		* fluidsynth with soundfont-fluid (optional midi)
 
 		If \"Mystery of the day\", has a value, you probably have everything.
 		If the menu does not work after this page, you need \"dialog\"
@@ -1012,10 +1026,10 @@ function welcomepage() {
 	read -p "[Press Enter]" -s enterVar
 }
 
-function signOfTheCross() {
+function howToPage() {
 	echo "${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 	clear
-	
+
 	str="Termainal Rosary using Jq and Bash"
 	width=$(tput cols)
 	length=${#str}
@@ -1024,21 +1038,25 @@ function signOfTheCross() {
 	
 	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
 	
-	query_mysteryName=.mystery[$dayMysteryIndex].mysteryName
-	query_prayerText=.prayer[1].prayerText
-	return_prayerText=$(jq $query_prayerText $rosaryJSON)
+	instructionList="
 
-	htmlHR="\<hr\>"
-	bashEcho="${MODE_DIM}Guidance: "
-	return_prayerText=${return_prayerText/$htmlHR/$bashEcho}
-
-	echo "
-	"
-	echo "$MODE_BEGIN_UNDERLINE Make the sign of the cross: $MODE_EXIT_UNDERLINE
+	How to pray The Rosary:
 	
-	"
-	echo "$return_prayerText 
-	${FG_NoColor}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
+	1.	Make the Sign of the Cross and say the Apostles Creed.
+	2.	Say the Our Father.
+	3.	Say three Hail Marys.
+	4.	Say the Glory be to the Father.
+	5.	Announce the first mystery; then say the Our Father.
+	6.	Say ten Hail Marys, while meditating on the mystery.
+	7.	Say the Glory be to the Father and the Fatima Prayer.
+	8.	Announce the second mystery; then say the Our Father.
+	9.	Repeat 6 and 7, and continue with third, fourth, and fifth mysteries in the same manner.
+	10.	Say the Hail Holy Queen.
+	11.	Say the Prayer After the Rosary."
+	
+	echo "
+
+	${instructionList}${FG_NoColor}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 	
 	
 	height=$(tput lines)
@@ -1058,6 +1076,11 @@ function signOfTheCross() {
 		
 		case "$key" in
 			$arrowRt )
+				## Start the bead sequence
+				
+				query_mysteryName=.mystery[$dayMysteryIndex].mysteryName
+				query_prayerText=.prayer[1].prayerText
+				return_prayerText=$(jq $query_prayerText $rosaryJSON)
 				echo "${FG_NoColor}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 				clear
 				return
@@ -1275,7 +1298,7 @@ function progressbars() {
 		barWidth=$((barWidth - 2))
 		barMystery=$(printf '%*s\n' "${COLUMNS:-$barWidth}" ' ' | tr ' ' '|')
 		tputMysteryBar=$(tput cup $[$(tput lines)-3] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-3] 1; echo $BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
-
+		
 		echo "$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR$progressBarDivider$progressBarTitle$tputDecadeBarLabel$tputDecadeBar$tputMysteryBarLabel$tputMysteryBar"
 	else
 		str=" PROGRESS BARS "
@@ -1651,7 +1674,7 @@ function menuUP() {
 	if [ $introFlag -eq 1 ]; then
 		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
 		clear
-		signOfTheCross
+		howToPage
 	else
 	
 		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
@@ -1696,7 +1719,7 @@ function menuDN() {
 	if [ $introFlag -eq 1 ]; then
 		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
 		clear
-		signOfTheCross
+		howToPage
 	else
 		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
 		clear
@@ -1799,7 +1822,7 @@ function arrowInputs() {
 	counterMAX=315
 
 	bundledDisplay
-	# signOfTheCross
+	# howToPage
 
 	while read -sN1 key
 	do
@@ -1869,16 +1892,12 @@ function translationDB() {
 		# NAB
 		rosaryJSON=`echo $hostedDirPath/json-db/rosaryJSON-nab.json`
 		translationName="The New American Bible (NAB)"
-		# isNAB=1
-		# isVulgate=0
 	fi
 	
 	if [ $translation -eq 2 ]; then
 		# Vulgate
 		rosaryJSON=`echo $hostedDirPath/json-db/rosaryJSON-vulgate.json`
 		translationName="Vulgate (Latin)"
-		# isNAB=0
-		# isVulgate=1
 	fi
 }
 
@@ -1894,10 +1913,6 @@ function initialize() {
 	clear
 	
 	initialMysteryFlag=0
-	#showBibleListFlag=0
-	#showPrayerListFlag=0
-	#iamtyping=0
-	#mainPageLoaded=0
     
 	initialHailMaryCounter=0
 	stringSpaceCounter=0
@@ -1951,7 +1966,7 @@ function myMian() {
 	
 	splashScreen
 	welcomepage
-	signOfTheCross
+	howToPage
 
 	## turn off intro flag
 	introFlag=0
