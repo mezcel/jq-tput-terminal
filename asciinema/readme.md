@@ -4,6 +4,8 @@ asciinema is a terminal recorder. I used this to make a demo preview for this ap
 
 enclosed is a ```.cast``` file demo
 
+[Live asciinema link](https://asciinema.org/a/217793) Quick preview demo
+
 install
 ```sh
 ## install on arch linux
@@ -31,4 +33,12 @@ publish
 ## upload to the asciinema.org web server
 
 asciinema upload <filename.cast>
+```
+
+authorize
+```sh
+## authorize uploads with your computer, UUIDv4
+## ~/.config/asciinema/install-id
+
+asciinema auth
 ```
