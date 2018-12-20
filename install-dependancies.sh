@@ -13,6 +13,9 @@ function arch_linux() {
 	## midi player with soundfont
 	sudo pacman -S --needed fluidsynth
 	sudo pacman -S --needed soundfont-fluid
+
+	## multimedia player for video and audio
+	sudo pacman -S --needed mplayer
 	
 	## c ompiler
 	sudo pacman -S --needed gcc

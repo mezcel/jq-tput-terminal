@@ -822,23 +822,18 @@ function tputStingVars() {
 	tputAppHeaderLine=$(tput cup 1 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
 
 	tputAppMysteryLabel=$(tput cup 4 0; echo "${MODE_BEGIN_UNDERLINE}Mystery Name${MODE_EXIT_UNDERLINE}:")
-	# tputAppMystery=$(tput cup 6 8; echo $return_mysteryName)
 	tputAppMystery=$(tput cup 6 0; printf "%${width}s" ""; tput cup 6 8; echo $return_mysteryName)
 	
 	tputAppDecadeLabel=$(tput cup 8 0; echo "${MODE_BEGIN_UNDERLINE}Mystery Decade${MODE_EXIT_UNDERLINE}:")
-	# tputAppDecade=$(tput cup 10 8; echo $return_decadeName)
 	tputAppDecade=$(tput cup 10 0; printf "%${width}s" ""; tput cup 10 8; echo $return_decadeName)
 	
 	tputAppMessageLabel=$(tput cup 12 0; echo "${MODE_BEGIN_UNDERLINE}Mystery Message${MODE_EXIT_UNDERLINE}:")
-	# tputAppMessage=$(tput cup 14 8; echo $return_mesageText)
 	tputAppMessage=$(tput cup 14 0; printf "%${width}s" ""; tput cup 14 8; echo $return_mesageText)
 	
 	tputAppScriptureLabel=$(tput cup 16 0; echo "${MODE_BEGIN_UNDERLINE}Scripture Text${MODE_EXIT_UNDERLINE}:")
-	# tputAppScripture=$(tput cup 18 8; echo $return_scriptureText)
 	tputAppScripture=$(tput cup 18 0; printf "%${width}s" ""; tput cup 18 8; echo $return_scriptureText)$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR
 	
 	tputAppPrayerLabel=$(tput cup 22 0; echo "${MODE_BEGIN_UNDERLINE}Prayer Text${MODE_EXIT_UNDERLINE}:")
-	# tputAppPrayer=$(tput cup 24 8; echo $return_prayerText)
 	tputAppPrayer=$(tput cup 24 0; printf "%${width}s" ""; tput cup 24 8; echo $return_prayerText)
 	
 }
@@ -859,7 +854,7 @@ function splashScreen() {
 	length=${#str}
 	tput cup $((height/2)) $(((width/ 2)-(length/2)))
 	echo $MODE_BEGIN_UNDERLINE$str$MODE_EXIT_UNDERLINE
-	str="< Lt navigate Rt > ( Up menus Dn ) [ 'm' - toggle midi ]"
+	str="< Lt navigate Rt > ( Up menus Dn ) [ 'm' - toggle audio ]"
 	length=${#str}
 	tput cup $height $(((width/ 2)-(length/2)))
 	echo $str
@@ -1012,7 +1007,7 @@ function welcomepage() {
 	Software Dependancies:
 		* jq with gcc
 		* dialog
-		* fluidsynth with soundfont-fluid (optional midi)
+		* fluidsynth with soundfont-fluid (optional audio)
 
 		If \"Mystery of the day\", has a value, you probably have everything.
 		If the menu does not work after this page, you need \"dialog\"
@@ -1115,51 +1110,13 @@ function goodbyescreen() {
 
 function blank_transition_display() {
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
-	clear
-	
-	echo " $translationName"
-	tput cup $(tput lines)-1 $[$(tput cols)-29]; echo `date`
-	
-	width=$(tput cols)
-	str="Termainal Rosary using Jq and Bash"
-	length=${#str}
-	tput cup 0 $(((width/ 2)-(length/2)))
-	echo $str
-	
-	# echo "$hr"
-	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
-	
-	echo " ${MODE_BEGIN_UNDERLINE}Mystery Name$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	loading ..."; echo ""
-	# echo "	$return_mysteryName"; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Mystery Message$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	loading ..."; echo ""
-	# echo "	$return_mesageText"; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Mystery Decade$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	loading ..."; echo ""
-	# echo "	$return_decadeName"; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Scripture Text$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	loading ..."; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Prayer Text$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	loading ..."; echo ""; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Bead Type$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	loading ..."
-	
-	# tput cup $[$(tput lines)-10]
-	# printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
-	
-	progressbars
-}
-
-function blank_transition_display2() {
-	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 	updateScreenSize
 
 	initTputStingVars
 	
 	echo "${tputAppTitle}${tputAppClock}${tputAppTranslation}${tputAppHeaderLine}${tputAppMysteryLabel}${tputAppMystery}${tputAppDecadeLabel}${tputAppDecade}${tputAppMessageLabel}${tputAppMessage}${tputAppScriptureLabel}${tputAppScripture}${tputAppPrayerLabel}${tputAppPrayer}${tputAppBeadTypeNameLabel}${tputAppBeadTypeName}${tputClearProgressFooter}"
 
-	# echo "blank_transition_display2"
+	# echo "blank_transition_display"
 }
 
 function formatJqText() {
@@ -1172,12 +1129,15 @@ function formatJqText() {
 	return_mesageText=$temp
 	temp="${return_decadeName%\"}"; temp="${temp#\"}"
 	return_decadeName=$temp
-	# temp="${return_scriptureText%\"}"; temp="${temp#\"}"
-	# return_scriptureText=$temp
-	temp="${return_prayerText%\"}"; temp="${temp#\"}"
-	return_prayerText=$temp
 	temp="${return_beadType%\"}"; temp="${temp#\"}"
 	return_beadType=$temp
+
+	## Dim after <hr>
+	htmlHR="\<hr\>"
+	bashEcho="${MODE_DIM}"
+	return_prayerText=${return_prayerText/$htmlHR/$bashEcho}
+	temp="${return_prayerText%\"}"; temp="${temp#\"}"
+	return_prayerText=$temp
 
 	## Dim after <hr>
 	htmlHR="\<hr\>"
@@ -1227,39 +1187,6 @@ function formatJqText() {
 
 function tputBeadDisplay() {
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
-	clear
-	
-	echo " $translationName"
-	tput cup $(tput lines)-1 $[$(tput cols)-29]; echo `date`
-	
-	width=$(tput cols)
-	str="Termainal Rosary using Jq and Bash"
-	length=${#str}
-	tput cup 0 $(((width/ 2)-(length/2)))
-	echo $str
-	
-	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
-
-	formatJqText
-	
-	echo " ${MODE_BEGIN_UNDERLINE}Mystery Name$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	$return_mysteryName"; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Mystery Message$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	$return_mesageText"; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Mystery Decade$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	$return_decadeName"; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Scripture Text$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	$return_scriptureText"${STYLES_OFF}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Prayer Text$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	$return_prayerText"; echo ""
-	echo " ${MODE_BEGIN_UNDERLINE}Bead Type$MODE_EXIT_UNDERLINE:"; echo ""
-	echo "	$return_beadType"
-	
-	# tput cup $[$(tput lines)-10]
-}
-
-function tputBeadDisplay2() {
-	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 	updateScreenSize
 
 	tputStingVars
@@ -1300,31 +1227,6 @@ function progressbars() {
 		tputMysteryBar=$(tput cup $[$(tput lines)-3] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-3] 1; echo $BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 		
 		echo "$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR$progressBarDivider$progressBarTitle$tputDecadeBarLabel$tputDecadeBar$tputMysteryBarLabel$tputMysteryBar"
-	else
-		str=" PROGRESS BARS "
-		printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."		
-		length=${#str}
-		tput cup $[$(tput lines)] $(((width/ 2)-(length/2)))
-		echo $BAR_BG$BAR_FG$str$BACKGROUNDCOLOR$FOREGROUNDCOLOR
-
-		## decade_progressbar
-		echo " decade: $thisDecadeSet/10"
-		proportion=$thisDecadeSet/10
-		width=$(tput cols)
-		width=$((width*$proportion))
-		width=$((width - 2))
-		barDecade=$(printf '%*s\n' "${COLUMNS:-$width}" '' | tr ' ' '|')
-		echo " "$BAR_BG$BAR_FG$barDecade$BACKGROUNDCOLOR$FOREGROUNDCOLOR
-		echo ""
-		
-		## mystery_progressbar
-		echo " mystery: $mysteryProgress/50"
-		proportion=$mysteryProgress/50
-		width=$(tput cols)
-		width=$((width*$proportion))
-		width=$((width - 2))
-		barMystery=$(printf '%*s\n' "${COLUMNS:-$width}" ' ' | tr ' ' '|')
-		echo " "$BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR
 	fi
 	
 }
@@ -1447,9 +1349,7 @@ function beadProgress() {
 }
 
 function bundledDisplay() {
-	# tputBeadDisplay
-	tputBeadDisplay2
-	
+	tputBeadDisplay
 	beadProgress
 	progressbars
 }
@@ -1662,6 +1562,8 @@ function menuUP() {
 			;;
 		9)	## exit app
 			killall fluidsynth &>/dev/null
+			killall mplayer &>/dev/null
+			
 			goodbyescreen
 			tput cnorm
 			tput sgr0
@@ -1679,11 +1581,9 @@ function menuUP() {
 	
 		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
 		clear
-		# tputBeadDisplay
-		tputBeadDisplay2
+		tputBeadDisplay
 		progressbars
 	fi
-	
 }
 
 function menuDN() {
@@ -1723,14 +1623,9 @@ function menuDN() {
 	else
 		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
 		clear
-		
-		# tputBeadDisplay
-		tputBeadDisplay2
-		
+		tputBeadDisplay
 		progressbars
 	fi
-		
-	
 }
 
 function prayerMenu() {
@@ -1822,7 +1717,6 @@ function arrowInputs() {
 	counterMAX=315
 
 	bundledDisplay
-	# howToPage
 
 	while read -sN1 key
 	do
@@ -1834,7 +1728,7 @@ function arrowInputs() {
 		key+=${k1}${k2}${k3} &>/dev/null
 		
 		case "$key" in
-			$arrowUp) # menu
+			$arrowUp) # menu				
 				menuUP
 				;;
 			$arrowDown) # language toggle
@@ -1842,34 +1736,31 @@ function arrowInputs() {
 				;;
 			$arrowRt) # navigate forward
 				if [ $introFlag -ne 1 ]; then
-					#clear
-					# blank_transition_display
-					blank_transition_display2
+					blank_transition_display
 					beadFWD
-
 					bundledDisplay
 				fi
 				;;
 			$arrowLt) # navigate back
-				#clear				
-				# blank_transition_display
-				blank_transition_display2
+				blank_transition_display
 				beadREV
 
 				bundledDisplay
 				;;
-			"m" | "M") # midi play
-				if ! pgrep -x "fluidsynth" > /dev/null
+			"m" | "M") # midi or mplayer play
+				# if ! pgrep -x "fluidsynth" > /dev/null
+				if ! pgrep -x "mplayer" > /dev/null
 				then
-					fluidsynth -a alsa -m alsa_seq -l -i /usr/share/soundfonts/FluidR3_GM.sf2 ./midi/FranzSchubert-AveMaria.mid &>/dev/null &
+					# fluidsynth -a alsa -m alsa_seq -l -i /usr/share/soundfonts/FluidR3_GM.sf2 ./audio/FranzSchubert-AveMaria.mid &>/dev/null &
+					mplayer ./audio/*.mp3 </dev/null >/dev/null 2>&1 &
 				else
-					killall fluidsynth &>/dev/null
+					# killall fluidsynth &>/dev/null
+					killall mplayer &>/dev/null
 				fi
 				## Flicker to show ui activity
 				sleep 0.5
 				clear
-				# blank_transition_display
-				blank_transition_display2
+				blank_transition_display
 				bundledDisplay
 				;;
 		esac
