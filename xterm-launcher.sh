@@ -4,7 +4,7 @@ function splashScreen() {
 	echo "$CLR_ALL"
 	width=$(tput cols)
 	height=$(tput lines)
-	str="Termainal Rosary using Jq and Bash"
+	str="Terminal Rosary using Jq and Bash"
 	length=${#str}
 	tput cup $((height/2)) $(((width/ 2)-(length/2)))
 	echo $MODE_BEGIN_UNDERLINE$str$MODE_EXIT_UNDERLINE

@@ -4,7 +4,7 @@ Terminal Rosary using Jq and Bash
 
 Demo Preview:
 
-* outdated video from an early stage stop point (recorded on ansiinema): [video link](https://asciinema.org/a/N8DVeuG2VmirEsymnMtbmqF3T)
+* [Live asciinema link](https://asciinema.org/a/217793) Quick preview demo
 
 ## Status:
 
@@ -31,6 +31,6 @@ This is an app which runs within a CLI GUI. I prefer either the ```login termina
 
 (Main) Terminal App: ```./bash-rosary.sh```
 
-- Destop Terminal Emulator App: ```./xterm-launcher.sh```
+- Desktop Terminal Emulator App: ```./xterm-launcher.sh```
 
-- (Optional) Install Dependancies: ```./install-dependancies.sh```
+- (Optional) Install Dependencies: ```./install-dependancies.sh```
