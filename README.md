@@ -4,24 +4,32 @@ Terminal Rosary using Jq and Bash
 
 Demo Preview:
 
-* outdated video from an early stage stop point
-
-* (recorded on ansiinema): [video link](https://asciinema.org/a/N8DVeuG2VmirEsymnMtbmqF3T)
+* outdated video from an early stage stop point (recorded on ansiinema): [video link](https://asciinema.org/a/N8DVeuG2VmirEsymnMtbmqF3T)
 
 ## Status:
 
-```v0.1.5``` is focused on changing my tput technique and screen rendering
+```v0.1.5``` is focused on playing with changing my tput technique and screen rendering
 
 ### About:
 
-This is an app which runs within a CLI GUI. Text content is provided by a json db which I ported in from my [Electron Rosary App](https://github.com/mezcel/electron-container), as text content.
+This is an app which runs within a CLI GUI. I prefer either the login terminal or a desktop Xterm bash emulator. This app's text content is provided by the same json db used in my [Electron Rosary App](https://github.com/mezcel/electron-container).
 
-It is pretty much the same app as the [Electron Rosary App](https://github.com/mezcel/electron-container); even the logic is the same. There are far less features in this version though. The "longest rout" query approach was intentional. I want to monitor and experience the difference in performance between this app and the jquery/electron version.
+The algorithm is pretty much the same as the [Electron Rosary App](https://github.com/mezcel/electron-container). There are far less features in this version though.
+
+The db query is slow because JQ is parsing a json file using the longest 1N rout. There are ways to optimize it, like not even doing queries on non changing values, or just 2N or 3N Indexing. But... I havent gone back and optimized.
 
 * [JQ](https://stedolan.github.io/jq) is a cross-platform C program which parses json script via command line terminal
 * [tput](https://ss64.com/bash/tput.html) is a tool for formatting text display in a command line terminal
 * ```dialog / whiptail``` is a terminal app for making dialog box style input prompts
 * Bash is a command line terminal shell interface commonly associated with Unix derived OS's
+
+
+### Feature Highlight:
+
+* Paschal Full Moon Liturgical Calendar Calculations
+* Color Themes
+* Calendar triggered Mysteries
+* Midi music (Demo). I recommend a proper MPlayer .mp3 or .wav music file.
 
 ---
 
@@ -29,6 +37,6 @@ It is pretty much the same app as the [Electron Rosary App](https://github.com/m
 
 (Main) Terminal App: ```./bash-rosary.sh```
 
-- Destop Terminal Emulator App: ```./desktop-terminal.sh```
+- Destop Terminal Emulator App: ```./xterm-launcher.sh```
 
 - (Optional) Install Dependancies: ```./install-dependancies.sh```
