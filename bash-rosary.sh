@@ -768,7 +768,6 @@ function liturgicalYearPi() {
 ###################################################
 
 function initTputStingVars() {
-	#clearTpuLine=$(printf "%${width}s" "")
 	clearTpuLine=$(tput el)
 	
 	width=$(tput cols)
@@ -795,15 +794,6 @@ function initTputStingVars() {
 	
 	tputAppPrayerLabel=$(tput cup 22 0; echo "Prayer Text")
 	tputAppPrayer=$(tput cup 24 0; printf "%${width}s" "" )$(tput cup 25 0; printf "%${width}s" "" )$(tput cup 26 0; printf "%${width}s" "" )$(tput cup 27 0; printf "%${width}s" "" )$(tput cup 28 0; printf "%${width}s" "" )$(tput cup 24 4; echo "	loading..." )
-	
-	# tputAppBeadTypeNameLabel=$(tput cup 29 0; echo "")
-	# tputAppBeadTypeName=$(tput cup 30 0; printf "%${COLUMNS}s" "" )
-
-	# tputClearProgressFooter=$(tput cup 31 0 && tput ed)
-
-	# echo "initTputStingVars loading ..."
-	#$(tput cup $[$(tput lines)-1] 0; printf "%${width}s" "" )$(tput cup $[$(tput lines)-1] 4; echo "Continue" )
-	#tputAppBeadTypeName=$(tput cup $(tput lines) 0; printf "%${COLUMNS}s" "" )$(tput cup $(tput lines) 4; echo "	loading..." )
 
 }
 
@@ -821,30 +811,26 @@ function tputStingVars() {
 	tputAppClock=$(tput cup $(tput lines)-1 $[$(tput cols)-29]; echo `date`)	
 	tputAppHeaderLine=$(tput cup 1 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
 
-	tputAppMysteryLabel=$(tput cup 4 0; echo "Mystery Name")
+	tputAppMysteryLabel=$(tput cup 4 0; echo "${MODE_BEGIN_UNDERLINE}Mystery Name${MODE_EXIT_UNDERLINE}:")
 	# tputAppMystery=$(tput cup 6 8; echo $return_mysteryName)
 	tputAppMystery=$(tput cup 6 0; printf "%${width}s" ""; tput cup 6 8; echo $return_mysteryName)
 	
-	tputAppDecadeLabel=$(tput cup 8 0; echo "Mystery Decade")
+	tputAppDecadeLabel=$(tput cup 8 0; echo "${MODE_BEGIN_UNDERLINE}Mystery Decade${MODE_EXIT_UNDERLINE}:")
 	# tputAppDecade=$(tput cup 10 8; echo $return_decadeName)
 	tputAppDecade=$(tput cup 10 0; printf "%${width}s" ""; tput cup 10 8; echo $return_decadeName)
 	
-	tputAppMessageLabel=$(tput cup 12 0; echo "Mystery Message")
+	tputAppMessageLabel=$(tput cup 12 0; echo "${MODE_BEGIN_UNDERLINE}Mystery Message${MODE_EXIT_UNDERLINE}:")
 	# tputAppMessage=$(tput cup 14 8; echo $return_mesageText)
 	tputAppMessage=$(tput cup 14 0; printf "%${width}s" ""; tput cup 14 8; echo $return_mesageText)
 	
-	tputAppScriptureLabel=$(tput cup 16 0; echo "Scripture Text")
+	tputAppScriptureLabel=$(tput cup 16 0; echo "${MODE_BEGIN_UNDERLINE}Scripture Text${MODE_EXIT_UNDERLINE}:")
 	# tputAppScripture=$(tput cup 18 8; echo $return_scriptureText)
 	tputAppScripture=$(tput cup 18 0; printf "%${width}s" ""; tput cup 18 8; echo $return_scriptureText)$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR
 	
-	tputAppPrayerLabel=$(tput cup 22 0; echo "Prayer Text")
+	tputAppPrayerLabel=$(tput cup 22 0; echo "${MODE_BEGIN_UNDERLINE}Prayer Text${MODE_EXIT_UNDERLINE}:")
 	# tputAppPrayer=$(tput cup 24 8; echo $return_prayerText)
 	tputAppPrayer=$(tput cup 24 0; printf "%${width}s" ""; tput cup 24 8; echo $return_prayerText)
 	
-	# tputAppBeadTypeNameLabel=$(tput cup 26 0; echo "")
-	# tputAppBeadTypeName=$(tput cup 28 8; echo $return_beadType)
-
-	# tputClearProgressFooter=$(tput cup 30 0 && tput ed)
 }
 
 function myAbout() {
@@ -1857,6 +1843,7 @@ function arrowInputs() {
 					killall fluidsynth &>/dev/null
 				fi
 				## Flicker to show ui activity
+				sleep 0.5
 				clear
 				# blank_transition_display
 				blank_transition_display2
