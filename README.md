@@ -5,10 +5,11 @@ Terminal Rosary using Jq and Bash
 Demo Preview:
 
 * [Live asciinema link](https://asciinema.org/a/217793) Quick preview demo
+* [Redundant Youtube version](https://youtu.be/PceKrX4uI-I)
 
 ## Status:
 
-```v0.1.5``` is focused on playing with changing my tput technique and screen rendering
+```v0.1.5``` is focused on tput and screen layout design
 
 ### About:
 
