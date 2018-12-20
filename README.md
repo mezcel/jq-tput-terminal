@@ -8,7 +8,7 @@ Demo Preview:
 
 ## Status:
 
-```v0.1.5``` is focused on playing with changing my tput technique and screen rendering
+```v0.1.5``` is focused on tput and screen layout design
 
 ### About:
 
