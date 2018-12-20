@@ -1,5 +1,9 @@
 #!/bin/sh
 
+###################################################
+## UI Appearance Vars
+###################################################
+
 function decorativeColors() {
 	## Forground Color using tput
 
@@ -52,6 +56,37 @@ function inputControlls() {
 	arrowLt=$'\e[D'
 	# escKey=$'\['
 	# f1Key=$'\[OP'
+}
+
+function resizeWindow() {
+	## Initial resize
+	## I designed this App with Xterm in mind.
+	## Optimal desktop gui terminal Size
+
+	terminalPIDName=$(cat "/proc/$PPID/comm")
+	
+	if [ $terminalPIDName -eq "xterm" ]; then
+		resize -s 40 140 &>/dev/null
+		stty rows 40
+		stty cols 140
+	fi
+
+	currentScrrenWidth=$(tput cols)
+	currentScreenHeight=$(tput lines)
+}
+
+function updateScreenSize() {
+	if [ $currentScrrenWidth -ne $(tput cols) ]; then
+		currentScrrenWidth=$(tput cols)
+		echo "$CLR_ALL$BACKGROUNDCOLOR$FOREGROUNDCOLOR"
+		clear
+	fi
+
+	if [ $currentScreenHeight -ne $(tput lines) ]; then
+		currentScreenHeight=$(tput lines)
+		echo "$CLR_ALL$BACKGROUNDCOLOR$FOREGROUNDCOLOR"
+		clear
+	fi
 }
 
 ###################################################
@@ -732,30 +767,6 @@ function liturgicalYearPi() {
 ## tput Page Display
 ###################################################
 
-function resizeWindow() {
-	## Optimal desktop gui terminal Size
-	resize -s 40 140 &>/dev/null
-	stty rows 40
-	stty cols 140
-
-	currentScrrenWidth=$(tput cols)
-	currentScreenHeight=$(tput lines)
-}
-
-function updateScreenSize() {
-	if [ $currentScrrenWidth -ne $(tput cols) ]; then
-		currentScrrenWidth=$(tput cols)
-		echo "$CLR_ALL$BACKGROUNDCOLOR$FOREGROUNDCOLOR"
-		clear
-	fi
-
-	if [ $currentScreenHeight -ne $(tput lines) ]; then
-		currentScreenHeight=$(tput lines)
-		echo "$CLR_ALL$BACKGROUNDCOLOR$FOREGROUNDCOLOR"
-		clear
-	fi
-}
-
 function initTputStingVars() {
 	#clearTpuLine=$(printf "%${width}s" "")
 	clearTpuLine=$(tput el)
@@ -791,6 +802,9 @@ function initTputStingVars() {
 	# tputClearProgressFooter=$(tput cup 31 0 && tput ed)
 
 	# echo "initTputStingVars loading ..."
+	#$(tput cup $[$(tput lines)-1] 0; printf "%${width}s" "" )$(tput cup $[$(tput lines)-1] 4; echo "Continue" )
+	#tputAppBeadTypeName=$(tput cup $(tput lines) 0; printf "%${COLUMNS}s" "" )$(tput cup $(tput lines) 4; echo "	loading..." )
+
 }
 
 function tputStingVars() {
@@ -1086,6 +1100,10 @@ function goodbyescreen() {
 	echo "$CLR_ALL"
 }
 
+#
+## Bead Display
+#
+
 function blank_transition_display() {
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 	clear
@@ -1249,24 +1267,28 @@ function progressbars() {
 	width=$(tput cols)
 	
 	if [ $height -ge 34 ]; then
-		str=" PROGRESS BARS "
-		progressBarDivider=$(tput el $[$(tput lines)-9]; tput cup $[$(tput lines)-9]; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
-		length=${#str}
-		progressBarTitle=$(tput el $[$(tput lines)-8]; tput cup $[$(tput lines)-8] $(((width/ 2)-(length/2))); echo $BAR_BG$BAR_FG$str$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 
-		tputDecadeBarLabel=$(tput el $[$(tput lines)-7] 0; tput cup $[$(tput lines)-7] 0; echo " decade: $thisDecadeSet/10")
+	tputAppPrayer=$(tput cup $[$(tput lines)-9] 0; printf "%${width}s" ""; tput cup 24 8; echo $return_prayerText)
+
+	
+		str=" PROGRESS BARS "
+		progressBarDivider=$(tput cup $[$(tput lines)-9] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-9] 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
+		length=${#str}
+		progressBarTitle=$(tput cup $[$(tput lines)-8] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-8] $(((width/ 2)-(length/2))); echo $BAR_BG$BAR_FG$str$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
+		
+		tputDecadeBarLabel=$(tput cup $[$(tput lines)-7] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-7] 0; echo " decade: $thisDecadeSet/10	$return_beadType")
 		proportion=$thisDecadeSet/10
 		barWidth=$((width*$proportion))
 		barWidth=$((barWidth - 2))
 		barDecade=$(printf '%*s\n' "${COLUMNS:-$barWidth}" '' | tr ' ' '|')
-		tputDecadeBar=$(tput el $[$(tput lines)-6] 0; tput cup $[$(tput lines)-6] 0; echo $BAR_BG$BAR_FG$barDecade$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
+		tputDecadeBar=$(tput cup $[$(tput lines)-6] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-6] 1; echo $BAR_BG$BAR_FG$barDecade$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 
-		tputMysteryBarLabel=$(tput el $[$(tput lines)-4] 0; tput cup $[$(tput lines)-4] 0; echo " mystery: $mysteryProgress/50")
+		tputMysteryBarLabel=$(tput cup $[$(tput lines)-4] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-4] 0; echo " mystery: $mysteryProgress/50")
 		proportion=$mysteryProgress/50
 		barWidth=$((width*$proportion))
 		barWidth=$((barWidth - 2))
 		barMystery=$(printf '%*s\n' "${COLUMNS:-$barWidth}" ' ' | tr ' ' '|')
-		tputMysteryBar=$(tput el $[$(tput lines)-3] 0; tput cup $[$(tput lines)-3] 0; echo $BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
+		tputMysteryBar=$(tput cup $[$(tput lines)-3] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-3] 1; echo $BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 
 		echo "$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR$progressBarDivider$progressBarTitle$tputDecadeBarLabel$tputDecadeBar$tputMysteryBarLabel$tputMysteryBar"
 	else
@@ -1641,9 +1663,12 @@ function menuUP() {
 	esac
 
 	if [ $introFlag -eq 1 ]; then
+		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
 		clear
 		signOfTheCross
 	else
+	
+		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
 		clear
 		# tputBeadDisplay
 		tputBeadDisplay2
@@ -1683,9 +1708,11 @@ function menuDN() {
 	jqQuery
 
 	if [ $introFlag -eq 1 ]; then
+		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
 		clear
 		signOfTheCross
 	else
+		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
 		clear
 		
 		# tputBeadDisplay
@@ -1749,9 +1776,8 @@ function prayerMenu() {
 		
 }
 
-
 ###################################################
-## Arrows
+## Keyboard Arrows UI
 ###################################################
 
 function beadFWD() {
@@ -1780,7 +1806,6 @@ function beadREV() {
 		jqQuery
 	fi
 }
-
 
 function arrowInputs() {
 	
@@ -1869,7 +1894,6 @@ function translationDB() {
 		# isVulgate=1
 	fi
 }
-
 
 function initialize() {
 	# Save screen
