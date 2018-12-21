@@ -513,7 +513,7 @@ function days_untill_Good_Friday() {
 function days_untill_Easter_Eve() {
 	## Triduum Saturday
 
-		thisYear=$(date +%Y)
+	thisYear=$(date +%Y)
 	calculate_Paschal_Full_Moon
 
 	daysToRemove=$(( $daysToAdd - 1 ))
@@ -1207,7 +1207,7 @@ function progressbars() {
 
 	if [ $height -ge 34 ]; then
 
-	tputAppPrayer=$(tput cup $[$(tput lines)-9] 0; printf "%${width}s" ""; tput cup 24 8; echo $return_prayerText)
+		tputAppPrayer=$(tput cup $[$(tput lines)-9] 0; printf "%${width}s" ""; tput cup 24 8; echo $return_prayerText)
 
 		str=" PROGRESS BARS "
 		progressBarDivider=$(tput cup $[$(tput lines)-9] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-9] 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
@@ -1278,6 +1278,7 @@ function beadProgress() {
 			fi
 
 			stringSpaceCounter=0
+			beadAudioFile="./audio/AveMaria.ogg"
 
             ;;
 		3)	## big bead
@@ -1291,6 +1292,7 @@ function beadProgress() {
 					hailmaryCounter=$(( $hailmaryCounter - 1 ))
 				fi
             fi
+            beadAudioFile="./audio/PaterNoster.ogg"
             ;;
         4) ## string space
 			if [ $directionFwRw -eq 1 ]; then
@@ -1342,6 +1344,7 @@ function beadProgress() {
 			hailmaryCounter=0
 			initialHailMaryCounter=0
             stringSpaceCounter=0
+            beadAudioFile="./audio/Credo.ogg"
 			;;
         *)
 			thisDecadeSet=0
@@ -1755,18 +1758,21 @@ function arrowInputs() {
 				bundledDisplay
 				;;
 			"m" | "M") # midi or mplayer audio
+			
 				# if ! pgrep -x "fluidsynth" > /dev/null
 				if ! pgrep -x "mplayer" > /dev/null
 				then
 					# fluidsynth -a alsa -m alsa_seq -l -i /usr/share/soundfonts/FluidR3_GM.sf2 ./audio/FranzSchubert-AveMaria.mid &>/dev/null &
-					mplayer -loop 0 ./audio/Schola_Gregoriana-Ave_Maria.ogg </dev/null >/dev/null 2>&1 &
+					# mplayer -loop 0 ./audio/Schola_Gregoriana-Ave_Maria.ogg </dev/null >/dev/null 2>&1 &
+					
+					mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
 				else
 					# killall fluidsynth &>/dev/null
 					killall mplayer &>/dev/null
 				fi
 				## Flicker to show ui activity
-				sleep 0.5
-				clear
+				# sleep 0.5
+				# clear
 				blank_transition_display
 				bundledDisplay
 				;;
@@ -1780,6 +1786,11 @@ function arrowInputs() {
 ###################################################
 ## Vars
 ###################################################
+
+function download_audio() {
+	sh ./audio/dl-app-audio.sh
+}
+
 
 function translationDB() {
 
@@ -1820,7 +1831,6 @@ function initialize() {
 	mysteryProgress=0
 
 	introFlag=1
-
 	translation=1
 
 	## determine mystery of the day
@@ -1830,6 +1840,9 @@ function initialize() {
 
 	## declare init language translation
 	translationDB
+
+	## dl audio
+	download_audio
 }
 
 function myMian() {
