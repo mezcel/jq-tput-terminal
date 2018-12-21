@@ -1759,7 +1759,7 @@ function arrowInputs() {
 				if ! pgrep -x "mplayer" > /dev/null
 				then
 					# fluidsynth -a alsa -m alsa_seq -l -i /usr/share/soundfonts/FluidR3_GM.sf2 ./audio/FranzSchubert-AveMaria.mid &>/dev/null &
-					mplayer ./audio/*.mp3 </dev/null >/dev/null 2>&1 &
+					mplayer -loop 0 ./audio/Schola_Gregoriana-Ave_Maria.ogg </dev/null >/dev/null 2>&1 &
 				else
 					# killall fluidsynth &>/dev/null
 					killall mplayer &>/dev/null
