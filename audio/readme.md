@@ -1,17 +1,17 @@
 # Audio
 
-I recommend importing and curating audio which is appropriate to your own tastes.
+Enclosed are the open source Demo sounds used in this app.
 
-Enclosed are open source Demo sounds used in this app.
+In order to save space on Github and attribute source credits, audio is not included within this Git.
 
-In order to both save space on Github and attribute source credits, audio can be installed independent of App ```dl-app-audio.sh```
+When the App starts, it will then check for installed audio files and then import as needed ```dl-app-audio.sh```
 
-- It is also faster than hosting on Github
+- I focused on Ogg for GNU sake, but .wav, .mp3, .midi is also compatable for this app.
 
 
 ## Source Audio:
 
-https://commons.wikimedia.org/wiki/Category:Ogg_files_of_Christian_music
+[wikimedia.org](https://commons.wikimedia.org/wiki/Category:Ogg_files_of_Christian_music):
 
 - [Schola_Gregoriana-Ave_Maria.ogg](https://en.wikipedia.org/wiki/File:Schola_Gregoriana-Ave_Maria.ogg)
 
@@ -23,14 +23,21 @@ https://commons.wikimedia.org/wiki/Category:Ogg_files_of_Christian_music
 
 ---
 
-midi audio files
+play midi audio files
 ```sh
+## midi player with soundfont
+sudo pacman -S --needed fluidsynth
+sudo pacman -S --needed soundfont-fluid
+	
 ## audio requires fluidsynth and a midi soundfont
 fluidsynth -a alsa -m alsa_seq -l -i -R 1 -C 1 /usr/share/soundfonts/FluidR3_GM.sf2 ./audio/*.mid
 	
 ```
 
-.wav, .mp3, .ogg files
+play .wav, .mp3, .ogg files
 ```sh
+## multimedia player for video and audio
+sudo pacman -S --needed mplayer
+	
 mplayer ./audio/*.ogg
 ```
