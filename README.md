@@ -9,7 +9,7 @@ Demo Preview:
 
 ## Status:
 
-```v0.1.5``` is focused on tput and screen layout design
+```v0.1.5.1``` is focused on tastefully applying audio
 
 ### About:
 
