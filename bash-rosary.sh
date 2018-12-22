@@ -513,7 +513,7 @@ function days_untill_Good_Friday() {
 function days_untill_Easter_Eve() {
 	## Triduum Saturday
 
-		thisYear=$(date +%Y)
+	thisYear=$(date +%Y)
 	calculate_Paschal_Full_Moon
 
 	daysToRemove=$(( $daysToAdd - 1 ))
@@ -870,8 +870,8 @@ function initTputStingVars() {
 	tputAppScriptureLabel=$(tput cup 16 0; echo "Scripture Text")
 	tputAppScripture=$(tput cup 18 0; printf "%${width}s" "" )$(tput cup 19 0; printf "%${width}s" "" )$(tput cup 20 0; printf "%${width}s" "" )$(tput cup 21 0; printf "%${width}s" "" )$( tput cup 18 4; echo "	loading..." )
 
-	tputAppPrayerLabel=$(tput cup 22 0; echo "Prayer Text")
-	tputAppPrayer=$(tput cup 24 0; printf "%${width}s" "" )$(tput cup 25 0; printf "%${width}s" "" )$(tput cup 26 0; printf "%${width}s" "" )$(tput cup 27 0; printf "%${width}s" "" )$(tput cup 28 0; printf "%${width}s" "" )$(tput cup 24 4; echo "	loading..." )
+	tputAppPrayerLabel=$(tput cup 22 0; printf "%${width}s" "" )$(tput cup 22 0; echo "Prayer Text")
+	tputAppPrayer=$(tput cup 23 0; printf "%${width}s" "" )$(tput cup 24 0; printf "%${width}s" "" )$(tput cup 25 0; printf "%${width}s" "" )$(tput cup 26 0; printf "%${width}s" "" )$(tput cup 27 0; printf "%${width}s" "" )$(tput cup 28 0; printf "%${width}s" "" )$(tput cup 24 4; echo "	loading..." )
 }
 
 function tputStingVars() {
@@ -1207,7 +1207,7 @@ function progressbars() {
 
 	if [ $height -ge 34 ]; then
 
-	tputAppPrayer=$(tput cup $[$(tput lines)-9] 0; printf "%${width}s" ""; tput cup 24 8; echo $return_prayerText)
+		tputAppPrayer=$(tput cup $[$(tput lines)-9] 0; printf "%${width}s" ""; tput cup 24 8; echo $return_prayerText)
 
 		str=" PROGRESS BARS "
 		progressBarDivider=$(tput cup $[$(tput lines)-9] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-9] 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
@@ -1278,6 +1278,7 @@ function beadProgress() {
 			fi
 
 			stringSpaceCounter=0
+			beadAudioFile="./audio/AveMaria.ogg"
 
             ;;
 		3)	## big bead
@@ -1291,6 +1292,9 @@ function beadProgress() {
 					hailmaryCounter=$(( $hailmaryCounter - 1 ))
 				fi
             fi
+            
+            beadAudioFile="./audio/PaterNoster.ogg"
+            
             ;;
         4) ## string space
 			if [ $directionFwRw -eq 1 ]; then
@@ -1324,6 +1328,9 @@ function beadProgress() {
 					fi
 				fi
             fi
+            
+            beadAudioFile=""
+            
             ;;
         5)	## Mary Icon
 			if [ $directionFwRw -eq 1 ]; then
@@ -1337,15 +1344,21 @@ function beadProgress() {
                 beadCounter=$mysteryJumpPosition
                 initialMysteryFlag=1
             fi
+            beadAudioFile="./audio/SalveRegina.ogg"
 			;;
 		6)	## cross
 			hailmaryCounter=0
 			initialHailMaryCounter=0
             stringSpaceCounter=0
+            thisDecadeSet=0
+            
+            beadAudioFile="./audio/Credo.ogg"
 			;;
         *)
 			thisDecadeSet=0
             stringSpaceCounter=0
+            
+            beadAudioFile=""
             ;;
       esac
 }
@@ -1657,7 +1670,8 @@ function prayerMenu() {
 		"13" "$(jq .prayer[13].prayerName $rosaryJSON)"\
 		"14" "$(jq .prayer[14].prayerName $rosaryJSON)"\
 		"15" "$(jq .prayer[15].prayerName $rosaryJSON)"\
-		"16" "$(jq .prayer[16].prayerName $rosaryJSON)" )
+		"16" "$(jq .prayer[16].prayerName $rosaryJSON)" ) || return
+		
 
 	dialogPrayerName=$(jq .prayer[$selectedPrayer].prayerName $rosaryJSON)
 
@@ -1751,24 +1765,22 @@ function arrowInputs() {
 			$arrowLt) # navigate back
 				blank_transition_display
 				beadREV
-
 				bundledDisplay
+				
 				;;
-			"m" | "M") # midi or mplayer audio
-				# if ! pgrep -x "fluidsynth" > /dev/null
+			"m" | "M") # mplayer audio
+			
 				if ! pgrep -x "mplayer" > /dev/null
 				then
-					# fluidsynth -a alsa -m alsa_seq -l -i /usr/share/soundfonts/FluidR3_GM.sf2 ./audio/FranzSchubert-AveMaria.mid &>/dev/null &
-					mplayer ./audio/*.mp3 </dev/null >/dev/null 2>&1 &
+					if [ "$beadAudioFile" != "" ];then
+						mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
+					fi
 				else
-					# killall fluidsynth &>/dev/null
 					killall mplayer &>/dev/null
 				fi
-				## Flicker to show ui activity
-				sleep 0.5
-				clear
-				blank_transition_display
-				bundledDisplay
+				
+				# blank_transition_display
+				# bundledDisplay
 				;;
 		esac
 	done
@@ -1780,6 +1792,33 @@ function arrowInputs() {
 ###################################################
 ## Vars
 ###################################################
+
+function download_audio() {
+	sh ./audio/dl-app-audio.sh
+}
+
+function download_dependencies() {
+
+	## xorg shell emulator
+	if ! [ -x "$(command -v xterm)" ];then
+		sudo pacman -S --needed xterm
+	fi
+	
+	## bash gui menu
+	if ! [ -x "$(command -v dialog)" ];then
+		sudo pacman -S --needed dialog
+	fi
+	
+	## json parser
+	if ! [ -x "$(command -v jq)" ];then
+		sudo pacman -S --needed jq
+	fi
+
+	## c ompiler
+	if ! [ -x "$(command -v gcc)" ];then
+		sudo pacman -S --needed gcc
+	fi
+}
 
 function translationDB() {
 
@@ -1799,7 +1838,7 @@ function translationDB() {
 	fi
 }
 
-function initialize() {
+function initialize() {	
 	# Save screen
     tput smcup
 
@@ -1820,7 +1859,6 @@ function initialize() {
 	mysteryProgress=0
 
 	introFlag=1
-
 	translation=1
 
 	## determine mystery of the day
@@ -1830,9 +1868,14 @@ function initialize() {
 
 	## declare init language translation
 	translationDB
+
+	## dl audio
+	download_audio
 }
 
 function myMian() {
+	download_dependencies
+	
 	resizeWindow
 
 	## hide cursor
