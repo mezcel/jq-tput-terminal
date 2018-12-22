@@ -1228,6 +1228,13 @@ function progressbars() {
 	height=$(tput lines)
 	width=$(tput cols)
 
+	if ! pgrep -x "mplayer" > /dev/null
+	then
+		isAudio="audio stop "
+	else
+		isAudio="audio play "
+	fi
+
 	if [ $height -ge 34 ]; then
 
 		tputAppPrayer=$(tput cup $[$(tput lines)-9] 0; printf "%${width}s" ""; tput cup 24 8; echo $return_prayerText)
@@ -1265,7 +1272,7 @@ function progressbars() {
 		barWidth=$((width*$proportion))
 		barWidth=$((barWidth - 2))
 		barMystery=$(printf '%*s\n' "${COLUMNS:-$barWidth}" ' ' | tr ' ' '|')
-		tputMysteryBar=$(tput cup $[$(tput lines)-3] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-3] 1; echo $BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
+		tputMysteryBar=$(tput cup $[$(tput lines)-2] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-1] 0; printf "%${width}s" "$isAudio"; tput cup $[$(tput lines)-3] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-3] 1; echo $BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 
 		echo "$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR$progressBarDivider$progressBarTitle$tputDecadeBarLabel$tputDecadeBar$tputMysteryBarLabel$tputMysteryBar"
 	fi
@@ -1372,7 +1379,7 @@ function beadProgress() {
 				fi
             fi
             
-            beadAudioFile=""
+            beadAudioFile="./audio/GloriaPatri.ogg"
             
             ;;
         5)	## Mary Icon
@@ -1823,8 +1830,10 @@ function arrowInputs() {
 					fi
 				else
 					killall mplayer &>/dev/null
+					
+					isAudio="audio stop "
 				fi
-				
+				progressbars
 				# blank_transition_display
 				# bundledDisplay
 				;;
