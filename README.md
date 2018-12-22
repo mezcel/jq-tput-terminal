@@ -21,15 +21,15 @@ This is a CLI GUI App. This app's json db is a port from the [electron-container
 
 * Paschal Full Moon Liturgical Calendar Calculations
 * Color Themes
-* Calendar triggered Mysteries
-* Traditional Latin Hymns
+* Calendar triggered event features
+* Traditional Latin Hymns (audio)
 * Dependency installers
 
 ---
 
 ### Run
 
-This app will run a 1-time, as-needed, requirements installation of Audio/Software on startup.
+This app will perform a requirements check and install Audio & Software, as needed, on startup.
 
 (Main) Terminal App: ```./bash-rosary.sh```
 
