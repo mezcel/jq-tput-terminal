@@ -1,10 +1,14 @@
 # asciinema
 
-asciinema is a terminal recorder. I used this to make a demo preview for this app.
+asciinema is a terminal recorder. I used it to make a demo preview for this app.
 
 enclosed is a ```.cast``` file demo
 
 [Live asciinema link](https://asciinema.org/a/217793) Quick preview demo
+
+---
+
+### Notes on how to use asciinema
 
 install
 ```sh
