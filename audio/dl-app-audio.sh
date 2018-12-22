@@ -4,11 +4,13 @@
 
 function arch_audio_players() {
 	## midi player with soundfont
-	sudo pacman -S --needed fluidsynth
-	sudo pacman -S --needed soundfont-fluid
+	# sudo pacman -S --needed fluidsynth
+	# sudo pacman -S --needed soundfont-fluid
 
 	## multimedia player for video and audio
-	sudo pacman -S --needed mplayer
+	if ! [ -x "$(command -v mplayer)" ];then
+		sudo pacman -S --needed mplayer
+	fi
 }
 
 function ogg_audio_files() {
@@ -17,7 +19,7 @@ function ogg_audio_files() {
 
 	localFile="$currentDirPath/Credo.ogg"
 	if [ ! -f "$localFile" ];then
-		clear
+		# clear
 		echo "	Downloading App Audio:
 		"
 		wget 'https://upload.wikimedia.org/wikipedia/commons/c/c0/Byrd_4-Part_Mass_-_Credo.ogg' -O "$localFile"
@@ -25,7 +27,7 @@ function ogg_audio_files() {
 
 	localFile="$currentDirPath/AveMaria.ogg"
 	if [ ! -f "$localFile" ];then
-		clear
+		# clear
 		echo "	Downloading App Audio:
 		"
 		wget 'https://upload.wikimedia.org/wikipedia/commons/2/23/Schola_Gregoriana-Ave_Maria.ogg' -O "$localFile"
@@ -33,7 +35,7 @@ function ogg_audio_files() {
 
 	localFile="$currentDirPath/PaterNoster.ogg"
 	if [ ! -f "$localFile" ];then
-		clear
+		# clear
 		echo "	Downloading App Audio:
 		"
 		wget 'https://upload.wikimedia.org/wikipedia/commons/a/af/Schola_Gregoriana-Pater_Noster.ogg' -O "$localFile"
@@ -41,11 +43,12 @@ function ogg_audio_files() {
 
 	localFile="$currentDirPath/AveMaria2.ogg"
 	if [ ! -f "$localFile" ];then
-		clear
+		# clear
 		echo "	Downloading App Audio:
 		"
 		wget 'https://upload.wikimedia.org/wikipedia/commons/d/d4/JOHN_MICHEL_CELLO-BACH_AVE_MARIA.ogg' -O "$localFile"
 	fi
 }
 
+arch_audio_players
 ogg_audio_files

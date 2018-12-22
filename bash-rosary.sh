@@ -1791,6 +1791,28 @@ function download_audio() {
 	sh ./audio/dl-app-audio.sh
 }
 
+function download_dependencies() {
+
+	## xorg shell emulator
+	if ! [ -x "$(command -v xterm)" ];then
+		sudo pacman -S --needed xterm
+	fi
+	
+	## bash gui menu
+	if ! [ -x "$(command -v dialog)" ];then
+		sudo pacman -S --needed dialog
+	fi
+	
+	## json parser
+	if ! [ -x "$(command -v jq)" ];then
+		sudo pacman -S --needed jq
+	fi
+
+	## c ompiler
+	if ! [ -x "$(command -v gcc)" ];then
+		sudo pacman -S --needed gcc
+	fi
+}
 
 function translationDB() {
 
@@ -1810,7 +1832,7 @@ function translationDB() {
 	fi
 }
 
-function initialize() {
+function initialize() {	
 	# Save screen
     tput smcup
 
@@ -1846,6 +1868,8 @@ function initialize() {
 }
 
 function myMian() {
+	download_dependencies
+	
 	resizeWindow
 
 	## hide cursor
