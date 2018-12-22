@@ -2,6 +2,7 @@
 
 function splashScreen() {
 	echo "$CLR_ALL"
+	clear
 	width=$(tput cols)
 	height=$(tput lines)
 	str="Terminal Rosary using Jq and Bash"
@@ -13,7 +14,7 @@ function splashScreen() {
 	tput cup $height $(((width/ 2)-(length/2)))
 	echo $str
 
-	read -s -t 1 -p "" exitVar &>/dev/null
+	read -s -t 1 -p "Audio will autoplay in a looped sequence untill 'M' key is pressed." exitVar &>/dev/null
 }
 
 function launch_new_window() {
