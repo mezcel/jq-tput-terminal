@@ -26,14 +26,16 @@ function launch_new_window() {
 }
 
 function startMidiDemo() {
+	hostedDirPath=$(dirname $0)
 	## audio requires fluidsynth and a midi soundfont
-	fluidsynth -a alsa -m alsa_seq -l -i -R 1 -C 1 /usr/share/soundfonts/FluidR3_GM.sf2 ./audio/*.mid &>/dev/null &
+	fluidsynth -a alsa -m alsa_seq -l -i -R 1 -C 1 /usr/share/soundfonts/FluidR3_GM.sf2 $hostedDirPath/audio/*.mid &>/dev/null &
 }
 
 function startMPlayerDemo() {
-	mplayer ./audio/*.mp3 </dev/null >/dev/null 2>&1 &
+	hostedDirPath=$(dirname $0)
+	mplayer -loop 0 $hostedDirPath/audio/*.ogg </dev/null >/dev/null 2>&1 &
 }
 
-# startMidiDemo
+startMPlayerDemo
 splashScreen
 launch_new_window

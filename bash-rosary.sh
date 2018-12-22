@@ -1396,7 +1396,7 @@ function beadProgress() {
             stringSpaceCounter=0
             mysteryProgress=0
             
-            beadAudioFile=""
+            # beadAudioFile=""
             ;;
       esac
 }
@@ -1894,6 +1894,7 @@ function initialize() {
 	beadCounter=0
 	thisDecadeSet=0
 	mysteryProgress=0
+	beadAudioFile="-loop 0 ./audio/AveMaria2.ogg"
 
 	introFlag=1
 	translation=1

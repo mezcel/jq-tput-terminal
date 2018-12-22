@@ -1,17 +1,13 @@
 # Audio
 
-Enclosed are the open source Demo sounds used in this app.
-
-In order to save space on Github and attribute source credits, audio is not included within this Git.
-
-When the App starts, it will then check for installed audio files and then import as needed ```dl-app-audio.sh```
+When this App starts, ```dl-app-audio.sh``` will download GNU Audio Oggs.
 
 - I focused on Ogg for GNU sake, but .wav, .mp3, .midi is also compatable for this app.
 
 
 ## Source Audio:
 
-[wikimedia.org](https://commons.wikimedia.org/wiki/Category:Ogg_files_of_Christian_music):
+wikimedia.org [link](https://commons.wikimedia.org/wiki/Category:Ogg_files_of_Christian_music):
 
 - [Schola_Gregoriana-Ave_Maria.ogg](https://en.wikipedia.org/wiki/File:Schola_Gregoriana-Ave_Maria.ogg)
 
