@@ -1262,6 +1262,7 @@ function beadProgress() {
 
 			# handles only the intro hail marys
 			if [ $decadeIndex -eq 0 ]; then
+				hailmaryCounter=0
 				if [ $directionFwRw -eq 1 ]; then
 					if [ $initialHailMaryCounter -eq 0 ]; then
 						initialHailMaryCounter=1
