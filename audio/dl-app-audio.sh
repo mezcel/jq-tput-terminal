@@ -48,6 +48,25 @@ function ogg_audio_files() {
 		"
 		wget 'https://upload.wikimedia.org/wikipedia/commons/d/d4/JOHN_MICHEL_CELLO-BACH_AVE_MARIA.ogg' -O "$localFile"
 	fi
+
+	localFile="$currentDirPath/SalveRegina.ogg"
+	if [ ! -f "$localFile" ];then
+		# clear
+		echo "	Downloading App Audio:
+		"
+		wget 'https://upload.wikimedia.org/wikipedia/commons/4/46/Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg' -O "$localFile"
+	fi
+
+	localFile="$currentDirPath/Magnificat.ogg"
+	if [ ! -f "$localFile" ];then
+		# clear
+		echo "	Downloading App Audio:
+		"
+		wget 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Schola_Gregoriana-Antiphona_et_Magnificat.ogg' -O "$localFile"
+	fi
+
+	# https://upload.wikimedia.org/wikipedia/commons/9/9b/In_nomine.ogg
+	
 }
 
 arch_audio_players

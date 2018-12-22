@@ -21,6 +21,10 @@ When the App starts, it will then check for installed audio files and then impor
 
 - [Byrd_4-Part_Mass_-_Credo.ogg](https://commons.wikimedia.org/wiki/File:Byrd_4-Part_Mass_-_Credo.ogg)
 
+- [Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg](https://commons.wikimedia.org/wiki/File:Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg)
+
+- [Schola_Gregoriana-Antiphona_et_Magnificat.ogg](https://commons.wikimedia.org/wiki/File:Schola_Gregoriana-Antiphona_et_Magnificat.ogg)
+
 ---
 
 play midi audio files

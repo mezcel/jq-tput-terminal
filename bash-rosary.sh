@@ -870,8 +870,8 @@ function initTputStingVars() {
 	tputAppScriptureLabel=$(tput cup 16 0; echo "Scripture Text")
 	tputAppScripture=$(tput cup 18 0; printf "%${width}s" "" )$(tput cup 19 0; printf "%${width}s" "" )$(tput cup 20 0; printf "%${width}s" "" )$(tput cup 21 0; printf "%${width}s" "" )$( tput cup 18 4; echo "	loading..." )
 
-	tputAppPrayerLabel=$(tput cup 22 0; echo "Prayer Text")
-	tputAppPrayer=$(tput cup 24 0; printf "%${width}s" "" )$(tput cup 25 0; printf "%${width}s" "" )$(tput cup 26 0; printf "%${width}s" "" )$(tput cup 27 0; printf "%${width}s" "" )$(tput cup 28 0; printf "%${width}s" "" )$(tput cup 24 4; echo "	loading..." )
+	tputAppPrayerLabel=$(tput cup 22 0; printf "%${width}s" "" )$(tput cup 22 0; echo "Prayer Text")
+	tputAppPrayer=$(tput cup 23 0; printf "%${width}s" "" )$(tput cup 24 0; printf "%${width}s" "" )$(tput cup 25 0; printf "%${width}s" "" )$(tput cup 26 0; printf "%${width}s" "" )$(tput cup 27 0; printf "%${width}s" "" )$(tput cup 28 0; printf "%${width}s" "" )$(tput cup 24 4; echo "	loading..." )
 }
 
 function tputStingVars() {
@@ -1292,7 +1292,9 @@ function beadProgress() {
 					hailmaryCounter=$(( $hailmaryCounter - 1 ))
 				fi
             fi
+            
             beadAudioFile="./audio/PaterNoster.ogg"
+            
             ;;
         4) ## string space
 			if [ $directionFwRw -eq 1 ]; then
@@ -1326,6 +1328,9 @@ function beadProgress() {
 					fi
 				fi
             fi
+            
+            beadAudioFile=""
+            
             ;;
         5)	## Mary Icon
 			if [ $directionFwRw -eq 1 ]; then
@@ -1339,16 +1344,21 @@ function beadProgress() {
                 beadCounter=$mysteryJumpPosition
                 initialMysteryFlag=1
             fi
+            beadAudioFile="./audio/SalveRegina.ogg"
 			;;
 		6)	## cross
 			hailmaryCounter=0
 			initialHailMaryCounter=0
             stringSpaceCounter=0
+            thisDecadeSet=0
+            
             beadAudioFile="./audio/Credo.ogg"
 			;;
         *)
 			thisDecadeSet=0
             stringSpaceCounter=0
+            
+            beadAudioFile=""
             ;;
       esac
 }
@@ -1660,7 +1670,8 @@ function prayerMenu() {
 		"13" "$(jq .prayer[13].prayerName $rosaryJSON)"\
 		"14" "$(jq .prayer[14].prayerName $rosaryJSON)"\
 		"15" "$(jq .prayer[15].prayerName $rosaryJSON)"\
-		"16" "$(jq .prayer[16].prayerName $rosaryJSON)" )
+		"16" "$(jq .prayer[16].prayerName $rosaryJSON)" ) || return
+		
 
 	dialogPrayerName=$(jq .prayer[$selectedPrayer].prayerName $rosaryJSON)
 
@@ -1754,27 +1765,22 @@ function arrowInputs() {
 			$arrowLt) # navigate back
 				blank_transition_display
 				beadREV
-
 				bundledDisplay
+				
 				;;
-			"m" | "M") # midi or mplayer audio
+			"m" | "M") # mplayer audio
 			
-				# if ! pgrep -x "fluidsynth" > /dev/null
 				if ! pgrep -x "mplayer" > /dev/null
 				then
-					# fluidsynth -a alsa -m alsa_seq -l -i /usr/share/soundfonts/FluidR3_GM.sf2 ./audio/FranzSchubert-AveMaria.mid &>/dev/null &
-					# mplayer -loop 0 ./audio/Schola_Gregoriana-Ave_Maria.ogg </dev/null >/dev/null 2>&1 &
-					
-					mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
+					if [ "$beadAudioFile" != "" ];then
+						mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
+					fi
 				else
-					# killall fluidsynth &>/dev/null
 					killall mplayer &>/dev/null
 				fi
-				## Flicker to show ui activity
-				# sleep 0.5
-				# clear
-				blank_transition_display
-				bundledDisplay
+				
+				# blank_transition_display
+				# bundledDisplay
 				;;
 		esac
 	done
