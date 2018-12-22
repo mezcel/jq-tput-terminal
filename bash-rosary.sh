@@ -126,6 +126,7 @@ function jqQuery() {
 	# query_decadeID=.decade[$decadeIndex].decadeID
 	query_decadeName=.decade[$decadeIndex].decadeName
 	query_mysteryName=.mystery[$mysteryIndex].mysteryName
+	query_prayerName=.prayer[$prayerIndex].prayerName
 	query_prayerText=.prayer[$prayerIndex].prayerText
 	query_scriptureText=.scripture[$scriptureIndex].scriptureText
 	query_mesageText=.message[$messageIndex].mesageText
@@ -136,6 +137,7 @@ function jqQuery() {
 	return_decadeName=$(jq $query_decadeName $rosaryJSON)
 	return_mysteryName=$(jq $query_mysteryName $rosaryJSON)
 	return_prayerText=$(jq $query_prayerText $rosaryJSON)
+	return_prayerName=$(jq $query_prayerName $rosaryJSON)
 	return_scriptureText=$(jq $query_scriptureText $rosaryJSON)
 	return_mesageText=$(jq $query_mesageText $rosaryJSON)
 
@@ -771,6 +773,24 @@ function trigger_feastDay() {
 	days_untill_All_Saints
 	days_untill_Epiphany
 	days_untill_Solemnity_of_Mary
+
+	## Feast Day App Color Theme
+	if [ $isTodayEaster -eq 1 ]; then
+		## Yellow
+		BACKGROUNDCOLOR=${BG_YELLOW}; echo ${BACKGROUNDCOLOR}
+		BAR_FG=${FG_YELLOW}
+		FOREGROUNDCOLOR=${FG_BLACK}; echo ${FOREGROUNDCOLOR}
+		BAR_BG=${BG_BLACK}
+
+	fi
+
+	if [ $isTodayChristmas -eq 1 ]; then
+		## Magenta/Purple/Violet
+		BACKGROUNDCOLOR=${BG_MAGENTA}; echo ${BACKGROUNDCOLOR}
+		BAR_FG=${FG_MAGENTA}
+		FOREGROUNDCOLOR=${FG_BLACK}; echo ${FOREGROUNDCOLOR}
+		BAR_BG=${BG_BLACK}
+	fi
 }
 
 function feastDayCountdown() {
@@ -1143,7 +1163,7 @@ function howToPage() {
 		case "$key" in
 			$arrowRt )
 				## Start the bead sequence
-
+				beadCounter=$(( $mysteryJumpPosition - 7 ))
 				query_mysteryName=.mystery[$dayMysteryIndex].mysteryName
 				query_prayerText=.prayer[1].prayerText
 				return_prayerText=$(jq $query_prayerText $rosaryJSON)
@@ -1214,14 +1234,26 @@ function progressbars() {
 		length=${#str}
 		progressBarTitle=$(tput cup $[$(tput lines)-8] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-8] $(((width/ 2)-(length/2))); echo $BAR_BG$BAR_FG$str$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 
-		tputDecadeBarLabel=$(tput cup $[$(tput lines)-7] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-7] 0; echo " decade: $thisDecadeSet/10	$return_beadType")
+		#########
+		if [ $thisDecadeSet -lt 10 ]; then
+			decDisp="0$thisDecadeSet"
+		else
+			decDisp=$thisDecadeSet
+		fi
+		tputDecadeBarLabel=$(tput cup $[$(tput lines)-7] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-7] 0; echo " decade:  $decDisp/10	 $return_beadType  $return_prayerName")
 		proportion=$thisDecadeSet/10
 		barWidth=$((width*$proportion))
 		barWidth=$((barWidth - 2))
-		barDecade=$(printf '%*s\n' "${COLUMNS:-$barWidth}" '' | tr ' ' '|')
+		barDecade=$(printf '%*s\n' "${COLUMNS:-$barWidth}" ' ' | tr ' ' '|')
 		tputDecadeBar=$(tput cup $[$(tput lines)-6] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-6] 1; echo $BAR_BG$BAR_FG$barDecade$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 
-		tputMysteryBarLabel=$(tput cup $[$(tput lines)-4] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-4] 0; echo " mystery: $mysteryProgress/50")
+		#########
+		if [ $mysteryProgress -lt 10 ]; then
+			mystDisp="0$mysteryProgress"
+		else
+			mystDisp=$mysteryProgress
+		fi
+		tputMysteryBarLabel=$(tput cup $[$(tput lines)-4] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-4] 0; echo " mystery: $mystDisp/50	 $return_decadeName")
 		proportion=$mysteryProgress/50
 		barWidth=$((width*$proportion))
 		barWidth=$((barWidth - 2))
@@ -1263,6 +1295,9 @@ function beadProgress() {
 			# handles only the intro hail marys
 			if [ $decadeIndex -eq 0 ]; then
 				hailmaryCounter=0
+				thisDecadeSet=0
+				mysteryProgress=0
+				
 				if [ $directionFwRw -eq 1 ]; then
 					if [ $initialHailMaryCounter -eq 0 ]; then
 						initialHailMaryCounter=1
@@ -1341,23 +1376,25 @@ function beadProgress() {
             stringSpaceCounter=0;
 
 			## mystery according to day of week
-            if [ $initialMysteryFlag -eq 0 ]; then
-                beadCounter=$mysteryJumpPosition
-                initialMysteryFlag=1
-            fi
+            # if [ $initialMysteryFlag -eq 0 ]; then
+            #     beadCounter=$mysteryJumpPosition
+            #     initialMysteryFlag=1
+            # fi
             beadAudioFile="./audio/SalveRegina.ogg"
 			;;
 		6)	## cross
-			hailmaryCounter=0
+			# hailmaryCounter=0
 			initialHailMaryCounter=0
             stringSpaceCounter=0
-            thisDecadeSet=0
+            # thisDecadeSet=0
+            # mysteryProgress=0
             
             beadAudioFile="./audio/Credo.ogg"
 			;;
         *)
 			thisDecadeSet=0
             stringSpaceCounter=0
+            mysteryProgress=0
             
             beadAudioFile=""
             ;;
@@ -1851,7 +1888,6 @@ function initialize() {
 	clear
 
 	initialMysteryFlag=0
-
 	initialHailMaryCounter=0
 	stringSpaceCounter=0
 	hailmaryCounter=0
@@ -1870,7 +1906,7 @@ function initialize() {
 	## declare init language translation
 	translationDB
 
-	## dl audio
+	## dl audio if needed
 	download_audio
 }
 
@@ -1879,32 +1915,13 @@ function myMian() {
 	
 	resizeWindow
 
-	## hide cursor
-	tput civis
-
 	decorativeColors
 	inputControlls
 	initialize
 
-	## Feast Day App Color Theme
-
-	if [ $isTodayEaster -eq 1 ]; then
-		## Yellow
-		BACKGROUNDCOLOR=${BG_YELLOW}; echo ${BACKGROUNDCOLOR}
-		BAR_FG=${FG_YELLOW}
-		FOREGROUNDCOLOR=${FG_BLACK}; echo ${FOREGROUNDCOLOR}
-		BAR_BG=${BG_BLACK}
-
-	fi
-
-	if [ $isTodayChristmas -eq 1 ]; then
-		## Magenta/Purple/Violet
-		BACKGROUNDCOLOR=${BG_MAGENTA}; echo ${BACKGROUNDCOLOR}
-		BAR_FG=${FG_MAGENTA}
-		FOREGROUNDCOLOR=${FG_BLACK}; echo ${FOREGROUNDCOLOR}
-		BAR_BG=${BG_BLACK}
-	fi
-
+	## hide cursor
+	tput civis
+	
 	splashScreen
 	welcomepage
 	howToPage
@@ -1912,6 +1929,7 @@ function myMian() {
 	## turn off intro flag
 	introFlag=0
 
+	## infinite loop untill terminated by menu option
 	arrowInputs
 }
 
