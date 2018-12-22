@@ -775,7 +775,7 @@ function trigger_feastDay() {
 	days_untill_Solemnity_of_Mary
 
 	## Feast Day App Color Theme
-	if [ $isTodayEaster -eq 1 ]; then
+	if [ $isTodayEaster -eq 1 ] || [ $isTodayPentecost -eq 1 ]; then
 		## Yellow
 		BACKGROUNDCOLOR=${BG_YELLOW}; echo ${BACKGROUNDCOLOR}
 		BAR_FG=${FG_YELLOW}
@@ -784,7 +784,7 @@ function trigger_feastDay() {
 
 	fi
 
-	if [ $isTodayChristmas -eq 1 ]; then
+	if [ $isTodayAdventStart -eq 1 ] || [ $isTodayChristmas -eq 1 ] || [ $isTodayEpiphany -eq 1 ]; then
 		## Magenta/Purple/Violet
 		BACKGROUNDCOLOR=${BG_MAGENTA}; echo ${BACKGROUNDCOLOR}
 		BAR_FG=${FG_MAGENTA}
