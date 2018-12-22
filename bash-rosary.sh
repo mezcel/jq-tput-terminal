@@ -79,6 +79,9 @@ function resizeWindow() {
 		resize -s 40 140 &>/dev/null
 		stty rows 40
 		stty cols 140
+
+		echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
+		clear
 	fi
 
 
@@ -1235,12 +1238,16 @@ function progressbars() {
 		progressBarTitle=$(tput cup $[$(tput lines)-8] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-8] $(((width/ 2)-(length/2))); echo $BAR_BG$BAR_FG$str$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 
 		#########
+		#tputAppClock=$(tput cup $(tput lines)-1 $[$(tput cols)-29]; echo `date`)
+		
 		if [ $thisDecadeSet -lt 10 ]; then
-			decDisp="0$thisDecadeSet"
+			decDisp=" $thisDecadeSet"
 		else
 			decDisp=$thisDecadeSet
 		fi
-		tputDecadeBarLabel=$(tput cup $[$(tput lines)-7] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-7] 0; echo " decade:  $decDisp/10	 $return_beadType  $return_prayerName")
+		stringLength=${#return_prayerName}
+		stringLength=$(( $stringLength + 1 ))
+		tputDecadeBarLabel=$(tput cup $[$(tput lines)-7] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-7] 0; echo " Decade:  $decDisp/10	 $return_beadType")$(tput cup $[$(tput lines)-7]  $[$(tput cols)-$stringLength]; echo $return_prayerName)
 		proportion=$thisDecadeSet/10
 		barWidth=$((width*$proportion))
 		barWidth=$((barWidth - 2))
@@ -1249,11 +1256,13 @@ function progressbars() {
 
 		#########
 		if [ $mysteryProgress -lt 10 ]; then
-			mystDisp="0$mysteryProgress"
+			mystDisp=" $mysteryProgress"
 		else
 			mystDisp=$mysteryProgress
 		fi
-		tputMysteryBarLabel=$(tput cup $[$(tput lines)-4] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-4] 0; echo " mystery: $mystDisp/50	 $return_decadeName")
+		stringLength=${#return_decadeName}
+		stringLength=$(( $stringLength + 1 ))
+		tputMysteryBarLabel=$(tput cup $[$(tput lines)-4] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-4] 0; echo " Mystery: $mystDisp/50	 $return_mysteryName")$(tput cup $[$(tput lines)-4]  $[$(tput cols)-$stringLength]; echo $return_decadeName)
 		proportion=$mysteryProgress/50
 		barWidth=$((width*$proportion))
 		barWidth=$((barWidth - 2))
@@ -1402,6 +1411,7 @@ function beadProgress() {
 }
 
 function bundledDisplay() {
+	resizeWindow
 	tputBeadDisplay
 	beadProgress
 	progressbars
