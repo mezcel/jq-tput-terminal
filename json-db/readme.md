@@ -1,6 +1,6 @@
 # Json DB
 
-These the same DBs used in [electron-container](https://github.com/mezcel/electron-container).
+These are the same DBs used in [electron-container](https://github.com/mezcel/electron-container).
 
 ---
 
