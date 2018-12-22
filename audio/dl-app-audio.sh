@@ -66,7 +66,13 @@ function ogg_audio_files() {
 		wget 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Schola_Gregoriana-Antiphona_et_Magnificat.ogg' -O "$localFile"
 	fi
 
-	# https://upload.wikimedia.org/wikipedia/commons/9/9b/In_nomine.ogg
+	localFile="$currentDirPath/GloriaPatri.ogg"
+	if [ ! -f "$localFile" ];then
+		# clear
+		echo "	Downloading App Audio:
+		"
+		wget 'https://upload.wikimedia.org/wikipedia/commons/4/45/The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg' -O "$localFile"
+	fi
 	
 }
 

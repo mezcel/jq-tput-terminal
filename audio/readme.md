@@ -4,7 +4,6 @@ When this App starts, ```dl-app-audio.sh``` will download GNU Audio Oggs.
 
 - I focused on Ogg for GNU sake, but .wav, .mp3, .midi is also compatable for this app.
 
-
 ## Source Audio:
 
 wikimedia.org [link](https://commons.wikimedia.org/wiki/Category:Ogg_files_of_Christian_music):
@@ -20,6 +19,14 @@ wikimedia.org [link](https://commons.wikimedia.org/wiki/Category:Ogg_files_of_Ch
 - [Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg](https://commons.wikimedia.org/wiki/File:Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg)
 
 - [Schola_Gregoriana-Antiphona_et_Magnificat.ogg](https://commons.wikimedia.org/wiki/File:Schola_Gregoriana-Antiphona_et_Magnificat.ogg)
+
+- [The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg](https://commons.wikimedia.org/wiki/File:The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg)
+
+---
+temp links:
+https://commons.wikimedia.org/wiki/File:The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg
+https://upload.wikimedia.org/wikipedia/commons/4/45/The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg
+
 
 ---
 

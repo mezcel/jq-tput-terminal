@@ -1260,12 +1260,15 @@ function progressbars() {
 		fi
 		stringLength=${#return_decadeName}
 		stringLength=$(( $stringLength + 1 ))
-		tputMysteryBarLabel=$(tput cup $[$(tput lines)-4] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-4] 0; echo " Mystery: $mystDisp/50	 $return_mysteryName")$(tput cup $[$(tput lines)-4]  $[$(tput cols)-$stringLength]; echo $return_decadeName)
+		tputMysteryBarLabel=$(tput cup $[$(tput lines)-4] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-4] 0; echo " Mystery: $mystDisp/50	 $return_mysteryName")$(tput cup $[$(tput lines)-4] $[$(tput cols)-$stringLength]; echo $return_decadeName)
 		proportion=$mysteryProgress/50
 		barWidth=$((width*$proportion))
 		barWidth=$((barWidth - 2))
 		barMystery=$(printf '%*s\n' "${COLUMNS:-$barWidth}" ' ' | tr ' ' '|')
-		tputMysteryBar=$(tput cup $[$(tput lines)-3] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-3] 1; echo $BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
+		tputMysteryBar=$(tput cup $[$(tput lines)-2] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-1] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-3] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-3] 1; echo $BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
+
+		# stringLength=${#isAudio}
+		# isAudio=$(put cup $[$(tput lines)-1] $[$(tput cols)-$stringLength]; echo $isAudio)
 
 		echo "$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR$progressBarDivider$progressBarTitle$tputDecadeBarLabel$tputDecadeBar$tputMysteryBarLabel$tputMysteryBar"
 	fi
@@ -1372,7 +1375,7 @@ function beadProgress() {
 				fi
             fi
             
-            beadAudioFile=""
+            beadAudioFile="./audio/GloriaPatri.ogg"
             
             ;;
         5)	## Mary Icon
@@ -1817,18 +1820,19 @@ function arrowInputs() {
 			"m" | "M") # mplayer audio
 			
 				if ! pgrep -x "mplayer" > /dev/null
-				then
-					if [ "$beadAudioFile" != "" ];then
+				then					
+					if [ "$beadAudioFile" != "" ]; then
 						mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
 					fi
 				else
 					killall mplayer &>/dev/null
 				fi
+				sleep .5s
+				# progressbars
 				
-				# blank_transition_display
-				# bundledDisplay
 				;;
 		esac
+		
 	done
 
 	# Restore screen
