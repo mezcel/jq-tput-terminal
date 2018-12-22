@@ -10,6 +10,7 @@ function arch_audio_players() {
 	## multimedia player for video and audio
 	if ! [ -x "$(command -v mplayer)" ];then
 		sudo pacman -S --needed mplayer
+		sudo apt-get install mplayer
 	fi
 }
 

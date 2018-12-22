@@ -79,6 +79,9 @@ function resizeWindow() {
 		resize -s 40 140 &>/dev/null
 		stty rows 40
 		stty cols 140
+
+		echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
+		clear
 	fi
 
 
@@ -874,8 +877,8 @@ function initTputStingVars() {
 	length=${#str}
 	tputAppTitle=$(tput cup 0 $(( (width/2)-(length/2) )); echo "$str")
 
-	tputAppTranslation=$(tput cup $(tput lines)-1 0; echo $translationName)
-	tputAppClock=$(tput cup $(tput lines)-1 $[$(tput cols)-29]; echo `date`)
+	tputAppTranslation=$(tput cup 0 1; echo $translationName)
+	tputAppClock=$(tput cup 0 $[$(tput cols)-29]; echo `date`)
 	tputAppHeaderLine=$(tput cup 1 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
 
 	tputAppMysteryLabel=$(tput cup 4 0; echo "Mystery Name" )
@@ -903,8 +906,8 @@ function tputStingVars() {
 	length=${#str}
 	tputAppTitle=$(tput cup 0 $(( (width/2)-(length/2) )); echo "$str")
 
-	tputAppTranslation=$(tput cup $(tput lines)-1 0; echo $translationName)
-	tputAppClock=$(tput cup $(tput lines)-1 $[$(tput cols)-29]; echo `date`)
+	tputAppTranslation=$(tput cup 0 1; echo $translationName)
+	tputAppClock=$(tput cup 0 $[$(tput cols)-29]; echo `date`)
 	tputAppHeaderLine=$(tput cup 1 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
 
 	tputAppMysteryLabel=$(tput cup 4 0; echo "${MODE_BEGIN_UNDERLINE}Mystery Name${MODE_EXIT_UNDERLINE}:")
@@ -1076,7 +1079,7 @@ function welcomepage() {
 		Use the Rt and Lt arrow keyboard keys to progress forward or backwards.
 		Use the Down arrow key to select the Scripture Language Translation ( English NAB or Latin Vulgate )
 		Use the Up arrow key to access the main Menu
-		The 'M' Key will toggle ON/OFF app audio (not necessary, it is just a feature placeholder)
+		The 'M' Key will toggle ON/OFF app audio (the audio will match the displayed prayer at the time of 'M')
 
 
 	Advice:
@@ -1234,13 +1237,15 @@ function progressbars() {
 		length=${#str}
 		progressBarTitle=$(tput cup $[$(tput lines)-8] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-8] $(((width/ 2)-(length/2))); echo $BAR_BG$BAR_FG$str$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 
-		#########
+		#########		
 		if [ $thisDecadeSet -lt 10 ]; then
-			decDisp="0$thisDecadeSet"
+			decDisp=" $thisDecadeSet"
 		else
 			decDisp=$thisDecadeSet
 		fi
-		tputDecadeBarLabel=$(tput cup $[$(tput lines)-7] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-7] 0; echo " decade:  $decDisp/10	 $return_beadType  $return_prayerName")
+		stringLength=${#return_prayerName}
+		stringLength=$(( $stringLength + 1 ))
+		tputDecadeBarLabel=$(tput cup $[$(tput lines)-7] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-7] 0; echo " Decade:  $decDisp/10	 $return_beadType")$(tput cup $[$(tput lines)-7]  $[$(tput cols)-$stringLength]; echo $return_prayerName)
 		proportion=$thisDecadeSet/10
 		barWidth=$((width*$proportion))
 		barWidth=$((barWidth - 2))
@@ -1249,11 +1254,13 @@ function progressbars() {
 
 		#########
 		if [ $mysteryProgress -lt 10 ]; then
-			mystDisp="0$mysteryProgress"
+			mystDisp=" $mysteryProgress"
 		else
 			mystDisp=$mysteryProgress
 		fi
-		tputMysteryBarLabel=$(tput cup $[$(tput lines)-4] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-4] 0; echo " mystery: $mystDisp/50	 $return_decadeName")
+		stringLength=${#return_decadeName}
+		stringLength=$(( $stringLength + 1 ))
+		tputMysteryBarLabel=$(tput cup $[$(tput lines)-4] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-4] 0; echo " Mystery: $mystDisp/50	 $return_mysteryName")$(tput cup $[$(tput lines)-4]  $[$(tput cols)-$stringLength]; echo $return_decadeName)
 		proportion=$mysteryProgress/50
 		barWidth=$((width*$proportion))
 		barWidth=$((barWidth - 2))
@@ -1402,6 +1409,7 @@ function beadProgress() {
 }
 
 function bundledDisplay() {
+	resizeWindow
 	tputBeadDisplay
 	beadProgress
 	progressbars
@@ -1837,24 +1845,30 @@ function download_audio() {
 
 function download_dependencies() {
 
+	# distroName=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
+	
 	## xorg shell emulator
 	if ! [ -x "$(command -v xterm)" ];then
 		sudo pacman -S --needed xterm
+		sudo apt-get install xterm
 	fi
 	
 	## bash gui menu
 	if ! [ -x "$(command -v dialog)" ];then
 		sudo pacman -S --needed dialog
+		sudo apt-get install dialog
 	fi
 	
 	## json parser
 	if ! [ -x "$(command -v jq)" ];then
 		sudo pacman -S --needed jq
+		sudo apt-get install jq
 	fi
 
 	## c ompiler
 	if ! [ -x "$(command -v gcc)" ];then
 		sudo pacman -S --needed gcc
+		sudo apt-get install gcc
 	fi
 }
 
