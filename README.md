@@ -10,7 +10,7 @@ Demo Preview: [asciinema](https://asciinema.org/a/217793) and [Youtube](https://
 
 ### About:
 
-This is a CLI GUI App. Best performance on either the ```login terminal``` or a desktop ```Xterm``` bash emulator. The json db is a port from the [electron-container](https://github.com/mezcel/electron-container).
+This is a CLI GUI App. This app's json db is a port from the [electron-container](https://github.com/mezcel/electron-container).
 
 * [JQ](https://stedolan.github.io/jq) is a cross-platform C program which parses json script via command line terminal
 * [tput](https://ss64.com/bash/tput.html) is a tool for formatting text display in a command line terminal
