@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ###################################################
 ## UI Appearance Vars
@@ -1844,7 +1844,7 @@ function arrowInputs {
 ###################################################
 
 function download_audio {
-	sh ./audio/dl-app-audio.sh
+	bash ./audio/dl-app-audio.sh
 }
 
 function download_dependencies {

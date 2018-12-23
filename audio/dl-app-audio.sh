@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 ### install audio used in this app
 
-function arch_audio_players() {
+function arch_audio_players {
 	## midi player with soundfont
 	# sudo pacman -S --needed fluidsynth
 	# sudo pacman -S --needed soundfont-fluid
@@ -14,7 +14,7 @@ function arch_audio_players() {
 	fi
 }
 
-function ogg_audio_files() {
+function ogg_audio_files {
 	
 	currentDirPath=$(dirname $0)
 

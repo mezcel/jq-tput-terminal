@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 function splashScreen {
 	echo "$CLR_ALL"
