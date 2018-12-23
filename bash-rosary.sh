@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 ###################################################
 ## UI Appearance Vars
 ###################################################
 
-function decorativeColors() {
+function decorativeColors {
 	## Forground Color using tput
 
 	FG_BLACK=$(tput setaf 0)
@@ -49,7 +49,7 @@ function decorativeColors() {
 	hr=$(printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
 }
 
-function inputControlls() {
+function inputControlls {
 	arrowUp=$'\e[A'
 	arrowDown=$'\e[B'
 	arrowRt=$'\e[C'
@@ -58,7 +58,7 @@ function inputControlls() {
 	# f1Key=$'\[OP'
 }
 
-function resizeWindow() {
+function resizeWindow {
 	## Initial resize
 	## I designed this App with Xterm in mind. Other terminals may not look how I intended.
 	## Optimal desktop gui terminal Size
@@ -89,7 +89,7 @@ function resizeWindow() {
 	currentScreenHeight=$(tput lines)
 }
 
-function updateScreenSize() {
+function updateScreenSize {
 	if [ $currentScrrenWidth -ne $(tput cols) ]; then
 		currentScrrenWidth=$(tput cols)
 		echo "$CLR_ALL$BACKGROUNDCOLOR$FOREGROUNDCOLOR"
@@ -107,7 +107,7 @@ function updateScreenSize() {
 ## JQ
 ###################################################
 
-function jqQuery() {
+function jqQuery {
 	## The longest rout for query, 1N DB Query
 
 	query_beadIndex=.rosaryBead[$rosaryBeadID].beadIndex
@@ -148,7 +148,7 @@ function jqQuery() {
 	beadType=$return_beadType
 }
 
-function formatJqText() {
+function formatJqText {
 	## Undo formatting and modify Jq generated text
 
 	## Remove Quotes from vars
@@ -216,7 +216,7 @@ function formatJqText() {
 ## Holliday Dates Calculation
 ###################################################
 
-function initializeFeastFlags() {
+function initializeFeastFlags {
 	## I assume this app will be turned on/off therfore fefreshing as-needed
 	## I did not make a perpetual clock
 
@@ -245,7 +245,7 @@ function initializeFeastFlags() {
 ## PFM Table Calculations
 #
 
-function pfmTableDate() {
+function pfmTableDate {
 	## Divide the current year by 19 and get the 1st 3 digits after the decimal
 
 	yearDiv3_decimal=$(echo "scale=3; $thisYear / 19" | bc)
@@ -302,7 +302,7 @@ function pfmTableMonth(){
 	fi
 }
 
-function pfmTableYear() {
+function pfmTableYear {
 	## PFM Date for year (M=March, A=April)
 
 	case "$pmfDate" in
@@ -330,7 +330,7 @@ function pfmTableYear() {
 	esac
 }
 
-function pfmTableDecade() {
+function pfmTableDecade {
 	## Last 2 digits in the current year
 	## I am just going to use 18-21 and a few more future years just to fill it out
 
@@ -361,7 +361,7 @@ function pfmTableDecade() {
 	esac
 }
 
-function pfmTableCentury() {
+function pfmTableCentury {
 	## First 2 digits if current year
 	## I expect it will be 20 for the next +900 years... but the calander has changed more than once in the last 900 years
 	## There is a lookup table for this... but we do not need to do that, 20 is just 0
@@ -369,7 +369,7 @@ function pfmTableCentury() {
 	centuryNo=0
 }
 
-function pfmTableSum() {
+function pfmTableSum {
 	## Add results from all 3 tables
 	tableSum=$(( $annualNo + $centuryNo + $decadeNo ))
 
@@ -409,7 +409,7 @@ function pfmTableSum() {
 ## Calculate Days Untill Feast
 #
 
-function days_Untill_Count() {
+function days_Untill_Count {
 	# thisYear=$(date +%Y)
 	tabulatedDate=$thisYear$monthDay
 	saveTheDate=$(( ($(date --date="$tabulatedDate" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
@@ -421,7 +421,7 @@ function days_Untill_Count() {
 	fi
 }
 
-function calculate_Paschal_Full_Moon() {
+function calculate_Paschal_Full_Moon {
 	## Easter
 
 	# thisYear=$(date +%Y)
@@ -461,7 +461,7 @@ function calculate_Paschal_Full_Moon() {
 ## Liturgical Callendar Flags
 #
 
-function days_untill_Holy_Thursday() {
+function days_untill_Holy_Thursday {
 	## Triduum Thursday
 
 	thisYear=$(date +%Y)
@@ -488,7 +488,7 @@ function days_untill_Holy_Thursday() {
 	fi
 }
 
-function days_untill_Good_Friday() {
+function days_untill_Good_Friday {
 	## Triduum Friday
 
 		thisYear=$(date +%Y)
@@ -515,7 +515,7 @@ function days_untill_Good_Friday() {
 	fi
 }
 
-function days_untill_Easter_Eve() {
+function days_untill_Easter_Eve {
 	## Triduum Saturday
 
 	thisYear=$(date +%Y)
@@ -542,7 +542,7 @@ function days_untill_Easter_Eve() {
 	fi
 }
 
-function days_untill_Ash_Wednesday() {
+function days_untill_Ash_Wednesday {
 	## Lent begins on Ash Wednesday, which is always held 46 days (40 fasting days and 6 Sundays) before Easter Sunday.
 
 	thisYear=$(date +%Y)
@@ -578,7 +578,7 @@ function days_untill_Ash_Wednesday() {
 
 }
 
-function days_untill_Jesus_Assension() {
+function days_untill_Jesus_Assension {
 	## 40 Days After Easter, Thursday
 
 	thisYear=$(date +%Y)
@@ -605,7 +605,7 @@ function days_untill_Jesus_Assension() {
 	fi
 }
 
-function days_untill_Pentecost() {
+function days_untill_Pentecost {
 	## 7 Sundays after Easter
 
 	thisYear=$(date +%Y)
@@ -643,7 +643,7 @@ function days_untill_Pentecost() {
 
 }
 
-function days_untill_Immaculate_Conception() {
+function days_untill_Immaculate_Conception {
 	## Dec 8
 	thisYear=$(date +%Y)
 	monthDay="1208"
@@ -659,7 +659,7 @@ function days_untill_Immaculate_Conception() {
 
 }
 
-function days_untill_Advent() {
+function days_untill_Advent {
 	## 1st sunday of Dec through Dec 24
 	## Start of Liturgical Year
 	## Min 4 sunday durations
@@ -689,7 +689,7 @@ function days_untill_Advent() {
 	fi
 }
 
-function days_untill_Christmas() {
+function days_untill_Christmas {
 	## Dec 25
 	thisYear=$(date +%Y)
 	monthDay="1225"
@@ -705,7 +705,7 @@ function days_untill_Christmas() {
 	fi
 }
 
-function days_untill_All_Saints() {
+function days_untill_All_Saints {
 	## Nov 1
 	thisYear=$(date +%Y)
 	monthDay="1101"
@@ -720,7 +720,7 @@ function days_untill_All_Saints() {
 	fi
 }
 
-function days_untill_Solemnity_of_Mary() {
+function days_untill_Solemnity_of_Mary {
 	## Jan 1
 	monthDay="0101"
 	days_Untill_Count
@@ -734,7 +734,7 @@ function days_untill_Solemnity_of_Mary() {
 	fi
 }
 
-function days_untill_Epiphany() {
+function days_untill_Epiphany {
 	## Aprox: Jan 6
 	## Start of the 1st segment of ordinary time
 	## Sunday closest to 12 days after Christmas
@@ -760,7 +760,7 @@ function days_untill_Epiphany() {
 	fi
 }
 
-function trigger_feastDay() {
+function trigger_feastDay {
 	thisYear=$(date +%Y)
 
 	calculate_Paschal_Full_Moon
@@ -796,7 +796,7 @@ function trigger_feastDay() {
 	fi
 }
 
-function feastDayCountdown() {
+function feastDayCountdown {
 
 	dialogEaster="Easter:	$daysUntillEaster \n"
 	dialogAssension="Assension of Jesus:	$daysUntillJesusAssension \n"
@@ -834,7 +834,7 @@ function feastDayCountdown() {
 	liturgicalYearPi
 }
 
-function liturgicalYearPi() {
+function liturgicalYearPi {
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 	clear
 	# pieChart="$(cat ascii-pie-chart.txt)"
@@ -868,7 +868,7 @@ function liturgicalYearPi() {
 ## tput Page Display
 ###################################################
 
-function initTputStingVars() {
+function initTputStingVars {
 	clearTpuLine=$(tput el)
 
 	width=$(tput cols)
@@ -897,7 +897,7 @@ function initTputStingVars() {
 	tputAppPrayer=$(tput cup 23 0; printf "%${width}s" "" )$(tput cup 24 0; printf "%${width}s" "" )$(tput cup 25 0; printf "%${width}s" "" )$(tput cup 26 0; printf "%${width}s" "" )$(tput cup 27 0; printf "%${width}s" "" )$(tput cup 28 0; printf "%${width}s" "" )$(tput cup 24 4; echo "	loading..." )
 }
 
-function tputStingVars() {
+function tputStingVars {
 	formatJqText
 
 	width=$(tput cols)
@@ -926,7 +926,7 @@ function tputStingVars() {
 	tputAppPrayer=$(tput cup 24 0; printf "%${width}s" ""; tput cup 24 8; echo $return_prayerText)
 }
 
-function myAbout() {
+function myAbout {
 	aboutText="This is a Rosary App for the Linux Bash terminal.\nThis app was tested on the default Xterm on Arch.\nThe best UI experience for this app is through a login console TTY CLI\n\nThis App is just a (personal) technical exercise. This App is a linguistic and scriptural \"reference\". \n\nSource Code:\nGithub: https://github.com/mezcel/jq-tpy-terminal.git"
 
 	whiptail \
@@ -934,7 +934,7 @@ function myAbout() {
         --msgbox "$aboutText" 0 0
 }
 
-function splashScreen() {
+function splashScreen {
 	echo "$CLR_ALL"
 	width=$(tput cols)
 	height=$(tput lines)
@@ -951,7 +951,7 @@ function splashScreen() {
 	read -p "[Press Enter]" -s welcomeVar
 }
 
-function mystery_Day() {
+function mystery_Day {
 	dayOfWeek=$(date +"%A")
 	case "$dayOfWeek" in
 		"Sunday")
@@ -1000,7 +1000,7 @@ function mystery_Day() {
 	fi
 }
 
-function welcomepage() {
+function welcomepage {
 	clear
 
 	str="Terminal Rosary using Jq and Bash"
@@ -1108,7 +1108,7 @@ function welcomepage() {
 	read -p "[Press Enter]" -s enterVar
 }
 
-function howToPage() {
+function howToPage {
 	echo "${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 	clear
 
@@ -1179,7 +1179,7 @@ function howToPage() {
 
 }
 
-function goodbyescreen() {
+function goodbyescreen {
 	# echo "$CLR_ALL"
 	clear
 
@@ -1202,7 +1202,7 @@ function goodbyescreen() {
 ## Bead Display
 #
 
-function blank_transition_display() {
+function blank_transition_display {
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 	updateScreenSize
 
@@ -1211,7 +1211,7 @@ function blank_transition_display() {
 	echo "${tputAppTitle}${tputAppClock}${tputAppTranslation}${tputAppHeaderLine}${tputAppMysteryLabel}${tputAppMystery}${tputAppDecadeLabel}${tputAppDecade}${tputAppMessageLabel}${tputAppMessage}${tputAppScriptureLabel}${tputAppScripture}${tputAppPrayerLabel}${tputAppPrayer}${tputAppBeadTypeNameLabel}${tputAppBeadTypeName}${tputClearProgressFooter}"
 }
 
-function tputBeadDisplay() {
+function tputBeadDisplay {
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 	updateScreenSize
 
@@ -1224,7 +1224,7 @@ function tputBeadDisplay() {
 ## Progressbars
 #
 
-function progressbars() {
+function progressbars {
 	height=$(tput lines)
 	width=$(tput cols)
 
@@ -1275,7 +1275,7 @@ function progressbars() {
 
 }
 
-function beadProgress() {
+function beadProgress {
 	case $beadID in
         2)  ## small beads
 			if [ $decadeIndex -ne 0 ]; then
@@ -1411,7 +1411,7 @@ function beadProgress() {
       esac
 }
 
-function bundledDisplay() {
+function bundledDisplay {
 	resizeWindow
 	tputBeadDisplay
 	beadProgress
@@ -1422,7 +1422,7 @@ function bundledDisplay() {
 ## Dialog Menus
 ###################################################
 
-function change_color_menu() {
+function change_color_menu {
 
 	screenTitle="Terminal Rosary using Jq and Bash"
 	dialogTitle="Background Color Menu"
@@ -1549,7 +1549,7 @@ function change_color_menu() {
 
 }
 
-function menuUP() {
+function menuUP {
 	screenTitle="Terminal Rosary using Jq and Bash"
 	dialogTitle="Menu"
 	selectedMenuItem=$(dialog 2>&1 >/dev/tty \
@@ -1649,7 +1649,7 @@ function menuUP() {
 	fi
 }
 
-function menuDN() {
+function menuDN {
 	## English / Latin translation
 
 	if [ $translation == 1 ]; then
@@ -1691,7 +1691,7 @@ function menuDN() {
 	fi
 }
 
-function prayerMenu() {
+function prayerMenu {
 	prayerName=$(jq .prayer[1].prayerName $rosaryJSON)
 
 	screenTitle="Terminal Rosary using Jq and Bash"
@@ -1748,7 +1748,7 @@ function prayerMenu() {
 ## Keyboard Arrows UI
 ###################################################
 
-function beadFWD() {
+function beadFWD {
 	directionFwRw=1
 	beadCounter=$((beadCounter+1))
 
@@ -1764,7 +1764,7 @@ function beadFWD() {
 	fi
 }
 
-function beadREV() {
+function beadREV {
 
 	if [ $beadCounter -gt $counterMIN ]; then
 		directionFwRw=0
@@ -1775,7 +1775,7 @@ function beadREV() {
 	fi
 }
 
-function arrowInputs() {
+function arrowInputs {
 
 	counterMIN=0
 	counterMAX=315
@@ -1843,11 +1843,11 @@ function arrowInputs() {
 ## Vars
 ###################################################
 
-function download_audio() {
-	sh ./audio/dl-app-audio.sh
+function download_audio {
+	bash ./audio/dl-app-audio.sh
 }
 
-function download_dependencies() {
+function download_dependencies {
 
 	# distroName=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
 	
@@ -1876,7 +1876,7 @@ function download_dependencies() {
 	fi
 }
 
-function translationDB() {
+function translationDB {
 
 	hostedDirPath=$(dirname $0)
 
@@ -1894,7 +1894,7 @@ function translationDB() {
 	fi
 }
 
-function initialize() {	
+function initialize {	
 	# Save screen
     tput smcup
 
@@ -1929,7 +1929,7 @@ function initialize() {
 	download_audio
 }
 
-function myMian() {
+function myMian {
 	download_dependencies
 	
 	resizeWindow

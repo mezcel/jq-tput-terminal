@@ -2,11 +2,11 @@
 
 Terminal Rosary using Jq and Bash
 
-Demo Preview: [asciinema](https://asciinema.org/a/217793) and [Youtube](https://youtu.be/PceKrX4uI-I)
+v0.1.4 Demo Preview: [asciinema](https://asciinema.org/a/217793) and [Youtube](https://youtu.be/PceKrX4uI-I)
 
 ## Status:
 
-```v0.1.5.1``` is focused on tastefully applying audio and touching up the display layout
+```v0.1.6``` is now factory default Arch and Ubuntu friendly
 
 ### About:
 

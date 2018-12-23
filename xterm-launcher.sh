@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-function splashScreen() {
+function splashScreen {
 	echo "$CLR_ALL"
 	clear
 	width=$(tput cols)
@@ -17,7 +17,7 @@ function splashScreen() {
 	read -s -t 1 -p "Audio will autoplay in a looped sequence untill 'M' key is pressed." exitVar &>/dev/null
 }
 
-function launch_new_window() {
+function launch_new_window {
 	hostedDirPath=$(dirname $0)
 
 	## most linux systems have xterm
@@ -31,13 +31,13 @@ function launch_new_window() {
 
 }
 
-function startMidiDemo() {
+function startMidiDemo {
 	hostedDirPath=$(dirname $0)
 	## audio requires fluidsynth and a midi soundfont
 	fluidsynth -a alsa -m alsa_seq -l -i -R 1 -C 1 /usr/share/soundfonts/FluidR3_GM.sf2 $hostedDirPath/audio/*.mid &>/dev/null &
 }
 
-function startMPlayerDemo() {
+function startMPlayerDemo {
 	hostedDirPath=$(dirname $0)
 	mplayer -loop 0 $hostedDirPath/audio/*.ogg </dev/null >/dev/null 2>&1 &
 }
