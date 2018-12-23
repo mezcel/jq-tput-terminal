@@ -2,7 +2,7 @@
 
 When this App starts, ```dl-app-audio.sh``` will download GNU Audio Oggs.
 
-- I focused on Ogg for GNU sake, but .wav, .mp3, .midi is also compatable for this app.
+- I focused on Ogg for GNU sake, but .wav, .mp3, .midi is also compatible for this app.
 
 ## Source Audio:
 
@@ -29,16 +29,16 @@ play midi audio files
 ## midi player with soundfont
 sudo pacman -S --needed fluidsynth
 sudo pacman -S --needed soundfont-fluid
-	
+
 ## audio requires fluidsynth and a midi soundfont
 fluidsynth -a alsa -m alsa_seq -l -i -R 1 -C 1 /usr/share/soundfonts/FluidR3_GM.sf2 ./audio/*.mid
-	
+
 ```
 
 play .wav, .mp3, .ogg files
 ```sh
 ## multimedia player for video and audio
 sudo pacman -S --needed mplayer
-	
+
 mplayer ./audio/*.ogg
 ```
