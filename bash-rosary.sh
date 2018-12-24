@@ -1888,6 +1888,7 @@ function download_dependencies {
 		sudo slapt-get --install xterm
 		
 		if [ $thisOS -eq "Alpine Linux" ]; then
+			# alpine is soo light, even bash is bare bones
 			sudo apk add bash bash-doc bash-completion util-linux coreutils grep xterm
 		fi
 	fi
