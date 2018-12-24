@@ -1882,23 +1882,26 @@ function download_dependencies {
 	fi
 	
 	## xorg shell emulator
-	if ! [ -x "$(command -v xterm)" ];then
+	if ! [ -x "$(command -v xterm)" ]; then
 		sudo pacman -S --needed xterm
 		sudo apt-get install xterm
 		sudo slapt-get --install xterm
-		sudo apk add xterm
+		
+		if [ $thisOS -eq "Alpine Linux" ]; then
+			sudo apk add bash bash-doc bash-completion util-linux coreutils grep xterm
+		fi
 	fi
 	
 	## bash gui menu
-	if ! [ -x "$(command -v dialog)" ];then
+	if ! [ -x "$(command -v dialog)" ]; then
 		sudo pacman -S --needed dialog
 		sudo apt-get install dialog
 		sudo slapt-get --install dialog
-		sudo apk add dialog
+		sudo apk add ncurses dialog upgrade
 	fi
 	
 	## json parser
-	if ! [ -x "$(command -v jq)" ];then
+	if ! [ -x "$(command -v jq)" ]; then
 		sudo pacman -S --needed jq
 		sudo apt-get install jq
 		sudo apk add jq
@@ -1910,7 +1913,7 @@ function download_dependencies {
 	fi
 
 	## c ompiler
-	if ! [ -x "$(command -v gcc)" ];then
+	if ! [ -x "$(command -v gcc)" ]; then
 		sudo pacman -S --needed gcc
 		sudo apt-get install gcc
 		sudo slapt-get --install gcc
