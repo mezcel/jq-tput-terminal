@@ -11,6 +11,8 @@ function arch_audio_players {
 	if ! [ -x "$(command -v mplayer)" ];then
 		sudo pacman -S --needed mplayer
 		sudo apt-get install mplayer
+		sudo slapt-get --install mplayer
+		
 	fi
 }
 

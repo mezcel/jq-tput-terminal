@@ -6,7 +6,7 @@ v0.1.4 Demo Preview: [asciinema](https://asciinema.org/a/217793) and [Youtube](h
 
 ## Status:
 
-```v0.1.6``` is now factory default Arch and Ubuntu friendly
+```v0.1.6``` is now factory default Arch, Slackware(Salix), and Ubuntu(Mint) friendly
 
 ### About:
 
