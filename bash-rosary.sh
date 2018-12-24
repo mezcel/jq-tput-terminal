@@ -441,7 +441,7 @@ function days_Untill_Count {
 
 	if [ $saveTheDate -lt 0 ]; then
 		nextYear=$(( $thisYear + 1 ))
-		tabulatedDate=$nextYear$monthDay
+		tabulatedDate="$nextYear$monthDay"
 		saveTheDate=$(( ($(date --date="$tabulatedDate" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
 	fi
 }
@@ -1886,6 +1886,7 @@ function download_dependencies {
 		sudo pacman -S --needed xterm
 		sudo apt-get install xterm
 		sudo slapt-get --install xterm
+		sudo apk add xterm
 	fi
 	
 	## bash gui menu
@@ -1893,14 +1894,16 @@ function download_dependencies {
 		sudo pacman -S --needed dialog
 		sudo apt-get install dialog
 		sudo slapt-get --install dialog
+		sudo apk add dialog
 	fi
 	
 	## json parser
 	if ! [ -x "$(command -v jq)" ];then
 		sudo pacman -S --needed jq
 		sudo apt-get install jq
+		sudo apk add jq
 		
-		if [ $thisOS -eq "Slackware"]; then
+		if [ $thisOS -eq "Slackware" ]; then
 			compileJq
 		fi
 
@@ -1911,6 +1914,7 @@ function download_dependencies {
 		sudo pacman -S --needed gcc
 		sudo apt-get install gcc
 		sudo slapt-get --install gcc
+		sudo apk add gcc
 	fi
 }
 
