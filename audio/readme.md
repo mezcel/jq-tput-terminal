@@ -23,6 +23,15 @@ wikimedia.org [link](https://commons.wikimedia.org/wiki/Category:Ogg_files_of_Ch
 - [The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg](https://commons.wikimedia.org/wiki/File:The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg)
 
 ---
+archive.org
+
+[SalveRegina.ogg](https://archive.org/details/SalveRegina_889) https://archive.org/download/SalveRegina_889/SalveRegina.ogg
+
+[Litany_of_Loreto.ogg](https://archive.org/details/LitanyOfLoreto) https://archive.org/download/LitanyOfLoreto/Litany_of_Loreto.ogg
+
+[HolyRosaryPrayer.zip](https://archive.org/details/HolyRosaryPrayer) https://archive.org/compress/HolyRosaryPrayer/formats=OGG%20VORBIS&file=/HolyRosaryPrayer.zip
+
+---
 
 play midi audio files
 ```sh

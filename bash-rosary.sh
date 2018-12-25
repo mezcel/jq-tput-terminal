@@ -107,6 +107,25 @@ function updateScreenSize {
 ## JQ
 ###################################################
 
+function compileJq {
+	git clone https://github.com/stedolan/jq.git
+	
+	cd jq
+	
+	git submodule update --init # if building from git to get oniguruma
+	autoreconf -fi              # if building from git
+	./configure --with-oniguruma=builtin
+	make -j8
+	make check
+	
+	## To build a statically linked version of jq, run:
+	make LDFLAGS=-all-static
+
+	## After make finishes, you'll be able to use ./jq. You can also install it using:
+	sudo make install
+
+}
+
 function jqQuery {
 	## The longest rout for query, 1N DB Query
 
@@ -279,7 +298,7 @@ function pfmTableDate {
 	pfmDate=${pmfArray[$wholeNum]}
 }
 
-function pfmTableMonth(){
+function pfmTableMonth {
 	## determine month according to PMF Date
 	firstLetter=${pfmDate:0:1}
 
@@ -294,10 +313,12 @@ function pfmTableMonth(){
 
 	## last 2 numbers
 	if [ ${#pfmDate} -lt 3 ]; then
-		last2numbers=$( echo -n $pfmDate | tail -c 1 )
+		#last2numbers=$( echo -n $pfmDate | tail -c 1 )
+		last2numbers=${pfmDate:${#pfmDate}-2}
 		estimatedDay=0$last2numbers
 	else
-		last2numbers=$( echo -n $pfmDate | tail -c 2 )
+		#last2numbers=$( echo -n $pfmDate | tail -c 2 )
+		last2numbers=${pfmDate:${#pfmDate}-2}
 		estimatedDay=$last2numbers
 	fi
 }
@@ -333,8 +354,12 @@ function pfmTableYear {
 function pfmTableDecade {
 	## Last 2 digits in the current year
 	## I am just going to use 18-21 and a few more future years just to fill it out
+	
+	thisYear=$(date +%Y)
+	last2numbers=${thisYear:${#thisYear}-2}
 
-	last2numbers=$( echo -n $thisYear | tail -c 2 )
+	# thisYear=$(date +%Y)
+	# last2numbers=$( echo -n $thisYear | tail -c 2 )
 
 	case "$last2numbers" in
 		23 | 28 )
@@ -416,7 +441,7 @@ function days_Untill_Count {
 
 	if [ $saveTheDate -lt 0 ]; then
 		nextYear=$(( $thisYear + 1 ))
-		tabulatedDate=$nextYear$monthDay
+		tabulatedDate="$nextYear$monthDay"
 		saveTheDate=$(( ($(date --date="$tabulatedDate" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
 	fi
 }
@@ -1850,29 +1875,50 @@ function download_audio {
 function download_dependencies {
 
 	# distroName=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
+	if [ -f /etc/os-release ]; then
+		# freedesktop.org and systemd
+		. /etc/os-release
+		thisOS=$NAME
+	fi
 	
 	## xorg shell emulator
-	if ! [ -x "$(command -v xterm)" ];then
+	if ! [ -x "$(command -v xterm)" ]; then
 		sudo pacman -S --needed xterm
 		sudo apt-get install xterm
+		sudo slapt-get --install xterm
+		
+		if [ $thisOS -eq "Alpine Linux" ]; then
+			# alpine is soo light, even bash is bare bones
+			sudo apk add bash bash-doc bash-completion util-linux coreutils grep xterm
+		fi
 	fi
 	
 	## bash gui menu
-	if ! [ -x "$(command -v dialog)" ];then
+	if ! [ -x "$(command -v dialog)" ]; then
 		sudo pacman -S --needed dialog
 		sudo apt-get install dialog
+		sudo slapt-get --install dialog
+		sudo apk add ncurses dialog upgrade
 	fi
 	
 	## json parser
-	if ! [ -x "$(command -v jq)" ];then
+	if ! [ -x "$(command -v jq)" ]; then
 		sudo pacman -S --needed jq
 		sudo apt-get install jq
+		sudo apk add jq
+		
+		if [ $thisOS -eq "Slackware" ]; then
+			compileJq
+		fi
+
 	fi
 
 	## c ompiler
-	if ! [ -x "$(command -v gcc)" ];then
+	if ! [ -x "$(command -v gcc)" ]; then
 		sudo pacman -S --needed gcc
 		sudo apt-get install gcc
+		sudo slapt-get --install gcc
+		sudo apk add gcc
 	fi
 }
 
