@@ -6,14 +6,14 @@ v0.1.4 Demo Preview: [asciinema](https://asciinema.org/a/217793) and [Youtube](h
 
 ## Status:
 
-```v0.1.6``` is now distro friendly-`er`
+```v0.1.6``` has distro specific installers.
 
 Tested on:
 
-* Arch (Primary Dev Target)
-* Slackware Salix 
+* Arch
+* Slackware 
 * Alpine
-* Ubuntu Mint
+* Ubuntu
 
 ### About:
 
