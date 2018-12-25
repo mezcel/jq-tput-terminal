@@ -1882,6 +1882,8 @@ function download_dependencies {
 		#thisOS=$NAME
 		distroName=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
 		thisOS=$distroName
+		echo $distroName $distroName
+		read
 	fi
 
 	## xorg shell emulator
