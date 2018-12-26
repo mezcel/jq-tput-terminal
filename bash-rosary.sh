@@ -595,7 +595,7 @@ function days_untill_Ash_Wednesday {
 
 	## Determine Lent Season
 
-	if [ $daysUntillEaster -le 46 ]; then
+	if [ $daysUntillEaster -gt 0 ] && [ $daysUntillEaster -le 46 ]; then
 		isLentSeasion=1
 	else
 		isLentSeasion=0
@@ -658,7 +658,7 @@ function days_untill_Pentecost {
 
 	## Determine Easter Season
 	## 50 days after Easter up to Pentecost
-	if [ $daysUntillPentecost -lt 50 ]; then
+	if [ $daysUntillPentecost -gt 0 ] && [ $daysUntillPentecost -lt 50 ]; then
 		isEasterSeason=1
 		isOrdinaryTime=0
 	else
@@ -706,7 +706,7 @@ function days_untill_Advent {
 
 	## Determine Advent Season
 
-	if [ "$daysUntillChristmas" -le "$adventDurration" ]; then
+	if [ $daysUntillChristmas -gt 0 ] && [ $daysUntillChristmas -lt $adventDurration ]; then
 		isAdventSeasion=1
 		isOrdinaryTime=0
 	else
@@ -1086,6 +1086,9 @@ function welcomepage {
 	if [ $isTodayChristmas -eq 1 ]; then
 		echo "						Today is Christmas"
 	fi
+	if [ $daysUntillEpiphany -gt 0 ] && [ $daysUntillEpiphany -le 12 ]; then
+		echo "						Today is Christmas Season"
+	fi
 	if [ $isTodaySolemnityOfMary -eq 1 ]; then
 		echo "						Today is the Feast of the Solemnity of Mary"
 	fi
@@ -1117,13 +1120,13 @@ function welcomepage {
 
 
 	Software Dependancies:
-		* Linux Bash, NOT Win10's Gitbash
+		* Linux Bash (xterm) with (gawk, ncurses, bc, grep, dialog, sed, wget)
 		* jq with gcc
 		* dialog
 		* fluidsynth with soundfont-fluid or MPlayer (optional audio)
 
 		If \"Mystery of the day\", has a value, you probably have all the software requirements.
-		If the menu does not work after this page, you need to install \"dialog\"
+		If thigs look glitchy...
 
 	"
 
@@ -1875,15 +1878,9 @@ function download_audio {
 
 function download_dependencies {
 
-	# distroName=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
 	if [ -f /etc/os-release ]; then
-		# freedesktop.org and systemd
-		#. /etc/os-release
-		#thisOS=$NAME
 		distroName=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
 		thisOS=$distroName
-		echo $distroName $distroName
-		read
 	fi
 
 	## xorg shell emulator
