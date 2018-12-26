@@ -109,15 +109,15 @@ function updateScreenSize {
 
 function compileJq {
 	git clone https://github.com/stedolan/jq.git
-	
+
 	cd jq
-	
+
 	git submodule update --init # if building from git to get oniguruma
 	autoreconf -fi              # if building from git
 	./configure --with-oniguruma=builtin
 	make -j8
 	make check
-	
+
 	## To build a statically linked version of jq, run:
 	make LDFLAGS=-all-static
 
@@ -354,7 +354,7 @@ function pfmTableYear {
 function pfmTableDecade {
 	## Last 2 digits in the current year
 	## I am just going to use 18-21 and a few more future years just to fill it out
-	
+
 	thisYear=$(date +%Y)
 	last2numbers=${thisYear:${#thisYear}-2}
 
@@ -595,7 +595,7 @@ function days_untill_Ash_Wednesday {
 
 	## Determine Lent Season
 
-	if [ $daysUntillEaster -le 46 ]; then
+	if [ $daysUntillEaster -gt 0 ] && [ $daysUntillEaster -le 46 ]; then
 		isLentSeasion=1
 	else
 		isLentSeasion=0
@@ -658,7 +658,7 @@ function days_untill_Pentecost {
 
 	## Determine Easter Season
 	## 50 days after Easter up to Pentecost
-	if [ $daysUntillPentecost -lt 50 ]; then
+	if [ $daysUntillPentecost -gt 0 ] && [ $daysUntillPentecost -lt 50 ]; then
 		isEasterSeason=1
 		isOrdinaryTime=0
 	else
@@ -706,7 +706,7 @@ function days_untill_Advent {
 
 	## Determine Advent Season
 
-	if [ "$daysUntillChristmas" -le "$adventDurration" ]; then
+	if [ $daysUntillChristmas -gt 0 ] && [ $daysUntillChristmas -lt $adventDurration ]; then
 		isAdventSeasion=1
 		isOrdinaryTime=0
 	else
@@ -860,6 +860,7 @@ function feastDayCountdown {
 }
 
 function liturgicalYearPi {
+
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 	clear
 	# pieChart="$(cat ascii-pie-chart.txt)"
@@ -1085,6 +1086,9 @@ function welcomepage {
 	if [ $isTodayChristmas -eq 1 ]; then
 		echo "						Today is Christmas"
 	fi
+	if [ $daysUntillEpiphany -gt 0 ] && [ $daysUntillEpiphany -le 12 ]; then
+		echo "						Today is Christmas Season"
+	fi
 	if [ $isTodaySolemnityOfMary -eq 1 ]; then
 		echo "						Today is the Feast of the Solemnity of Mary"
 	fi
@@ -1116,13 +1120,13 @@ function welcomepage {
 
 
 	Software Dependancies:
-		* Linux Bash, NOT Win10's Gitbash
+		* Linux Bash (xterm) with (gawk, ncurses, bc, grep, dialog, sed, wget)
 		* jq with gcc
 		* dialog
 		* fluidsynth with soundfont-fluid or MPlayer (optional audio)
 
 		If \"Mystery of the day\", has a value, you probably have all the software requirements.
-		If the menu does not work after this page, you need to install \"dialog\"
+		If thigs look glitchy...
 
 	"
 
@@ -1262,7 +1266,7 @@ function progressbars {
 		length=${#str}
 		progressBarTitle=$(tput cup $[$(tput lines)-8] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-8] $(((width/ 2)-(length/2))); echo $BAR_BG$BAR_FG$str$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 
-		#########		
+		#########
 		if [ $thisDecadeSet -lt 10 ]; then
 			decDisp=" $thisDecadeSet"
 		else
@@ -1332,7 +1336,7 @@ function beadProgress {
 				hailmaryCounter=0
 				thisDecadeSet=0
 				mysteryProgress=0
-				
+
 				if [ $directionFwRw -eq 1 ]; then
 					if [ $initialHailMaryCounter -eq 0 ]; then
 						initialHailMaryCounter=1
@@ -1363,9 +1367,9 @@ function beadProgress {
 					hailmaryCounter=$(( $hailmaryCounter - 1 ))
 				fi
             fi
-            
+
             beadAudioFile="./audio/PaterNoster.ogg"
-            
+
             ;;
         4) ## string space
 			if [ $directionFwRw -eq 1 ]; then
@@ -1399,9 +1403,9 @@ function beadProgress {
 					fi
 				fi
             fi
-            
+
             beadAudioFile="./audio/GloriaPatri.ogg"
-            
+
             ;;
         5)	## Mary Icon
 			if [ $directionFwRw -eq 1 ]; then
@@ -1423,14 +1427,14 @@ function beadProgress {
             stringSpaceCounter=0
             # thisDecadeSet=0
             # mysteryProgress=0
-            
+
             beadAudioFile="./audio/Credo.ogg"
 			;;
         *)
 			thisDecadeSet=0
             stringSpaceCounter=0
             mysteryProgress=0
-            
+
             # beadAudioFile=""
             ;;
       esac
@@ -1745,7 +1749,7 @@ function prayerMenu {
 		"14" "$(jq .prayer[14].prayerName $rosaryJSON)"\
 		"15" "$(jq .prayer[15].prayerName $rosaryJSON)"\
 		"16" "$(jq .prayer[16].prayerName $rosaryJSON)" ) || return
-		
+
 
 	dialogPrayerName=$(jq .prayer[$selectedPrayer].prayerName $rosaryJSON)
 
@@ -1840,12 +1844,12 @@ function arrowInputs {
 				blank_transition_display
 				beadREV
 				bundledDisplay
-				
+
 				;;
 			"m" | "M") # mplayer audio
-			
+
 				if ! pgrep -x "mplayer" > /dev/null
-				then					
+				then
 					if [ "$beadAudioFile" != "" ]; then
 						mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
 					fi
@@ -1854,10 +1858,10 @@ function arrowInputs {
 				fi
 				sleep .5s
 				# progressbars
-				
+
 				;;
 		esac
-		
+
 	done
 
 	# Restore screen
@@ -1874,39 +1878,37 @@ function download_audio {
 
 function download_dependencies {
 
-	# distroName=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
 	if [ -f /etc/os-release ]; then
-		# freedesktop.org and systemd
-		. /etc/os-release
-		thisOS=$NAME
+		distroName=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
+		thisOS=$distroName
 	fi
-	
+
 	## xorg shell emulator
 	if ! [ -x "$(command -v xterm)" ]; then
 		sudo pacman -S --needed xterm
 		sudo apt-get install xterm
 		sudo slapt-get --install xterm
-		
+
 		if [ $thisOS -eq "Alpine Linux" ]; then
 			# alpine is soo light, even bash is bare bones
-			sudo apk add bash bash-doc bash-completion util-linux coreutils grep xterm
+			sudo apk add bash grep sed xterm wget gawk
 		fi
 	fi
-	
+
 	## bash gui menu
 	if ! [ -x "$(command -v dialog)" ]; then
 		sudo pacman -S --needed dialog
 		sudo apt-get install dialog
 		sudo slapt-get --install dialog
-		sudo apk add ncurses dialog upgrade
+		sudo apk add ncurses dialog bc grep
 	fi
-	
+
 	## json parser
 	if ! [ -x "$(command -v jq)" ]; then
 		sudo pacman -S --needed jq
 		sudo apt-get install jq
 		sudo apk add jq
-		
+
 		if [ $thisOS -eq "Slackware" ]; then
 			compileJq
 		fi
@@ -1940,7 +1942,7 @@ function translationDB {
 	fi
 }
 
-function initialize {	
+function initialize {
 	# Save screen
     tput smcup
 
@@ -1977,7 +1979,7 @@ function initialize {
 
 function myMian {
 	download_dependencies
-	
+
 	resizeWindow
 
 	decorativeColors
@@ -1986,7 +1988,7 @@ function myMian {
 
 	## hide cursor
 	tput civis
-	
+
 	splashScreen
 	welcomepage
 	howToPage
