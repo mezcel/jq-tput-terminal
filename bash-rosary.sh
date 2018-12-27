@@ -253,6 +253,7 @@ function initializeFeastFlags {
 	isTodayAdventStart=0
 	isAdventSeasion=0
 	isTodayChristmas=0
+	isChristmasSeason=0
 	isTodaySolemnityOfMary=0
 	isTodayEpiphany=0
 	isTodayAll_Saints=0
@@ -355,7 +356,7 @@ function pfmTableDecade {
 	## Last 2 digits in the current year
 	## I am just going to use 18-21 and a few more future years just to fill it out
 
-	thisYear=$(date +%Y)
+	## thisYear=$(date +%Y)
 	last2numbers=${thisYear:${#thisYear}-2}
 
 	# thisYear=$(date +%Y)
@@ -462,7 +463,8 @@ function calculate_Paschal_Full_Moon {
 	daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
 
 	if [ $daysUntill -lt 0 ]; then
-		thisYear=$(( $thisYear + 1 ))
+		nextYear=$(( $thisYear + 1 ))
+		thisYear=$nextYear
 		pfmTableDate
 		pfmTableMonth
 		pfmTableYear
@@ -470,7 +472,7 @@ function calculate_Paschal_Full_Moon {
 		pfmTableCentury
 		pfmTableSum
 
-		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
+		tabulatedDate=$nextYear$virtualMonthNo$estimatedDay
 		daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
 	fi
 
@@ -778,6 +780,12 @@ function days_untill_Epiphany {
 	daysFromSunday=$((  7 - $weekdayEpiphany ))
 	daysUntillEpiphany=$((  $daysUntillEpiphany - $daysFromSunday ))
 
+	if [ $daysUntillEpiphany -gt 0 ] && [ $daysUntillEpiphany -le 12 ]; then
+		isChristmasSeason=1
+	else
+		isChristmasSeason=0
+	fi
+
 	if [ $daysUntillEpiphany == 0 ]; then
 		isTodayEpiphany=1
 	else
@@ -841,9 +849,10 @@ function feastDayCountdown {
 	dialogOrdinaryTimeSeason="Ordinary Time Season: $isOrdinaryTime \n"
 	dialogLentSeason="Lent Season: $isLentSeasion \n"
 	dialogAdventSeason="Advent Season: $isAdventSeasion \n"
+	dialogChristmasSeason="Christmas Season: $isChristmasSeason \n"
 	dialogEasterSeason="Easter Season: $isEasterSeason \n"
 
-	msgCountdownList="$dialogEaster$dialogAssension$dialogPentecost$dialogAllSaints$dialogAdvent$dialogConception$dialogChristmas$dialogSolemnity$dialogEpiphany$dialogAsh$dilogHolyThursday$dialogGoodFriday$dialogHolySaturday$dialogHR$dialogOrdinaryTimeSeason$dialogLentSeason$dialogAdventSeason$dialogEasterSeason"
+	msgCountdownList="$dialogEaster$dialogAssension$dialogPentecost$dialogAllSaints$dialogAdvent$dialogConception$dialogChristmas$dialogSolemnity$dialogEpiphany$dialogAsh$dilogHolyThursday$dialogGoodFriday$dialogHolySaturday$dialogHR$dialogOrdinaryTimeSeason$dialogLentSeason$dialogAdventSeason$dialogChristmasSeason$dialogEasterSeason"
 
 	screenTitle="Terminal Rosary using Jq and Bash"
 	dialogTitle="Feast Day Countdown"
@@ -1086,7 +1095,7 @@ function welcomepage {
 	if [ $isTodayChristmas -eq 1 ]; then
 		echo "						Today is Christmas"
 	fi
-	if [ $daysUntillEpiphany -gt 0 ] && [ $daysUntillEpiphany -le 12 ]; then
+	if [ $isChristmasSeason -eq 1 ]; then
 		echo "						Today is Christmas Season"
 	fi
 	if [ $isTodaySolemnityOfMary -eq 1 ]; then
