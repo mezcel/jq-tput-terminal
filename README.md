@@ -8,7 +8,7 @@ Scripture Rosary GUI on the Bash CLI.
 
 * ```v0.1.4``` Demo Preview: [asciinema](https://asciinema.org/a/217793)
 
-* ```v0.1.6.1``` added notes on ABC Cycles Years
+* ```v0.1.6.1``` added Liturgical ABC Cycles flags
 
 | Test Distro's | Development Environment Notes |
 | --- | --- |
