@@ -2,18 +2,20 @@
 
 Scripture Rosary GUI on the Bash CLI.
 
-```v0.1.4``` Demo Preview: [asciinema](https://asciinema.org/a/217793) and [Youtube](https://youtu.be/PceKrX4uI-I)
+
 
 ### Dev Status:
 
-```v0.1.6.1``` added notes on ABC Cycles Years
+* ```v0.1.4``` Demo Preview: [asciinema](https://asciinema.org/a/217793)
+
+* ```v0.1.6.1``` added notes on ABC Cycles Years
 
 | Test Distro's | Development Environment Notes |
 | --- | --- |
 | [Arch](https://wiki.archlinux.org/) | This App was primarily developed for Arch Linux. [Parabola](https://wiki.parabola.nu/Category:Migration) is a free Arch option. |
 | Slackware | Tested on Salix ( traditional linux ) |
 | [Alpine](https://alpinelinux.org/about/) | OpenRC with BusyBox (the most light weight in cpu and installation) |
-| Ubuntu | Jq running on [Trisquel](https://trisquel.info), Tahrpup, and Mint returned the fastest query response.  |
+| Ubuntu | Jq running on [Trisquel](https://trisquel.info), Tahrpup, and Mint returned the fastest query response. |
 
 ### About:
 

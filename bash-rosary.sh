@@ -810,6 +810,8 @@ function trigger_feastDay {
 	days_untill_Epiphany
 	days_untill_Solemnity_of_Mary
 
+	yearCycleABC
+
 	## Feast Day App Color Theme
 	if [ $isTodayEaster -eq 1 ] || [ $isTodayPentecost -eq 1 ]; then
 		## Yellow
@@ -865,10 +867,78 @@ function feastDayCountdown {
 	read
 
 	## Disp an Ascii Pie Chart
-	liturgicalYearPi
+	dispPieChart
 }
 
-function liturgicalYearPi {
+function livingSeasonABC {
+
+	## Living Seasons of Change by Liturgical Year Cycles and Month:
+	## A,B,C
+	cycleSeasonAdvent=("" "Season of Waiting" "Season of Preparation" "Season of Holiness")
+	cycleSeasonEpiphany=("" "Season of Foundation" "Season of New Beginning" "Season of Manifestation")
+	cycleSeasonLent=("" "Season of Hope" "Season of Cross Purposes" "Season of Repentance")
+	cycleSeasonPentacost=("" "Season of Glory" "Season of Power" "Season of the Spirit")
+	cycleSeasonEaster=("" "Season of Salvation" "Season of More Season of Witness" "Season of Joy & Life")
+
+	# Season of Traveling with Jesus (Wk 4-7 Ord B); Season of Sharing (Weeks 3-7 Ordinary C)
+	# Season of Salvation (Holy Week, Easter A);Season of More (Easter A); Season of Witness (Holy Week, Easter B);  Season of Joy & Life (Easter C)
+	# Season of Apostleship (Wks 9-12 Ordinary A); Season of Signs (Trinity, Body & Blood, 12-13 Ord B); Season of Solemnities (Trinity, Body & Blood C)
+	# Season of Discovery (Weeks 14-17 Ordinary A); Season of Patterns (Weeks  14-17 Ordinary B); Season of Journey (Weeks 13-17 Ordinary C)
+	# Season of Following Jesus (Weeks 18-22 Ord A); Season of Living Bread (Weeks 18-21 Ordinary B); Season of Treasure (Weeks 18-21 Ordinary C)
+	# Season of Agreement (Weeks 23-26 Ordinary A); Season of Mark of the Disciple (Weeks 22-26 Ord B); Season of Acceptance (Weeks 22-26 Ordinary C)
+	# Season of Greatest Commandment (Weeks 27-30 Ord A); Season of Vocation (Weeks 27-30 Ordinary B); Season of Faith (Weeks 27-30 Ordinary C)
+	# Season of Time (All Saints-Christ the King A); Season of Forever (All Saints-Christ the King B); Season of the Kingdom (All Saints-Christ the King C)
+
+}
+
+function yearCycleABC {
+	## Year A  12/2016-11/2017, 2019-2020, 2022-23
+	## Year B  12/2017-11/2018,  2020-2021, 2023-24
+	## Year C  12/2015-11/2016, 2018-19, 2021-22
+
+	## Year starts on the 1st Sunday of Advent on the previous year
+
+	thisYear=$(date +%Y)
+	calday=$( cal 12 "$thisYear" | awk 'NF==7 && !/^Su/{print $1;exit}' )
+	monthDay="120"$calday
+	tabulatedDate=$thisYear$monthDay
+	saveTheDate=$(( ($(date --date="$tabulatedDate" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+
+	if [ $saveTheDate -lt 0 ]; then
+		# use next year
+		cycleYear=$(( $thisYear + 1 ))
+	else
+		# use this year
+		cycleYear=$thisYear
+	fi
+
+	decadeYear=$(( $cycleYear - 2000 ))
+	modularDiv3=$(expr $decadeYear % 3)
+
+	case $modularDiv3 in
+		1 )
+			cycleLetter="Liturgical Cycle A Resources: The Gospel of Matthew"
+			abcNo=1
+			;;
+		2 )
+			cycleLetter="Liturgical Cycle B Resources: The Gospel of Mark"
+			abcNo=2
+			;;
+		0 )
+			cycleLetter="Liturgical Cycle C Resources: The Gospel of Luke"
+			abcNo=3
+			;;
+	esac
+
+	livingSeasonABC
+
+	abcAdvent=${cycleSeasonAdvent[$abcNo]}
+	abcChristmas=${cycleSeasonEpiphany[$abcNo]}
+	abcLent=${cycleSeasonLent[$abcNo]}
+	abcEaster=${cycleSeasonEaster[$abcNo]}
+}
+
+function dispPieChart {
 
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 	clear
@@ -876,17 +946,16 @@ function liturgicalYearPi {
 	str="Terminal Rosary using Jq and Bash"
 	width=$(tput cols)
 	length=${#str}
-	tput cup 0 $(((width/ 2)-(length/2)))
-	echo $str
+	pieChartTitle=$( tput cup 0 $(( (width/ 2)-(length/2) )) )
+	echo "$pieChartTitle$str"
 
 	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
 
 	str="Liturgical Year Pie Chart"
 	width=$(tput cols)
 	length=${#str}
-	tput cup 3 $(((width/ 2)-(length/2)))
-	echo $str
-	echo "
+	pieChartHeader=$( tput cup 3 $(((width/ 2)-(length/2))) )
+	echo "$pieChartHeader$str
 	"
 	# cat ascii-pie-chart.txt
 	cat ./Liturgical-Calendar-Notes/tiny-pie.txt
@@ -1050,6 +1119,8 @@ function welcomepage {
 	return_mysteryName=$(jq $query_mysteryName $rosaryJSON)
 
 	echo "
+	Liturgical Cycle Year:			$cycleLetter
+
 	Today is:				$dayOfWeek
 
 	The default \"Mystery of the day\" is:	$return_mysteryName
@@ -1060,13 +1131,13 @@ function welcomepage {
 		echo "						Easter Day"
 	fi
 	if [ $isEasterSeason -eq 1 ]; then
-		echo "						This is the Easter Season"
+		echo "						This is the Easter Season, $abcEaster"
 	fi
 	if [ $isTodayAsh_Wednesday -eq 1 ]; then
 		echo "						Today is Ash Wednesday"
 	fi
 	if [ $isLentSeasion -eq 1 ]; then
-		echo "						This is the Lent Season"
+		echo "						This is the Lent Season, $abcLent"
 	fi
 	if [ $isTodayHoly_Thursday -eq 1 ]; then
 		echo "						This is Holy Thursday"
@@ -1090,13 +1161,13 @@ function welcomepage {
 		echo "						Advent Starts Today"
 	fi
 	if [ $isAdventSeasion -eq 1 ]; then
-		echo "						This is the Advent Season"
+		echo "						This is the Advent Season, $abcAdvent"
 	fi
 	if [ $isTodayChristmas -eq 1 ]; then
 		echo "						Today is Christmas"
 	fi
 	if [ $isChristmasSeason -eq 1 ]; then
-		echo "						Today is Christmas Season"
+		echo "						Today is the Christmas Season, $abcChristmas"
 	fi
 	if [ $isTodaySolemnityOfMary -eq 1 ]; then
 		echo "						Today is the Feast of the Solemnity of Mary"
