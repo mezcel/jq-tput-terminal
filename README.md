@@ -12,21 +12,22 @@ Scripture Rosary GUI on the Bash CLI.
 
 | Test Distro's | Development Environment Notes |
 | --- | --- |
-| [Arch](https://wiki.archlinux.org/) | This App was primarily developed for Arch Linux. [Parabola](https://wiki.parabola.nu/Category:Migration) is a free Arch option. |
-| Slackware | Tested on Salix ( traditional linux ) |
-| [Alpine](https://alpinelinux.org/about/) | OpenRC with BusyBox (the most light weight in cpu and installation) |
+| [Arch](https://wiki.archlinux.org/) | This App was primarily developed for Arch Linux. [Parabola](https://wiki.parabola.nu/Category:Migration) is a free Arch alternative. |
+| Slackware | Tested on Salix ( legacy linux ) |
+| [Alpine](https://alpinelinux.org/about/) | OpenRC, Docker, BusyBox |
 | Ubuntu | Jq running on [Trisquel](https://trisquel.info), Tahrpup, and Mint returned the fastest query response. |
 
 ### About:
 
 This is a CLI GUI App. This app's .json db is imported from [electron-container](https://github.com/mezcel/electron-container).
 
-Dependency Requirements:
+Requirement Dependencies:
 
 * [Bash](https://www.gnu.org/software/bash/), [ncurses/tput](https://ss64.com/bash/tput.html), wget, bc, awk & grep
 * [JQ](https://stedolan.github.io/jq) is a cross-platform C program which parses json script via command line terminal
 * [dialog / whiptail](http://linuxcommand.org/lc3_adv_dialog.php) is a terminal app for making dialog box style input prompts
 * [mplayer](http://www.mplayerhq.hu/design7/info.html) a multimedia player which can run in terminal environment
+* Cultural and scholarly perspective on the Catholic Marian ministry (debug, troubleshoot, security, validation)
 
 ### Feature Functionalities:
 
