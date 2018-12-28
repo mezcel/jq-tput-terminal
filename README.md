@@ -12,9 +12,9 @@ Scripture Rosary GUI on the Bash CLI.
 
 | Test Distro's | Development Environment Notes |
 | --- | --- |
-| [Arch](https://wiki.archlinux.org/) | This App was primarily developed for Arch Linux. [Parabola](https://wiki.parabola.nu/Category:Migration) is a free Arch option. |
+| [Arch](https://wiki.archlinux.org/) | This App was primarily developed for Arch Linux. [Parabola](https://wiki.parabola.nu/Category:Migration) is a free Arch alternative. |
 | Slackware | Tested on Salix ( legacy linux ) |
-| [Alpine](https://alpinelinux.org/about/) | OpenRC with BusyBox |
+| [Alpine](https://alpinelinux.org/about/) | OpenRC, Docker, BusyBox |
 | Ubuntu | Jq running on [Trisquel](https://trisquel.info), Tahrpup, and Mint returned the fastest query response. |
 
 ### About:
