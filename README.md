@@ -12,16 +12,18 @@ Scripture Rosary GUI on the Bash CLI.
 
 | Test Distro's | Development Environment Notes |
 | --- | --- |
-| [Arch](https://wiki.archlinux.org/) | This App was primarily developed for Arch Linux. [Parabola](https://wiki.parabola.nu/Category:Migration) is a free Arch alternative. |
-| Slackware | Tested on Salix ( legacy linux ) |
+| [Arch](https://wiki.archlinux.org/) | This App was developed Arch Linux. [Parabola](https://wiki.parabola.nu/Category:Migration) is a 'free' Arch alternative. |
+| Slackware | Tested on Salix ( legacy linux platform ) |
 | [Alpine](https://alpinelinux.org/about/) | OpenRC, Docker, BusyBox |
-| Ubuntu | Jq running on [Trisquel](https://trisquel.info), Tahrpup, and Mint returned the fastest query response. |
+| Ubuntu | Jq/gcc running on [Trisquel](https://trisquel.info), Tahrpup, and Mint processed the fastest query returns. |
 
 ### About:
 
 This is a CLI GUI App. This app's .json db is imported from [electron-container](https://github.com/mezcel/electron-container).
 
-Requirement Dependencies:
+### Requirement Dependencies:
+
+As of ```v0.1.6.1``` this app adheres to the GNU "libre" philosophy ( except for the use of Github hosting and distro specific package manager installation methods ) The NAB is not 'Libre'... but I'd rather ask for forgiveness rather than permission on this matter. Anyone enforcing it would have to verify it, and that would mean running it, and that would mean someone other than me used it, and that was kinda the only purpose for making this app anyway.
 
 * [Bash](https://www.gnu.org/software/bash/), [ncurses/tput](https://ss64.com/bash/tput.html), wget, bc, awk & grep
 * [JQ](https://stedolan.github.io/jq) is a cross-platform C program which parses json script via command line terminal
