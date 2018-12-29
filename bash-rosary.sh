@@ -833,6 +833,7 @@ function trigger_feastDay {
 
 function feastDayCountdown {
 
+	dialogHR1="\n--- Days Untill --- \n"
 	dialogEaster="Easter:	$daysUntillEaster \n"
 	dialogAssension="Assension of Jesus:	$daysUntillJesusAssension \n"
 	dialogPentecost="Pentecost:	$daysUntillPentecost \n"
@@ -847,14 +848,15 @@ function feastDayCountdown {
 	dialogGoodFriday="Good Friday: $daysUntillGoodFriday \n"
 	dialogHolySaturday="Holy Saturday: $daysUntillHolySaturday \n"
 
-	dialogHR="--- \n"
+	dialogHR2="\n--- Season Flags --- \n"
+	dialogABCCycle="$cycleLetter \n"
 	dialogOrdinaryTimeSeason="Ordinary Time Season: $isOrdinaryTime \n"
 	dialogLentSeason="Lent Season: $isLentSeasion \n"
 	dialogAdventSeason="Advent Season: $isAdventSeasion \n"
 	dialogChristmasSeason="Christmas Season: $isChristmasSeason \n"
 	dialogEasterSeason="Easter Season: $isEasterSeason \n"
 
-	msgCountdownList="$dialogEaster$dialogAssension$dialogPentecost$dialogAllSaints$dialogAdvent$dialogConception$dialogChristmas$dialogSolemnity$dialogEpiphany$dialogAsh$dilogHolyThursday$dialogGoodFriday$dialogHolySaturday$dialogHR$dialogOrdinaryTimeSeason$dialogLentSeason$dialogAdventSeason$dialogChristmasSeason$dialogEasterSeason"
+	msgCountdownList="$dialogHR1$dialogEaster$dialogAssension$dialogPentecost$dialogAllSaints$dialogAdvent$dialogConception$dialogChristmas$dialogSolemnity$dialogEpiphany$dialogAsh$dilogHolyThursday$dialogGoodFriday$dialogHolySaturday$dialogHR2$dialogABCCycle$dialogOrdinaryTimeSeason$dialogLentSeason$dialogAdventSeason$dialogChristmasSeason$dialogEasterSeason\n"
 
 	screenTitle="Terminal Rosary using Jq and Bash"
 	dialogTitle="Feast Day Countdown"
@@ -917,15 +919,15 @@ function yearCycleABC {
 
 	case $modularDiv3 in
 		1 )
-			cycleLetter="Liturgical Cycle A Resources: The Gospel of Matthew"
+			cycleLetter="Cycle A: The Gospel of Matthew"
 			abcNo=1
 			;;
 		2 )
-			cycleLetter="Liturgical Cycle B Resources: The Gospel of Mark"
+			cycleLetter="Cycle B: The Gospel of Mark"
 			abcNo=2
 			;;
 		0 )
-			cycleLetter="Liturgical Cycle C Resources: The Gospel of Luke"
+			cycleLetter="Cycle C: The Gospel of Luke"
 			abcNo=3
 			;;
 	esac
@@ -957,8 +959,10 @@ function dispPieChart {
 	pieChartHeader=$( tput cup 3 $(((width/ 2)-(length/2))) )
 	echo "$pieChartHeader$str
 	"
+	
+	currentDirPath=$(dirname $0)
 	# cat ascii-pie-chart.txt
-	cat ./Liturgical-Calendar-Notes/tiny-pie.txt
+	cat $currentDirPath/Liturgical-Calendar-Notes/tiny-pie.txt
 
 	height=$(tput lines)
 	if [ $height -ge 34 ]; then
@@ -1031,7 +1035,7 @@ function tputStingVars {
 }
 
 function myAbout {
-	aboutText="This is a Rosary App for the Linux Bash terminal.\nThis app was tested on the default Xterm on Arch.\nThe best UI experience for this app is through a login console TTY CLI\n\nThis App is just a (personal) technical exercise. This App is a linguistic and scriptural \"reference\". \n\nSource Code:\nGithub: https://github.com/mezcel/jq-tpy-terminal.git"
+	aboutText="Author: \n    Mezcel (https://github.com/mezcel) \n    Wiki based on the 1st version (https://mezcel.wixsite.com/rosary)\n\nDescription:\n    This is a Rosary App for the Linux Bash terminal.\n    This app was developed on the default Xterm on Arch.\n    The best UI experience for this app is through a login console TTY CLI\n\n    This App is just a (personal) technical exercise. This App is a linguistic and scriptural \"reference\". \n\nSource Code:\n    git clone https://github.com/mezcel/jq-tput-terminal.git"
 
 	whiptail \
         --title "About" \
@@ -1119,7 +1123,7 @@ function welcomepage {
 	return_mysteryName=$(jq $query_mysteryName $rosaryJSON)
 
 	echo "
-	Liturgical Cycle Year:			$cycleLetter
+	Liturgical Year:			$cycleLetter
 
 	Today is:				$dayOfWeek
 
@@ -1184,29 +1188,25 @@ function welcomepage {
 
 	echo "
 
-	Basic UI Instructions:
-		Use the Rt and Lt arrow keyboard keys to progress forward or backwards.
-		Use the Down arrow key to select the Scripture Language Translation ( English NAB or Latin Vulgate )
-		Use the Up arrow key to access the main Menu
-		The 'M' Key will toggle ON/OFF app audio (the audio will match the displayed prayer at the time of 'M')
+	${MODE_BEGIN_UNDERLINE}Basic UI Instructions:${MODE_EXIT_UNDERLINE}
+		Rt and Lt arrow keyboard keys navigate forward or backwards.
+		Down arrow key opens Language Translation Menu ( English NAB or Latin Vulgate )
+		Up arrow key opens the Main Menu
+		'M' Key toggles Latin prayer audio (plays prayer only once)
 
 
-	Advice:
-		Do not navigate too fast. Allow a moment for text querying to complete.
-		JQ is a C based JSON Parser & I took the longest 1N query rout to retrieve text.
-
-		Optimal screen height is 40 lines (using factory default fonts)
-		Optimal screen width is 140 cols (using factory default fonts)
+	${MODE_BEGIN_UNDERLINE}Advice:${MODE_EXIT_UNDERLINE}
+		Pause after navigating to allow a moment for text querying to complete and display.
+		Optimal screen size: width 140 cols, height is 40 lines
 
 
-	Software Dependancies:
-		* Linux Bash (xterm) with (gawk, ncurses, bc, grep, dialog, sed, wget)
+	${MODE_BEGIN_UNDERLINE}Software Dependancies:${MODE_EXIT_UNDERLINE} (The app should have installed the following if neecessary)
+		* Linux Kernel, Bash (xterm), gawk, ncurses (tput), bc, grep, dialog, sed, wget
 		* jq with gcc
-		* dialog
-		* fluidsynth with soundfont-fluid or MPlayer (optional audio)
+		* MPlayer (mp3/wav/ogg), fluidsynth with soundfont-fluid (midi)
 
-		If \"Mystery of the day\", has a value, you probably have all the software requirements.
-		If thigs look glitchy...
+		If \"Mystery of the day\" has a value, you probably have all the software requirements.
+		If thigs look glitchy... doublecheck if awk, bc, grep, or jq was installed
 
 	"
 
@@ -1261,7 +1261,7 @@ function howToPage {
 	if [ $height -ge 34 ]; then
 		tput cup $[$(tput lines)-2]
 	fi
-	echo "Use the Arrow keys to navigate."
+	echo "Use the Arrow keys to navigate. [Press Rt Key]"
 
 	while read -sN1 key
 	do
@@ -1541,7 +1541,7 @@ function change_color_menu {
 		--ok-label "Ok" \
 		--cancel-label "Cancel" \
 		--menu "Select a background color: \
-		\n WIP" \
+		\n " \
 		0 0 0 \
 		"1" "Black"\
 		"2" "Magenta"\
@@ -1602,7 +1602,7 @@ function change_color_menu {
 		--ok-label "Ok" \
 		--cancel-label "Cancel" \
 		--menu "Select a foreground color: \
-		\n WIP" \
+		\n " \
 		0 0 0 \
 		"1" "Black"\
 		"2" "Magenta"\
@@ -1660,14 +1660,14 @@ function change_color_menu {
 
 function menuUP {
 	screenTitle="Terminal Rosary using Jq and Bash"
-	dialogTitle="Menu"
+	dialogTitle="Main Menu"
 	selectedMenuItem=$(dialog 2>&1 >/dev/tty \
 		--backtitle "$screenTitle" \
 		--title "$dialogTitle" \
 		--ok-label "Ok" \
 		--cancel-label "Cancel" \
 		--menu "Select an option:\
-		\n WIP" \
+		\n " \
 		0 0 0 \
 		"1" "About"\
 		"2" "Start Joyful Mystery"\
@@ -1784,20 +1784,13 @@ function menuDN {
 
 
 	translation=$selectedMenuTranslation
-
 	translationDB
 	jqQuery
 
-	if [ $introFlag -eq 1 ]; then
-		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
-		clear
-		howToPage
-	else
-		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
-		clear
-		tputBeadDisplay
-		progressbars
-	fi
+	echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
+	clear
+	# blank_transition_display
+	bundledDisplay
 }
 
 function prayerMenu {
@@ -1811,7 +1804,7 @@ function prayerMenu {
 		--ok-label "Ok" \
 		--cancel-label "Cancel" \
 		--menu "Select an option:\
-		\n WIP" \
+		\n Paired with English/Latin" \
 		0 0 0 \
 		"1" "$(jq .prayer[1].prayerName $rosaryJSON)"\
 		"2" "$(jq .prayer[2].prayerName $rosaryJSON)"\
@@ -1888,7 +1881,8 @@ function arrowInputs {
 
 	counterMIN=0
 	counterMAX=315
-
+	
+	rosaryBeadID=$beadCounter
 	bundledDisplay
 
 	while read -sN1 key
@@ -1953,7 +1947,8 @@ function arrowInputs {
 ###################################################
 
 function download_audio {
-	bash ./audio/dl-app-audio.sh
+	currentDirPath=$(dirname $0)
+	bash $currentDirPath/audio/dl-app-audio.sh
 }
 
 function download_dependencies {
