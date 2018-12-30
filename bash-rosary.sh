@@ -261,6 +261,7 @@ function initializeFeastFlags {
 	isChristmasSeason=0
 	isTodaySolemnityOfMary=0
 	isTodayEpiphany=0
+	isTodayEpiphany2=0
 	isTodayJesusBaptism=0
 	isTodayAll_Saints=0
 
@@ -822,6 +823,32 @@ function days_untill_Epiphany {
 	fi
 }
 
+function thePreviousEphany {
+	## calculate when the last ephany was
+
+	thisYear=$(date +%Y)
+	lastYear=$( $thisYear - 1 )
+	thisYear=$lastYear
+	monthDay="0106"
+
+	days_Untill_Count
+
+	daysUntillEpiphany2=$saveTheDate
+
+	## Shift Epiphany day onto a Sunday
+	weekdayEpiphany2=$(date --date="$(date) +$daysUntillEpiphany2 days" +%u) # mon is 1
+	daysFromSunday2=$((  7 - $weekdayEpiphany2 ))
+	daysUntillEpiphany2=$((  $daysUntillEpiphany2 - $daysFromSunday2 ))
+
+	## Add a day if they share the same day
+	if [ $daysUntillEpiphany2 -eq 0 ]; then
+		isTodayEpiphany2=1
+		daysUntillJesusBaptism=$($daysUntillJesusBaptism + 1)
+	else
+		isTodayEpiphany2=0
+	fi
+}
+
 function days_untill_JesusBaptism {
 	## Aprox Jan 13
 	## sunday after the Mass which celbrates the Epiphany
@@ -841,37 +868,27 @@ function days_untill_JesusBaptism {
 
 	## Check if the day conflicts with Epiphany
 	if [ $daysUntillJesusBaptism -eq 0 ]; then
-		thisYear=$(date +%Y)
-		lastYear=$( $thisYear - 1 )
-		thisYear=$lastYear
-		monthDay="0106"
-
-		days_Untill_Count
-
-		daysUntillEpiphany2=$saveTheDate
-
-		## Shift Epiphany day onto a Sunday
-		weekdayEpiphany2=$(date --date="$(date) +$daysUntillEpiphany2 days" +%u) # mon is 1
-		daysFromSunday2=$((  7 - $weekdayEpiphany2 ))
-		daysUntillEpiphany2=$((  $daysUntillEpiphany2 - $daysFromSunday2 ))
-
-		## Add a day if they share the same day
-		if [ $daysUntillEpiphany2 -eq 0 ]; then
-			isTodayEpiphany2=1
-			daysUntillJesusBaptism=$($daysUntillJesusBaptism + 1)
-		else
-			isTodayEpiphany2=0
-		fi
+		thePreviousEphany
 	fi
 
 	if [ $daysUntillJesusBaptism -eq 0 ] && [ $isTodayEpiphany2 -eq 0 ] && [ $daysUntillJesusBaptism -ne $daysUntillEpiphany ]; then
 		isTodayJesusBaptism=1
+		isOrdinaryTime=1
 	else
 		if [ $daysUntillJesusBaptism -eq $daysUntillEpiphany ]; then
 			daysUntillJesusBaptism=$( $daysUntillJesusBaptism + 1 )
 		fi
 		isTodayJesusBaptism=0
 	fi
+}
+
+function days_untill_OrdinaryTime {
+	## 33-34 weeks total
+
+	if [isAdventSeasion -eq 0] && [isEasterSeason -eq 0] && [isLentSeasion -eq 0] && [isChristmasSeason -eq 0]; then
+		isOrdinaryTime=1
+	fi
+
 }
 
 function trigger_feastDay {
@@ -891,6 +908,7 @@ function trigger_feastDay {
 	days_untill_Epiphany
 	days_untill_JesusBaptism
 	days_untill_Solemnity_of_Mary
+	days_untill_OrdinaryTime
 
 	yearCycleABC
 
