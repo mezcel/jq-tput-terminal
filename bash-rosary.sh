@@ -959,7 +959,7 @@ function dispPieChart {
 	pieChartHeader=$( tput cup 3 $(((width/ 2)-(length/2))) )
 	echo "$pieChartHeader$str
 	"
-	
+
 	currentDirPath=$(dirname $0)
 	# cat ascii-pie-chart.txt
 	cat $currentDirPath/Liturgical-Calendar-Notes/tiny-pie.txt
@@ -1881,7 +1881,7 @@ function arrowInputs {
 
 	counterMIN=0
 	counterMAX=315
-	
+
 	rosaryBeadID=$beadCounter
 	bundledDisplay
 
@@ -1918,7 +1918,6 @@ function arrowInputs {
 				blank_transition_display
 				beadREV
 				bundledDisplay
-
 				;;
 			"m" | "M") # mplayer audio
 
@@ -1932,7 +1931,6 @@ function arrowInputs {
 				fi
 				sleep .5s
 				# progressbars
-
 				;;
 		esac
 
