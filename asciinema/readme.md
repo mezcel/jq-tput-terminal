@@ -1,6 +1,6 @@
 # asciinema
 
-asciinema is a terminal recorder. I used it to make a demo preview for this app.
+asciinema is a terminal recorder. I used it to make a demo preview demo for this app.
 
 enclosed is a ```.cast``` file demo
 
