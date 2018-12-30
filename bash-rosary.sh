@@ -108,6 +108,7 @@ function updateScreenSize {
 ###################################################
 
 function compileJq {
+	## Manually compile jq if needed
 	git clone https://github.com/stedolan/jq.git
 
 	cd jq
@@ -235,6 +236,10 @@ function formatJqText {
 ## Holliday Dates Calculation
 ###################################################
 
+#
+## Flag Vars
+#
+
 function initializeFeastFlags {
 	## I assume this app will be turned on/off therfore fefreshing as-needed
 	## I did not make a perpetual clock
@@ -256,9 +261,32 @@ function initializeFeastFlags {
 	isChristmasSeason=0
 	isTodaySolemnityOfMary=0
 	isTodayEpiphany=0
+	isTodayEpiphany2=0
+	isTodayJesusBaptism=0
 	isTodayAll_Saints=0
 
 	isOrdinaryTime=0
+}
+
+function livingSeasonABC {
+
+	## Living Seasons of Change by Liturgical Year Cycles and Month:
+	## A,B,C
+	cycleSeasonAdvent=("" "Season of Waiting" "Season of Preparation" "Season of Holiness")
+	cycleSeasonEpiphany=("" "Season of Foundation" "Season of New Beginning" "Season of Manifestation")
+	cycleSeasonLent=("" "Season of Hope" "Season of Cross Purposes" "Season of Repentance")
+	cycleSeasonPentacost=("" "Season of Glory" "Season of Power" "Season of the Spirit")
+	cycleSeasonEaster=("" "Season of Salvation" "Season of More Season of Witness" "Season of Joy & Life")
+
+	# Season of Traveling with Jesus (Wk 4-7 Ord B); Season of Sharing (Weeks 3-7 Ordinary C)
+	# Season of Salvation (Holy Week, Easter A);Season of More (Easter A); Season of Witness (Holy Week, Easter B);  Season of Joy & Life (Easter C)
+	# Season of Apostleship (Wks 9-12 Ordinary A); Season of Signs (Trinity, Body & Blood, 12-13 Ord B); Season of Solemnities (Trinity, Body & Blood C)
+	# Season of Discovery (Weeks 14-17 Ordinary A); Season of Patterns (Weeks  14-17 Ordinary B); Season of Journey (Weeks 13-17 Ordinary C)
+	# Season of Following Jesus (Weeks 18-22 Ord A); Season of Living Bread (Weeks 18-21 Ordinary B); Season of Treasure (Weeks 18-21 Ordinary C)
+	# Season of Agreement (Weeks 23-26 Ordinary A); Season of Mark of the Disciple (Weeks 22-26 Ord B); Season of Acceptance (Weeks 22-26 Ordinary C)
+	# Season of Greatest Commandment (Weeks 27-30 Ord A); Season of Vocation (Weeks 27-30 Ordinary B); Season of Faith (Weeks 27-30 Ordinary C)
+	# Season of Time (All Saints-Christ the King A); Season of Forever (All Saints-Christ the King B); Season of the Kingdom (All Saints-Christ the King C)
+
 }
 
 #
@@ -485,7 +513,7 @@ function calculate_Paschal_Full_Moon {
 }
 
 #
-## Liturgical Callendar Flags
+## Liturgical Callendar Counters
 #
 
 function days_untill_Holy_Thursday {
@@ -767,6 +795,8 @@ function days_untill_Epiphany {
 	## Sunday closest to 12 days after Christmas
 	## If Jan 6 is >= friday add days forward to Sun
 	## If Jan 6 is < friday subtract days back to Sun
+	## The day is transfered to a Sunday if the day falls between Jan 2-8
+	## Day of Obligation
 
 	thisYear=$(date +%Y)
 	monthDay="0106"
@@ -775,7 +805,7 @@ function days_untill_Epiphany {
 
 	daysUntillEpiphany=$saveTheDate
 
-	## Shift day into a Sunday
+	## Shift day onto a Sunday
 	weekdayEpiphany=$(date --date="$(date) +$daysUntillEpiphany days" +%u) # mon is 1
 	daysFromSunday=$((  7 - $weekdayEpiphany ))
 	daysUntillEpiphany=$((  $daysUntillEpiphany - $daysFromSunday ))
@@ -786,11 +816,79 @@ function days_untill_Epiphany {
 		isChristmasSeason=0
 	fi
 
-	if [ $daysUntillEpiphany == 0 ]; then
+	if [ $daysUntillEpiphany -eq 0 ]; then
 		isTodayEpiphany=1
 	else
 		isTodayEpiphany=0
 	fi
+}
+
+function thePreviousEphany {
+	## calculate when the last ephany was
+
+	thisYear=$(date +%Y)
+	lastYear=$( $thisYear - 1 )
+	thisYear=$lastYear
+	monthDay="0106"
+
+	days_Untill_Count
+
+	daysUntillEpiphany2=$saveTheDate
+
+	## Shift Epiphany day onto a Sunday
+	weekdayEpiphany2=$(date --date="$(date) +$daysUntillEpiphany2 days" +%u) # mon is 1
+	daysFromSunday2=$((  7 - $weekdayEpiphany2 ))
+	daysUntillEpiphany2=$((  $daysUntillEpiphany2 - $daysFromSunday2 ))
+
+	## Add a day if they share the same day
+	if [ $daysUntillEpiphany2 -eq 0 ]; then
+		isTodayEpiphany2=1
+		daysUntillJesusBaptism=$($daysUntillJesusBaptism + 1)
+	else
+		isTodayEpiphany2=0
+	fi
+}
+
+function days_untill_JesusBaptism {
+	## Aprox Jan 13
+	## sunday after the Mass which celbrates the Epiphany
+	## Monday if Epiphany Sunday shared the same day
+
+	thisYear=$(date +%Y)
+	monthDay="0113"
+
+	days_Untill_Count
+
+	daysUntillJesusBaptism=$saveTheDate
+
+	## Shift JesusBaptism day onto a Sunday
+	weekdayJesusBaptism=$(date --date="$(date) +$daysUntillJesusBaptism days" +%u) # mon is 1
+	daysFromSunday=$((  7 - $weekdayJesusBaptism ))
+	daysUntillJesusBaptism=$((  $daysUntillJesusBaptism - $daysFromSunday ))
+
+	## Check if the day conflicts with Epiphany
+	if [ $daysUntillJesusBaptism -eq 0 ]; then
+		thePreviousEphany
+	fi
+
+	if [ $daysUntillJesusBaptism -eq 0 ] && [ $isTodayEpiphany2 -eq 0 ] && [ $daysUntillJesusBaptism -ne $daysUntillEpiphany ]; then
+		isTodayJesusBaptism=1
+		isOrdinaryTime=1
+	else
+		if [ $daysUntillJesusBaptism -eq $daysUntillEpiphany ]; then
+			daysUntillJesusBaptism=$( $daysUntillJesusBaptism + 1 )
+		fi
+		isTodayJesusBaptism=0
+	fi
+}
+
+function days_untill_OrdinaryTime {
+	## 33-34 weeks total
+
+	if [isAdventSeasion -eq 0] && [isEasterSeason -eq 0] && [isLentSeasion -eq 0] && [isChristmasSeason -eq 0]; then
+		isOrdinaryTime=1
+	fi
+
 }
 
 function trigger_feastDay {
@@ -808,11 +906,15 @@ function trigger_feastDay {
 	days_untill_Immaculate_Conception
 	days_untill_All_Saints
 	days_untill_Epiphany
+	days_untill_JesusBaptism
 	days_untill_Solemnity_of_Mary
+	days_untill_OrdinaryTime
 
 	yearCycleABC
 
 	## Feast Day App Color Theme
+	## It is required, for Catholics, to go to Mass at least 2x a year. Easter and Christmas would be the 2 days to go.
+
 	if [ $isTodayEaster -eq 1 ] || [ $isTodayPentecost -eq 1 ]; then
 		## Yellow
 		BACKGROUNDCOLOR=${BG_YELLOW}; echo ${BACKGROUNDCOLOR}
@@ -843,6 +945,7 @@ function feastDayCountdown {
 	dialogChristmas="Christmas:	$daysUntillChristmas \n"
 	dialogSolemnity="Solemnity of Mary:	$daysUntillSolemnityOfMary \n"
 	dialogEpiphany="Epiphany:	$daysUntillEpiphany \n"
+	dialogJesusBaptism="Baptism of Jesus: $daysUntillJesusBaptism \n"
 	dialogAsh="Ash Wednesday:	$daysUntillAshWednesday \n"
 	dilogHolyThursday="Holy Thursday: $daysUntillHolyThursday \n"
 	dialogGoodFriday="Good Friday: $daysUntillGoodFriday \n"
@@ -856,7 +959,7 @@ function feastDayCountdown {
 	dialogChristmasSeason="Christmas Season: $isChristmasSeason \n"
 	dialogEasterSeason="Easter Season: $isEasterSeason \n"
 
-	msgCountdownList="$dialogHR1$dialogEaster$dialogAssension$dialogPentecost$dialogAllSaints$dialogAdvent$dialogConception$dialogChristmas$dialogSolemnity$dialogEpiphany$dialogAsh$dilogHolyThursday$dialogGoodFriday$dialogHolySaturday$dialogHR2$dialogABCCycle$dialogOrdinaryTimeSeason$dialogLentSeason$dialogAdventSeason$dialogChristmasSeason$dialogEasterSeason\n"
+	msgCountdownList="$dialogHR1$dialogEaster$dialogAssension$dialogPentecost$dialogAllSaints$dialogAdvent$dialogConception$dialogChristmas$dialogSolemnity$dialogEpiphany$dialogJesusBaptism$dialogAsh$dilogHolyThursday$dialogGoodFriday$dialogHolySaturday$dialogHR2$dialogABCCycle$dialogOrdinaryTimeSeason$dialogLentSeason$dialogAdventSeason$dialogChristmasSeason$dialogEasterSeason\n"
 
 	screenTitle="Terminal Rosary using Jq and Bash"
 	dialogTitle="Feast Day Countdown"
@@ -870,27 +973,6 @@ function feastDayCountdown {
 
 	## Disp an Ascii Pie Chart
 	dispPieChart
-}
-
-function livingSeasonABC {
-
-	## Living Seasons of Change by Liturgical Year Cycles and Month:
-	## A,B,C
-	cycleSeasonAdvent=("" "Season of Waiting" "Season of Preparation" "Season of Holiness")
-	cycleSeasonEpiphany=("" "Season of Foundation" "Season of New Beginning" "Season of Manifestation")
-	cycleSeasonLent=("" "Season of Hope" "Season of Cross Purposes" "Season of Repentance")
-	cycleSeasonPentacost=("" "Season of Glory" "Season of Power" "Season of the Spirit")
-	cycleSeasonEaster=("" "Season of Salvation" "Season of More Season of Witness" "Season of Joy & Life")
-
-	# Season of Traveling with Jesus (Wk 4-7 Ord B); Season of Sharing (Weeks 3-7 Ordinary C)
-	# Season of Salvation (Holy Week, Easter A);Season of More (Easter A); Season of Witness (Holy Week, Easter B);  Season of Joy & Life (Easter C)
-	# Season of Apostleship (Wks 9-12 Ordinary A); Season of Signs (Trinity, Body & Blood, 12-13 Ord B); Season of Solemnities (Trinity, Body & Blood C)
-	# Season of Discovery (Weeks 14-17 Ordinary A); Season of Patterns (Weeks  14-17 Ordinary B); Season of Journey (Weeks 13-17 Ordinary C)
-	# Season of Following Jesus (Weeks 18-22 Ord A); Season of Living Bread (Weeks 18-21 Ordinary B); Season of Treasure (Weeks 18-21 Ordinary C)
-	# Season of Agreement (Weeks 23-26 Ordinary A); Season of Mark of the Disciple (Weeks 22-26 Ord B); Season of Acceptance (Weeks 22-26 Ordinary C)
-	# Season of Greatest Commandment (Weeks 27-30 Ord A); Season of Vocation (Weeks 27-30 Ordinary B); Season of Faith (Weeks 27-30 Ordinary C)
-	# Season of Time (All Saints-Christ the King A); Season of Forever (All Saints-Christ the King B); Season of the Kingdom (All Saints-Christ the King C)
-
 }
 
 function yearCycleABC {
@@ -940,15 +1022,19 @@ function yearCycleABC {
 	abcEaster=${cycleSeasonEaster[$abcNo]}
 }
 
+#
+# Pie Chart Info Page
+#
 function dispPieChart {
 
-	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
+	echo "${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 	clear
-	# pieChart="$(cat ascii-pie-chart.txt)"
+
 	str="Terminal Rosary using Jq and Bash"
 	width=$(tput cols)
 	length=${#str}
-	pieChartTitle=$( tput cup 0 $(( (width/ 2)-(length/2) )) )
+	centerText=$(( (width / 2)-(length / 2) ))
+	pieChartTitle=$( tput cup 0 $centerText )
 	echo "$pieChartTitle$str"
 
 	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
@@ -956,20 +1042,21 @@ function dispPieChart {
 	str="Liturgical Year Pie Chart"
 	width=$(tput cols)
 	length=${#str}
-	pieChartHeader=$( tput cup 3 $(((width/ 2)-(length/2))) )
-	echo "$pieChartHeader$str
-	"
-	
+	centerText=$(( (width / 2)-(length / 2) ))
+	pieChartHeader=$(tput cup 3 $centerText)
+	echo "$pieChartHeader$str"
+	echo ""
+
 	currentDirPath=$(dirname $0)
-	# cat ascii-pie-chart.txt
-	cat $currentDirPath/Liturgical-Calendar-Notes/tiny-pie.txt
+	## cat ascii-pie-chart.txt
+	cat "$currentDirPath/Liturgical-Calendar-Notes/tiny-pie.txt"
 
 	height=$(tput lines)
 	if [ $height -ge 34 ]; then
 		tput cup $[$(tput lines)-2]
 	fi
 
-	read -p "[Enter]" -s
+	read -p "[Enter]" -s enterVar
 }
 
 ###################################################
@@ -983,7 +1070,8 @@ function initTputStingVars {
 	height=$(tput lines)
 	str="Terminal Rosary using Jq and Bash"
 	length=${#str}
-	tputAppTitle=$(tput cup 0 $(( (width/2)-(length/2) )); echo "$str")
+	centerText=$(( (width / 2)-(length / 2) ))
+	tputAppTitle=$(tput cup 0 $centerText; echo "$str")
 
 	tputAppTranslation=$(tput cup 0 1; echo $translationName)
 	tputAppClock=$(tput cup 0 $[$(tput cols)-29]; echo `date`)
@@ -1012,7 +1100,8 @@ function tputStingVars {
 	height=$(tput lines)
 	str="Terminal Rosary using Jq and Bash"
 	length=${#str}
-	tputAppTitle=$(tput cup 0 $(( (width/2)-(length/2) )); echo "$str")
+	centerText=$(( (width/2)-(length / 2) ))
+	tputAppTitle=$(tput cup 0 $centerText; echo "$str")
 
 	tputAppTranslation=$(tput cup 0 1; echo $translationName)
 	tputAppClock=$(tput cup 0 $[$(tput cols)-29]; echo `date`)
@@ -1048,11 +1137,13 @@ function splashScreen {
 	height=$(tput lines)
 	str="Terminal Rosary using Jq and Bash"
 	length=${#str}
-	tput cup $((height/2)) $(((width/ 2)-(length/2)))
+	centerText=$(( (width / 2)-(length / 2) ))
+	tput cup $((height/2)) $centerText
 	echo $MODE_BEGIN_UNDERLINE$str$MODE_EXIT_UNDERLINE
 	str="< Lt navigate Rt > ( Up menus Dn )"
 	length=${#str}
-	tput cup $height $(((width/ 2)-(length/2)))
+	centerText=$(( (width / 2)-(length / 2) ))
+	tput cup $height $centerText
 	echo $str
 
 	## prompt for enter
@@ -1114,7 +1205,8 @@ function welcomepage {
 	str="Terminal Rosary using Jq and Bash"
 	width=$(tput cols)
 	length=${#str}
-	tput cup 0 $(((width/ 2)-(length/2)))
+	centerText=$(((width/ 2)-(length / 2)))
+	tput cup 0 $centerText
 	echo $str
 
 	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
@@ -1224,7 +1316,8 @@ function howToPage {
 	str="Terminal Rosary using Jq and Bash"
 	width=$(tput cols)
 	length=${#str}
-	tput cup 0 $(((width/ 2)-(length/2)))
+	centerText=$(((width / 2)-(length / 2)))
+	tput cup 0 $centerText
 	echo $str
 
 	printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
@@ -1296,11 +1389,13 @@ function goodbyescreen {
 	height=$(tput lines)
 	str="Terminal Rosary using Jq and Bash"
 	length=${#str}
-	tput cup $((height/2)) $(((width/ 2)-(length/2)))
+	centerText=$(((width/ 2)-(length / 2)))
+	tput cup $((height/2)) $centerText
 	echo $MODE_BEGIN_UNDERLINE$str$MODE_EXIT_UNDERLINE
 	str="Goodbye"
 	length=${#str}
-	tput cup $height $(((width/ 2)-(length/2)))
+	centerText=$(((width/ 2)-(length / 2)))
+	tput cup $height $centerText
 	echo $str
 
 	read -t 3 -p "" exitVar
@@ -1344,7 +1439,8 @@ function progressbars {
 		str=" PROGRESS BARS "
 		progressBarDivider=$(tput cup $[$(tput lines)-9] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-9] 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
 		length=${#str}
-		progressBarTitle=$(tput cup $[$(tput lines)-8] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-8] $(((width/ 2)-(length/2))); echo $BAR_BG$BAR_FG$str$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
+		centerText=$(((width/ 2)-(length / 2)))
+		progressBarTitle=$(tput cup $[$(tput lines)-8] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-8] $centerText; echo $BAR_BG$BAR_FG$str$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 
 		#########
 		if [ $thisDecadeSet -lt 10 ]; then
@@ -1881,7 +1977,7 @@ function arrowInputs {
 
 	counterMIN=0
 	counterMAX=315
-	
+
 	rosaryBeadID=$beadCounter
 	bundledDisplay
 
@@ -1918,7 +2014,6 @@ function arrowInputs {
 				blank_transition_display
 				beadREV
 				bundledDisplay
-
 				;;
 			"m" | "M") # mplayer audio
 
@@ -1932,7 +2027,6 @@ function arrowInputs {
 				fi
 				sleep .5s
 				# progressbars
-
 				;;
 		esac
 
