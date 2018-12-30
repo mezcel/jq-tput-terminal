@@ -1,12 +1,12 @@
 # Audio
 
-When this App starts, ```dl-app-audio.sh``` will download GNU Audio Oggs.
+When this App starts, it will call ```dl-app-audio.sh``` which will download GNU Audio Oggs.
 
 - I focused on Ogg for GNU sake, but .wav, .mp3, .midi is also compatible for this app.
 
 ## Source Audio:
 
-wikimedia.org [link](https://commons.wikimedia.org/wiki/Category:Ogg_files_of_Christian_music):
+The following files are used in this app and taken from [wikimedia.org](https://commons.wikimedia.org/wiki/Category:Ogg_files_of_Christian_music)
 
 - [Schola_Gregoriana-Ave_Maria.ogg](https://en.wikipedia.org/wiki/File:Schola_Gregoriana-Ave_Maria.ogg)
 
@@ -22,16 +22,18 @@ wikimedia.org [link](https://commons.wikimedia.org/wiki/Category:Ogg_files_of_Ch
 
 - [The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg](https://commons.wikimedia.org/wiki/File:The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg)
 
+
+Considering the use of the following files from [archive.org](archive.org)
+
+* [SalveRegina.ogg](https://archive.org/details/SalveRegina_889) [link](https://archive.org/download/SalveRegina_889/SalveRegina.ogg)
+
+* [Litany_of_Loreto.ogg](https://archive.org/details/LitanyOfLoreto) [link](https://archive.org/download/LitanyOfLoreto/Litany_of_Loreto.ogg)
+
+* [HolyRosaryPrayer.zip](https://archive.org/details/HolyRosaryPrayer) [link](https://archive.org/compress/HolyRosaryPrayer/formats=OGG%20VORBIS&file=/HolyRosaryPrayer.zip)
+
 ---
-archive.org
 
-[SalveRegina.ogg](https://archive.org/details/SalveRegina_889) https://archive.org/download/SalveRegina_889/SalveRegina.ogg
-
-[Litany_of_Loreto.ogg](https://archive.org/details/LitanyOfLoreto) https://archive.org/download/LitanyOfLoreto/Litany_of_Loreto.ogg
-
-[HolyRosaryPrayer.zip](https://archive.org/details/HolyRosaryPrayer) https://archive.org/compress/HolyRosaryPrayer/formats=OGG%20VORBIS&file=/HolyRosaryPrayer.zip
-
----
+### Audio Software:
 
 play midi audio files
 ```sh

@@ -12,10 +12,10 @@ Scripture Rosary GUI on the Bash CLI.
 
 | Test Distro's | Development Environment Notes |
 | --- | --- |
-| [Arch](https://wiki.archlinux.org/) | This App was developed Arch Linux. [Parabola](https://wiki.parabola.nu/Category:Migration) is a 'free' Arch alternative. |
+| [Arch](https://wiki.archlinux.org/) | This App was developed on Arch Linux. [Parabola](https://wiki.parabola.nu/Category:Migration) is a 'free' Arch alternative. |
 | Slackware | Tested on Salix ( legacy linux platform ) |
 | [Alpine](https://alpinelinux.org/about/) | OpenRC, Docker, BusyBox |
-| Ubuntu | Jq/gcc running on [Trisquel](https://trisquel.info), Tahrpup, and Mint processed the fastest query returns. |
+| Ubuntu | Jq/gcc running on [Trisquel](https://trisquel.info), Tahrpup, and Mint returned the fastest queries. |
 
 ### About:
 
