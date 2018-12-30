@@ -885,7 +885,7 @@ function days_untill_JesusBaptism {
 function days_untill_OrdinaryTime {
 	## 33-34 weeks total
 
-	if [isAdventSeasion -eq 0] && [isEasterSeason -eq 0] && [isLentSeasion -eq 0] && [isChristmasSeason -eq 0]; then
+	if [ $isAdventSeasion -eq 0 ] && [ $isEasterSeason -eq 0 ] && [ $isLentSeasion -eq 0 ] && [ $isChristmasSeason -eq 0 ]; then
 		isOrdinaryTime=1
 	fi
 
@@ -1226,54 +1226,71 @@ function welcomepage {
 	if [ $isTodayEaster -eq 1 ]; then
 		echo "						Easter Day"
 	fi
+
 	if [ $isEasterSeason -eq 1 ]; then
 		echo "						This is the Easter Season, $abcEaster"
 	fi
+
 	if [ $isTodayAsh_Wednesday -eq 1 ]; then
 		echo "						Today is Ash Wednesday"
 	fi
+
 	if [ $isLentSeasion -eq 1 ]; then
 		echo "						This is the Lent Season, $abcLent"
 	fi
+
 	if [ $isTodayHoly_Thursday -eq 1 ]; then
 		echo "						This is Holy Thursday"
 	fi
+
 	if [ $isTodayGood_Friday -eq 1 ]; then
 		echo "						This is the Good Friday"
 	fi
+
 	if [ $isTodayHoly_Saturday -eq 1 ]; then
 		echo "						This is the Holy Saturday"
 	fi
+
 	if [ $isTodayJesus_Assension -eq 1 ]; then
 		echo "						Today is the Feast of Jesus's Assension"
 	fi
+
 	if [ $isTodayPentecost -eq 1 ]; then
 		echo "						Tday is Pentecost"
 	fi
+
 	if [ $isTodayImmaculateConception -eq 1 ]; then
 		echo "						Today is the feast of the Immaculate Conception"
 	fi
+
 	if [ $isTodayAdventStart -eq 1 ]; then
 		echo "						Advent Starts Today"
 	fi
+
 	if [ $isAdventSeasion -eq 1 ]; then
 		echo "						This is the Advent Season, $abcAdvent"
 	fi
+
 	if [ $isTodayChristmas -eq 1 ]; then
 		echo "						Today is Christmas"
 	fi
+
 	if [ $isChristmasSeason -eq 1 ]; then
 		echo "						Today is the Christmas Season, $abcChristmas"
 	fi
+
 	if [ $isTodaySolemnityOfMary -eq 1 ]; then
 		echo "						Today is the Feast of the Solemnity of Mary"
 	fi
+
 	if [ $isTodayEpiphany -eq 1 ]; then
 		echo "						Today is the Feast of the Epiphany"
 	fi
+
 	if [ $isTodayAll_Saints -eq 1 ]; then
 		echo "						Today is All Saints Day"
 	fi
+
 	if [ $isOrdinaryTime -eq 1 ]; then
 		echo "						This is the Ordinary Time Season"
 	fi
@@ -1529,7 +1546,6 @@ function beadProgress {
 			fi
 
 			stringSpaceCounter=0
-			beadAudioFile="./audio/AveMaria.ogg"
 
             ;;
 		3)	## big bead
@@ -1543,8 +1559,6 @@ function beadProgress {
 					hailmaryCounter=$(( $hailmaryCounter - 1 ))
 				fi
             fi
-
-            beadAudioFile="./audio/PaterNoster.ogg"
 
             ;;
         4) ## string space
@@ -1580,8 +1594,6 @@ function beadProgress {
 				fi
             fi
 
-            beadAudioFile="./audio/GloriaPatri.ogg"
-
             ;;
         5)	## Mary Icon
 			if [ $directionFwRw -eq 1 ]; then
@@ -1590,28 +1602,17 @@ function beadProgress {
 
             stringSpaceCounter=0;
 
-			## mystery according to day of week
-            # if [ $initialMysteryFlag -eq 0 ]; then
-            #     beadCounter=$mysteryJumpPosition
-            #     initialMysteryFlag=1
-            # fi
-            beadAudioFile="./audio/SalveRegina.ogg"
 			;;
 		6)	## cross
-			# hailmaryCounter=0
 			initialHailMaryCounter=0
             stringSpaceCounter=0
-            # thisDecadeSet=0
-            # mysteryProgress=0
 
-            beadAudioFile="./audio/Credo.ogg"
 			;;
         *)
 			thisDecadeSet=0
             stringSpaceCounter=0
             mysteryProgress=0
 
-            # beadAudioFile=""
             ;;
       esac
 }
@@ -1946,6 +1947,34 @@ function prayerMenu {
 ## Keyboard Arrows UI
 ###################################################
 
+function setBeadAudio {
+	## prayerIndex
+	## set audio media to match the current prayer
+
+	# currentDirPath=$(dirname $0)
+	case $prayerIndex in
+		2 )
+			beadAudioFile="$currentDirPath/audio/Credo.ogg"
+			;;
+		3 )
+			beadAudioFile="$currentDirPath/audio/PaterNoster.ogg"
+			;;
+		4 )
+			beadAudioFile="$currentDirPath/audio/AveMaria.ogg"
+			;;
+		5 )
+			beadAudioFile="$currentDirPath/audio/GloriaPatri.ogg"
+			;;
+		7 )
+			beadAudioFile="$currentDirPath/audio/SalveRegina.ogg"
+			;;
+		* )
+			beadAudioFile="-loop 0 $currentDirPath/audio/AveMaria2.ogg"
+			;;
+	esac
+
+}
+
 function beadFWD {
 	directionFwRw=1
 	beadCounter=$((beadCounter+1))
@@ -1980,6 +2009,7 @@ function arrowInputs {
 
 	rosaryBeadID=$beadCounter
 	bundledDisplay
+	setBeadAudio
 
 	while read -sN1 key
 	do
@@ -2008,12 +2038,14 @@ function arrowInputs {
 					blank_transition_display
 					beadFWD
 					bundledDisplay
+					setBeadAudio
 				fi
 				;;
 			$arrowLt) # navigate back
 				blank_transition_display
 				beadREV
 				bundledDisplay
+				setBeadAudio
 				;;
 			"m" | "M") # mplayer audio
 
@@ -2041,8 +2073,10 @@ function arrowInputs {
 ###################################################
 
 function download_audio {
+
 	currentDirPath=$(dirname $0)
-	bash $currentDirPath/audio/dl-app-audio.sh
+
+	bash "$currentDirPath/audio/dl-app-audio.sh"
 }
 
 function download_dependencies {
@@ -2129,7 +2163,7 @@ function initialize {
 	beadCounter=0
 	thisDecadeSet=0
 	mysteryProgress=0
-	beadAudioFile="-loop 0 ./audio/AveMaria2.ogg"
+	beadAudioFile="-loop 0 $currentDirPath/audio/AveMaria2.ogg"
 
 	introFlag=1
 	translation=1

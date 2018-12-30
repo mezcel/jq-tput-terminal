@@ -12,12 +12,12 @@ function arch_audio_players {
 		sudo pacman -S --needed mplayer
 		sudo apt-get install mplayer
 		sudo slapt-get --install mplayer
-		
+
 	fi
 }
 
 function ogg_audio_files {
-	
+
 	currentDirPath=$(dirname $0)
 
 	localFile="$currentDirPath/Credo.ogg"
@@ -75,7 +75,7 @@ function ogg_audio_files {
 		"
 		wget 'https://upload.wikimedia.org/wikipedia/commons/4/45/The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg' -O "$localFile"
 	fi
-	
+
 }
 
 arch_audio_players
