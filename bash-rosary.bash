@@ -1650,7 +1650,7 @@ function change_color_menu {
 
 	screenTitle="Terminal Rosary using Jq and Bash"
 	dialogTitle="Background Color Menu"
-	selectedBackgroundColor=$(dialog 2>&1 >/dev/tty \
+	selectedBackgroundColor=$( dialog 2>&1 >/dev/tty \
 		--backtitle "$screenTitle" \
 		--title "$dialogTitle" \
 		--ok-label "Ok" \
@@ -1666,7 +1666,8 @@ function change_color_menu {
 		"6" "Blue"\
 		"7" "White"\
 		"8" "Green"\
-		"9"	"No Style")
+		"9"	"No Style" )
+
 
 	case "$selectedBackgroundColor" in
 		1) # Black
@@ -1710,6 +1711,7 @@ function change_color_menu {
 			;;
 	esac
 
+
 	dialogTitle="Foreground Color Menu"
 	selectedForegroundColor=$(dialog 2>&1 >/dev/tty \
 		--backtitle "$screenTitle" \
@@ -1728,6 +1730,7 @@ function change_color_menu {
 		"7" "White"\
 		"8" "Green"\
 		"9"	"No Style")
+
 
 	case "$selectedForegroundColor" in
 		1) # Black
