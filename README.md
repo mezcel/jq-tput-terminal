@@ -2,13 +2,11 @@
 
 Scripture Rosary GUI on the Bash CLI.
 
-
-
 ### Dev Status:
 
 * ```v0.1.4``` Demo Preview: [asciinema](https://asciinema.org/a/217793)
 
-* ```v0.1.6.1``` added Liturgical ABC Cycles flags
+* ```v0.1.6.2``` added an option to automatically cycle though the Rosary while playing prayer music. The objective was to run this app a musical background room ambiance.
 
 | Test Distro's | Development Environment Notes |
 | --- | --- |

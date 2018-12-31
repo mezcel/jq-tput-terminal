@@ -197,6 +197,7 @@ function formatJqText {
 	## Split Prayer into 2 lines
 	first2letters=$(echo $return_prayerText | grep -Po "^..")
 
+	## Break up prayers into 2 segments for social readability
 	case $first2letters in
 		"OU") ## Enlgish Our Father
 			newLineWith="Give"
@@ -885,7 +886,7 @@ function days_untill_JesusBaptism {
 function days_untill_OrdinaryTime {
 	## 33-34 weeks total
 
-	if [isAdventSeasion -eq 0] && [isEasterSeason -eq 0] && [isLentSeasion -eq 0] && [isChristmasSeason -eq 0]; then
+	if [ $isAdventSeasion -eq 0 ] && [ $isEasterSeason -eq 0 ] && [ $isLentSeasion -eq 0 ] && [ $isChristmasSeason -eq 0 ]; then
 		isOrdinaryTime=1
 	fi
 
@@ -1049,7 +1050,7 @@ function dispPieChart {
 
 	currentDirPath=$(dirname $0)
 	## cat ascii-pie-chart.txt
-	cat "$currentDirPath/Liturgical-Calendar-Notes/tiny-pie.txt"
+	cat "$currentDirPath/graphics/tiny-pie.txt"
 
 	height=$(tput lines)
 	if [ $height -ge 34 ]; then
@@ -1226,54 +1227,71 @@ function welcomepage {
 	if [ $isTodayEaster -eq 1 ]; then
 		echo "						Easter Day"
 	fi
+
 	if [ $isEasterSeason -eq 1 ]; then
 		echo "						This is the Easter Season, $abcEaster"
 	fi
+
 	if [ $isTodayAsh_Wednesday -eq 1 ]; then
 		echo "						Today is Ash Wednesday"
 	fi
+
 	if [ $isLentSeasion -eq 1 ]; then
 		echo "						This is the Lent Season, $abcLent"
 	fi
+
 	if [ $isTodayHoly_Thursday -eq 1 ]; then
 		echo "						This is Holy Thursday"
 	fi
+
 	if [ $isTodayGood_Friday -eq 1 ]; then
 		echo "						This is the Good Friday"
 	fi
+
 	if [ $isTodayHoly_Saturday -eq 1 ]; then
 		echo "						This is the Holy Saturday"
 	fi
+
 	if [ $isTodayJesus_Assension -eq 1 ]; then
 		echo "						Today is the Feast of Jesus's Assension"
 	fi
+
 	if [ $isTodayPentecost -eq 1 ]; then
 		echo "						Tday is Pentecost"
 	fi
+
 	if [ $isTodayImmaculateConception -eq 1 ]; then
 		echo "						Today is the feast of the Immaculate Conception"
 	fi
+
 	if [ $isTodayAdventStart -eq 1 ]; then
 		echo "						Advent Starts Today"
 	fi
+
 	if [ $isAdventSeasion -eq 1 ]; then
 		echo "						This is the Advent Season, $abcAdvent"
 	fi
+
 	if [ $isTodayChristmas -eq 1 ]; then
 		echo "						Today is Christmas"
 	fi
+
 	if [ $isChristmasSeason -eq 1 ]; then
 		echo "						Today is the Christmas Season, $abcChristmas"
 	fi
+
 	if [ $isTodaySolemnityOfMary -eq 1 ]; then
 		echo "						Today is the Feast of the Solemnity of Mary"
 	fi
+
 	if [ $isTodayEpiphany -eq 1 ]; then
 		echo "						Today is the Feast of the Epiphany"
 	fi
+
 	if [ $isTodayAll_Saints -eq 1 ]; then
 		echo "						Today is All Saints Day"
 	fi
+
 	if [ $isOrdinaryTime -eq 1 ]; then
 		echo "						This is the Ordinary Time Season"
 	fi
@@ -1285,6 +1303,7 @@ function welcomepage {
 		Down arrow key opens Language Translation Menu ( English NAB or Latin Vulgate )
 		Up arrow key opens the Main Menu
 		'M' Key toggles Latin prayer audio (plays prayer only once)
+		In 'Auto Pilot Mode' all user controlls are disabled except [Ctrl+C]
 
 
 	${MODE_BEGIN_UNDERLINE}Advice:${MODE_EXIT_UNDERLINE}
@@ -1354,7 +1373,7 @@ function howToPage {
 	if [ $height -ge 34 ]; then
 		tput cup $[$(tput lines)-2]
 	fi
-	echo "Use the Arrow keys to navigate. [Press Rt Key]"
+	echo "Use the Arrow keys to navigate. [Autopilot a | A]"
 
 	while read -sN1 key
 	do
@@ -1366,11 +1385,27 @@ function howToPage {
 		key+=${k1}${k2}${k3} &>/dev/null
 
 		case "$key" in
-			$arrowRt )
-				## Start the bead sequence
+			"a" | "A" ) ## Auto Pilot, Latin prayers
+				rosaryJSON=`echo $hostedDirPath/json-db/rosaryJSON-vulgate.json`
+				translationName="Vulgate (Latin)"
+				autoPilot=1
 				beadCounter=$(( $mysteryJumpPosition - 7 ))
 				query_mysteryName=.mystery[$dayMysteryIndex].mysteryName
-				query_prayerText=.prayer[1].prayerText
+				prayerIndex=1
+				query_prayerText=.prayer[$prayerIndex].prayerText
+				return_prayerText=$(jq $query_prayerText $rosaryJSON)
+				echo "${FG_NoColor}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
+				clear
+				killall mplayer
+				return
+				;;
+			$arrowRt )
+				## Start the bead sequence
+				autoPilot=0
+				beadCounter=$(( $mysteryJumpPosition - 7 ))
+				query_mysteryName=.mystery[$dayMysteryIndex].mysteryName
+				prayerIndex=1
+				query_prayerText=.prayer[$prayerIndex].prayerText
 				return_prayerText=$(jq $query_prayerText $rosaryJSON)
 				echo "${FG_NoColor}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 				clear
@@ -1529,7 +1564,6 @@ function beadProgress {
 			fi
 
 			stringSpaceCounter=0
-			beadAudioFile="./audio/AveMaria.ogg"
 
             ;;
 		3)	## big bead
@@ -1543,8 +1577,6 @@ function beadProgress {
 					hailmaryCounter=$(( $hailmaryCounter - 1 ))
 				fi
             fi
-
-            beadAudioFile="./audio/PaterNoster.ogg"
 
             ;;
         4) ## string space
@@ -1580,8 +1612,6 @@ function beadProgress {
 				fi
             fi
 
-            beadAudioFile="./audio/GloriaPatri.ogg"
-
             ;;
         5)	## Mary Icon
 			if [ $directionFwRw -eq 1 ]; then
@@ -1590,28 +1620,17 @@ function beadProgress {
 
             stringSpaceCounter=0;
 
-			## mystery according to day of week
-            # if [ $initialMysteryFlag -eq 0 ]; then
-            #     beadCounter=$mysteryJumpPosition
-            #     initialMysteryFlag=1
-            # fi
-            beadAudioFile="./audio/SalveRegina.ogg"
 			;;
 		6)	## cross
-			# hailmaryCounter=0
 			initialHailMaryCounter=0
             stringSpaceCounter=0
-            # thisDecadeSet=0
-            # mysteryProgress=0
 
-            beadAudioFile="./audio/Credo.ogg"
 			;;
         *)
 			thisDecadeSet=0
             stringSpaceCounter=0
             mysteryProgress=0
 
-            # beadAudioFile=""
             ;;
       esac
 }
@@ -1755,6 +1774,7 @@ function change_color_menu {
 }
 
 function menuUP {
+
 	screenTitle="Terminal Rosary using Jq and Bash"
 	dialogTitle="Main Menu"
 	selectedMenuItem=$(dialog 2>&1 >/dev/tty \
@@ -1946,6 +1966,50 @@ function prayerMenu {
 ## Keyboard Arrows UI
 ###################################################
 
+function setBeadAudio {
+	## prayerIndex
+	## set audio media to match the current prayer
+
+	# currentDirPath=$(dirname $0)
+	case $prayerIndex in
+		0 ) ## none
+			beadAudioFile="$currentDirPath/audio/beep.ogg"
+			;;
+		1 ) ## sign of the cross
+			beadAudioFile="$currentDirPath/audio/cross-english.ogg"
+			;;
+		2 ) ## Credo
+			# beadAudioFile="$currentDirPath/audio/Credo.ogg"
+			beadAudioFile="$currentDirPath/audio/chime.ogg"
+			;;
+		3 ) ## PaterNoster
+			beadAudioFile="$currentDirPath/audio/PaterNoster.ogg"
+			;;
+		4 ) ## AveMaria
+			beadAudioFile="$currentDirPath/audio/AveMaria.ogg"
+			;;
+		5 ) ## GloriaPatri
+			beadAudioFile="$currentDirPath/audio/GloriaPatri.ogg"
+			;;
+		6 ) ## Fatima Prayer
+			beadAudioFile="$currentDirPath/audio/chime.ogg"
+			;;
+		7 ) ## SalveRegina
+			beadAudioFile="$currentDirPath/audio/SalveRegina.ogg"
+			;;
+		8 ) ## Oremus
+			beadAudioFile="$currentDirPath/audio/chime.ogg"
+			;;
+		9 ) ## Litaniae Lauretanae
+			beadAudioFile="$currentDirPath/audio/chime.ogg"
+			;;
+		* ) ## none
+			beadAudioFile="$currentDirPath/audio/beep.ogg"
+			;;
+	esac
+
+}
+
 function beadFWD {
 	directionFwRw=1
 	beadCounter=$((beadCounter+1))
@@ -1975,14 +2039,8 @@ function beadREV {
 
 function arrowInputs {
 
-	counterMIN=0
-	counterMAX=315
-
-	rosaryBeadID=$beadCounter
-	bundledDisplay
-
 	while read -sN1 key
-	do
+	do		
 		## catch 3 multi char sequence within a time window
 		## null outputs in case of random error msg
 		read -s -n1 -t 0.0001 k1 &>/dev/null
@@ -1991,42 +2049,44 @@ function arrowInputs {
 		key+=${k1}${k2}${k3} &>/dev/null
 
 		case "$key" in
-			$arrowUp) # menu
+			$arrowUp ) # menu
 				menuUP
 
 				## hide cursor
 				tput civis
 				;;
-			$arrowDown) # language toggle
-				menuDN
+			$arrowDown ) # language toggle
+				if [ $autoPilot -eq 0 ]; then
+					menuDN
 
-				## hide cursor
-				tput civis
+					## hide cursor
+					tput civis
+				fi
 				;;
-			$arrowRt) # navigate forward
+			$arrowRt ) # navigate forward
 				if [ $introFlag -ne 1 ]; then
 					blank_transition_display
 					beadFWD
 					bundledDisplay
+					setBeadAudio
 				fi
 				;;
-			$arrowLt) # navigate back
+			$arrowLt ) # navigate back
 				blank_transition_display
 				beadREV
 				bundledDisplay
+				setBeadAudio
 				;;
-			"m" | "M") # mplayer audio
+			"m" | "M" ) # mplayer audio
 
 				if ! pgrep -x "mplayer" > /dev/null
 				then
-					if [ "$beadAudioFile" != "" ]; then
-						mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
-					fi
+					mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
+					sleep .5s
 				else
 					killall mplayer &>/dev/null
+					sleep .5s
 				fi
-				sleep .5s
-				# progressbars
 				;;
 		esac
 
@@ -2036,13 +2096,54 @@ function arrowInputs {
     tput rmcup
 }
 
+function musicsalAutoPilot {
+	## turn off user input, ctrl+c to exit
+	stty -echo
+
+	mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
+	sleep .5s
+
+	# autoPilot=1
+	while [ $autoPilot -eq 1 ]
+	do
+		if ! pgrep -x "mplayer" > /dev/null
+		then
+			blank_transition_display
+			beadFWD
+			bundledDisplay
+			setBeadAudio
+
+			mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
+			sleep .5s
+		fi
+
+	done # & arrowInputs
+}
+
+function mainNavigation {
+	counterMIN=0
+	counterMAX=315
+
+	rosaryBeadID=$beadCounter
+	bundledDisplay
+	setBeadAudio
+
+	if [ $autoPilot -eq 0 ]; then
+		arrowInputs
+	else
+		musicsalAutoPilot
+	fi
+}
+
 ###################################################
 ## Vars
 ###################################################
 
 function download_audio {
+
 	currentDirPath=$(dirname $0)
-	bash $currentDirPath/audio/dl-app-audio.sh
+
+	bash "$currentDirPath/audio/dl-app-audio.sh"
 }
 
 function download_dependencies {
@@ -2129,7 +2230,7 @@ function initialize {
 	beadCounter=0
 	thisDecadeSet=0
 	mysteryProgress=0
-	beadAudioFile="-loop 0 ./audio/AveMaria2.ogg"
+	beadAudioFile="-loop 0 $currentDirPath/audio/AveMaria2.ogg"
 
 	introFlag=1
 	translation=1
@@ -2165,8 +2266,7 @@ function myMian {
 	## turn off intro flag
 	introFlag=0
 
-	## infinite loop untill terminated by menu option
-	arrowInputs
+	mainNavigation
 }
 
 ## Run
