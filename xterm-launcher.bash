@@ -24,11 +24,11 @@ function launch_new_window {
 
 	## presume tty login terminal if error
 	if [ $? -eq 1 ];then
-		sh $hostedDirPath/bash-rosary.sh
+		sh $hostedDirPath/bash-rosary.bash
 	else
 		## most linux systems have xterm
 		# XTerm*geometry: 140x40
-		xterm -geometry 140x40+0+0 -e "$hostedDirPath/bash-rosary.sh"
+		xterm -geometry 140x40+0+0 -e "$hostedDirPath/bash-rosary.bash"
 	fi
 
 }
@@ -44,27 +44,12 @@ function startMPlayerDemo {
 	mplayer -loop 0 $hostedDirPath/audio/*.ogg </dev/null >/dev/null 2>&1 &
 }
 
-function download_xterm {
-
-	if [ -f /etc/os-release ]; then
-		distroName=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
-		thisOS=$distroName
-	fi
-
-	## xorg shell emulator
-	if ! [ -x "$(command -v xterm)" ]; then
-		sudo pacman -S --needed xterm
-		sudo apt-get install xterm
-		sudo slapt-get --install xterm
-
-		if [ $thisOS -eq "Alpine Linux" ]; then
-			# alpine is soo light, even bash is bare bones
-			sudo apk add bash grep sed xterm wget gawk
-		fi
-	fi
+function download_dependencies {
+	currentDirPath=$(dirname $0)
+	bash "$currentDirPath/download-dependencies.bash"
 }
 
-download_xterm
+download_dependencies
 startMPlayerDemo
 splashScreen
 launch_new_window

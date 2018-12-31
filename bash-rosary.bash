@@ -514,7 +514,7 @@ function calculate_Paschal_Full_Moon {
 }
 
 #
-## Liturgical Callendar Counters
+## Liturgical Calendar Counters
 #
 
 function days_untill_Holy_Thursday {
@@ -1182,7 +1182,6 @@ function mystery_Day {
 			dayMysteryIndex=1
 			mysteryJumpPosition=7
 			;;
-		*) # echo "waiting" ;;
 	esac
 
 	## This is just so we dont start on Sorrowfull Mysteries on these "Non Lent/Non Gloomy" days.
@@ -1222,7 +1221,7 @@ function welcomepage {
 
 	The default \"Mystery of the day\" is:	$return_mysteryName
 
-	Liturgical Callendar:"
+	Liturgical Calendar:"
 
 	if [ $isTodayEaster -eq 1 ]; then
 		echo "						Easter Day"
@@ -1328,6 +1327,17 @@ function welcomepage {
 	read -p "[Press Enter]" -s enterVar
 }
 
+function forceCrossBead {
+	beadCounter=$(( $mysteryJumpPosition - 7 ))
+	query_mysteryName=.mystery[$dayMysteryIndex].mysteryName
+	prayerIndex=1
+	query_prayerText=.prayer[$prayerIndex].prayerText
+	return_prayerText=$(jq $query_prayerText $rosaryJSON)
+	echo "${FG_NoColor}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
+	killall mplayer  &>/dev/null
+	clear
+}
+
 function howToPage {
 	echo "${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 	clear
@@ -1374,14 +1384,14 @@ function howToPage {
 		tput cup $[$(tput lines)-2]
 	fi
 	echo "Use the Arrow keys to navigate. [Autopilot a | A]"
+	stty -echo
 
 	while read -sN1 key
 	do
-	case "$key" in
-	esac
 		read -s -n1 -t 0.0001 k1 &>/dev/null
 		read -s -n1 -t 0.0001 k2 &>/dev/null
 		read -s -n1 -t 0.0001 k3 &>/dev/null
+
 		key+=${k1}${k2}${k3} &>/dev/null
 
 		case "$key" in
@@ -1389,31 +1399,24 @@ function howToPage {
 				rosaryJSON=`echo $hostedDirPath/json-db/rosaryJSON-vulgate.json`
 				translationName="Vulgate (Latin)"
 				autoPilot=1
-				beadCounter=$(( $mysteryJumpPosition - 7 ))
-				query_mysteryName=.mystery[$dayMysteryIndex].mysteryName
-				prayerIndex=1
-				query_prayerText=.prayer[$prayerIndex].prayerText
-				return_prayerText=$(jq $query_prayerText $rosaryJSON)
-				echo "${FG_NoColor}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
-				clear
-				killall mplayer
+
+				forceCrossBead
+
 				return
 				;;
+
 			$arrowRt )
 				## Start the bead sequence
 				autoPilot=0
-				beadCounter=$(( $mysteryJumpPosition - 7 ))
-				query_mysteryName=.mystery[$dayMysteryIndex].mysteryName
-				prayerIndex=1
-				query_prayerText=.prayer[$prayerIndex].prayerText
-				return_prayerText=$(jq $query_prayerText $rosaryJSON)
-				echo "${FG_NoColor}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
-				clear
+
+				forceCrossBead
+
 				return
 				;;
+
 		esac
 	done
-
+	
 }
 
 function goodbyescreen {
@@ -1424,7 +1427,7 @@ function goodbyescreen {
 	height=$(tput lines)
 	str="Terminal Rosary using Jq and Bash"
 	length=${#str}
-	centerText=$(((width/ 2)-(length / 2)))
+	centerText=$(( (width / 2)-(length / 2) ))
 	tput cup $((height/2)) $centerText
 	echo $MODE_BEGIN_UNDERLINE$str$MODE_EXIT_UNDERLINE
 	str="Goodbye"
@@ -1517,6 +1520,7 @@ function progressbars {
 
 function beadProgress {
 	case $beadID in
+
         2)  ## small beads
 			if [ $decadeIndex -ne 0 ]; then
 
@@ -1566,6 +1570,7 @@ function beadProgress {
 			stringSpaceCounter=0
 
             ;;
+
 		3)	## big bead
 			stringSpaceCounter=0
             initialHailMaryCounter=0
@@ -1579,6 +1584,7 @@ function beadProgress {
             fi
 
             ;;
+
         4) ## string space
 			if [ $directionFwRw -eq 1 ]; then
 			## fwd
@@ -1613,6 +1619,7 @@ function beadProgress {
             fi
 
             ;;
+
         5)	## Mary Icon
 			if [ $directionFwRw -eq 1 ]; then
 				stringSpaceCounter=3
@@ -1632,6 +1639,7 @@ function beadProgress {
             mysteryProgress=0
 
             ;;
+
       esac
 }
 
@@ -1667,7 +1675,6 @@ function change_color_menu {
 		"7" "White"\
 		"8" "Green"\
 		"9"	"No Style" )
-
 
 	case "$selectedBackgroundColor" in
 		1) # Black
@@ -1711,7 +1718,6 @@ function change_color_menu {
 			;;
 	esac
 
-
 	dialogTitle="Foreground Color Menu"
 	selectedForegroundColor=$(dialog 2>&1 >/dev/tty \
 		--backtitle "$screenTitle" \
@@ -1730,7 +1736,6 @@ function change_color_menu {
 		"7" "White"\
 		"8" "Green"\
 		"9"	"No Style")
-
 
 	case "$selectedForegroundColor" in
 		1) # Black
@@ -1982,8 +1987,8 @@ function setBeadAudio {
 			beadAudioFile="$currentDirPath/audio/cross-english.ogg"
 			;;
 		2 ) ## Credo
-			# beadAudioFile="$currentDirPath/audio/Credo.ogg"
-			beadAudioFile="$currentDirPath/audio/chime.ogg"
+			beadAudioFile="$currentDirPath/audio/Credo.ogg"
+			# beadAudioFile="$currentDirPath/audio/chime.ogg"
 			;;
 		3 ) ## PaterNoster
 			beadAudioFile="$currentDirPath/audio/PaterNoster.ogg"
@@ -2043,7 +2048,7 @@ function beadREV {
 function arrowInputs {
 
 	while read -sN1 key
-	do		
+	do
 		## catch 3 multi char sequence within a time window
 		## null outputs in case of random error msg
 		read -s -n1 -t 0.0001 k1 &>/dev/null
@@ -2059,12 +2064,10 @@ function arrowInputs {
 				tput civis
 				;;
 			$arrowDown ) # language toggle
-				if [ $autoPilot -eq 0 ]; then
-					menuDN
+				menuDN
 
-					## hide cursor
-					tput civis
-				fi
+				## hide cursor
+				tput civis
 				;;
 			$arrowRt ) # navigate forward
 				if [ $introFlag -ne 1 ]; then
@@ -2119,8 +2122,34 @@ function musicsalAutoPilot {
 			mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
 			sleep .5s
 		fi
+		
 
-	done # & arrowInputs
+	done & while read -sN1 key
+	do
+		## catch 3 multi char sequence within a time window
+		## null outputs in case of random error msg
+		read -s -n1 -t 0.0001 k1 &>/dev/null
+		read -s -n1 -t 0.0001 k2 &>/dev/null
+		read -s -n1 -t 0.0001 k3 &>/dev/null
+		key+=${k1}${k2}${k3} &>/dev/null
+
+		arrowUp=$'\e[A'
+		arrowDown=$'\e[B'
+		arrowRt=$'\e[C'
+		arrowLt=$'\e[D'
+		escape=$'\e[ '
+		#escKey=$'\['
+		#escKey=$'\e'
+
+		case "$key" in
+			"q" ) # Force quit app and mplayer and xterm
+				killall mplayer
+				killall xterm
+				exit
+				;;
+			255 ) ;;
+		esac
+	done
 }
 
 function mainNavigation {
@@ -2132,8 +2161,10 @@ function mainNavigation {
 	setBeadAudio
 
 	if [ $autoPilot -eq 0 ]; then
+		## Keyboard Controlls
 		arrowInputs
 	else
+		## Auto Pilot
 		musicsalAutoPilot
 	fi
 }
@@ -2142,59 +2173,9 @@ function mainNavigation {
 ## Vars
 ###################################################
 
-function download_audio {
-
-	currentDirPath=$(dirname $0)
-
-	bash "$currentDirPath/audio/dl-app-audio.sh"
-}
-
 function download_dependencies {
-
-	if [ -f /etc/os-release ]; then
-		distroName=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
-		thisOS=$distroName
-	fi
-
-	## xorg shell emulator
-	if ! [ -x "$(command -v xterm)" ]; then
-		sudo pacman -S --needed xterm
-		sudo apt-get install xterm
-		sudo slapt-get --install xterm
-
-		if [ $thisOS -eq "Alpine Linux" ]; then
-			# alpine is soo light, even bash is bare bones
-			sudo apk add bash grep sed xterm wget gawk
-		fi
-	fi
-
-	## bash gui menu
-	if ! [ -x "$(command -v dialog)" ]; then
-		sudo pacman -S --needed dialog
-		sudo apt-get install dialog
-		sudo slapt-get --install dialog
-		sudo apk add ncurses dialog bc grep
-	fi
-
-	## json parser
-	if ! [ -x "$(command -v jq)" ]; then
-		sudo pacman -S --needed jq
-		sudo apt-get install jq
-		sudo apk add jq
-
-		if [ $thisOS -eq "Slackware" ]; then
-			compileJq
-		fi
-
-	fi
-
-	## c ompiler
-	if ! [ -x "$(command -v gcc)" ]; then
-		sudo pacman -S --needed gcc
-		sudo apt-get install gcc
-		sudo slapt-get --install gcc
-		sudo apk add gcc
-	fi
+	currentDirPath=$(dirname $0)
+	bash "$currentDirPath/download-dependencies.bash"
 }
 
 function translationDB {
@@ -2245,9 +2226,6 @@ function initialize {
 
 	## declare init language translation
 	translationDB
-
-	## dl audio if needed
-	download_audio
 }
 
 function myMian {
@@ -2278,3 +2256,4 @@ myMian
 ## Restore cursor
 tput cnorm
 tput sgr0
+reset
