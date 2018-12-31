@@ -29,7 +29,11 @@ The following files are used in this app and taken from  [archive.org](archive.o
 
 * [cross-english.ogg](https://archive.org/details/01SignOfTheCross)
 
+* [WindChime.ogg](WindChimeCellPhoneAlert/WindChime.ogg)
+
 ---
+
+Potential audio candidates:
 
 * [SalveRegina.ogg](https://archive.org/details/SalveRegina_889) [link](https://archive.org/download/SalveRegina_889/SalveRegina.ogg)
 

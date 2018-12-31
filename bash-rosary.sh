@@ -1303,6 +1303,7 @@ function welcomepage {
 		Down arrow key opens Language Translation Menu ( English NAB or Latin Vulgate )
 		Up arrow key opens the Main Menu
 		'M' Key toggles Latin prayer audio (plays prayer only once)
+		In 'Auto Pilot Mode' all user controlls are disabled except [Ctrl+C]
 
 
 	${MODE_BEGIN_UNDERLINE}Advice:${MODE_EXIT_UNDERLINE}
@@ -1373,7 +1374,7 @@ function howToPage {
 		tput cup $[$(tput lines)-2]
 	fi
 	echo "Use the Arrow keys to navigate. [Autopilot a | A]"
-				
+
 	while read -sN1 key
 	do
 	case "$key" in
@@ -1395,6 +1396,7 @@ function howToPage {
 				return_prayerText=$(jq $query_prayerText $rosaryJSON)
 				echo "${FG_NoColor}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 				clear
+				killall mplayer
 				return
 				;;
 			$arrowRt )
@@ -1772,7 +1774,7 @@ function change_color_menu {
 }
 
 function menuUP {
-	
+
 	screenTitle="Terminal Rosary using Jq and Bash"
 	dialogTitle="Main Menu"
 	selectedMenuItem=$(dialog 2>&1 >/dev/tty \
@@ -1978,7 +1980,7 @@ function setBeadAudio {
 			;;
 		2 ) ## Credo
 			# beadAudioFile="$currentDirPath/audio/Credo.ogg"
-			beadAudioFile="$currentDirPath/audio/beep.ogg"
+			beadAudioFile="$currentDirPath/audio/chime.ogg"
 			;;
 		3 ) ## PaterNoster
 			beadAudioFile="$currentDirPath/audio/PaterNoster.ogg"
@@ -1989,14 +1991,17 @@ function setBeadAudio {
 		5 ) ## GloriaPatri
 			beadAudioFile="$currentDirPath/audio/GloriaPatri.ogg"
 			;;
+		6 ) ## Fatima Prayer
+			beadAudioFile="$currentDirPath/audio/chime.ogg"
+			;;
 		7 ) ## SalveRegina
 			beadAudioFile="$currentDirPath/audio/SalveRegina.ogg"
 			;;
 		8 ) ## Oremus
-			beadAudioFile="$currentDirPath/audio/beep.ogg"
+			beadAudioFile="$currentDirPath/audio/chime.ogg"
 			;;
 		9 ) ## Litaniae Lauretanae
-			beadAudioFile="$currentDirPath/audio/beep.ogg"
+			beadAudioFile="$currentDirPath/audio/chime.ogg"
 			;;
 		* ) ## none
 			beadAudioFile="$currentDirPath/audio/beep.ogg"
@@ -2035,7 +2040,7 @@ function beadREV {
 function arrowInputs {
 
 	while read -sN1 key
-	do
+	do		
 		## catch 3 multi char sequence within a time window
 		## null outputs in case of random error msg
 		read -s -n1 -t 0.0001 k1 &>/dev/null
@@ -2084,7 +2089,7 @@ function arrowInputs {
 				fi
 				;;
 		esac
-		
+
 	done
 
 	# Restore screen
@@ -2094,10 +2099,10 @@ function arrowInputs {
 function musicsalAutoPilot {
 	## turn off user input, ctrl+c to exit
 	stty -echo
-	
+
 	mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
 	sleep .5s
-	
+
 	# autoPilot=1
 	while [ $autoPilot -eq 1 ]
 	do
@@ -2129,7 +2134,7 @@ function mainNavigation {
 		musicsalAutoPilot
 	fi
 }
-	
+
 ###################################################
 ## Vars
 ###################################################
@@ -2261,9 +2266,6 @@ function myMian {
 	## turn off intro flag
 	introFlag=0
 
-	## infinite loop untill terminated by menu option
-	# musicsalAutoPilot
-	# arrowInputs
 	mainNavigation
 }
 

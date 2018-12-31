@@ -92,6 +92,14 @@ function ogg_audio_files {
 		wget 'https://archive.org/download/kkkfffbird_yahoo_Beep_201607/beep.ogg' -O "$localFile"
 	fi
 
+	localFile="$currentDirPath/chime.ogg"
+	if [ ! -f "$localFile" ];then
+		# clear
+		echo "	Downloading App Audio:
+		"
+		wget 'https://archive.org/download/WindChimeCellPhoneAlert/WindChime.ogg' -O "$localFile"
+	fi
+
 }
 
 arch_audio_players
