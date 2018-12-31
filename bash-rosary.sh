@@ -1050,7 +1050,7 @@ function dispPieChart {
 
 	currentDirPath=$(dirname $0)
 	## cat ascii-pie-chart.txt
-	cat "$currentDirPath/Liturgical-Calendar-Notes/tiny-pie.txt"
+	cat "$currentDirPath/graphics/tiny-pie.txt"
 
 	height=$(tput lines)
 	if [ $height -ge 34 ]; then
