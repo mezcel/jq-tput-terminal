@@ -22,13 +22,13 @@ function splashScreen {
 function launch_new_window {
 	hostedDirPath=$(dirname $0)
 
-	## most linux systems have xterm
-	# XTerm*geometry: 140x40
-	xterm -geometry 140x40+0+0 $hostedDirPath/bash-rosary.sh
-
 	## presume tty login terminal if error
 	if [ $? -eq 1 ];then
 		sh $hostedDirPath/bash-rosary.sh
+	else
+		## most linux systems have xterm
+		# XTerm*geometry: 140x40
+		xterm -geometry 140x40+0+0 -e "$hostedDirPath/bash-rosary.sh"
 	fi
 
 }
