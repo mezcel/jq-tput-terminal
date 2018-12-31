@@ -20,6 +20,14 @@ function ogg_audio_files {
 
 	currentDirPath=$(dirname $0)
 
+	localFile="$currentDirPath/cross-english.ogg"
+	if [ ! -f "$localFile" ];then
+		# clear
+		echo "	Downloading App Audio:
+		"
+		wget 'https://archive.org/download/01SignOfTheCross/01%20Sign%20of%20the%20cross.ogg' -O "$localFile"
+	fi
+
 	localFile="$currentDirPath/Credo.ogg"
 	if [ ! -f "$localFile" ];then
 		# clear
@@ -74,6 +82,14 @@ function ogg_audio_files {
 		echo "	Downloading App Audio:
 		"
 		wget 'https://upload.wikimedia.org/wikipedia/commons/4/45/The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg' -O "$localFile"
+	fi
+
+	localFile="$currentDirPath/beep.ogg"
+	if [ ! -f "$localFile" ];then
+		# clear
+		echo "	Downloading App Audio:
+		"
+		wget 'https://archive.org/download/kkkfffbird_yahoo_Beep_201607/beep.ogg' -O "$localFile"
 	fi
 
 }

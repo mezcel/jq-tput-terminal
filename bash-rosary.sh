@@ -197,6 +197,7 @@ function formatJqText {
 	## Split Prayer into 2 lines
 	first2letters=$(echo $return_prayerText | grep -Po "^..")
 
+	## Break up prayers into 2 segments for social readability
 	case $first2letters in
 		"OU") ## Enlgish Our Father
 			newLineWith="Give"
@@ -1371,8 +1372,8 @@ function howToPage {
 	if [ $height -ge 34 ]; then
 		tput cup $[$(tput lines)-2]
 	fi
-	echo "Use the Arrow keys to navigate. [Press Rt Key]"
-
+	echo "Use the Arrow keys to navigate. [Autopilot a | A]"
+				
 	while read -sN1 key
 	do
 	case "$key" in
@@ -1383,11 +1384,26 @@ function howToPage {
 		key+=${k1}${k2}${k3} &>/dev/null
 
 		case "$key" in
-			$arrowRt )
-				## Start the bead sequence
+			"a" | "A" ) ## Auto Pilot, Latin prayers
+				rosaryJSON=`echo $hostedDirPath/json-db/rosaryJSON-vulgate.json`
+				translationName="Vulgate (Latin)"
+				autoPilot=1
 				beadCounter=$(( $mysteryJumpPosition - 7 ))
 				query_mysteryName=.mystery[$dayMysteryIndex].mysteryName
-				query_prayerText=.prayer[1].prayerText
+				prayerIndex=1
+				query_prayerText=.prayer[$prayerIndex].prayerText
+				return_prayerText=$(jq $query_prayerText $rosaryJSON)
+				echo "${FG_NoColor}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
+				clear
+				return
+				;;
+			$arrowRt )
+				## Start the bead sequence
+				autoPilot=0
+				beadCounter=$(( $mysteryJumpPosition - 7 ))
+				query_mysteryName=.mystery[$dayMysteryIndex].mysteryName
+				prayerIndex=1
+				query_prayerText=.prayer[$prayerIndex].prayerText
 				return_prayerText=$(jq $query_prayerText $rosaryJSON)
 				echo "${FG_NoColor}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 				clear
@@ -1756,6 +1772,7 @@ function change_color_menu {
 }
 
 function menuUP {
+	
 	screenTitle="Terminal Rosary using Jq and Bash"
 	dialogTitle="Main Menu"
 	selectedMenuItem=$(dialog 2>&1 >/dev/tty \
@@ -1953,23 +1970,36 @@ function setBeadAudio {
 
 	# currentDirPath=$(dirname $0)
 	case $prayerIndex in
-		2 )
-			beadAudioFile="$currentDirPath/audio/Credo.ogg"
+		0 ) ## none
+			beadAudioFile="$currentDirPath/audio/beep.ogg"
 			;;
-		3 )
+		1 ) ## sign of the cross
+			beadAudioFile="$currentDirPath/audio/cross-english.ogg"
+			;;
+		2 ) ## Credo
+			# beadAudioFile="$currentDirPath/audio/Credo.ogg"
+			beadAudioFile="$currentDirPath/audio/beep.ogg"
+			;;
+		3 ) ## PaterNoster
 			beadAudioFile="$currentDirPath/audio/PaterNoster.ogg"
 			;;
-		4 )
+		4 ) ## AveMaria
 			beadAudioFile="$currentDirPath/audio/AveMaria.ogg"
 			;;
-		5 )
+		5 ) ## GloriaPatri
 			beadAudioFile="$currentDirPath/audio/GloriaPatri.ogg"
 			;;
-		7 )
+		7 ) ## SalveRegina
 			beadAudioFile="$currentDirPath/audio/SalveRegina.ogg"
 			;;
-		* )
-			beadAudioFile="-loop 0 $currentDirPath/audio/AveMaria2.ogg"
+		8 ) ## Oremus
+			beadAudioFile="$currentDirPath/audio/beep.ogg"
+			;;
+		9 ) ## Litaniae Lauretanae
+			beadAudioFile="$currentDirPath/audio/beep.ogg"
+			;;
+		* ) ## none
+			beadAudioFile="$currentDirPath/audio/beep.ogg"
 			;;
 	esac
 
@@ -2004,13 +2034,6 @@ function beadREV {
 
 function arrowInputs {
 
-	counterMIN=0
-	counterMAX=315
-
-	rosaryBeadID=$beadCounter
-	bundledDisplay
-	setBeadAudio
-
 	while read -sN1 key
 	do
 		## catch 3 multi char sequence within a time window
@@ -2021,19 +2044,21 @@ function arrowInputs {
 		key+=${k1}${k2}${k3} &>/dev/null
 
 		case "$key" in
-			$arrowUp) # menu
+			$arrowUp ) # menu
 				menuUP
 
 				## hide cursor
 				tput civis
 				;;
-			$arrowDown) # language toggle
-				menuDN
+			$arrowDown ) # language toggle
+				if [ $autoPilot -eq 0 ]; then
+					menuDN
 
-				## hide cursor
-				tput civis
+					## hide cursor
+					tput civis
+				fi
 				;;
-			$arrowRt) # navigate forward
+			$arrowRt ) # navigate forward
 				if [ $introFlag -ne 1 ]; then
 					blank_transition_display
 					beadFWD
@@ -2041,33 +2066,70 @@ function arrowInputs {
 					setBeadAudio
 				fi
 				;;
-			$arrowLt) # navigate back
+			$arrowLt ) # navigate back
 				blank_transition_display
 				beadREV
 				bundledDisplay
 				setBeadAudio
 				;;
-			"m" | "M") # mplayer audio
+			"m" | "M" ) # mplayer audio
 
 				if ! pgrep -x "mplayer" > /dev/null
 				then
-					if [ "$beadAudioFile" != "" ]; then
-						mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
-					fi
+					mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
+					sleep .5s
 				else
 					killall mplayer &>/dev/null
+					sleep .5s
 				fi
-				sleep .5s
-				# progressbars
 				;;
 		esac
-
+		
 	done
 
 	# Restore screen
     tput rmcup
 }
 
+function musicsalAutoPilot {
+	## turn off user input, ctrl+c to exit
+	stty -echo
+	
+	mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
+	sleep .5s
+	
+	# autoPilot=1
+	while [ $autoPilot -eq 1 ]
+	do
+		if ! pgrep -x "mplayer" > /dev/null
+		then
+			blank_transition_display
+			beadFWD
+			bundledDisplay
+			setBeadAudio
+
+			mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
+			sleep .5s
+		fi
+
+	done # & arrowInputs
+}
+
+function mainNavigation {
+	counterMIN=0
+	counterMAX=315
+
+	rosaryBeadID=$beadCounter
+	bundledDisplay
+	setBeadAudio
+
+	if [ $autoPilot -eq 0 ]; then
+		arrowInputs
+	else
+		musicsalAutoPilot
+	fi
+}
+	
 ###################################################
 ## Vars
 ###################################################
@@ -2200,7 +2262,9 @@ function myMian {
 	introFlag=0
 
 	## infinite loop untill terminated by menu option
-	arrowInputs
+	# musicsalAutoPilot
+	# arrowInputs
+	mainNavigation
 }
 
 ## Run

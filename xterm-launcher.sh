@@ -7,11 +7,13 @@ function splashScreen {
 	height=$(tput lines)
 	str="Terminal Rosary using Jq and Bash"
 	length=${#str}
-	tput cup $((height/2)) $(((width/ 2)-(length/2)))
+	centerText=$(( (width / 2)-(length / 2) ))
+	tput cup $((height/2)) $centerText
 	echo $MODE_BEGIN_UNDERLINE$str$MODE_EXIT_UNDERLINE
 	str="( A new 140x40 Xterm window will popup )"
 	length=${#str}
-	tput cup $height $(((width/ 2)-(length/2)))
+	centerText=$(( (width / 2)-(length / 2) ))
+	tput cup $height $centerText
 	echo $str
 
 	read -s -t 1 -p "Audio will autoplay in a looped sequence untill 'M' key is pressed." exitVar &>/dev/null
@@ -42,6 +44,27 @@ function startMPlayerDemo {
 	mplayer -loop 0 $hostedDirPath/audio/*.ogg </dev/null >/dev/null 2>&1 &
 }
 
+function download_xterm {
+
+	if [ -f /etc/os-release ]; then
+		distroName=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
+		thisOS=$distroName
+	fi
+
+	## xorg shell emulator
+	if ! [ -x "$(command -v xterm)" ]; then
+		sudo pacman -S --needed xterm
+		sudo apt-get install xterm
+		sudo slapt-get --install xterm
+
+		if [ $thisOS -eq "Alpine Linux" ]; then
+			# alpine is soo light, even bash is bare bones
+			sudo apk add bash grep sed xterm wget gawk
+		fi
+	fi
+}
+
+download_xterm
 startMPlayerDemo
 splashScreen
 launch_new_window

@@ -23,7 +23,13 @@ The following files are used in this app and taken from [wikimedia.org](https://
 - [The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg](https://commons.wikimedia.org/wiki/File:The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg)
 
 
-Considering the use of the following files from [archive.org](archive.org)
+The following files are used in this app and taken from  [archive.org](archive.org)
+
+* [beep.ogg](https://archive.org/details/kkkfffbird_yahoo_Beep_201607)
+
+* [cross-english.ogg](https://archive.org/details/01SignOfTheCross)
+
+---
 
 * [SalveRegina.ogg](https://archive.org/details/SalveRegina_889) [link](https://archive.org/download/SalveRegina_889/SalveRegina.ogg)
 
