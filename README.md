@@ -47,3 +47,5 @@ This app will perform a requirements check and install Audio & Software, as need
 (Main) Terminal App: ```./bash-rosary.sh```
 
 - Desktop Terminal Emulator App: ```./xterm-launcher.sh```
+
+- Add needed software that is missing on your system: ```download-dependencies.bash```
