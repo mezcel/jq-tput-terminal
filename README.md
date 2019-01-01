@@ -14,6 +14,7 @@ Scripture Rosary GUI on the Bash CLI.
 | Slackware | Tested on Salix ( legacy linux platform ) |
 | [Alpine](https://alpinelinux.org/about/) | OpenRC, Docker, BusyBox |
 | Ubuntu | Jq/gcc running on [Trisquel](https://trisquel.info), Tahrpup, and Mint returned the fastest queries. |
+| [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) | All the GNU works, but I did not build it for that target environment |
 
 ### About:
 
@@ -46,3 +47,5 @@ This app will perform a requirements check and install Audio & Software, as need
 (Main) Terminal App: ```./bash-rosary.sh```
 
 - Desktop Terminal Emulator App: ```./xterm-launcher.sh```
+
+- Add needed software that is missing on your system: ```download-dependencies.bash```
