@@ -1980,40 +1980,89 @@ function setBeadAudio {
 	## set audio media to match the current prayer
 
 	# currentDirPath=$(dirname $0)
+	# isLiveStreaming=0
 	case $prayerIndex in
 		0 ) ## none
-			beadAudioFile="$currentDirPath/audio/beep.ogg"
+			if [ $isLiveStreaming -eq 1 ];then
+				beadAudioFile="https://archive.org/download/kkkfffbird_yahoo_Beep_201607/beep.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/beep.ogg"
+			fi
 			;;
 		1 ) ## sign of the cross
-			beadAudioFile="$currentDirPath/audio/cross-english.ogg"
+			if [ $isLiveStreaming -eq 1 ];then
+				beadAudioFile="https://archive.org/download/01SignOfTheCross/01%20Sign%20of%20the%20cross.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/cross-english.ogg"
+			fi
+
 			;;
 		2 ) ## Credo
-			beadAudioFile="$currentDirPath/audio/Credo.ogg"
-			# beadAudioFile="$currentDirPath/audio/chime.ogg"
+			if [ $isLiveStreaming -eq 1 ];then
+				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/c/c0/Byrd_4-Part_Mass_-_Credo.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/Credo.ogg"
+			fi
 			;;
 		3 ) ## PaterNoster
-			beadAudioFile="$currentDirPath/audio/PaterNoster.ogg"
+			if [ $isLiveStreaming -eq 1 ];then
+				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/a/af/Schola_Gregoriana-Pater_Noster.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/PaterNoster.ogg"
+			fi
+
 			;;
 		4 ) ## AveMaria
-			beadAudioFile="$currentDirPath/audio/AveMaria.ogg"
+			if [ $isLiveStreaming -eq 1 ];then
+				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/2/23/Schola_Gregoriana-Ave_Maria.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/AveMaria.ogg"
+			fi
 			;;
 		5 ) ## GloriaPatri
-			beadAudioFile="$currentDirPath/audio/GloriaPatri.ogg"
+			if [ $isLiveStreaming -eq 1 ];then
+				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/4/45/The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/GloriaPatri.ogg"
+			fi
+
 			;;
 		6 ) ## Fatima Prayer
-			beadAudioFile="$currentDirPath/audio/chime.ogg"
+
+			## I dont have a fatima prayer yet
+			if [ $isLiveStreaming -eq 1 ];then
+				beadAudioFile="https://archive.org/download/WindChimeCellPhoneAlert/WindChime.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/chime.ogg"
+			fi
 			;;
 		7 ) ## SalveRegina
-			beadAudioFile="$currentDirPath/audio/SalveRegina.ogg"
+			if [ $isLiveStreaming -eq 1 ];then
+				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/4/46/Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/SalveRegina.ogg"
+			fi
 			;;
 		8 ) ## Oremus
-			beadAudioFile="$currentDirPath/audio/chime.ogg"
+			if [ $isLiveStreaming -eq 1 ];then
+				beadAudioFile="https://archive.org/download/WindChimeCellPhoneAlert/WindChime.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/chime.ogg"
+			fi
 			;;
 		9 ) ## Litaniae Lauretanae
-			beadAudioFile="$currentDirPath/audio/chime.ogg"
+			if [ $isLiveStreaming -eq 1 ];then
+				beadAudioFile="https://archive.org/download/WindChimeCellPhoneAlert/WindChime.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/chime.ogg"
+			fi
 			;;
 		* ) ## none
-			beadAudioFile="$currentDirPath/audio/beep.ogg"
+			if [ $isLiveStreaming -eq 1 ];then
+				beadAudioFile="https://archive.org/download/kkkfffbird_yahoo_Beep_201607/beep.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/beep.ogg"
+			fi
 			;;
 	esac
 
@@ -2047,12 +2096,12 @@ function beadREV {
 }
 
 function exitAutoPilotApp {
-	
+
 	killall mplayer &>/dev/null
-	
+
 	goodbyescreen
 	# reset
-	
+
 	PID=$$
 	kill -9 $PID
 }
@@ -2140,15 +2189,15 @@ function musicsalAutoPilot {
 			mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
 			sleep .5s
 		fi
-		
+
 		if [ $autoPilot -eq 0 ]; then
 			exitAutoPilotApp
 			break
 			return
 		fi
-		
+
 		arrowInputs
-		
+
 	done
 }
 
@@ -2182,10 +2231,22 @@ function translationDB {
 
 	hostedDirPath=$(dirname $0)
 
+	# isLiveStreaming=0
+
 	## define DB within a global var
 	if [ $translation -eq 1 ]; then
 		# NAB
-		rosaryJSON=`echo $hostedDirPath/json-db/rosaryJSON-nab.json`
+
+		if [ $isLiveStreaming -eq 1 ]; then
+			## demo script
+			rosaryJSONGithub="https://raw.githubusercontent.com/mezcel/jq-tput-terminal/master/json-db/rosaryJSON-nab.json"
+			rosaryJSON="$hostedDirPath/json-db/rosaryJSON-nab.json"
+			wget $rosaryJSONGithub
+			sleep 5s
+		else
+			rosaryJSON=`echo $hostedDirPath/json-db/rosaryJSON-nab.json`
+		fi
+
 		translationName="The New American Bible (NAB)"
 	fi
 
@@ -2229,6 +2290,9 @@ function initialize {
 }
 
 function myMian {
+	## streaming test
+	# isLiveStreaming=1
+
 	download_dependencies
 
 	resizeWindow
