@@ -41,7 +41,7 @@ function startMidiDemo {
 
 function startMPlayerDemo {
 	hostedDirPath=$(dirname $0)
-	mplayer -loop 0 $hostedDirPath/audio/*.ogg </dev/null >/dev/null 2>&1 &
+	mplayer $hostedDirPath/audio/chime.ogg </dev/null >/dev/null 2>&1 &
 }
 
 function download_dependencies {
