@@ -1416,7 +1416,7 @@ function howToPage {
 
 		esac
 	done
-	
+
 }
 
 function goodbyescreen {
@@ -2122,7 +2122,7 @@ function musicsalAutoPilot {
 			mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
 			sleep .5s
 		fi
-		
+
 
 	done & while read -sN1 key
 	do
@@ -2143,9 +2143,16 @@ function musicsalAutoPilot {
 
 		case "$key" in
 			"q" ) # Force quit app and mplayer and xterm
+
+				## Restore cursor
+				tput cnorm
+				tput sgr0
+				clear
+
 				killall mplayer
-				killall xterm
-				exit
+				PID=$$
+				kill -9 $PID
+				return
 				;;
 			255 ) ;;
 		esac
