@@ -1438,6 +1438,7 @@ function goodbyescreen {
 
 	read -t 3 -p "" exitVar
 	echo "$CLR_ALL"
+	reset
 }
 
 #
@@ -2045,6 +2046,17 @@ function beadREV {
 	fi
 }
 
+function exitAutoPilotApp {
+	
+	killall mplayer &>/dev/null
+	
+	goodbyescreen
+	# reset
+	
+	PID=$$
+	kill -9 $PID
+}
+
 function arrowInputs {
 
 	while read -sN1 key
@@ -2094,6 +2106,12 @@ function arrowInputs {
 					sleep .5s
 				fi
 				;;
+			"q" | "Q" ) # Force quit app and mplayer and xterm
+				autoPilot=0
+				exitAutoPilotApp
+				break
+				return
+				;;
 		esac
 
 	done
@@ -2122,40 +2140,15 @@ function musicsalAutoPilot {
 			mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
 			sleep .5s
 		fi
-
-
-	done & while read -sN1 key
-	do
-		## catch 3 multi char sequence within a time window
-		## null outputs in case of random error msg
-		read -s -n1 -t 0.0001 k1 &>/dev/null
-		read -s -n1 -t 0.0001 k2 &>/dev/null
-		read -s -n1 -t 0.0001 k3 &>/dev/null
-		key+=${k1}${k2}${k3} &>/dev/null
-
-		arrowUp=$'\e[A'
-		arrowDown=$'\e[B'
-		arrowRt=$'\e[C'
-		arrowLt=$'\e[D'
-		escape=$'\e[ '
-		#escKey=$'\['
-		#escKey=$'\e'
-
-		case "$key" in
-			"q" ) # Force quit app and mplayer and xterm
-
-				## Restore cursor
-				tput cnorm
-				tput sgr0
-				clear
-
-				killall mplayer
-				PID=$$
-				kill -9 $PID
-				return
-				;;
-			255 ) ;;
-		esac
+		
+		if [ $autoPilot -eq 0 ]; then
+			exitAutoPilotApp
+			break
+			return
+		fi
+		
+		arrowInputs
+		
 	done
 }
 
