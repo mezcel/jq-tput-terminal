@@ -2,7 +2,7 @@
 
 Scripture Rosary GUI on the Bash CLI. Built in Liturgical Calendar with Seasonal and Feast Day triggered events.
 
-Religious audio jukebox with [GNU](https://www.gnu.org/home.en.html) & [Public Domain](https://en.wikipedia.org/wiki/Public_domain#Definition) Ogg Audio provided by ( [wikimedia.org](https://commons.wikimedia.org) / [archive.org](archive.org) ). You can, for now within ```myMian()```, hard-code the  ```isLiveStreaming``` flag to test enable this App to stream the json db and .ogg from the internet.
+Religious audio jukebox with [GNU](https://www.gnu.org/home.en.html) & [Public Domain](https://en.wikipedia.org/wiki/Public_domain#Definition) Ogg Audio provided by ( [wikimedia.org](https://commons.wikimedia.org) / [archive.org](archive.org) ).
 
 ### Development Status and Milestones:
 
@@ -10,7 +10,7 @@ Religious audio jukebox with [GNU](https://www.gnu.org/home.en.html) & [Public D
 
 * ```v0.1.6.2``` added a music Autopilot to serve as spiritual room ambiance. It runs proximately +1.75 hours per 1 full mystery.
 
-* ```v0.1.7``` current dev branch release
+* ```v0.1.7``` current dev branch release. Messing with the best way to apply live streaming. At the moment, one can from within ```myMian()```, hard-code the ```isLiveStreaming``` flag to test enable this App to stream the json db and .ogg from the internet.
 
 | Test Distro's | Development Environment Notes |
 | --- | --- |

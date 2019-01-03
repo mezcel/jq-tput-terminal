@@ -1994,7 +1994,7 @@ function setBeadAudio {
 	## set audio media to match the current prayer
 
 	# currentDirPath=$(dirname $0)
-	# isLiveStreaming=0
+	isLiveStreaming=0
 	case $prayerIndex in
 		0 ) ## none
 			if [ $isLiveStreaming -eq 1 ]; then
@@ -2240,7 +2240,7 @@ function translationDB {
 
 	hostedDirPath=$(dirname $0)
 
-	# isLiveStreaming=0
+	isLiveStreaming=0
 
 	## define DB within a global var
 	if [ $translation -eq 1 ]; then
