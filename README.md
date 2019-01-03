@@ -8,17 +8,17 @@ Religious audio jukebox with [GNU](https://www.gnu.org/home.en.html) & [Public D
 
 * ```v0.1.4``` Meaningful stop point with working functionalities. Demo Preview: [asciinema](https://asciinema.org/a/217793)
 
-* ```v0.1.6.2``` added a music Autopilot to serve as spiritual room ambiance. It runs proximately +1:40:00 min per 1 full mystery.
+* ```v0.1.6.2``` added a music Autopilot to serve as spiritual room ambiance. It runs proximately +1.75 hours per 1 full mystery.
 
 * ```v0.1.7``` current dev branch release
 
 | Test Distro's | Development Environment Notes |
 | --- | --- |
 | [Arch](https://wiki.archlinux.org/) | This App was developed on Arch Linux. [Parabola](https://wiki.parabola.nu/Category:Migration) is a 'free' Arch alternative. |
-| Slackware | Tested on Salix ( legacy linux platform ) |
-| [Alpine](https://alpinelinux.org/about/) | OpenRC, Docker, BusyBox |
-| Ubuntu | [Trisquel](https://trisquel.info), Tahrpup, and Mint |
-| Debian | Jq/gcc performed the best on Debian with lightning fast query processing |
+| Slackware | Tested on Salix ( legacy repo linux platform compatible ) |
+| [Alpine](https://alpinelinux.org/about/) | OpenRC, Docker, BusyBox. Fastest install and setup process |
+| Ubuntu | [Trisquel](https://trisquel.info), Tahrpup, and Mint. Average performance. |
+| Debian | Jq/gcc performed the best on Debian resulting in fast query processing |
 | [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) | All the GNU works, but I did not build it for that target environment |
 
 ### About:
@@ -29,7 +29,7 @@ This is a CLI GUI App. This App's .json db is imported from [electron-container]
 
 As of ```v0.1.6.1``` the audio and software used in this App are GNU
 
-* [Bash](https://www.gnu.org/software/bash/), [ncurses/tput](https://ss64.com/bash/tput.html), wget, cal, bc, awk & grep
+* Basic GNU: [Bash](https://www.gnu.org/software/bash/), [ncurses/tput](https://ss64.com/bash/tput.html), wget, cal, bc, awk, & grep
 * [JQ](https://stedolan.github.io/jq) is a cross-platform C program which parses json script via command line terminal
 * [dialog / whiptail](http://linuxcommand.org/lc3_adv_dialog.php) is a terminal App for making dialog box style input prompts
 * [mplayer](http://www.mplayerhq.hu/design7/info.html) a multimedia player which can run in terminal environment

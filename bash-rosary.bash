@@ -75,6 +75,7 @@ function resizeWindow {
 		isTallEnough=1
 	fi
 
+	## perform resize
 	if [ $isWideEnough -eq 0 ] || [ $isTallEnough -eq 0 ]; then
 		resize -s 40 140 &>/dev/null
 		stty rows 40
@@ -83,7 +84,6 @@ function resizeWindow {
 		echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 		clear
 	fi
-
 
 	currentScrrenWidth=$(tput cols)
 	currentScreenHeight=$(tput lines)
@@ -101,6 +101,20 @@ function updateScreenSize {
 		echo "$CLR_ALL$BACKGROUNDCOLOR$FOREGROUNDCOLOR"
 		clear
 	fi
+}
+
+function launchXterm {
+	processPid=$PPID
+	processPidName=$( ps -p $processPid -o comm= )
+
+	## force xterm as my app's UI
+	if [ $processPidName -ne "xterm" ]; then
+		## launch app through xterm
+		hostedDirPath=$(dirname $0)
+		xterm -geometry 140x40+0+0 -e "$hostedDirPath/xterm-launcher.bash"
+	fi
+
+	resizeWindow
 }
 
 ###################################################
@@ -1983,14 +1997,14 @@ function setBeadAudio {
 	# isLiveStreaming=0
 	case $prayerIndex in
 		0 ) ## none
-			if [ $isLiveStreaming -eq 1 ];then
+			if [ $isLiveStreaming -eq 1 ]; then
 				beadAudioFile="https://archive.org/download/kkkfffbird_yahoo_Beep_201607/beep.ogg"
 			else
 				beadAudioFile="$currentDirPath/audio/beep.ogg"
 			fi
 			;;
 		1 ) ## sign of the cross
-			if [ $isLiveStreaming -eq 1 ];then
+			if [ $isLiveStreaming -eq 1 ]; then
 				beadAudioFile="https://archive.org/download/01SignOfTheCross/01%20Sign%20of%20the%20cross.ogg"
 			else
 				beadAudioFile="$currentDirPath/audio/cross-english.ogg"
@@ -1998,14 +2012,14 @@ function setBeadAudio {
 
 			;;
 		2 ) ## Credo
-			if [ $isLiveStreaming -eq 1 ];then
+			if [ $isLiveStreaming -eq 1 ]; then
 				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/c/c0/Byrd_4-Part_Mass_-_Credo.ogg"
 			else
 				beadAudioFile="$currentDirPath/audio/Credo.ogg"
 			fi
 			;;
 		3 ) ## PaterNoster
-			if [ $isLiveStreaming -eq 1 ];then
+			if [ $isLiveStreaming -eq 1 ]; then
 				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/a/af/Schola_Gregoriana-Pater_Noster.ogg"
 			else
 				beadAudioFile="$currentDirPath/audio/PaterNoster.ogg"
@@ -2013,14 +2027,14 @@ function setBeadAudio {
 
 			;;
 		4 ) ## AveMaria
-			if [ $isLiveStreaming -eq 1 ];then
+			if [ $isLiveStreaming -eq 1 ]; then
 				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/2/23/Schola_Gregoriana-Ave_Maria.ogg"
 			else
 				beadAudioFile="$currentDirPath/audio/AveMaria.ogg"
 			fi
 			;;
 		5 ) ## GloriaPatri
-			if [ $isLiveStreaming -eq 1 ];then
+			if [ $isLiveStreaming -eq 1 ]; then
 				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/4/45/The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg"
 			else
 				beadAudioFile="$currentDirPath/audio/GloriaPatri.ogg"
@@ -2030,35 +2044,35 @@ function setBeadAudio {
 		6 ) ## Fatima Prayer
 
 			## I dont have a fatima prayer yet
-			if [ $isLiveStreaming -eq 1 ];then
+			if [ $isLiveStreaming -eq 1 ]; then
 				beadAudioFile="https://archive.org/download/WindChimeCellPhoneAlert/WindChime.ogg"
 			else
 				beadAudioFile="$currentDirPath/audio/chime.ogg"
 			fi
 			;;
 		7 ) ## SalveRegina
-			if [ $isLiveStreaming -eq 1 ];then
+			if [ $isLiveStreaming -eq 1 ]; then
 				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/4/46/Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg"
 			else
 				beadAudioFile="$currentDirPath/audio/SalveRegina.ogg"
 			fi
 			;;
 		8 ) ## Oremus
-			if [ $isLiveStreaming -eq 1 ];then
+			if [ $isLiveStreaming -eq 1 ]; then
 				beadAudioFile="https://archive.org/download/WindChimeCellPhoneAlert/WindChime.ogg"
 			else
 				beadAudioFile="$currentDirPath/audio/chime.ogg"
 			fi
 			;;
 		9 ) ## Litaniae Lauretanae
-			if [ $isLiveStreaming -eq 1 ];then
+			if [ $isLiveStreaming -eq 1 ]; then
 				beadAudioFile="https://archive.org/download/WindChimeCellPhoneAlert/WindChime.ogg"
 			else
 				beadAudioFile="$currentDirPath/audio/chime.ogg"
 			fi
 			;;
 		* ) ## none
-			if [ $isLiveStreaming -eq 1 ];then
+			if [ $isLiveStreaming -eq 1 ]; then
 				beadAudioFile="https://archive.org/download/kkkfffbird_yahoo_Beep_201607/beep.ogg"
 			else
 				beadAudioFile="$currentDirPath/audio/beep.ogg"
@@ -2222,11 +2236,6 @@ function mainNavigation {
 ## Vars
 ###################################################
 
-function download_dependencies {
-	currentDirPath=$(dirname $0)
-	bash "$currentDirPath/download-dependencies.bash"
-}
-
 function translationDB {
 
 	hostedDirPath=$(dirname $0)
@@ -2291,9 +2300,7 @@ function initialize {
 
 function myMian {
 	## streaming test
-	# isLiveStreaming=1
-
-	download_dependencies
+	isLiveStreaming=0
 
 	resizeWindow
 
@@ -2313,6 +2320,17 @@ function myMian {
 
 	mainNavigation
 }
+
+function download_dependencies {
+	currentDirPath=$(dirname $0)
+	bash "$currentDirPath/download-dependencies.bash"
+}
+
+
+
+download_dependencies
+launchXterm
+resizeWindow
 
 ## Run
 myMian
