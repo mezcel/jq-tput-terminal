@@ -104,14 +104,18 @@ function updateScreenSize {
 }
 
 function launchXterm {
-	processPid=$PPID
-	processPidName=$( ps -p $processPid -o comm= )
+	# processPid=$PPID
+	# processPidName=$( ps -p $processPid -o comm= )
+	processPidName=$(echo $TERM)
 
 	## force xterm as my app's UI
-	if [ $processPidName -ne "xterm" ]; then
+	if [[ $processPidName = "xterm" ]]; then
+		resizeWindow
+	else
 		## launch app through xterm
 		hostedDirPath=$(dirname $0)
 		xterm -geometry 140x40+0+0 -e "$hostedDirPath/xterm-launcher.bash"
+		
 	fi
 
 	resizeWindow

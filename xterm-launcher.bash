@@ -20,14 +20,16 @@ function splashScreen {
 }
 
 function launch_new_window {
-	hostedDirPath=$(dirname $0)
+	
 
 	## presume tty login terminal if error
 	if [ $? -eq 1 ];then
+		hostedDirPath=$(dirname $0)
 		sh $hostedDirPath/bash-rosary.bash
 	else
 		## most linux systems have xterm
 		# XTerm*geometry: 140x40
+		hostedDirPath=$(dirname $0)
 		xterm -geometry 140x40+0+0 -e "$hostedDirPath/bash-rosary.bash"
 	fi
 
