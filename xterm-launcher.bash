@@ -19,17 +19,47 @@ function splashScreen {
 	read -s -t 1 -p "Audio will autoplay in a looped sequence untill 'M' key is pressed." exitVar &>/dev/null
 }
 
-function launch_new_window {
-	hostedDirPath=$(dirname $0)
-
+function launch_new_windowBackup {
 	## presume tty login terminal if error
-	if [ $? -eq 1 ];then
-		sh $hostedDirPath/bash-rosary.bash
-	else
+	#if [ $? -eq 1 ];then
+	#	hostedDirPath=$(dirname $0)
+	#	bash $hostedDirPath/bash-rosary.bash
+	#else
+	#	## most linux systems have xterm
+	#	# XTerm*geometry: 140x40
+	#	hostedDirPath=$(dirname $0)
+	#	xterm -geometry 140x40+0+0 -e "$hostedDirPath/bash-rosary.bash"
+	#fi
+
+	processPidName=$(echo $TERM)
+
+	if [ $processPidName != "linux" ]; then
 		## most linux systems have xterm
 		# XTerm*geometry: 140x40
+		hostedDirPath=$(dirname $0)
 		xterm -geometry 140x40+0+0 -e "$hostedDirPath/bash-rosary.bash"
+	else
+		hostedDirPath=$(dirname $0)
+		bash $hostedDirPath/bash-rosary.bash
 	fi
+
+}
+
+function launch_new_window {
+	hostedDirPath=$(dirname $0)
+	processPidName=$(echo $TERM)
+
+	case $processPidName in
+		"linux" )	## login terminal
+					isLinuxTerminal=1
+					bash "$hostedDirPath/bash-rosary.bash"
+					;;
+		* ) ## launch app through a new xterm
+			## most linux systems have xterm
+			# XTerm*geometry: 140x40
+			xterm -geometry 140x40+0+0 -e "$hostedDirPath/bash-rosary.bash"
+			;;
+	esac
 
 }
 
