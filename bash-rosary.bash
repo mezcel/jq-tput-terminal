@@ -63,28 +63,35 @@ function resizeWindow {
 	## I designed this App with Xterm in mind. Other terminals may not look how I intended.
 	## Optimal desktop gui terminal Size
 
-	if [ $(tput cols) -lt 140 ]; then
-		isWideEnough=0
-	else
-		isWideEnough=1
+	## Do resize if the shell is a Desktop app, or not a Linux login term
+
+	processPidName=$(echo $TERM)
+	
+	if [ $processPidName = "xterm" ] && [ $processPidName != "linux" ]; then
+	
+		if [ $(tput cols) -lt 140 ]; then
+			isWideEnough=0
+		else
+			isWideEnough=1
+		fi
+
+		if [ $(tput lines) -lt 40 ]; then
+			isTallEnough=0
+		else
+			isTallEnough=1
+		fi
+
+		## perform resize
+		if [ $isWideEnough -eq 0 ] || [ $isTallEnough -eq 0 ]; then
+			resize -s 40 140 &>/dev/null
+			stty rows 40
+			stty cols 140
+
+			echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
+			clear
+		fi		
 	fi
-
-	if [ $(tput lines) -lt 40 ]; then
-		isTallEnough=0
-	else
-		isTallEnough=1
-	fi
-
-	## perform resize
-	if [ $isWideEnough -eq 0 ] || [ $isTallEnough -eq 0 ]; then
-		resize -s 40 140 &>/dev/null
-		stty rows 40
-		stty cols 140
-
-		echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
-		clear
-	fi
-
+	
 	currentScrrenWidth=$(tput cols)
 	currentScreenHeight=$(tput lines)
 }
@@ -104,21 +111,22 @@ function updateScreenSize {
 }
 
 function launchXterm {
-	# processPid=$PPID
-	# processPidName=$( ps -p $processPid -o comm= )
+	hostedDirPath=$(dirname $0)
 	processPidName=$(echo $TERM)
 
-	## force xterm as my app's UI
-	if [[ $processPidName = "xterm" ]]; then
-		resizeWindow
-	else
-		## launch app through xterm
-		hostedDirPath=$(dirname $0)
-		xterm -geometry 140x40+0+0 -e "$hostedDirPath/xterm-launcher.bash"
-		
-	fi
+	case $processPidName in
+		"xterm" )	## xterm
+					resizeWindow
+					;;
+		"linux" )	## login terminal
+					isLinuxTerminal=1
+					;;
+		* ) ## launch app through a new xterm
+			hostedDirPath=$(dirname $0)
+			xterm -geometry 140x40+0+0 -e "$hostedDirPath/xterm-launcher.bash"
+			;;
+	esac
 
-	resizeWindow
 }
 
 ###################################################
@@ -1218,6 +1226,7 @@ function mystery_Day {
 }
 
 function welcomepage {
+	resizeWindow
 	clear
 
 	str="Terminal Rosary using Jq and Bash"
@@ -1357,6 +1366,7 @@ function forceCrossBead {
 }
 
 function howToPage {
+	resizeWindow
 	echo "${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 	clear
 
@@ -1438,6 +1448,7 @@ function howToPage {
 }
 
 function goodbyescreen {
+	resizeWindow
 	# echo "$CLR_ALL"
 	clear
 
@@ -2305,7 +2316,7 @@ function initialize {
 function myMian {
 	## streaming test
 	isLiveStreaming=0
-
+	
 	resizeWindow
 
 	decorativeColors
@@ -2330,14 +2341,15 @@ function download_dependencies {
 	bash "$currentDirPath/download-dependencies.bash"
 }
 
-
-
 download_dependencies
 launchXterm
 resizeWindow
 
 ## Run
 myMian
+
+echo "never reached"
+read
 
 ## Restore cursor
 tput cnorm
