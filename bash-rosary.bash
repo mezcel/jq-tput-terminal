@@ -2139,6 +2139,8 @@ function arrowInputs {
 
 	while read -sN1 key
 	do
+		isMplayerPlaying=$(echo pgrep -x "mplayer")
+
 		## catch 3 multi char sequence within a time window
 		## null outputs in case of random error msg
 		read -s -n1 -t 0.0001 k1 &>/dev/null
@@ -2175,8 +2177,8 @@ function arrowInputs {
 				;;
 			"m" | "M" ) # mplayer audio
 
-				isMplayerPlaying=$(echo pgrep -x "mplayer")
 				# if ! pgrep -x "mplayer" > /dev/null
+				isMplayerPlaying=$(echo pgrep -x "mplayer")
 				if $isMplayerPlaying
 				then
 					mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
@@ -2193,7 +2195,7 @@ function arrowInputs {
 				;;
 		esac
 
-	done
+	done < <(autoPilot=$autoPilot; isMplayerPlaying=$isMplayerPlaying)
 
 	# Restore screen
     tput rmcup
@@ -2230,7 +2232,7 @@ function musicsalAutoPilot {
 
 		arrowInputs
 
-	done < <(isMplayerPlaying=$isMplayerPlaying)
+	done < <(autoPilot=$autoPilot; isMplayerPlaying=$isMplayerPlaying)
 }
 
 function mainNavigation {
