@@ -2139,7 +2139,7 @@ function arrowInputs {
 
 	while read -sN1 key
 	do
-		isMplayerPlaying=$(echo pgrep -x "mplayer")
+		# isMplayerPlaying=$(echo pgrep -x "mplayer")
 
 		## catch 3 multi char sequence within a time window
 		## null outputs in case of random error msg
@@ -2177,11 +2177,9 @@ function arrowInputs {
 				;;
 			"m" | "M" ) # mplayer audio
 
-				# if ! pgrep -x "mplayer" > /dev/null
-				isMplayerPlaying=$(echo pgrep -x "mplayer")
-				if $isMplayerPlaying
+				if ! pgrep -x "mplayer" > /dev/null
 				then
-					mplayer  -af volume=1 $beadAudioFile </dev/null >/dev/null 2>&1 &
+					mplayer volume=1 $beadAudioFile </dev/null >/dev/null 2>&1 &
 					sleep .5s
 				else
 					killall mplayer &>/dev/null
@@ -2195,7 +2193,7 @@ function arrowInputs {
 				;;
 		esac
 
-	done < <(autoPilot=$autoPilot; isMplayerPlaying=$isMplayerPlaying)
+	done
 
 	# Restore screen
     tput rmcup
@@ -2211,16 +2209,15 @@ function musicsalAutoPilot {
 	## autoPilot=1
 	while [ $autoPilot -eq 1 ]
 	do
-		isMplayerPlaying=$(echo pgrep -x "mplayer")
-		# if ! pgrep -x "mplayer" > /dev/null
-		if $isMplayerPlaying
+		## isMplayerPlaying=$(echo pgrep -x "mplayer")
+		if ! pgrep -x "mplayer" > /dev/null
 		then
 			blank_transition_display
 			beadFWD
 			bundledDisplay
 			setBeadAudio
 
-			mplayer -af volume=1 $beadAudioFile </dev/null >/dev/null 2>&1 &
+			mplayer volume=1 $beadAudioFile </dev/null >/dev/null 2>&1 &
 			sleep .5s
 		fi
 
@@ -2232,7 +2229,7 @@ function musicsalAutoPilot {
 
 		arrowInputs
 
-	done < <(autoPilot=$autoPilot; isMplayerPlaying=$isMplayerPlaying)
+	done
 }
 
 function mainNavigation {
