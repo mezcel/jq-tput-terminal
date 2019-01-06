@@ -2181,7 +2181,7 @@ function arrowInputs {
 				isMplayerPlaying=$(echo pgrep -x "mplayer")
 				if $isMplayerPlaying
 				then
-					mplayer -volume 5 -af $beadAudioFile </dev/null >/dev/null 2>&1 &
+					mplayer  -af volume=1 $beadAudioFile </dev/null >/dev/null 2>&1 &
 					sleep .5s
 				else
 					killall mplayer &>/dev/null
@@ -2220,7 +2220,7 @@ function musicsalAutoPilot {
 			bundledDisplay
 			setBeadAudio
 
-			mplayer -volume 5 -af $beadAudioFile </dev/null >/dev/null 2>&1 &
+			mplayer -af volume=1 $beadAudioFile </dev/null >/dev/null 2>&1 &
 			sleep .5s
 		fi
 
