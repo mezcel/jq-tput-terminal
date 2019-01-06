@@ -2230,7 +2230,7 @@ function musicsalAutoPilot {
 
 		arrowInputs
 
-	done
+	done < <(isMplayerPlaying=$isMplayerPlaying)
 }
 
 function mainNavigation {
