@@ -115,7 +115,7 @@ function launchXterm {
 	processPidName=$(echo $TERM)
 
 	case $processPidName in
-		"xterm" )	## xterm
+		"xterm" | "xterm-256color" )	## xterm
 					resizeWindow
 					;;
 		"linux" )	## login terminal

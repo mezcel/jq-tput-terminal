@@ -30,9 +30,9 @@ function download_software {
 
 	## bash gui menu
 	if ! [ -x "$(command -v dialog)" ]; then
-		sudo pacman -S --needed dialog
-		sudo apt-get install dialog
-		sudo slapt-get --install dialog
+		sudo pacman -S --needed dialog bc
+		sudo apt-get install dialog bc
+		sudo slapt-get --install dialog bc
 		sudo apk add ncurses dialog bc grep
 	fi
 
