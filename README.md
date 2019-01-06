@@ -10,7 +10,7 @@ Religious audio jukebox with [GNU](https://www.gnu.org/home.en.html) & [Public D
 
 * ```v0.1.6.2``` added a music Autopilot to serve as spiritual room ambiance. It runs proximately +1.75 hours per 1 full mystery.
 
-* ```v0.1.7``` current dev branch release. Messing with the best way to apply live streaming. At the moment, one can from within ```myMian()```, hard-code the ```isLiveStreaming``` flag to test enable this App to stream the json db and .ogg from the internet.
+* ```v0.1.8``` current dev branch release. Added Daily Mass Reading from the internet feature.
 
 | Test Distro's | Development Environment Notes |
 | --- | --- |
