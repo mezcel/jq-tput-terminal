@@ -2008,7 +2008,7 @@ function setBeadAudio {
 	## prayerIndex
 	## set audio media to match the current prayer
 
-	# currentDirPath=$(dirname $0)
+	currentDirPath=$(dirname $0)
 	isLiveStreaming=0
 	case $prayerIndex in
 		0 ) ## none
