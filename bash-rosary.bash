@@ -1706,23 +1706,46 @@ function elinksUsccbMassReadings {
 	websiteHtmlText=$(curl $usccbHostUrl)
 	## Crop the desited text section
 	cropText=$(echo $websiteHtmlText | grep -oP '\<div class\=\"contentarea\"\>\s*\K.*(?=\s+\<style type\=\"text\/css\"\>)')
+
+	## convert local path to remote path
+	htmlahref="<a href=\""
+	urlhostahref="$htmlahref http://www.usccb.org"
+	cropText=${cropText//$htmlahref/$urlhostahref}
+
 	## Make a tmp text file for bash display in elinks or Linx
+	rm $htmlFilePath
 	echo $cropText >> $htmlFilePath
 
+	echo "${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 	clear
-	echo "
-	Today's daily mass readings is taken from: $usccbHostUrl
+	width=$(tput cols)
+	height=$(tput lines)
+	str="Terminal Rosary using Jq and Bash"
+	length=${#str}
+	centerText=$(( (width / 2)-(length / 2) ))
+	tputAppTitle=$(tput cup 0 $centerText; echo "$str")
+
+	tputAppTranslation=$(tput cup 0 1; echo $translationName)
+	tputAppClock=$(tput cup 0 $[$(tput cols)-29]; echo `date`)
+	tputAppHeaderLine=$(tput cup 1 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
 	
-	Elinks, a terminal web browser will open and display the following local temporaty html file:
+	echo "${tputAppTitle}${tputAppTranslation}${tputAppClock}${tputAppHeaderLine}
+	
+	Today's daily mass readings is taken from:
+		$usccbHostUrl
+	
+	Elinks, a terminal web browser will open and display the following local html file:
 		$htmlFilePath
 		
-	Press [q] to exit the Elinks app once within Elinks.
-	Press [esc] for other Elinks options.
-	
-
-	Press enter to continue foweard.
+		Press [q] to exit the Elinks app once within Elinks.
+		Press [esc] for other Elinks options.
 	"
-	read
+	height=$(tput lines)
+	if [ $height -ge 34 ]; then
+		tput cup $[$(tput lines)-2]
+	fi
+	read -p "[Press Enter]" -s enterVar
+	
 	## Display Text in a terminal web browser
 	elinks $htmlFilePath
 }
@@ -2253,7 +2276,8 @@ function arrowInputs {
 function musicsalAutoPilot {
 	## turn off user input, ctrl+c to exit
 	stty -echo
-
+	
+	setBeadAudio
 	mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
 	sleep .5s
 
