@@ -2175,7 +2175,9 @@ function arrowInputs {
 				;;
 			"m" | "M" ) # mplayer audio
 
-				if ! pgrep -x "mplayer" > /dev/null
+				isMplayerPlaying=$(echo pgrep -x "mplayer")
+				# if ! pgrep -x "mplayer" > /dev/null
+				if $isMplayerPlaying
 				then
 					mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
 					sleep .5s
@@ -2188,7 +2190,6 @@ function arrowInputs {
 				autoPilot=0
 				exitAutoPilotApp
 				break
-				return
 				;;
 		esac
 
@@ -2205,10 +2206,12 @@ function musicsalAutoPilot {
 	mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
 	sleep .5s
 
-	# autoPilot=1
+	## autoPilot=1
 	while [ $autoPilot -eq 1 ]
 	do
-		if ! pgrep -x "mplayer" > /dev/null
+		isMplayerPlaying=$(echo pgrep -x "mplayer")
+		# if ! pgrep -x "mplayer" > /dev/null
+		if $isMplayerPlaying
 		then
 			blank_transition_display
 			beadFWD
