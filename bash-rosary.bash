@@ -1681,6 +1681,53 @@ function bundledDisplay {
 }
 
 ###################################################
+## Mass Readings
+###################################################
+
+function elinksUsccbMassReadings {
+	## Daily Mass Readings from USCB Website
+	## http://www.usccb.org/bible/readings/010619.cfm
+
+	## Define Today
+	thisYear=$(date +%y)
+	thisMonth=$(date +%m)
+	thisDay=$(date +%d)
+
+	currentDirPath=$(dirname $0)
+	destinationPath=$currentDirPath/DailyMass/
+	mkdir $destinationPath
+	htmlFileName=mass-readings.html
+	htmlFilePath=$destinationPath$htmlFileName
+
+	# wget $usccbHostUrl -P $destinationPath -O $htmlFileName
+	usccbHostUrl="http://www.usccb.org/bible/readings/"$thisMonth$thisDay$thisYear".cfm"
+
+	## Put website text into a var
+	websiteHtmlText=$(curl $usccbHostUrl)
+	## Crop the desited text section
+	cropText=$(echo $websiteHtmlText | grep -oP '\<div class\=\"contentarea\"\>\s*\K.*(?=\s+\<style type\=\"text\/css\"\>)')
+	## Make a tmp text file for bash display in elinks or Linx
+	echo $cropText >> $htmlFilePath
+
+	clear
+	echo "
+	Today's daily mass readings is taken from: $usccbHostUrl
+	
+	Elinks, a terminal web browser will open and display the following local temporaty html file:
+		$htmlFilePath
+		
+	Press [q] to exit the Elinks app once within Elinks.
+	Press [esc] for other Elinks options.
+	
+
+	Press enter to continue foweard.
+	"
+	read
+	## Display Text in a terminal web browser
+	elinks $htmlFilePath
+}
+
+###################################################
 ## Dialog Menus
 ###################################################
 
@@ -1831,7 +1878,8 @@ function menuUP {
 		"6"	"View Prayers"\
 		"7" "Change Color Theme"\
 		"8" "Feast Day Countdown"\
-		"9" "Exit App")
+		"9" "Daily Mass Readings (online)"\
+		"10" "Exit App")
 
 	case "$selectedMenuItem" in
 		1)	## About
@@ -1886,7 +1934,10 @@ function menuUP {
 		8)	## Feast Day List
 			feastDayCountdown
 			;;
-		9)	## exit app
+		9) # elinks mass readings
+			elinksUsccbMassReadings
+			;;
+		10)	## exit app
 			killall fluidsynth &>/dev/null
 			killall mplayer &>/dev/null
 
