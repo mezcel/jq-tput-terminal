@@ -3,12 +3,25 @@
 ### install audio used in this app
 
 function arch_audio_players {
+	if [ -f /etc/os-release ]; then
+		distroName=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
+		thisOS=$distroName
+	fi
+
 	## ogg audio player
 	if ! [ -f /usr/bin/ogg123 ];then
-		sudo pacman -S --needed vorbis-tools
-		sudo apt-get install vorbis-tools
-		sudo slapt-get --install vorbis-tools
 
+		## gnu fix for arch
+		if [ $thisOS -eq "Arch Linux" ]; then
+			sudo pacman -S --needed vorbis-tools
+
+			## ogg123 fix for playback
+			## comment out line "dev=default"
+			sed -i -e 's/dev=default/# dev=default/g' /etc/libao.conf
+		else
+			sudo apt-get install vorbis-tools
+			sudo slapt-get --install vorbis-tools
+		fi
 	fi
 }
 
