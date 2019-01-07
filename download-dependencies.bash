@@ -59,13 +59,20 @@ function download_software {
 		fi
 	fi
 
-	## multimedia audio player
-	## I used to use mplayer for this App, but ogg123 is lighter and more specific for this app
-	if ! [ -f /usr/bin/ogg123 ]; then
-		sudo pacman -S --needed vorbis-tools
-		sudo apt-get install vorbis-tools
-		sudo slapt-get --install vorbis-tools
-		sudo apk add vorbis-tools
+	## ogg audio player
+	if ! [ -f /usr/bin/ogg123 ];then
+
+		## gnu fix for arch
+		if [ $thisOS -eq "Arch Linux" ]; then
+			sudo pacman -S --needed vorbis-tools
+
+			## ogg123 fix for playback
+			## comment out line "dev=default"
+			sed -i -e 's/dev=default/# dev=default/g' /etc/libao.conf
+		else
+			sudo apt-get install vorbis-tools
+			sudo slapt-get --install vorbis-tools
+		fi
 	fi
 
 	## console web browser
