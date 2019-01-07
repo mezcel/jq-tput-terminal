@@ -1337,7 +1337,7 @@ function welcomepage {
 		Optimal screen size: width 140 cols, height is 40 lines
 
 
-	${MODE_BEGIN_UNDERLINE}Software Dependancies:${MODE_EXIT_UNDERLINE} (The app should have installed the following if neecessary)
+	${MODE_BEGIN_UNDERLINE}Software Dependencies:${MODE_EXIT_UNDERLINE} (The app should have installed the following if neecessary)
 		* Linux Kernel, Bash (xterm), gawk, ncurses (tput), bc, grep, dialog, sed, wget, grep
 		* jq with gcc
 		* vorbis-tools, ogg123 (used only for play .ogg audio)
@@ -1965,8 +1965,6 @@ function menuUP {
 			elinksUsccbMassReadings
 			;;
 		10)	## exit app
-			# killall fluidsynth &>/dev/null
-			# killall mplayer &>/dev/null
 			killall ogg123  &>/dev/null
 
 			goodbyescreen

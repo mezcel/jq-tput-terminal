@@ -54,12 +54,6 @@ function launch_new_window {
 
 }
 
-function startMidiDemo {
-	hostedDirPath=$(dirname $0)
-	## audio requires fluidsynth and a midi soundfont
-	fluidsynth -a alsa -m alsa_seq -l -i -R 1 -C 1 /usr/share/soundfonts/FluidR3_GM.sf2 $hostedDirPath/audio/*.mid &>/dev/null &
-}
-
 function startMPlayerDemo {
 	hostedDirPath=$(dirname $0)
 

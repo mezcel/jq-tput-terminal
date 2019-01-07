@@ -83,7 +83,7 @@ function download_dependencies {
 }
 
 ## Run
-# echo "checking github for latest update ..."
+# "checking github for latest update ..."
 git pull 2>&1
 
 download_dependencies
