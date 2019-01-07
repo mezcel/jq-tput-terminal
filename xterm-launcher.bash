@@ -71,10 +71,18 @@ function startMidiDemo {
 
 function startMPlayerDemo {
 	hostedDirPath=$(dirname $0)
-	mplayer $hostedDirPath/audio/chime.ogg </dev/null >/dev/null 2>&1 &
+
+	## Set initial pulseaudio system volume
+	amixer set Master 25% </dev/null >/dev/null 2>&1
+
+	# mplayer $hostedDirPath/audio/chime.ogg </dev/null >/dev/null 2>&1 &ep 5 ; echo quit >/tmp/mi1 ;echo quit >/tmp/mi2)&
+	ogg123 $hostedDirPath/audio/chime.ogg </dev/null >/dev/null 2>&1 &
 }
 
 function download_dependencies {
+	echo "checking github for latest update ..."
+	git pull 2>&1
+
 	currentDirPath=$(dirname $0)
 	bash "$currentDirPath/download-dependencies.bash"
 }
