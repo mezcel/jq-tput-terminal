@@ -1,8 +1,10 @@
 # jq-tput-terminal
 
-Scripture Rosary GUI on the Bash CLI. Built in Liturgical Calendar with Seasonal and Feast Day triggered events.
+A Scripture Rosary GUI on the Bash CLI.
 
-Religious audio jukebox with [GNU](https://www.gnu.org/home.en.html) & [Public Domain](https://en.wikipedia.org/wiki/Public_domain#Definition) Ogg Audio provided by ( [wikimedia.org](https://commons.wikimedia.org) / [archive.org](archive.org) ).
+- Liturgical Calendar with Seasonal and Feast Day triggered events.
+- Daily Mass Readings (scraped from usccb.org)
+- Chant Soundtrack ( Ogg Audio provided by [wikimedia.org](https://commons.wikimedia.org) / [archive.org](archive.org) )
 
 ### Development Status and Milestones:
 
@@ -10,7 +12,7 @@ Religious audio jukebox with [GNU](https://www.gnu.org/home.en.html) & [Public D
 
 * ```v0.1.6.2``` added a music Autopilot to serve as spiritual room ambiance. It runs proximately +1.75 hours per 1 full mystery.
 
-* ```v0.1.8``` current dev branch release. Added a feature to view Daily Mass Readings from the internet.
+* ```v0.1.8``` current dev branch release. I added a feature to view Daily Mass Readings from the internet. (things get glitchy if the menu is open during a song transition)
 
 | Test Distro's | Development Environment Notes |
 | --- | --- |

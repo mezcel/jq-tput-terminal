@@ -1355,7 +1355,7 @@ function welcomepage {
 	read -p "[Press Enter]" -s enterVar
 }
 
-function forceCrossBead {
+function forceCrossBead {	
 	beadCounter=$(( $mysteryJumpPosition - 7 ))
 	query_mysteryName=.mystery[$dayMysteryIndex].mysteryName
 	prayerIndex=1
