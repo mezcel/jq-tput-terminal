@@ -55,6 +55,14 @@ function download_software {
 		sudo slapt-get --install gcc
 		sudo apk add gcc
 	fi
+
+	## terminal web browser
+	if ! [ -x "$(command -v gcc)" ]; then
+		sudo pacman -S --needed elinks
+		sudo apt-get install elinks
+		sudo slapt-get --install elinks
+		sudo apk add elinks
+	fi
 }
 
 function download_dependencies {

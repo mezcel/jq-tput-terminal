@@ -1705,16 +1705,18 @@ function elinksUsccbMassReadings {
 	## Put website text into a var
 	websiteHtmlText=$(curl $usccbHostUrl)
 	## Crop the desited text section
+	#
 	cropText=$(echo $websiteHtmlText | grep -oP '\<div class\=\"contentarea\"\>\s*\K.*(?=\s+\<style type\=\"text\/css\"\>)')
 
 	## convert local path to remote path
 	htmlahref="<a href=\""
-	urlhostahref="$htmlahref http://www.usccb.org"
+	urlhostahref="${htmlahref}http://www.usccb.org"
 	cropText=${cropText//$htmlahref/$urlhostahref}
 
 	## Make a tmp text file for bash display in elinks or Linx
 	rm $htmlFilePath
-	echo $cropText >> $htmlFilePath
+	headerDate=$(date)
+	echo "<p><hr><h1>$headerDate</h1></p>$cropText" >> $htmlFilePath
 
 	echo "${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 	clear
@@ -2210,11 +2212,9 @@ function exitAutoPilotApp {
 }
 
 function arrowInputs {
-
+		
 	while read -sN1 key
 	do
-		# isMplayerPlaying=$(echo pgrep -x "mplayer")
-
 		## catch 3 multi char sequence within a time window
 		## null outputs in case of random error msg
 		read -s -n1 -t 0.0001 k1 &>/dev/null
@@ -2266,9 +2266,8 @@ function arrowInputs {
 				break
 				;;
 		esac
-
+		
 	done
-
 	# Restore screen
     tput rmcup
 }
@@ -2281,7 +2280,7 @@ function musicsalAutoPilot {
 	mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
 	sleep .5s
 
-	## autoPilot=1
+	autoPilot=1
 	while [ $autoPilot -eq 1 ]
 	do
 		## isMplayerPlaying=$(echo pgrep -x "mplayer")
@@ -2293,7 +2292,7 @@ function musicsalAutoPilot {
 			setBeadAudio
 
 			mplayer volume=1 $beadAudioFile </dev/null >/dev/null 2>&1 &
-			sleep .5s
+			#sleep .2s
 		fi
 
 		if [ $autoPilot -eq 0 ]; then
@@ -2302,7 +2301,7 @@ function musicsalAutoPilot {
 			return
 		fi
 
-		arrowInputs
+		# arrowInputs
 
 	done
 }
