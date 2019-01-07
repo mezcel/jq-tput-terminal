@@ -32,7 +32,7 @@ As of ```v0.1.8``` the audio and software used in this App are GNU
 * Basic GNU Terminal Tools: [Bash](https://www.gnu.org/software/bash/), [ncurses/tput](https://ss64.com/bash/tput.html), wget, cal, bc, awk, & grep
 * [JQ](https://stedolan.github.io/jq) is a cross-platform C program which parses json script via command line terminal
 * [dialog / whiptail](http://linuxcommand.org/lc3_adv_dialog.php) is a terminal App for making dialog box style input prompts
-* [ogg123](http://www.mplayerhq.hu/design7/info.html) is a [ogg](https://xiph.org/vorbis) audio player which can run within terminal environment
+* [ogg123](https://xiph.org/vorbis) is a [ogg](https://xiph.org/vorbis) audio player which can run within terminal environment
 * [elinks](http://elinks.or.cz/) is a well-established feature-rich text mode web (HTTP/FTP/..) browser.
 * Cultural and scholarly perspective on the Catholic Marian ministry (debug, troubleshoot, security, validation)
 
@@ -41,8 +41,9 @@ As of ```v0.1.8``` the audio and software used in this App are GNU
 * Paschal Full Moon Liturgical Calendar calculations. (and Liturgical Cycles)
 * Decorative color themes corresponding to Liturgical Calendar Seasons.
 * Feast day triggered events.
-* Traditional Latin Hymns (audio).
+* Play Traditional Latin Hymns (audio).
 * Automatically install software dependencies.
+* Retrieve daily Mass readings from the web.
 
 ---
 
