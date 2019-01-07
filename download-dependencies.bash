@@ -91,6 +91,6 @@ function download_dependencies {
 
 ## Run
 # "checking github for latest update ..."
-git pull 2>&1
+git pull &>/dev/null
 
 download_dependencies
