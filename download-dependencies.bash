@@ -29,21 +29,21 @@ function download_software {
 	fi
 
 	## gnu terminal and text manipulation tools
-	if ! [ -x "$(command -v grep)" ] || ! [ -x "$(command -v sed)" ] || ! [ -x "$(command -v wget)" ] || ! [ -x "$(command -v gawk)" ] || ! [ -x "$(command -v bc)" ]; then
-		sudo pacman -S --needed grep sed wget gawk bc
-		sudo apt-get install grep sed wget gawk bc
-		sudo slapt-get --install grep sed wget gawk bc
+	if ! [ -x "$(command -v grep)" ] || ! [ -x "$(command -v sed)" ] || ! [ -x "$(command -v wget)" ] || ! [ -x "$(command -v gawk)" ] || ! [ -x "$(command -v bc)" ] || ! [ -x "$(command -v curl)" ]; then
+		sudo pacman -S --needed grep sed wget gawk bc curl
+		sudo apt-get install grep sed wget gawk bc curl
+		sudo slapt-get --install grep sed wget gawk bc curl
 
 		if [ $thisOS -eq "Alpine Linux" ]; then
 			# alpine is soo light, even bash is bare bones
-			sudo apk add grep sed wget gawk curl bc
+			sudo apk add grep sed wget gawk curl bc curl
 		fi
 	fi
 
 	## bash gui menu
-	if ! [ -x "$(command -v ncurses)" ] || ! [ -x "$(command -v dialog)" ]; then
+	if ! [ -f /usr/include/ncurses.h ] || ! [ -x "$(command -v dialog)" ]; then
 		sudo pacman -S --needed ncurses dialog
-		sudo apt-get install ncurses dialog
+		sudo apt-get install libncurses5-dev libncursesw5-dev dialog
 		sudo slapt-get --install ncurses dialog
 		sudo apk add ncurses dialog
 	fi
@@ -61,7 +61,7 @@ function download_software {
 
 	## multimedia audio player
 	## I used to use mplayer for this App, but ogg123 is lighter and more specific for this app
-	if [ -x "$(command -v ogg123)" ]; then
+	if ! [ -f /usr/bin/ogg123 ]; then
 		sudo pacman -S --needed vorbis-tools
 		sudo apt-get install vorbis-tools
 		sudo slapt-get --install vorbis-tools
@@ -70,10 +70,10 @@ function download_software {
 
 	## console web browser
 	if ! [ -x "$(command -v elinks)" ]; then
-		sudo pacman -S --needed elinks curl
-		sudo apt-get install elinks curl
-		sudo slapt-get --install elinks curl
-		sudo apk add elinks curl
+		sudo pacman -S --needed elinks
+		sudo apt-get install elinks
+		sudo slapt-get --install elinks
+		sudo apk add elinks
 	fi
 }
 
@@ -83,5 +83,7 @@ function download_dependencies {
 }
 
 ## Run
+# echo "checking github for latest update ..."
+git pull 2>&1
 
 download_dependencies

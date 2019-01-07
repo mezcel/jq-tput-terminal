@@ -20,19 +20,10 @@ function splashScreen {
 }
 
 function launch_new_windowBackup {
-	## presume tty login terminal if error
-	#if [ $? -eq 1 ];then
-	#	hostedDirPath=$(dirname $0)
-	#	bash $hostedDirPath/bash-rosary.bash
-	#else
-	#	## most linux systems have xterm
-	#	# XTerm*geometry: 140x40
-	#	hostedDirPath=$(dirname $0)
-	#	xterm -geometry 140x40+0+0 -e "$hostedDirPath/bash-rosary.bash"
-	#fi
 
 	processPidName=$(echo $TERM)
 
+	#if [ $? -eq 1 ];then
 	if [ $processPidName != "linux" ]; then
 		## most linux systems have xterm
 		# XTerm*geometry: 140x40
@@ -80,9 +71,6 @@ function startMPlayerDemo {
 }
 
 function download_dependencies {
-	echo "checking github for latest update ..."
-	git pull 2>&1
-
 	currentDirPath=$(dirname $0)
 	bash "$currentDirPath/download-dependencies.bash"
 }

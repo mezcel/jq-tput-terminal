@@ -9,7 +9,7 @@ function arch_audio_players {
 	# sudo pacman -S --needed mplayer
 
 	## ogg audio player
-	if ! [ -x "$(command -v ogg123)" ];then
+	if ! [ -f /usr/bin/ogg123 ];then
 		sudo pacman -S --needed vorbis-tools
 		sudo apt-get install vorbis-tools
 		sudo slapt-get --install vorbis-tools

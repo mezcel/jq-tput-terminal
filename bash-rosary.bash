@@ -1338,12 +1338,13 @@ function welcomepage {
 
 
 	${MODE_BEGIN_UNDERLINE}Software Dependancies:${MODE_EXIT_UNDERLINE} (The app should have installed the following if neecessary)
-		* Linux Kernel, Bash (xterm), gawk, ncurses (tput), bc, grep, dialog, sed, wget
+		* Linux Kernel, Bash (xterm), gawk, ncurses (tput), bc, grep, dialog, sed, wget, grep
 		* jq with gcc
-		* vorbis-tools, ogg123
+		* vorbis-tools, ogg123 (used only for play .ogg audio)
+		* elinks console browser (used only for viewing daily mass readings from usccb.org)
 
-		If \"Mystery of the day\" has a value, you probably have all the software requirements.
-		If thigs look glitchy... doublecheck if awk, bc, grep, or jq was installed
+		If \"Mystery of the day\" has a value, you probably have most of the essential requirement software.
+		If thigs look glitchy... doublecheck if awk, bc, grep, or jq was installed correctly
 
 	"
 
@@ -2435,8 +2436,7 @@ resizeWindow
 ## Run
 myMian
 
-echo "never reached"
-read
+## Never reached
 
 ## Restore cursor
 tput cnorm
