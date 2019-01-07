@@ -1368,6 +1368,7 @@ function forceCrossBead {
 }
 
 function howToPage {
+	kilall ogg123
 	resizeWindow
 	echo "${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 	clear
@@ -1965,13 +1966,18 @@ function menuUP {
 			elinksUsccbMassReadings
 			;;
 		10)	## exit app
-			killall ogg123  &>/dev/null
-
+			autoPilot=0
+			# killall ogg123  &>/dev/null
 			goodbyescreen
+			killall ogg123; killall bash-rosary.bash
+
+			# goodbyescreen
 			tput cnorm
 			tput sgr0
 			reset
-			exit
+			# exit
+			# return
+			break
 			;;
 		*)	## na
 	esac
@@ -2203,14 +2209,13 @@ function beadREV {
 
 function exitAutoPilotApp {
 
-	# killall mplayer &>/dev/null
-	killall ogg123 &>/dev/null
+	# killall ogg123 &>/dev/null
 
 	goodbyescreen
 	# reset
 
-	PID=$$
-	kill -9 $PID
+	# PID=$$
+	# kill -9 $PID
 }
 
 function arrowInputs {
@@ -2286,28 +2291,53 @@ function musicsalAutoPilot {
 	sleep .5s
 
 	autoPilot=1
+	isMenuOpen=0
 	while [ $autoPilot -eq 1 ]
 	do
 		## isOggPlaying=$(echo pgrep -x "ogg123")
 		if ! pgrep -x "ogg123" > /dev/null
 		then
-			blank_transition_display
-			beadFWD
-			bundledDisplay
-			setBeadAudio
+			if [ $isMenuOpen -eq 0 ];then
+				blank_transition_display
+				beadFWD
+				bundledDisplay
+				setBeadAudio
+			fi
 
 			# mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
 			ogg123 $beadAudioFile </dev/null >/dev/null 2>&1 &
 			#sleep .2s
 		fi
 
-		if [ $autoPilot -eq 0 ]; then
-			exitAutoPilotApp
-			break
-			return
-		fi
+	done < <(isMenuOpen=$isMenuOpen) & while read -sN1 key
+	do
+		## catch 3 multi char sequence within a time window
+		## null outputs in case of random error msg
+		read -s -n1 -t 0.0001 k1 &>/dev/null
+		read -s -n1 -t 0.0001 k2 &>/dev/null
+		read -s -n1 -t 0.0001 k3 &>/dev/null
+		key+=${k1}${k2}${k3} &>/dev/null
 
-		# arrowInputs
+		case "$key" in
+			$arrowUp ) # menu
+				isMenuOpen=1
+				menuUP
+
+				## hide cursor
+				tput civis
+				;;
+			$arrowDown ) # language toggle
+				isMenuOpen=1
+				menuDN
+
+				## hide cursor
+				tput civis
+				;;
+			"q" | "Q" ) # Force quit app and mplayer and xterm
+				autoPilot=0
+				break
+				;;
+		esac
 
 	done
 }
@@ -2344,7 +2374,7 @@ function translationDB {
 		# NAB
 
 		if [ $isLiveStreaming -eq 1 ]; then
-			## demo script
+			## NAB demo script
 			rosaryJSONGithub="https://raw.githubusercontent.com/mezcel/jq-tput-terminal/master/json-db/rosaryJSON-nab.json"
 			rosaryJSON="$hostedDirPath/json-db/rosaryJSON-nab.json"
 			wget $rosaryJSONGithub
@@ -2386,6 +2416,7 @@ function initialize {
 
 	introFlag=1
 	translation=1
+	isMenuOpen=0
 
 	## Set initial pulseaudio system volume
 	amixer set Master 25% </dev/null >/dev/null 2>&1
