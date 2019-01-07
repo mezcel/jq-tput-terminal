@@ -115,7 +115,7 @@ function launchXterm {
 	processPidName=$(echo $TERM)
 
 	case $processPidName in
-		"xterm" )	## xterm
+		"xterm" | "xterm-256color" )	## xterm
 					resizeWindow
 					;;
 		"linux" )	## login terminal
@@ -1681,6 +1681,78 @@ function bundledDisplay {
 }
 
 ###################################################
+## Mass Readings
+###################################################
+
+function elinksUsccbMassReadings {
+	## Daily Mass Readings from USCB Website
+	## http://www.usccb.org/bible/readings/010619.cfm
+
+	## Define Today
+	thisYear=$(date +%y)
+	thisMonth=$(date +%m)
+	thisDay=$(date +%d)
+
+	currentDirPath=$(dirname $0)
+	destinationPath=$currentDirPath/DailyMass/
+	mkdir $destinationPath
+	htmlFileName=mass-readings.html
+	htmlFilePath=$destinationPath$htmlFileName
+
+	# wget $usccbHostUrl -P $destinationPath -O $htmlFileName
+	usccbHostUrl="http://www.usccb.org/bible/readings/"$thisMonth$thisDay$thisYear".cfm"
+
+	## Put website text into a var
+	websiteHtmlText=$(curl $usccbHostUrl)
+	## Crop the desited text section
+	#
+	cropText=$(echo $websiteHtmlText | grep -oP '\<div class\=\"contentarea\"\>\s*\K.*(?=\s+\<style type\=\"text\/css\"\>)')
+
+	## convert local path to remote path
+	htmlahref="<a href=\""
+	urlhostahref="${htmlahref}http://www.usccb.org"
+	cropText=${cropText//$htmlahref/$urlhostahref}
+
+	## Make a tmp text file for bash display in elinks or Linx
+	rm $htmlFilePath
+	headerDate=$(date)
+	echo "<p><hr><h1>$headerDate</h1></p>$cropText" >> $htmlFilePath
+
+	echo "${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
+	clear
+	width=$(tput cols)
+	height=$(tput lines)
+	str="Terminal Rosary using Jq and Bash"
+	length=${#str}
+	centerText=$(( (width / 2)-(length / 2) ))
+	tputAppTitle=$(tput cup 0 $centerText; echo "$str")
+
+	tputAppTranslation=$(tput cup 0 1; echo $translationName)
+	tputAppClock=$(tput cup 0 $[$(tput cols)-29]; echo `date`)
+	tputAppHeaderLine=$(tput cup 1 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
+	
+	echo "${tputAppTitle}${tputAppTranslation}${tputAppClock}${tputAppHeaderLine}
+	
+	Today's daily mass readings is taken from:
+		$usccbHostUrl
+	
+	Elinks, a terminal web browser will open and display the following local html file:
+		$htmlFilePath
+		
+		Press [q] to exit the Elinks app once within Elinks.
+		Press [esc] for other Elinks options.
+	"
+	height=$(tput lines)
+	if [ $height -ge 34 ]; then
+		tput cup $[$(tput lines)-2]
+	fi
+	read -p "[Press Enter]" -s enterVar
+	
+	## Display Text in a terminal web browser
+	elinks $htmlFilePath
+}
+
+###################################################
 ## Dialog Menus
 ###################################################
 
@@ -1831,7 +1903,8 @@ function menuUP {
 		"6"	"View Prayers"\
 		"7" "Change Color Theme"\
 		"8" "Feast Day Countdown"\
-		"9" "Exit App")
+		"9" "Daily Mass Readings (online)"\
+		"10" "Exit App")
 
 	case "$selectedMenuItem" in
 		1)	## About
@@ -1886,7 +1959,10 @@ function menuUP {
 		8)	## Feast Day List
 			feastDayCountdown
 			;;
-		9)	## exit app
+		9) # elinks mass readings
+			elinksUsccbMassReadings
+			;;
+		10)	## exit app
 			killall fluidsynth &>/dev/null
 			killall mplayer &>/dev/null
 
@@ -2008,7 +2084,7 @@ function setBeadAudio {
 	## prayerIndex
 	## set audio media to match the current prayer
 
-	# currentDirPath=$(dirname $0)
+	currentDirPath=$(dirname $0)
 	isLiveStreaming=0
 	case $prayerIndex in
 		0 ) ## none
@@ -2136,7 +2212,7 @@ function exitAutoPilotApp {
 }
 
 function arrowInputs {
-
+		
 	while read -sN1 key
 	do
 		## catch 3 multi char sequence within a time window
@@ -2177,7 +2253,7 @@ function arrowInputs {
 
 				if ! pgrep -x "mplayer" > /dev/null
 				then
-					mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
+					mplayer volume=1 $beadAudioFile </dev/null >/dev/null 2>&1 &
 					sleep .5s
 				else
 					killall mplayer &>/dev/null
@@ -2188,12 +2264,10 @@ function arrowInputs {
 				autoPilot=0
 				exitAutoPilotApp
 				break
-				return
 				;;
 		esac
-
+		
 	done
-
 	# Restore screen
     tput rmcup
 }
@@ -2201,13 +2275,15 @@ function arrowInputs {
 function musicsalAutoPilot {
 	## turn off user input, ctrl+c to exit
 	stty -echo
-
+	
+	setBeadAudio
 	mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
 	sleep .5s
 
-	# autoPilot=1
+	autoPilot=1
 	while [ $autoPilot -eq 1 ]
 	do
+		## isMplayerPlaying=$(echo pgrep -x "mplayer")
 		if ! pgrep -x "mplayer" > /dev/null
 		then
 			blank_transition_display
@@ -2215,8 +2291,8 @@ function musicsalAutoPilot {
 			bundledDisplay
 			setBeadAudio
 
-			mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
-			sleep .5s
+			mplayer volume=1 $beadAudioFile </dev/null >/dev/null 2>&1 &
+			#sleep .2s
 		fi
 
 		if [ $autoPilot -eq 0 ]; then
@@ -2225,7 +2301,7 @@ function musicsalAutoPilot {
 			return
 		fi
 
-		arrowInputs
+		# arrowInputs
 
 	done
 }

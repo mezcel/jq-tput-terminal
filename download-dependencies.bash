@@ -30,9 +30,9 @@ function download_software {
 
 	## bash gui menu
 	if ! [ -x "$(command -v dialog)" ]; then
-		sudo pacman -S --needed dialog
-		sudo apt-get install dialog
-		sudo slapt-get --install dialog
+		sudo pacman -S --needed dialog bc
+		sudo apt-get install dialog bc
+		sudo slapt-get --install dialog bc
 		sudo apk add ncurses dialog bc grep
 	fi
 
@@ -54,6 +54,14 @@ function download_software {
 		sudo apt-get install gcc
 		sudo slapt-get --install gcc
 		sudo apk add gcc
+	fi
+
+	## terminal web browser
+	if ! [ -x "$(command -v gcc)" ]; then
+		sudo pacman -S --needed elinks
+		sudo apt-get install elinks
+		sudo slapt-get --install elinks
+		sudo apk add elinks
 	fi
 }
 

@@ -10,7 +10,7 @@ Religious audio jukebox with [GNU](https://www.gnu.org/home.en.html) & [Public D
 
 * ```v0.1.6.2``` added a music Autopilot to serve as spiritual room ambiance. It runs proximately +1.75 hours per 1 full mystery.
 
-* ```v0.1.7``` current dev branch release. Messing with the best way to apply live streaming. At the moment, one can from within ```myMian()```, hard-code the ```isLiveStreaming``` flag to test enable this App to stream the json db and .ogg from the internet.
+* ```v0.1.8``` current dev branch release. Added a feature to view Daily Mass Readings from the internet.
 
 | Test Distro's | Development Environment Notes |
 | --- | --- |
@@ -27,12 +27,13 @@ This is a CLI GUI App. This App's .json db is imported from [electron-container]
 
 ### Requirement Dependencies:
 
-As of ```v0.1.6.1``` the audio and software used in this App are GNU
+As of ```v0.1.8``` the audio and software used in this App are GNU
 
 * Basic GNU: [Bash](https://www.gnu.org/software/bash/), [ncurses/tput](https://ss64.com/bash/tput.html), wget, cal, bc, awk, & grep
 * [JQ](https://stedolan.github.io/jq) is a cross-platform C program which parses json script via command line terminal
 * [dialog / whiptail](http://linuxcommand.org/lc3_adv_dialog.php) is a terminal App for making dialog box style input prompts
 * [mplayer](http://www.mplayerhq.hu/design7/info.html) a multimedia player which can run in terminal environment
+* [elinks]() Terminal based web browser and html viewer
 * Cultural and scholarly perspective on the Catholic Marian ministry (debug, troubleshoot, security, validation)
 
 ### Feature Functionalities:
