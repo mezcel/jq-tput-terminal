@@ -4319,7 +4319,7 @@
         {
             "prayerID": 1,
             "prayerName": "Signum Crucis",
-            "prayerText": "In nómine Patris, et Fílii, et Spíritus Sancti. Amen.<hr><em>(As you say this, with your right hand touch your forehead when you say Father, touch your breastbone when you say Son, touch your left shoulder when you say Holy, and touch your right shoulder when you say Spirit.)</em>",
+            "prayerText": "In nómine Patris, et Fílii, et Spíritus Sancti. Amen.<hr>(As you say this, with your right hand touch your forehead when you say Father, touch your breastbone when you say Son, touch your left shoulder when you say Holy, and touch your right shoulder when you say Spirit.)",
             "prayerFooter": ""
         },
         {
