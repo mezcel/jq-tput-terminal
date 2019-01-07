@@ -57,7 +57,7 @@ function download_software {
 	fi
 
 	## terminal web browser
-	if ! [ -x "$(command -v gcc)" ]; then
+	if ! [ -x "$(command -v elinks)" ]; then
 		sudo pacman -S --needed elinks
 		sudo apt-get install elinks
 		sudo slapt-get --install elinks
