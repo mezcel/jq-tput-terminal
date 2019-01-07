@@ -20,19 +20,10 @@ function splashScreen {
 }
 
 function launch_new_windowBackup {
-	## presume tty login terminal if error
-	#if [ $? -eq 1 ];then
-	#	hostedDirPath=$(dirname $0)
-	#	bash $hostedDirPath/bash-rosary.bash
-	#else
-	#	## most linux systems have xterm
-	#	# XTerm*geometry: 140x40
-	#	hostedDirPath=$(dirname $0)
-	#	xterm -geometry 140x40+0+0 -e "$hostedDirPath/bash-rosary.bash"
-	#fi
 
 	processPidName=$(echo $TERM)
 
+	#if [ $? -eq 1 ];then
 	if [ $processPidName != "linux" ]; then
 		## most linux systems have xterm
 		# XTerm*geometry: 140x40
@@ -63,15 +54,14 @@ function launch_new_window {
 
 }
 
-function startMidiDemo {
-	hostedDirPath=$(dirname $0)
-	## audio requires fluidsynth and a midi soundfont
-	fluidsynth -a alsa -m alsa_seq -l -i -R 1 -C 1 /usr/share/soundfonts/FluidR3_GM.sf2 $hostedDirPath/audio/*.mid &>/dev/null &
-}
-
 function startMPlayerDemo {
 	hostedDirPath=$(dirname $0)
-	mplayer $hostedDirPath/audio/chime.ogg </dev/null >/dev/null 2>&1 &
+
+	## Set initial pulseaudio system volume
+	amixer set Master 25% </dev/null >/dev/null 2>&1
+
+	# mplayer $hostedDirPath/audio/chime.ogg </dev/null >/dev/null 2>&1 &ep 5 ; echo quit >/tmp/mi1 ;echo quit >/tmp/mi2)&
+	ogg123 $hostedDirPath/audio/chime.ogg </dev/null >/dev/null 2>&1 &
 }
 
 function download_dependencies {

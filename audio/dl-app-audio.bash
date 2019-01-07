@@ -3,15 +3,11 @@
 ### install audio used in this app
 
 function arch_audio_players {
-	## midi player with soundfont
-	# sudo pacman -S --needed fluidsynth
-	# sudo pacman -S --needed soundfont-fluid
-
-	## multimedia player for video and audio
-	if ! [ -x "$(command -v mplayer)" ];then
-		sudo pacman -S --needed mplayer
-		sudo apt-get install mplayer
-		sudo slapt-get --install mplayer
+	## ogg audio player
+	if ! [ -f /usr/bin/ogg123 ];then
+		sudo pacman -S --needed vorbis-tools
+		sudo apt-get install vorbis-tools
+		sudo slapt-get --install vorbis-tools
 
 	fi
 }

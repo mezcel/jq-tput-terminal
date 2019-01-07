@@ -66,9 +66,9 @@ function resizeWindow {
 	## Do resize if the shell is a Desktop app, or not a Linux login term
 
 	processPidName=$(echo $TERM)
-	
+
 	if [ $processPidName = "xterm" ] && [ $processPidName != "linux" ]; then
-	
+
 		if [ $(tput cols) -lt 140 ]; then
 			isWideEnough=0
 		else
@@ -89,9 +89,9 @@ function resizeWindow {
 
 			echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 			clear
-		fi		
+		fi
 	fi
-	
+
 	currentScrrenWidth=$(tput cols)
 	currentScreenHeight=$(tput lines)
 }
@@ -1337,13 +1337,14 @@ function welcomepage {
 		Optimal screen size: width 140 cols, height is 40 lines
 
 
-	${MODE_BEGIN_UNDERLINE}Software Dependancies:${MODE_EXIT_UNDERLINE} (The app should have installed the following if neecessary)
-		* Linux Kernel, Bash (xterm), gawk, ncurses (tput), bc, grep, dialog, sed, wget
+	${MODE_BEGIN_UNDERLINE}Software Dependencies:${MODE_EXIT_UNDERLINE} (The app should have installed the following if neecessary)
+		* Linux Kernel, Bash (xterm), gawk, ncurses (tput), bc, grep, dialog, sed, wget, grep
 		* jq with gcc
-		* MPlayer (mp3/wav/ogg), fluidsynth with soundfont-fluid (midi)
+		* vorbis-tools, ogg123 (used only for play .ogg audio)
+		* elinks console browser (used only for viewing daily mass readings from usccb.org)
 
-		If \"Mystery of the day\" has a value, you probably have all the software requirements.
-		If thigs look glitchy... doublecheck if awk, bc, grep, or jq was installed
+		If \"Mystery of the day\" has a value, you probably have most of the essential requirement software.
+		If thigs look glitchy... doublecheck if awk, bc, grep, or jq was installed correctly
 
 	"
 
@@ -1361,7 +1362,8 @@ function forceCrossBead {
 	query_prayerText=.prayer[$prayerIndex].prayerText
 	return_prayerText=$(jq $query_prayerText $rosaryJSON)
 	echo "${FG_NoColor}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
-	killall mplayer  &>/dev/null
+	# killall mplayer  &>/dev/null
+	killall ogg123  &>/dev/null
 	clear
 }
 
@@ -1709,7 +1711,7 @@ function elinksUsccbMassReadings {
 	cropText=$(echo $websiteHtmlText | grep -oP '\<div class\=\"contentarea\"\>\s*\K.*(?=\s+\<style type\=\"text\/css\"\>)')
 
 	## convert local path to remote path
-	htmlahref="<a href=\""
+	htmlahref="href=\""
 	urlhostahref="${htmlahref}http://www.usccb.org"
 	cropText=${cropText//$htmlahref/$urlhostahref}
 
@@ -1730,15 +1732,15 @@ function elinksUsccbMassReadings {
 	tputAppTranslation=$(tput cup 0 1; echo $translationName)
 	tputAppClock=$(tput cup 0 $[$(tput cols)-29]; echo `date`)
 	tputAppHeaderLine=$(tput cup 1 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
-	
+
 	echo "${tputAppTitle}${tputAppTranslation}${tputAppClock}${tputAppHeaderLine}
-	
+
 	Today's daily mass readings is taken from:
 		$usccbHostUrl
-	
+
 	Elinks, a terminal web browser will open and display the following local html file:
 		$htmlFilePath
-		
+
 		Press [q] to exit the Elinks app once within Elinks.
 		Press [esc] for other Elinks options.
 	"
@@ -1747,7 +1749,7 @@ function elinksUsccbMassReadings {
 		tput cup $[$(tput lines)-2]
 	fi
 	read -p "[Press Enter]" -s enterVar
-	
+
 	## Display Text in a terminal web browser
 	elinks $htmlFilePath
 }
@@ -1963,8 +1965,7 @@ function menuUP {
 			elinksUsccbMassReadings
 			;;
 		10)	## exit app
-			killall fluidsynth &>/dev/null
-			killall mplayer &>/dev/null
+			killall ogg123  &>/dev/null
 
 			goodbyescreen
 			tput cnorm
@@ -2202,7 +2203,8 @@ function beadREV {
 
 function exitAutoPilotApp {
 
-	killall mplayer &>/dev/null
+	# killall mplayer &>/dev/null
+	killall ogg123 &>/dev/null
 
 	goodbyescreen
 	# reset
@@ -2212,7 +2214,7 @@ function exitAutoPilotApp {
 }
 
 function arrowInputs {
-		
+
 	while read -sN1 key
 	do
 		## catch 3 multi char sequence within a time window
@@ -2251,12 +2253,14 @@ function arrowInputs {
 				;;
 			"m" | "M" ) # mplayer audio
 
-				if ! pgrep -x "mplayer" > /dev/null
+				if ! pgrep -x "ogg123" > /dev/null
 				then
-					mplayer volume=1 $beadAudioFile </dev/null >/dev/null 2>&1 &
+					## mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
+					ogg123 $beadAudioFile </dev/null >/dev/null 2>&1 &
 					sleep .5s
 				else
-					killall mplayer &>/dev/null
+					# killall mplayer &>/dev/null
+					killall ogg123 &>/dev/null
 					sleep .5s
 				fi
 				;;
@@ -2266,7 +2270,7 @@ function arrowInputs {
 				break
 				;;
 		esac
-		
+
 	done
 	# Restore screen
     tput rmcup
@@ -2275,23 +2279,25 @@ function arrowInputs {
 function musicsalAutoPilot {
 	## turn off user input, ctrl+c to exit
 	stty -echo
-	
+
 	setBeadAudio
-	mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
+	## mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
+	ogg123 $beadAudioFile </dev/null >/dev/null 2>&1 &
 	sleep .5s
 
 	autoPilot=1
 	while [ $autoPilot -eq 1 ]
 	do
-		## isMplayerPlaying=$(echo pgrep -x "mplayer")
-		if ! pgrep -x "mplayer" > /dev/null
+		## isOggPlaying=$(echo pgrep -x "ogg123")
+		if ! pgrep -x "ogg123" > /dev/null
 		then
 			blank_transition_display
 			beadFWD
 			bundledDisplay
 			setBeadAudio
 
-			mplayer volume=1 $beadAudioFile </dev/null >/dev/null 2>&1 &
+			# mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
+			ogg123 $beadAudioFile </dev/null >/dev/null 2>&1 &
 			#sleep .2s
 		fi
 
@@ -2375,10 +2381,14 @@ function initialize {
 	beadCounter=0
 	thisDecadeSet=0
 	mysteryProgress=0
-	beadAudioFile="-loop 0 $currentDirPath/audio/AveMaria2.ogg"
+	# beadAudioFile="-loop 0 $currentDirPath/audio/AveMaria2.ogg"
+	beadAudioFile="$currentDirPath/audio/AveMaria2.ogg"
 
 	introFlag=1
 	translation=1
+
+	## Set initial pulseaudio system volume
+	amixer set Master 25% </dev/null >/dev/null 2>&1
 
 	## determine mystery of the day
 	initializeFeastFlags
@@ -2392,7 +2402,7 @@ function initialize {
 function myMian {
 	## streaming test
 	isLiveStreaming=0
-	
+
 	resizeWindow
 
 	decorativeColors
@@ -2424,8 +2434,7 @@ resizeWindow
 ## Run
 myMian
 
-echo "never reached"
-read
+## Never reached
 
 ## Restore cursor
 tput cnorm

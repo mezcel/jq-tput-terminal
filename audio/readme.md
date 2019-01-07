@@ -2,7 +2,7 @@
 
 When this App starts, it will call ```dl-app-audio.sh``` which will download GNU Audio Oggs.
 
-- I focused on Ogg for GNU sake, but .wav, .mp3, .midi is also compatible for this app.
+- I focused on Ogg for GNU sake. ogg123 is a vorbis-tools audio player which will play audio from within the terminal console using pulseaudio
 
 ## Source Audio:
 

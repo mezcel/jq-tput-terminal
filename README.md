@@ -29,11 +29,11 @@ This is a CLI GUI App. This App's .json db is imported from [electron-container]
 
 As of ```v0.1.8``` the audio and software used in this App are GNU
 
-* Basic GNU: [Bash](https://www.gnu.org/software/bash/), [ncurses/tput](https://ss64.com/bash/tput.html), wget, cal, bc, awk, & grep
+* Basic GNU Terminal Tools: [Bash](https://www.gnu.org/software/bash/), [ncurses/tput](https://ss64.com/bash/tput.html), wget, cal, bc, awk, & grep
 * [JQ](https://stedolan.github.io/jq) is a cross-platform C program which parses json script via command line terminal
 * [dialog / whiptail](http://linuxcommand.org/lc3_adv_dialog.php) is a terminal App for making dialog box style input prompts
-* [mplayer](http://www.mplayerhq.hu/design7/info.html) a multimedia player which can run in terminal environment
-* [elinks]() Terminal based web browser and html viewer
+* [ogg123](http://www.mplayerhq.hu/design7/info.html) is a [ogg](https://xiph.org/vorbis) audio player which can run within terminal environment
+* [elinks](http://elinks.or.cz/) is a well-established feature-rich text mode web (HTTP/FTP/..) browser.
 * Cultural and scholarly perspective on the Catholic Marian ministry (debug, troubleshoot, security, validation)
 
 ### Feature Functionalities:

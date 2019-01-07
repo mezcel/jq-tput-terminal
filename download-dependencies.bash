@@ -18,46 +18,58 @@ function download_software {
 
 	## xorg shell emulator
 	if ! [ -x "$(command -v xterm)" ]; then
-		sudo pacman -S --needed xterm
-		sudo apt-get install xterm
-		sudo slapt-get --install xterm
+		sudo pacman -S --needed bash xterm
+		sudo apt-get install bash xterm
+		sudo slapt-get --install bash xterm
 
 		if [ $thisOS -eq "Alpine Linux" ]; then
 			# alpine is soo light, even bash is bare bones
-			sudo apk add bash grep sed xterm wget gawk
+			sudo apk add bash xterm
+		fi
+	fi
+
+	## gnu terminal and text manipulation tools
+	if ! [ -x "$(command -v grep)" ] || ! [ -x "$(command -v sed)" ] || ! [ -x "$(command -v wget)" ] || ! [ -x "$(command -v gawk)" ] || ! [ -x "$(command -v bc)" ] || ! [ -x "$(command -v curl)" ]; then
+		sudo pacman -S --needed grep sed wget gawk bc curl
+		sudo apt-get install grep sed wget gawk bc curl
+		sudo slapt-get --install grep sed wget gawk bc curl
+
+		if [ $thisOS -eq "Alpine Linux" ]; then
+			# alpine is soo light, even bash is bare bones
+			sudo apk add grep sed wget gawk curl bc curl
 		fi
 	fi
 
 	## bash gui menu
-	if ! [ -x "$(command -v dialog)" ]; then
-		sudo pacman -S --needed dialog bc
-		sudo apt-get install dialog bc
-		sudo slapt-get --install dialog bc
-		sudo apk add ncurses dialog bc grep
+	if ! [ -f /usr/include/ncurses.h ] || ! [ -x "$(command -v dialog)" ]; then
+		sudo pacman -S --needed ncurses dialog
+		sudo apt-get install libncurses5-dev libncursesw5-dev dialog
+		sudo slapt-get --install ncurses dialog
+		sudo apk add ncurses dialog
 	fi
 
 	## json parser
 	if ! [ -x "$(command -v jq)" ]; then
-		sudo pacman -S --needed jq
-		sudo apt-get install jq
-		sudo apk add jq
+		sudo pacman -S --needed jq gcc
+		sudo apt-get install jq gcc
+		sudo apk add jq gcc
 
 		if [ $thisOS -eq "Slackware" ]; then
 			compileJq
 		fi
-
 	fi
 
-	## c ompiler
-	if ! [ -x "$(command -v gcc)" ]; then
-		sudo pacman -S --needed gcc
-		sudo apt-get install gcc
-		sudo slapt-get --install gcc
-		sudo apk add gcc
+	## multimedia audio player
+	## I used to use mplayer for this App, but ogg123 is lighter and more specific for this app
+	if ! [ -f /usr/bin/ogg123 ]; then
+		sudo pacman -S --needed vorbis-tools
+		sudo apt-get install vorbis-tools
+		sudo slapt-get --install vorbis-tools
+		sudo apk add vorbis-tools
 	fi
 
-	## terminal web browser
-	if ! [ -x "$(command -v gcc)" ]; then
+	## console web browser
+	if ! [ -x "$(command -v elinks)" ]; then
 		sudo pacman -S --needed elinks
 		sudo apt-get install elinks
 		sudo slapt-get --install elinks
@@ -71,5 +83,7 @@ function download_dependencies {
 }
 
 ## Run
+# "checking github for latest update ..."
+git pull 2>&1
 
 download_dependencies
