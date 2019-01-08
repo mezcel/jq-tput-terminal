@@ -5,7 +5,7 @@
 function download_audio {
 	currentDirPath=$(dirname $0)
 
-	bash "$currentDirPath/audio/dl-app-audio.bash"
+	bash "$currentDirPath/audio/dl-app-audio"
 }
 
 function download_software {

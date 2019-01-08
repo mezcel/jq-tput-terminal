@@ -123,7 +123,7 @@ function launchXterm {
 					;;
 		* ) ## launch app through a new xterm
 			hostedDirPath=$(dirname $0)
-			xterm -geometry 140x40+0+0 -e "$hostedDirPath/xterm-launcher.bash"
+			xterm -geometry 140x40+0+0 -e "$hostedDirPath/xterm-launcher"
 			;;
 	esac
 
@@ -1970,17 +1970,18 @@ function menuUP {
 			elinksUsccbMassReadings
 			;;
 		10)	## exit app
-			autoPilot=0
-			# killall ogg123  &>/dev/null
-			goodbyescreen
-			killall ogg123; killall bash-rosary.bash
+			if [ $autoPilot -eq 1 ]; then
+				autoPilot=0
+				exitAutoPilotApp
 
-			# goodbyescreen
-			tput cnorm
-			tput sgr0
-			reset
-			# exit
-			# return
+			else
+				goodbyescreen
+				tput cnorm
+				tput sgr0
+				reset
+				exit
+			fi
+
 			break
 			;;
 		*)	## na
@@ -2212,14 +2213,8 @@ function beadREV {
 }
 
 function exitAutoPilotApp {
-
-	# killall ogg123 &>/dev/null
-
 	goodbyescreen
-	# reset
-
-	# PID=$$
-	# kill -9 $PID
+	killall ogg123 & killall bash-rosary &>/dev/null
 }
 
 function arrowInputs {
@@ -2276,7 +2271,6 @@ function arrowInputs {
 			"q" | "Q" ) # Force quit app and mplayer and xterm
 				autoPilot=0
 				exitAutoPilotApp
-				break
 				;;
 		esac
 
@@ -2339,7 +2333,7 @@ function musicsalAutoPilot {
 				;;
 			"q" | "Q" ) # Force quit app and mplayer and xterm
 				autoPilot=0
-				break
+				exitAutoPilotApp
 				;;
 		esac
 
@@ -2459,7 +2453,7 @@ function myMian {
 
 function download_dependencies {
 	currentDirPath=$(dirname $0)
-	bash "$currentDirPath/download-dependencies.bash"
+	bash "$currentDirPath/download-dependencies"
 }
 
 download_dependencies

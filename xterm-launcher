@@ -28,10 +28,10 @@ function launch_new_windowBackup {
 		## most linux systems have xterm
 		# XTerm*geometry: 140x40
 		hostedDirPath=$(dirname $0)
-		xterm -geometry 140x40+0+0 -e "$hostedDirPath/bash-rosary.bash"
+		xterm -geometry 140x40+0+0 -e "$hostedDirPath/bash-rosary"
 	else
 		hostedDirPath=$(dirname $0)
-		bash $hostedDirPath/bash-rosary.bash
+		bash $hostedDirPath/bash-rosary
 	fi
 
 }
@@ -43,12 +43,12 @@ function launch_new_window {
 	case $processPidName in
 		"linux" )	## login terminal
 					isLinuxTerminal=1
-					bash "$hostedDirPath/bash-rosary.bash"
+					bash "$hostedDirPath/bash-rosary"
 					;;
 		* ) ## launch app through a new xterm
 			## most linux systems have xterm
 			# XTerm*geometry: 140x40
-			xterm -geometry 140x40+0+0 -e "$hostedDirPath/bash-rosary.bash"
+			xterm -geometry 140x40+0+0 -e "$hostedDirPath/bash-rosary"
 			;;
 	esac
 
@@ -66,7 +66,7 @@ function startMPlayerDemo {
 
 function download_dependencies {
 	currentDirPath=$(dirname $0)
-	bash "$currentDirPath/download-dependencies.bash"
+	bash "$currentDirPath/download-dependencies"
 }
 
 download_dependencies
