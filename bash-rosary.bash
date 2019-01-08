@@ -2279,8 +2279,7 @@ function arrowInputs {
 			"q" | "Q" ) # Force quit app and mplayer and xterm
 				autoPilot=0
 				exitAutoPilotApp
-				killall ogg123; killall bash-rosary.bash
-				killall bash-rosary.bas
+				break
 				;;
 		esac
 
@@ -2344,8 +2343,7 @@ function musicsalAutoPilot {
 			"q" | "Q" ) # Force quit app and mplayer and xterm
 				autoPilot=0
 				exitAutoPilotApp
-				killall ogg123; killall bash-rosary.bash
-				killall bash-rosary.bas
+				killall ogg123; killall bash-rosary.bash; killall bash-rosary.bas
 				;;
 		esac
 
