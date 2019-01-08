@@ -2340,6 +2340,8 @@ function musicsalAutoPilot {
 				;;
 			"q" | "Q" ) # Force quit app and mplayer and xterm
 				autoPilot=0
+				exitAutoPilotApp
+				killall ogg123; killall bash-rosary.bash
 				break
 				;;
 		esac
