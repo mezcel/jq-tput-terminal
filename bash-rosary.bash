@@ -1696,7 +1696,10 @@ function elinksUsccbMassReadings {
 
 	currentDirPath=$(dirname $0)
 	destinationPath=$currentDirPath/DailyMass/
-	mkdir $destinationPath
+	if [ -f $destinationPath ]; then
+		mkdir $destinationPath
+	fi
+
 	htmlFileName=mass-readings.html
 	htmlFilePath=$destinationPath$htmlFileName
 
