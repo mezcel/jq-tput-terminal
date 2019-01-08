@@ -6,17 +6,25 @@ A Scripture Rosary GUI on the Bash CLI.
 - Daily Mass Readings (scraped from usccb.org)
 - Chant Soundtrack ( Ogg Audio provided by [wikimedia.org](https://commons.wikimedia.org) / [archive.org](archive.org) )
 
+Recommended Use Cases:
+
+- "Busy Persons Retreat"
+- Host on a ssh network.
+    - ssh -p 22 hostuser@ip.addr
+    - [shellinabox](https://code.google.com/archive/p/shellinabox/) service to any Firefox, Chrome, Edge, ect. client.
+- Run locally in a background terminal session for audio room ambiance or for use as an educational quick reference.
+
 ### Development Status and Milestones:
 
 * ```v0.1.4``` Meaningful stop point with working functionalities. Demo Preview: [asciinema](https://asciinema.org/a/217793)
 
 * ```v0.1.6.2``` added a music Autopilot to serve as spiritual room ambiance. It runs proximately +1.75 hours per 1 full mystery.
 
-* ```v0.1.8``` current dev branch release. I added a feature to view Daily Mass Readings from the internet. (things get glitchy if the menu is open during a song transition)
+* ```v0.1.8``` current dev branch release. I added a feature to view Daily Mass Readings from the internet. (no menu features with autopilot)
 
 | Test Distro's | Development Environment Notes |
 | --- | --- |
-| [Arch](https://wiki.archlinux.org/) | This App was developed on Arch Linux. [Parabola](https://wiki.parabola.nu/Category:Migration) is a 'free' Arch alternative. |
+| [Arch](https://wiki.archlinux.org/) | This App was developed on Arch Linux. [Parabola](https://wiki.parabola.nu/Category:Migration) is a 'free' Arch alternative. I also tested it with [shellinabox](https://aur.archlinux.org/packages/shellinabox-git/) service.|
 | Slackware | Tested on Salix ( legacy repo linux platform compatible ) |
 | [Alpine](https://alpinelinux.org/about/) | OpenRC, Docker, BusyBox. Fastest install and setup process |
 | Ubuntu | [Trisquel](https://trisquel.info), Tahrpup, and Mint. Average performance. |
