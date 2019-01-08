@@ -1970,17 +1970,18 @@ function menuUP {
 			elinksUsccbMassReadings
 			;;
 		10)	## exit app
-			autoPilot=0
-			# killall ogg123  &>/dev/null
-			goodbyescreen
-			killall ogg123; killall bash-rosary.bash
+			if [ $autoPilot -eq 1 ]; then
+				autoPilot=0
+				exitAutoPilotApp
+				killall ogg123; killall bash-rosary.bash
+			else
+				goodbyescreen
+				tput cnorm
+				tput sgr0
+				reset
+				exit
+			fi
 
-			# goodbyescreen
-			tput cnorm
-			tput sgr0
-			reset
-			# exit
-			# return
 			break
 			;;
 		*)	## na
