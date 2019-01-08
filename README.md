@@ -11,7 +11,7 @@ Recommended Use Cases:
 - "Busy Persons Retreat"
 - Host on a ssh network.
     - ssh -p 22 hostuser@ip.addr
-    - [shellinabox](https://code.google.com/archive/p/shellinabox/) service to any Firefox, Chrome, Edge, ect. client.
+    - [shellinabox](https://code.google.com/archive/p/shellinabox/) service to any Firefox, Chrome, Edge, ect. client. I did not include this Software within my app.
 - Run locally in a background terminal session for audio room ambiance or for use as an educational quick reference.
 
 ### Development Status and Milestones:
