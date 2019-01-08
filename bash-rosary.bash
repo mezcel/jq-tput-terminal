@@ -1973,7 +1973,9 @@ function menuUP {
 			if [ $autoPilot -eq 1 ]; then
 				autoPilot=0
 				exitAutoPilotApp
-				killall ogg123; killall bash-rosary*
+				killall ogg123; killall bash-rosary.bash
+				killall bash-rosary.bas
+
 			else
 				goodbyescreen
 				tput cnorm
@@ -2277,7 +2279,8 @@ function arrowInputs {
 			"q" | "Q" ) # Force quit app and mplayer and xterm
 				autoPilot=0
 				exitAutoPilotApp
-				break
+				killall ogg123; killall bash-rosary.bash
+				killall bash-rosary.bas
 				;;
 		esac
 
@@ -2341,8 +2344,8 @@ function musicsalAutoPilot {
 			"q" | "Q" ) # Force quit app and mplayer and xterm
 				autoPilot=0
 				exitAutoPilotApp
-				killall ogg123; killall bash-rosary*
-				break
+				killall ogg123; killall bash-rosary.bash
+				killall bash-rosary.bas
 				;;
 		esac
 
