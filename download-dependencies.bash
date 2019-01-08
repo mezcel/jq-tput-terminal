@@ -75,7 +75,7 @@ function download_software {
 		fi
 	fi
 
-	## console web browser
+	## console web browser html viewer
 	if ! [ -x "$(command -v elinks)" ]; then
 		sudo pacman -S --needed elinks
 		sudo apt-get install elinks
