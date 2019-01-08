@@ -20,7 +20,7 @@ Recommended Use Cases:
 
 * ```v0.1.6.2``` added a music Autopilot to serve as spiritual room ambiance. It runs proximately +1.75 hours per 1 full mystery.
 
-* ```v0.1.8.1``` current dev branch release. Added a Daily Mass Readings from the internet feature. No menus in autopilot mode
+* ```v0.1.8.2``` current dev branch release. Added a Daily Mass Readings from the internet feature. No menus in autopilot mode
 
 | Test Distro's | Development Environment Notes |
 | --- | --- |
