@@ -1355,7 +1355,7 @@ function welcomepage {
 	read -p "[Press Enter]" -s enterVar
 }
 
-function forceCrossBead {	
+function forceCrossBead {
 	beadCounter=$(( $mysteryJumpPosition - 7 ))
 	query_mysteryName=.mystery[$dayMysteryIndex].mysteryName
 	prayerIndex=1
@@ -1386,17 +1386,17 @@ function howToPage {
 
 	How to pray The Rosary:
 
-	1.	Make the Sign of the Cross and say the Apostles Creed.
-	2.	Say the Our Father.
-	3.	Say three Hail Marys.
-	4.	Say the Glory be to the Father.
-	5.	Announce the first mystery; then say the Our Father.
-	6.	Say ten Hail Marys, while meditating on the mystery.
-	7.	Say the Glory be to the Father and the Fatima Prayer.
-	8.	Announce the second mystery; then say the Our Father.
-	9.	Repeat 6 and 7, and continue with third, fourth, and fifth mysteries in the same manner.
-	10.	Say the Hail Holy Queen.
-	11.	Say the Prayer After the Rosary.
+	1.  Make the Sign of the Cross and say the Apostles Creed.
+	2.  Say the Our Father.
+	3.  Say three Hail Marys.
+	4.  Say the Glory be to the Father.
+	5.  Announce the first mystery; then say the Our Father.
+	6.  Say ten Hail Marys, while meditating on the mystery.
+	7.  Say the Glory be to the Father and the Fatima Prayer.
+	8.  Announce the second mystery; then say the Our Father.
+	9.  Repeat 6 and 7, and continue with third, fourth, and fifth mysteries in the same manner.
+	10. Say the Hail Holy Queen.
+	11. Say the Prayer After the Rosary.
 
 
 
@@ -1412,9 +1412,11 @@ function howToPage {
 
 	height=$(tput lines)
 	if [ $height -ge 34 ]; then
-		tput cup $[$(tput lines)-2]
+		tput cup $[$(tput lines)-4]
 	fi
-	echo "Use the Arrow keys to navigate. [Autopilot a | A]"
+	echo "Key Controlls after this page:"
+	echo "  Normal Mode:    [Navigate with Lt/Rt arrow keys] [Menu Up/Dn with arrow Keys] [Play/Pause Audio with 'm key'] [Quit with q | Q]"
+	echo "  Autopilot Mode: [Autopilot a | A] [Quit with q | Q]"
 	stty -echo
 
 	while read -sN1 key
@@ -1430,18 +1432,14 @@ function howToPage {
 				rosaryJSON=`echo $hostedDirPath/json-db/rosaryJSON-vulgate.json`
 				translationName="Vulgate (Latin)"
 				autoPilot=1
-
 				forceCrossBead
-
 				return
 				;;
 
 			$arrowRt )
 				## Start the bead sequence
 				autoPilot=0
-
 				forceCrossBead
-
 				return
 				;;
 
@@ -1684,7 +1682,7 @@ function bundledDisplay {
 }
 
 ###################################################
-## Mass Readings
+## Elinks Mass Readings
 ###################################################
 
 function elinksUsccbMassReadings {
@@ -1736,14 +1734,17 @@ function elinksUsccbMassReadings {
 
 	echo "${tputAppTitle}${tputAppTranslation}${tputAppClock}${tputAppHeaderLine}
 
-	Today's daily mass readings is taken from:
-		$usccbHostUrl
+	Today's daily mass readings is taken from: ${MODE_BEGIN_UNDERLINE}$usccbHostUrl${MODE_EXIT_UNDERLINE}
 
-	Elinks, a terminal web browser will open and display the following local html file:
-		$htmlFilePath
+	Elinks, a terminal web browser will open and display the following local html file: \"$htmlFilePath\"
 
+	Elinks Controlls:
 		Press [q] to exit the Elinks app once within Elinks.
 		Press [esc] for other Elinks options.
+
+		[Insert/Delete]		Scroll up/down line-wise. (vertically)
+		[PageUp/PageDown]	Scroll up/down page-wise.
+		[Home/End]		Scroll to the start/end of the document.
 	"
 	height=$(tput lines)
 	if [ $height -ge 34 ]; then
