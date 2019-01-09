@@ -1362,8 +1362,11 @@ function forceCrossBead {
 	query_prayerText=.prayer[$prayerIndex].prayerText
 	return_prayerText=$(jq $query_prayerText $rosaryJSON)
 	echo "${FG_NoColor}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
-	# killall mplayer  &>/dev/null
-	killall ogg123  &>/dev/null
+
+	if pgrep -x "ogg123" &>/dev/null
+	then
+		killall ogg123 &>/dev/null
+	fi
 	clear
 }
 
@@ -2268,8 +2271,11 @@ function arrowInputs {
 					ogg123 $beadAudioFile </dev/null >/dev/null 2>&1 &
 					sleep .5s
 				else
-					# killall mplayer &>/dev/null
-					killall ogg123 &>/dev/null
+					if pgrep -x "ogg123" &>/dev/null
+					then
+						killall ogg123 &>/dev/null
+					fi
+
 					sleep .5s
 				fi
 				;;
