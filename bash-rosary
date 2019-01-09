@@ -67,7 +67,7 @@ function resizeWindow {
 
 	processPidName=$(echo $TERM)
 
-	if [ $processPidName = "xterm" ] && [ $processPidName != "linux" ]; then
+	if [ $processPidName = "xterm" ] || [ $processPidName = "xterm-256color" ] && [ $processPidName != "linux" ]; then
 
 		if [ $(tput cols) -lt 140 ]; then
 			isWideEnough=0
