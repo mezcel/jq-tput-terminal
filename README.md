@@ -59,10 +59,10 @@ As of ```v0.1.8``` the audio and software used in this App are GNU
 
 ### Run
 
-This App will perform a requirements check and install Audio & Software, as needed, on startup. It will not configure [pulseaudio](https://www.freedesktop.org/wiki/Software/PulseAudio/), my App assumes your machine either has compatible hardware configs or it doesn't.
+This App will perform a requirements check and install Audio & Software, as needed, on startup. When possible, it will render in Xterm at 140x40. Your [alsa](http://alsa-project.org/main/index.php/Main_Page) or [pulseaudio](https://www.freedesktop.org/wiki/Software/PulseAudio/) must already be configured on your system for audio to work.
 
-(Main) Terminal App: ```./bash-rosary.sh```
+(Main) CLI App: ```./bash-rosary```
 
-- Desktop Terminal Emulator App: ```./xterm-launcher.sh``` (Optional but recommended, it will call ```./bash-rosary.sh```)
+- App Launcher for Desktop Environment: ```./xterm-launcher``` (it will call ```./bash-rosary```)
 
-- Add needed software that is missing on your system: ```download-dependencies.bash``` (Called within App)
+- Add needed software that is missing on your system: ```./download-dependencies``` (Called automatically from within App or you can run it manually)
