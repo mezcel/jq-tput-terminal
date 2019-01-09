@@ -1723,7 +1723,7 @@ function elinksUsccbMassReadings {
 	## Make a tmp text file for bash display in elinks or Linx
 	rm $htmlFilePath
 	headerDate=$(date)
-	echo "<p><hr><h1>$headerDate</h1></p>$cropText" >> $htmlFilePath
+	echo "<p><hr><h1>$headerDate</h1>Press [q] to exit.<br>Press [Insert/Delete] to scroll up/down line-wise.<hr></p>$cropText" >> $htmlFilePath
 
 	echo "${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 	clear
@@ -1742,7 +1742,7 @@ function elinksUsccbMassReadings {
 
 	Today's daily mass readings is taken from: ${MODE_BEGIN_UNDERLINE}$usccbHostUrl${MODE_EXIT_UNDERLINE}
 
-	Elinks, a terminal web browser will open and display the following local html file: \"$htmlFilePath\"
+	Web scraped and parsed html file: \"$htmlFilePath\"
 
 	Elinks Controlls:
 		Press [q] to exit the Elinks app once within Elinks.
