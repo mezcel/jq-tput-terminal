@@ -2214,7 +2214,7 @@ function beadREV {
 
 function exitAutoPilotApp {
 	goodbyescreen
-	killall ogg123 & killall bash-rosary &>/dev/null
+	killall ogg123 &>/dev/null; killall bash-rosary &>/dev/null
 }
 
 function arrowInputs {
