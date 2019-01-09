@@ -9,10 +9,10 @@ A Scripture Rosary GUI on the Bash CLI.
 Recommended Use Cases:
 
 - "Busy Persons Retreat"
-- Host on a ssh network.
-    - ssh -p 22 hostuser@ip.addr
-    - [shellinabox](https://code.google.com/archive/p/shellinabox/) service to any Firefox, Chrome, Edge, ect. client. I did not include this Software within my app.
 - Run locally in a background terminal session for audio room ambiance or for use as an educational quick reference.
+- Host on a ssh/ssl network. (compatible, but not included in app)
+    - ssh -p 22 host-user@ip.addr
+    - [shellinabox](https://code.google.com/archive/p/shellinabox/) service to any Firefox, Chrome, Edge, ect. client.
 
 ### Development Status and Milestones:
 
@@ -20,11 +20,11 @@ Recommended Use Cases:
 
 * ```v0.1.6.2``` added a music Autopilot to serve as spiritual room ambiance. It runs proximately +1.75 hours per 1 full mystery.
 
-* ```v0.1.8.2``` current dev branch release. Added a Daily Mass Readings from the internet feature. No menus in autopilot mode
+* ```v0.1.8.2``` current dev branch release. Added Daily Mass Readings from the internet. Menu display gets garbled if it is open during a song transition.
 
 | Test Distro's | Development Environment Notes |
 | --- | --- |
-| [Arch](https://wiki.archlinux.org/) | This App was developed on Arch Linux. [Parabola](https://wiki.parabola.nu/Category:Migration) is a 'free' Arch alternative. I also tested it with [shellinabox](https://aur.archlinux.org/packages/shellinabox-git/) service.|
+| [Arch](https://wiki.archlinux.org/) | This App was developed on Arch Linux. [Parabola](https://wiki.parabola.nu/Category:Migration) is a 'free' Arch alternative. I also tested it with [shellinabox](https://aur.archlinux.org/packages/shellinabox-git/) hosting.|
 | Slackware | Tested on Salix ( legacy repo linux platform compatible ) |
 | [Alpine](https://alpinelinux.org/about/) | OpenRC, Docker, BusyBox. Fastest install and setup process |
 | Ubuntu | [Trisquel](https://trisquel.info), Tahrpup, and Mint. Average performance. |
@@ -59,10 +59,10 @@ As of ```v0.1.8``` the audio and software used in this App are GNU
 
 ### Run
 
-This App will perform a requirements check and install Audio & Software, as needed, on startup. It will not configure [pulseaudio](https://www.freedesktop.org/wiki/Software/PulseAudio/), my App assumes your machine either has compatible hardware configs or it doesn't.
+This App will perform a requirements check and install Audio & Software, as needed, on startup. When possible, it will render in Xterm at 140x40. Your [alsa](http://alsa-project.org/main/index.php/Main_Page) or [pulseaudio](https://www.freedesktop.org/wiki/Software/PulseAudio/) must already be configured on your system for audio to work.
 
-(Main) Terminal App: ```./bash-rosary.sh```
+(Main) CLI App: ```./bash-rosary```
 
-- Desktop Terminal Emulator App: ```./xterm-launcher.sh``` (Optional but recommended, it will call ```./bash-rosary.sh```)
+- App Launcher for Desktop Environment: ```./xterm-launcher``` (it will call ```./bash-rosary```)
 
-- Add needed software that is missing on your system: ```download-dependencies.bash``` (Called within App)
+- Add needed software that is missing on your system: ```./download-dependencies``` (Called automatically from within App or you can run it manually)
