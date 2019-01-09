@@ -1970,7 +1970,14 @@ function menuUP {
 			feastDayCountdown
 			;;
 		9) # elinks mass readings
-			elinksUsccbMassReadings
+			ping -c1 usccb.org &>/dev/null ## check if sever is up
+			sleep 1s
+			if [ $? -eq 0 ]; then
+				elinksUsccbMassReadings
+			else
+				currentDirPath=$(dirname $0)
+				elinks "$currentDirPath/DailyMass/404.html"
+			fi
 			;;
 		10)	## exit app
 			if [ $autoPilot -eq 1 ]; then
@@ -2462,7 +2469,7 @@ function myMian {
 	mainNavigation
 }
 
-function download_dependencies {	
+function download_dependencies {
 	currentDirPath=$(dirname $0)
 	bash "$currentDirPath/download-dependencies"
 }
