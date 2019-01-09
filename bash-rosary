@@ -2213,12 +2213,13 @@ function beadREV {
 
 function exitAutoPilotApp {
 	goodbyescreen
-	if pgrep -x "ogg123"
+	if pgrep -x "ogg123" &>/dev/null
 	then
 		killall ogg123 &>/dev/null; killall bash-rosary &>/dev/null
 	else
 		killall bash-rosary &>/dev/null
 	fi
+	exit
 }
 
 function arrowInputs {
