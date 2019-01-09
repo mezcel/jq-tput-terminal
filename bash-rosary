@@ -67,7 +67,7 @@ function resizeWindow {
 
 	processPidName=$(echo $TERM)
 
-	if [ $processPidName = "xterm" ] && [ $processPidName != "linux" ]; then
+	if [ $processPidName = "xterm" ] || [ $processPidName = "xterm-256color" ] && [ $processPidName != "linux" ]; then
 
 		if [ $(tput cols) -lt 140 ]; then
 			isWideEnough=0
@@ -1362,8 +1362,11 @@ function forceCrossBead {
 	query_prayerText=.prayer[$prayerIndex].prayerText
 	return_prayerText=$(jq $query_prayerText $rosaryJSON)
 	echo "${FG_NoColor}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
-	# killall mplayer  &>/dev/null
-	killall ogg123  &>/dev/null
+
+	if pgrep -x "ogg123" &>/dev/null
+	then
+		killall ogg123 &>/dev/null
+	fi
 	clear
 }
 
@@ -2268,8 +2271,11 @@ function arrowInputs {
 					ogg123 $beadAudioFile </dev/null >/dev/null 2>&1 &
 					sleep .5s
 				else
-					# killall mplayer &>/dev/null
-					killall ogg123 &>/dev/null
+					if pgrep -x "ogg123" &>/dev/null
+					then
+						killall ogg123 &>/dev/null
+					fi
+
 					sleep .5s
 				fi
 				;;
@@ -2456,7 +2462,7 @@ function myMian {
 	mainNavigation
 }
 
-function download_dependencies {
+function download_dependencies {	
 	currentDirPath=$(dirname $0)
 	bash "$currentDirPath/download-dependencies"
 }

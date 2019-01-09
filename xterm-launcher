@@ -64,7 +64,7 @@ function startMPlayerDemo {
 	ogg123 $hostedDirPath/audio/chime.ogg </dev/null >/dev/null 2>&1 &
 }
 
-function download_dependencies {
+function download_dependencies {	
 	currentDirPath=$(dirname $0)
 	bash "$currentDirPath/download-dependencies"
 }
