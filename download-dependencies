@@ -90,7 +90,7 @@ function download_dependencies {
 }
 
 ## Run
-# "checking github for latest update ..."
+echo "checking github for latest update ..."
 git pull &>/dev/null
 
 download_dependencies

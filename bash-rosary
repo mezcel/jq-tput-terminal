@@ -2462,7 +2462,7 @@ function myMian {
 	mainNavigation
 }
 
-function download_dependencies {
+function download_dependencies {	
 	currentDirPath=$(dirname $0)
 	bash "$currentDirPath/download-dependencies"
 }
