@@ -1992,7 +1992,6 @@ function menuUP {
 		clear
 		howToPage
 	else
-
 		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
 		clear
 		tputBeadDisplay
@@ -2214,7 +2213,12 @@ function beadREV {
 
 function exitAutoPilotApp {
 	goodbyescreen
-	killall ogg123 &>/dev/null; killall bash-rosary &>/dev/null
+	if pgrep -x "ogg123"
+	then
+		killall ogg123 &>/dev/null; killall bash-rosary &>/dev/null
+	else
+		killall bash-rosary &>/dev/null
+	fi
 }
 
 function arrowInputs {
