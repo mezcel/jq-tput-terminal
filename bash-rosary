@@ -1723,7 +1723,7 @@ function elinksUsccbMassReadings {
 	## Make a tmp text file for bash display in elinks or Linx
 	rm $htmlFilePath
 	headerDate=$(date)
-	echo "<p><hr><h1>$headerDate</h1></p>$cropText" >> $htmlFilePath
+	echo "<p><hr><h1>$headerDate</h1>Press [q] to exit.<br>Press [Insert/Delete] to scroll up/down line-wise.<hr></p>$cropText" >> $htmlFilePath
 
 	echo "${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 	clear
@@ -1742,7 +1742,7 @@ function elinksUsccbMassReadings {
 
 	Today's daily mass readings is taken from: ${MODE_BEGIN_UNDERLINE}$usccbHostUrl${MODE_EXIT_UNDERLINE}
 
-	Elinks, a terminal web browser will open and display the following local html file: \"$htmlFilePath\"
+	Web scraped and parsed html file: \"$htmlFilePath\"
 
 	Elinks Controlls:
 		Press [q] to exit the Elinks app once within Elinks.
@@ -1970,7 +1970,14 @@ function menuUP {
 			feastDayCountdown
 			;;
 		9) # elinks mass readings
-			elinksUsccbMassReadings
+			ping -c1 usccb.org &>/dev/null ## check if sever is up
+			sleep 1s
+			if [ $? -eq 0 ]; then
+				elinksUsccbMassReadings
+			else
+				currentDirPath=$(dirname $0)
+				elinks "$currentDirPath/DailyMass/404.html"
+			fi
 			;;
 		10)	## exit app
 			if [ $autoPilot -eq 1 ]; then
@@ -2462,7 +2469,7 @@ function myMian {
 	mainNavigation
 }
 
-function download_dependencies {	
+function download_dependencies {
 	currentDirPath=$(dirname $0)
 	bash "$currentDirPath/download-dependencies"
 }
