@@ -114,18 +114,37 @@ function ogg_audio_files {
 function dlApps {
 	## check if internet is up
 
-	ping -c1 https://archive.org &>/dev/null 
+	ping -c1 https://archive.org &>/dev/null
 	pingFlag1=$?
 	sleep 1s
-	
-	ping -c1 https://wikimedia.org &>/dev/null 
+
+	ping -c1 https://wikimedia.org &>/dev/null
 	pingFlag2=$?
 	sleep 1s
 
 	if [ $pingFlag1 -eq 0 ] && [ $pingFlag2 -eq 0 ]; then
 		arch_audio_players
 		ogg_audio_files
-		sleep 2s
+
+		sleep 1s
+	else
+		clear
+		str="Terminal Rosary using Jq and Bash"
+		width=$(tput cols)
+		length=${#str}
+		centerText=$(((width / 2)-(length / 2)))
+		tput cup 0 $centerText
+		echo $str
+
+		printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+		echo ""
+		echo " Can not download audio dependancy files at this time. Try the network again later.
+		Host servers are:
+		* https://archive.org/
+		* https://wikimedia.org"
+
+		sleep 4s
+		clear
 	fi
 }
 
