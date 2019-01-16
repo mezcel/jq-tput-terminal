@@ -20,7 +20,13 @@ Recommended Use Cases:
 
 * ```v0.1.6.2``` added a music Autopilot to serve as spiritual room ambiance. It runs proximately +1.75 hours per 1 full mystery.
 
-* ```v0.1.8.2``` current dev branch release. Added Daily Mass Readings from the internet. Menu display gets garbled if it is open during a song transition.
+* ```v0.1.8.4``` current dev branch release.
+ 
+	* Going back and 'user-proofing' the UI
+	
+	* New take on the Autopilot while loop
+	
+	* Broke down the app script into modular source scripts
 
 | Test Distro's | Development Environment Notes |
 | --- | --- |

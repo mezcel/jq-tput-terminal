@@ -1,0 +1,107 @@
+#!/bin/bash
+
+function translationDB {
+
+	hostedDirPath=$(dirname $0)
+
+	isLiveStreaming=0
+
+	## define DB within a global var
+	if [ $translation -eq 1 ]; then
+		# NAB
+
+		if [ $isLiveStreaming -eq 1 ]; then
+			## NAB demo script
+			rosaryJSONGithub="https://raw.githubusercontent.com/mezcel/jq-tput-terminal/master/json-db/rosaryJSON-nab.json"
+			rosaryJSON="$hostedDirPath/json-db/rosaryJSON-nab.json"
+			wget $rosaryJSONGithub
+			sleep 5s
+		else
+			rosaryJSON=`echo $hostedDirPath/json-db/rosaryJSON-nab.json`
+		fi
+
+		translationName="The New American Bible (NAB)"
+	fi
+
+	if [ $translation -eq 2 ]; then
+		# Vulgate
+		rosaryJSON=`echo $hostedDirPath/json-db/rosaryJSON-vulgate.json`
+		translationName="Vulgate (Latin)"
+	fi
+}
+
+function initializeFlags {
+	# Save screen
+    tput smcup
+
+    BACKGROUNDCOLOR=${BG_BLACK}
+	FOREGROUNDCOLOR=${FG_GREEN}
+	BAR_BG=${BG_GREEN}
+	BAR_FG=${FG_BLACK}
+	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
+	clear
+
+	initialMysteryFlag=0
+	initialHailMaryCounter=0
+	stringSpaceCounter=0
+	hailmaryCounter=0
+	beadCounter=0
+	thisDecadeSet=0
+	mysteryProgress=0
+	# beadAudioFile="-loop 0 $currentDirPath/audio/AveMaria2.ogg"
+	beadAudioFile="$currentDirPath/audio/AveMaria2.ogg"
+
+	introFlag=1
+	translation=1
+	isMenuOpen=0
+
+	## Set initial pulseaudio system volume
+	amixer set Master 25% </dev/null >/dev/null 2>&1
+
+	## determine mystery of the day
+	initializeFeastFlags
+	trigger_feastDay
+	mystery_Day
+
+	## declare init language translation
+	translationDB
+}
+
+function mainInit {
+	download_dependencies
+	launchXterm
+	resizeWindow
+}
+
+function myMian {
+	## streaming test
+	isLiveStreaming=0
+
+	resizeWindow
+
+	decorativeColors
+	inputControlls
+	initializeFlags
+
+	## hide cursor
+	tput civis
+
+	splashScreen
+	welcomepage
+	howToPage
+
+	## turn off intro flag
+	introFlag=0
+
+	mainNavigation
+}
+
+function download_dependencies {
+	currentDirPath=$(dirname $0)
+	bash "$currentDirPath/download-dependencies"
+}
+
+function testApp {
+	echo "it loaded"
+	
+}

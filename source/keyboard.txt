@@ -1,0 +1,280 @@
+#!/bin/bash
+
+###################################################
+## Keyboard Arrows UI
+###################################################
+
+function setBeadAudio {
+	## prayerIndex
+	## set audio media to match the current prayer
+
+	currentDirPath=$(dirname $0)
+	isLiveStreaming=0
+	case $prayerIndex in
+		0 ) ## none
+			if [ $isLiveStreaming -eq 1 ]; then
+				beadAudioFile="https://archive.org/download/kkkfffbird_yahoo_Beep_201607/beep.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/beep.ogg"
+			fi
+			;;
+		1 ) ## sign of the cross
+			if [ $isLiveStreaming -eq 1 ]; then
+				beadAudioFile="https://archive.org/download/01SignOfTheCross/01%20Sign%20of%20the%20cross.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/cross-english.ogg"
+			fi
+
+			;;
+		2 ) ## Credo
+			if [ $isLiveStreaming -eq 1 ]; then
+				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/c/c0/Byrd_4-Part_Mass_-_Credo.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/Credo.ogg"
+			fi
+			;;
+		3 ) ## PaterNoster
+			if [ $isLiveStreaming -eq 1 ]; then
+				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/a/af/Schola_Gregoriana-Pater_Noster.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/PaterNoster.ogg"
+			fi
+
+			;;
+		4 ) ## AveMaria
+			if [ $isLiveStreaming -eq 1 ]; then
+				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/2/23/Schola_Gregoriana-Ave_Maria.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/AveMaria.ogg"
+			fi
+			;;
+		5 ) ## GloriaPatri
+			if [ $isLiveStreaming -eq 1 ]; then
+				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/4/45/The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/GloriaPatri.ogg"
+			fi
+
+			;;
+		6 ) ## Fatima Prayer
+
+			## I dont have a fatima prayer yet
+			if [ $isLiveStreaming -eq 1 ]; then
+				beadAudioFile="https://archive.org/download/WindChimeCellPhoneAlert/WindChime.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/chime.ogg"
+			fi
+			;;
+		7 ) ## SalveRegina
+			if [ $isLiveStreaming -eq 1 ]; then
+				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/4/46/Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/SalveRegina.ogg"
+			fi
+			;;
+		8 ) ## Oremus
+			if [ $isLiveStreaming -eq 1 ]; then
+				beadAudioFile="https://archive.org/download/WindChimeCellPhoneAlert/WindChime.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/chime.ogg"
+			fi
+			;;
+		9 ) ## Litaniae Lauretanae
+			if [ $isLiveStreaming -eq 1 ]; then
+				beadAudioFile="https://archive.org/download/WindChimeCellPhoneAlert/WindChime.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/chime.ogg"
+			fi
+			;;
+		* ) ## none
+			if [ $isLiveStreaming -eq 1 ]; then
+				beadAudioFile="https://archive.org/download/kkkfffbird_yahoo_Beep_201607/beep.ogg"
+			else
+				beadAudioFile="$currentDirPath/audio/beep.ogg"
+			fi
+			;;
+	esac
+
+}
+
+function beadFWD {
+	directionFwRw=1
+	beadCounter=$((beadCounter+1))
+
+	rosaryBeadID=$beadCounter
+	jqQuery
+
+	## keep the terminal from looping too fast
+	# sleep 1
+
+	if [ $beadCounter -eq $counterMAX ]; then
+		# reset counter
+		beadCounter=0
+	fi
+}
+
+function beadREV {
+
+	if [ $beadCounter -gt $counterMIN ]; then
+		directionFwRw=0
+		beadCounter=$((beadCounter-1))
+
+		rosaryBeadID=$beadCounter
+		jqQuery
+	fi
+}
+
+function exitAutoPilotApp {
+	goodbyescreen
+	if pgrep -x "ogg123" &>/dev/null
+	then
+		killall ogg123 &>/dev/null; killall bash-rosary &>/dev/null
+	else
+		killall bash-rosary &>/dev/null
+	fi
+	exit
+}
+
+function arrowInputs {
+
+	while read -sN1 key
+	do
+		## catch 3 multi char sequence within a time window
+		## null outputs in case of random error msg
+		read -s -n1 -t 0.0001 k1 &>/dev/null
+		read -s -n1 -t 0.0001 k2 &>/dev/null
+		read -s -n1 -t 0.0001 k3 &>/dev/null
+		key+=${k1}${k2}${k3} &>/dev/null
+
+		case "$key" in
+			$arrowUp ) # menu
+				# menuUP
+				menuUPautopilot
+
+				## hide cursor
+				tput civis
+				;;
+			$arrowDown ) # language toggle
+				menuDN
+
+				## hide cursor
+				tput civis
+				;;
+			$arrowRt ) # navigate forward
+				if [ $introFlag -ne 1 ]; then
+					blank_transition_display
+					beadFWD
+					bundledDisplay
+					setBeadAudio
+				fi
+				;;
+			$arrowLt ) # navigate back
+				blank_transition_display
+				beadREV
+				bundledDisplay
+				setBeadAudio
+				;;
+			"m" | "M" ) # mplayer audio
+
+				if ! pgrep -x "ogg123" > /dev/null
+				then
+					## mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
+					ogg123 $beadAudioFile </dev/null >/dev/null 2>&1 &
+					sleep .5s
+				else
+					if pgrep -x "ogg123" &>/dev/null
+					then
+						killall ogg123 &>/dev/null
+					fi
+
+					sleep .5s
+				fi
+				;;
+			"q" | "Q" ) # Force quit app and mplayer and xterm
+				autoPilot=0
+				exitAutoPilotApp
+				;;
+		esac
+
+	done
+	# Restore screen
+    tput rmcup
+}
+
+function musicsalAutoPilot {
+	## turn off user input, ctrl+c to exit
+	stty -echo
+
+	setBeadAudio
+	## mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
+	ogg123 $beadAudioFile </dev/null >/dev/null 2>&1 &
+	sleep .5s
+
+	autoPilot=1
+	isMenuOpen=0
+	while [ $autoPilot -eq 1 ]
+	do
+		## isOggPlaying=$(echo pgrep -x "ogg123")
+		if ! pgrep -x "ogg123" > /dev/null
+		then
+			if [ $isMenuOpen -eq 0 ];then
+				blank_transition_display
+				beadFWD
+				bundledDisplay
+				setBeadAudio
+			fi
+
+			# mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
+			ogg123 $beadAudioFile </dev/null >/dev/null 2>&1 &
+			#sleep .2s
+		fi
+
+	done < <(isMenuOpen=$isMenuOpen) & while read -sN1 key
+	do
+		## catch 3 multi char sequence within a time window
+		## null outputs in case of random error msg
+		read -s -n1 -t 0.0001 k1 &>/dev/null
+		read -s -n1 -t 0.0001 k2 &>/dev/null
+		read -s -n1 -t 0.0001 k3 &>/dev/null
+		key+=${k1}${k2}${k3} &>/dev/null
+
+		case "$key" in
+			$arrowUp ) # menu
+				isMenuOpen=1
+				menuUP
+
+				## hide cursor
+				tput civis
+				;;
+			$arrowDown ) # language toggle
+				isMenuOpen=1
+				menuDN
+
+				## hide cursor
+				tput civis
+				;;
+			"q" | "Q" ) # Force quit app and mplayer and xterm
+				autoPilot=0
+				exitAutoPilotApp
+				;;
+		esac
+
+	done
+}
+
+function mainNavigation {
+	counterMIN=0
+	counterMAX=315
+
+	rosaryBeadID=$beadCounter
+	bundledDisplay
+	setBeadAudio
+
+	if [ $autoPilot -eq 0 ]; then
+		## Keyboard Controlls
+		arrowInputs
+	else
+		## Auto Pilot
+		musicsalAutoPilot
+	fi
+}

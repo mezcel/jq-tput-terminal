@@ -1,0 +1,130 @@
+#!/bin/bash
+
+###################################################
+## UI Appearance Vars
+###################################################
+
+function decorativeColors {
+	## Forground Color using tput
+
+	FG_BLACK=$(tput setaf 0)
+	FG_RED=$(tput setaf 1)
+	FG_GREEN=$(tput setaf 2)
+	FG_YELLOW=$(tput setaf 3)
+	FG_BLUE=$(tput setaf 4)
+	FG_MAGENTA=$(tput setaf 5)
+	FG_CYAN=$(tput setaf 6)
+	FG_WHITE=$(tput setaf 7)
+	FG_NoColor=$(tput sgr0)
+
+	## Background Color using tput
+
+	BG_BLACK=$(tput setab 0)
+	BG_RED=$(tput setab 1)
+	BG_GREEN=$(tput setab 2)
+	BG_YELLOW=$(tput setab 3)
+	BG_BLUE=$(tput setab 4)
+	BG_MAGENTA=$(tput setab 5)
+	BG_CYAN=$(tput setab 6)
+	BG_WHITE=$(tput setab 7)
+	BG_NoColor=$(tput sgr0)
+
+	## set mode using tput
+
+	MODE_BOLD=$(tput bold)
+	MODE_DIM=$(tput dim)
+	MODE_BEGIN_UNDERLINE=$(tput smul)
+	MODE_EXIT_UNDERLINE=$(tput rmul)
+	MODE_REVERSE=$(tput rev)
+	MODE_ENTER_STANDOUT=$(tput smso)
+	MODE_EXIT_STANDOUT=$(tput rmso)
+
+	## clear styles using tput
+	STYLES_OFF=$(tput sgr0)
+
+	## Clear screen and home cursor
+	CLR_ALL=$(tput clear)
+
+	## horizontal line across screen
+	hr=$(printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
+}
+
+function inputControlls {
+	arrowUp=$'\e[A'
+	arrowDown=$'\e[B'
+	arrowRt=$'\e[C'
+	arrowLt=$'\e[D'
+	# escKey=$'\['
+	# f1Key=$'\[OP'
+}
+
+function resizeWindow {
+	## Initial resize
+	## I designed this App with Xterm in mind. Other terminals may not look how I intended.
+	## Optimal desktop gui terminal Size
+
+	## Do resize if the shell is a Desktop app, or not a Linux login term
+
+	processPidName=$(echo $TERM)
+
+	if [ $processPidName = "xterm" ] || [ $processPidName = "xterm-256color" ] && [ $processPidName != "linux" ]; then
+
+		if [ $(tput cols) -lt 140 ]; then
+			isWideEnough=0
+		else
+			isWideEnough=1
+		fi
+
+		if [ $(tput lines) -lt 40 ]; then
+			isTallEnough=0
+		else
+			isTallEnough=1
+		fi
+
+		## perform resize
+		if [ $isWideEnough -eq 0 ] || [ $isTallEnough -eq 0 ]; then
+			resize -s 40 140 &>/dev/null
+			stty rows 40
+			stty cols 140
+
+			echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
+			clear
+		fi
+	fi
+
+	currentScrrenWidth=$(tput cols)
+	currentScreenHeight=$(tput lines)
+}
+
+function updateScreenSize {
+	if [ $currentScrrenWidth -ne $(tput cols) ]; then
+		currentScrrenWidth=$(tput cols)
+		echo "$CLR_ALL$BACKGROUNDCOLOR$FOREGROUNDCOLOR"
+		clear
+	fi
+
+	if [ $currentScreenHeight -ne $(tput lines) ]; then
+		currentScreenHeight=$(tput lines)
+		echo "$CLR_ALL$BACKGROUNDCOLOR$FOREGROUNDCOLOR"
+		clear
+	fi
+}
+
+function launchXterm {
+	hostedDirPath=$(dirname $0)
+	processPidName=$(echo $TERM)
+
+	case $processPidName in
+		"xterm" | "xterm-256color" )	## xterm
+					resizeWindow
+					;;
+		"linux" )	## login terminal
+					isLinuxTerminal=1
+					;;
+		* ) ## launch app through a new xterm
+			hostedDirPath=$(dirname $0)
+			xterm -geometry 140x40+0+0 -e "$hostedDirPath/xterm-launcher"
+			;;
+	esac
+
+}
