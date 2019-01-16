@@ -241,10 +241,10 @@ function menuUP {
 		clear
 		howToPage
 	else
+		reset
 		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
 		clear
-		tputBeadDisplay
-		progressbars
+		bundledDisplay
 	fi
 }
 
@@ -333,9 +333,9 @@ function menuDN {
 	translationDB
 	jqQuery
 
+	reset
 	echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
 	clear
-	# blank_transition_display
 	bundledDisplay
 }
 
