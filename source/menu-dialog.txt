@@ -236,14 +236,14 @@ function menuUP {
 		*)	## na
 	esac
 
+	clear
+	sleep .5s
+	echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
+	clear
+
 	if [ $introFlag -eq 1 ]; then
-		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
-		clear
 		howToPage
 	else
-		reset
-		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
-		clear
 		bundledDisplay
 	fi
 }
@@ -333,9 +333,10 @@ function menuDN {
 	translationDB
 	jqQuery
 
-	reset
+	sleep .5s
 	echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
 	clear
+
 	bundledDisplay
 }
 
@@ -367,9 +368,10 @@ function menuDNautopilot {
 	translationDB
 	jqQuery
 
+	sleep .5s
 	echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
 	clear
-	# blank_transition_display
+
 	bundledDisplay
 }
 
