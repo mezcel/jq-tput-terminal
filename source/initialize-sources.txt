@@ -101,7 +101,3 @@ function download_dependencies {
 	bash "$currentDirPath/download-dependencies"
 }
 
-function testApp {
-	echo "it loaded"
-	
-}

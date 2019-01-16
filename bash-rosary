@@ -3,8 +3,8 @@
 function loadSourceScripts {
 	currentDirPath=$(dirname $0)
 	
-	for i in $currentDirPath/source/*.txt; do  # or wget-*.sh instead of *.sh
-		source "$i" -H   || break # if needed
+	for i in $currentDirPath/source/*.txt; do
+		source "$i" -H   || break
 	done
 	
 }
@@ -12,15 +12,10 @@ function loadSourceScripts {
 function useTheLoadedSource {	
 	mainInit
 	myMian
-
-
-	## Never reached
-	## Restore cursor
-	tput cnorm
-	tput sgr0
-	reset
 }
 
 ## RUN APP
+
 loadSourceScripts
+
 useTheLoadedSource

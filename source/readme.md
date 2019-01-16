@@ -1,21 +1,27 @@
 # source scripts
 
-I broke down my 'bash app' into modular source scripts
+This app was once a single ```bash``` text file. I have since broke it down into modular sections.
 
-The scripts mostly contain script sequences bundled into "function variables" 
+The source ```.txt``` script is intended to be read as a ```source``` to be called by a bash script acting as a bash file executable.
 
-### Load sequence
+Basically... Im just injecting text, compartmentalized by function var names, to be ran within bash script.
 
-```ui-appearance.txt```
-```jq-parsing.txt```
-```paschal-full-moon.txt```
-```tput-formatting.txt```
-```webscrapeing.txt```
-```dialog-whiptail.txt```
-```keyboard.txt```
+### Load Sequence
 
-### Loads source script sequence into the Bash environment Session
+A load sequence is not necessary, but if it were...
 
-```initialize-sources.txt```
+* ```ui-appearance.txt```
+* ```jq-parsing.txt```
+* ```paschal-full-moon.txt```
+* ```tput-formatting.txt```
+* ```webscrape.txt```
+* ```menu-dialog.txt```
+* ```ui-keybinding.txt```
 
+### Script which loads all the scripts into the Bash Process instance
 
+* ```initialize-sources.txt```
+
+### Run
+
+The bash file, ```bash-rosary```, in the app's root dir, is the primary bash executable.
