@@ -31,7 +31,8 @@ function ogg_audio_files {
 
 	localFile="$currentDirPath/cross-english.ogg"
 	if [ ! -f "$localFile" ];then
-		# clear
+		myPingAddr=archive.org
+		publicdomainserverCheck
 		echo "	Downloading App Audio:
 		"
 		wget 'https://archive.org/download/01SignOfTheCross/01%20Sign%20of%20the%20cross.ogg' -O "$localFile"
@@ -39,7 +40,8 @@ function ogg_audio_files {
 
 	localFile="$currentDirPath/Credo.ogg"
 	if [ ! -f "$localFile" ];then
-		# clear
+		myPingAddr=wikimedia.org
+		publicdomainserverCheck
 		echo "	Downloading App Audio:
 		"
 		wget 'https://upload.wikimedia.org/wikipedia/commons/c/c0/Byrd_4-Part_Mass_-_Credo.ogg' -O "$localFile"
@@ -47,7 +49,8 @@ function ogg_audio_files {
 
 	localFile="$currentDirPath/AveMaria.ogg"
 	if [ ! -f "$localFile" ];then
-		# clear
+		myPingAddr=wikimedia.org
+		publicdomainserverCheck
 		echo "	Downloading App Audio:
 		"
 		wget 'https://upload.wikimedia.org/wikipedia/commons/2/23/Schola_Gregoriana-Ave_Maria.ogg' -O "$localFile"
@@ -55,7 +58,8 @@ function ogg_audio_files {
 
 	localFile="$currentDirPath/PaterNoster.ogg"
 	if [ ! -f "$localFile" ];then
-		# clear
+		myPingAddr=wikimedia.org
+		publicdomainserverCheck
 		echo "	Downloading App Audio:
 		"
 		wget 'https://upload.wikimedia.org/wikipedia/commons/a/af/Schola_Gregoriana-Pater_Noster.ogg' -O "$localFile"
@@ -63,7 +67,8 @@ function ogg_audio_files {
 
 	localFile="$currentDirPath/AveMaria2.ogg"
 	if [ ! -f "$localFile" ];then
-		# clear
+		myPingAddr=wikimedia.org
+		publicdomainserverCheck
 		echo "	Downloading App Audio:
 		"
 		wget 'https://upload.wikimedia.org/wikipedia/commons/d/d4/JOHN_MICHEL_CELLO-BACH_AVE_MARIA.ogg' -O "$localFile"
@@ -71,7 +76,8 @@ function ogg_audio_files {
 
 	localFile="$currentDirPath/SalveRegina.ogg"
 	if [ ! -f "$localFile" ];then
-		# clear
+		myPingAddr=wikimedia.org
+		publicdomainserverCheck
 		echo "	Downloading App Audio:
 		"
 		wget 'https://upload.wikimedia.org/wikipedia/commons/4/46/Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg' -O "$localFile"
@@ -79,7 +85,8 @@ function ogg_audio_files {
 
 	localFile="$currentDirPath/Magnificat.ogg"
 	if [ ! -f "$localFile" ];then
-		# clear
+		myPingAddr=wikimedia.org
+		publicdomainserverCheck
 		echo "	Downloading App Audio:
 		"
 		wget 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Schola_Gregoriana-Antiphona_et_Magnificat.ogg' -O "$localFile"
@@ -87,7 +94,8 @@ function ogg_audio_files {
 
 	localFile="$currentDirPath/GloriaPatri.ogg"
 	if [ ! -f "$localFile" ];then
-		# clear
+		myPingAddr=wikimedia.org
+		publicdomainserverCheck
 		echo "	Downloading App Audio:
 		"
 		wget 'https://upload.wikimedia.org/wikipedia/commons/4/45/The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg' -O "$localFile"
@@ -95,7 +103,8 @@ function ogg_audio_files {
 
 	localFile="$currentDirPath/beep.ogg"
 	if [ ! -f "$localFile" ];then
-		# clear
+		myPingAddr=archive.org
+		publicdomainserverCheck
 		echo "	Downloading App Audio:
 		"
 		wget 'https://archive.org/download/kkkfffbird_yahoo_Beep_201607/beep.ogg' -O "$localFile"
@@ -103,7 +112,8 @@ function ogg_audio_files {
 
 	localFile="$currentDirPath/chime.ogg"
 	if [ ! -f "$localFile" ];then
-		# clear
+		myPingAddr=archive.org
+		publicdomainserverCheck
 		echo "	Downloading App Audio:
 		"
 		wget 'https://archive.org/download/WindChimeCellPhoneAlert/WindChime.ogg' -O "$localFile"
@@ -111,24 +121,35 @@ function ogg_audio_files {
 
 }
 
-function dlApps {
+function publicdomainserverCheck {
 	## check if internet is up
-
-	ping -c1 https://archive.org &>/dev/null 
-	pingFlag1=$?
-	sleep 1s
-	
-	ping -c1 https://wikimedia.org &>/dev/null 
-	pingFlag2=$?
+	# myPingAddr=archive.org
+	# myPingAddr=wikimedia.org
+	ping -c1 $myPingAddr &>/dev/null
+	pingFlag=$?
 	sleep 1s
 
-	if [ $pingFlag1 -eq 0 ] && [ $pingFlag2 -eq 0 ]; then
-		arch_audio_players
-		ogg_audio_files
-		sleep 2s
+	if [ $pingFlag -ne 0 ]; then
+
+		clear
+		str="Terminal Rosary using Jq and Bash"
+		width=$(tput cols)
+		length=${#str}
+		centerText=$(((width / 2)-(length / 2)))
+		tput cup 0 $centerText
+		echo $str
+
+		printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
+		echo ""
+		echo " Can not download audio dependancy files at this time. Try the network again later.
+
+		Host server for the $localFile file is: $myPingAddr "
+
+		sleep 4s
+		break
 	fi
 }
 
 ## RUN
-
-dlApps
+arch_audio_players
+ogg_audio_files

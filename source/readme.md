@@ -1,10 +1,8 @@
 # source scripts
 
-This app was once a single ```bash``` text file. I have since broke it down into modular sections.
+This app was once a single and long ```bash``` text file. I have since broke it down into modular sections.
 
 The source ```.txt``` script is intended to be read as a ```source``` to be called by a bash script acting as a bash file executable.
-
-Basically... Im just injecting text, compartmentalized by function var names, to be ran within bash script.
 
 ### Load Sequence
 
@@ -20,8 +18,12 @@ A load sequence is not necessary, but if one were necessary, the following would
 |```menu-dialog.txt``` | # menu options using dialog/whiptail |
 |```ui-keybinding.txt``` | # user keyboard interface/input instructions |
 
+then
+
 * ```initialize-sources.txt``` # Script which loads all the scripts into the Bash Process instance
 
 ### Run
 
 The bash file, ```bash-rosary```, in the app's root dir, is the primary bash ```./``` executable.
+
+The bash file, ```xterm-launcher```, if called, will launch ```bash-rosary```
