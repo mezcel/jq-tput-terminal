@@ -236,9 +236,7 @@ function menuUP {
 		*)	## na
 	esac
 
-	clear
-	sleep .5s
-	echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
+	echo "$STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR"
 	clear
 
 	if [ $introFlag -eq 1 ]; then
@@ -333,8 +331,7 @@ function menuDN {
 	translationDB
 	jqQuery
 
-	sleep .5s
-	echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
+	echo "$STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR"
 	clear
 
 	bundledDisplay
@@ -368,8 +365,7 @@ function menuDNautopilot {
 	translationDB
 	jqQuery
 
-	sleep .5s
-	echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
+	echo "$STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR"
 	clear
 
 	bundledDisplay
@@ -425,4 +421,6 @@ function prayerMenu {
 	whiptail \
 		--title "$dialogPrayerName" \
 		--msgbox "$dialogPrayerText" 0 0
+
+	clear
 }
