@@ -328,9 +328,9 @@ function howToPage {
 		tput cup $[$(tput lines)-5]
 	fi
 	echo "Continue using the following Modes:"
-	echo "  Normal Mode:                Press [ Enter or Right Arrow ] "
-	echo "  Chant Audio Autopilot Mode: Press [ a or A ] "
-	echo "  Exit/Quit:                  Press [ q, Q, or Esc ] "
+	echo "  * Normal Mode                : Press [ Enter or Right Arrow ] "
+	echo "  + Chant Audio Autopilot Mode : Press [ a or A ] "
+	echo "  - Exit/Quit                  : Press [ q, Q, or Esc ] "
 	stty -echo
 
 	while read -sN1 key
@@ -342,7 +342,7 @@ function howToPage {
 		key+=${k1}${k2}${k3} &>/dev/null
 
 		case "$key" in
-			"a" | "A" ) ## Auto Pilot, Latin prayers
+			"a" | "A" | "+"  ) ## Auto Pilot, Latin prayers
 				rosaryJSON=`echo $hostedDirPath/json-db/rosaryJSON-vulgate.json`
 				translationName="Vulgate (Latin)"
 				autoPilot=1
@@ -350,15 +350,16 @@ function howToPage {
 				return
 				;;
 
-			$arrowRt | $returnKey )
+			"q" | "Q" | "-" | $escKey )
+				goodbyescreen
+				exit
+				;;
+
+			$arrowRt | $returnKey | * )
 				## Start the bead sequence
 				autoPilot=0
 				forceCrossBead
 				return
-				;;
-
-			"q" | "Q" | $escKey )
-				goodbyescreen
 				;;
 
 		esac
