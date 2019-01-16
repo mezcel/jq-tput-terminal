@@ -237,26 +237,26 @@ function welcomepage {
 	echo "
 
 	${MODE_BEGIN_UNDERLINE}Basic UI Instructions:${MODE_EXIT_UNDERLINE}
-		Rt and Lt arrow keyboard keys navigate forward or backwards.
+		Rt/Enter and Lt arrow keyboard keys navigate forward or backwards.
 		Down arrow key opens Language Translation Menu ( English NAB or Latin Vulgate )
 		Up arrow key opens the Main Menu
-		'M' Key toggles Latin prayer audio (plays prayer only once)
-		In 'Auto Pilot Mode' all user controlls are disabled except [Ctrl+C]
+		'q'/Esc Key to terminate app ( or Ctrl + C )
+		'm' Key toggles Latin prayer audio (plays prayer only once)
 
 
 	${MODE_BEGIN_UNDERLINE}Advice:${MODE_EXIT_UNDERLINE}
 		Pause after navigating to allow a moment for text querying to complete and display.
-		Optimal screen size: width 140 cols, height is 40 lines
+		Optimal screen size: width 140 cols, height is 40 lines on Xterm
 
 
-	${MODE_BEGIN_UNDERLINE}Software Dependencies:${MODE_EXIT_UNDERLINE} (The app should have installed the following if neecessary)
+	${MODE_BEGIN_UNDERLINE}Software Dependencies:${MODE_EXIT_UNDERLINE} (The app should have installed the following if necessary)
 		* Linux Kernel, Bash (xterm), gawk, ncurses (tput), bc, grep, dialog, sed, wget, grep
 		* jq with gcc
 		* vorbis-tools, ogg123 (used only for play .ogg audio)
 		* elinks console browser (used only for viewing daily mass readings from usccb.org)
 
 		If \"Mystery of the day\" has a value, you probably have most of the essential requirement software.
-		If thigs look glitchy... doublecheck if awk, bc, grep, or jq was installed correctly
+		If things look glitchy... double check if awk, bc, grep, or jq was installed correctly
 
 	"
 
@@ -314,8 +314,6 @@ function howToPage {
 	11. Say the Prayer After the Rosary.
 
 
-
-
 	Reality Check:
 
 	* This App is just a (personal) technical exercise. This App is a linguistic and scriptural \"refference\".
@@ -327,11 +325,12 @@ function howToPage {
 
 	height=$(tput lines)
 	if [ $height -ge 34 ]; then
-		tput cup $[$(tput lines)-4]
+		tput cup $[$(tput lines)-5]
 	fi
-	echo "Key Controlls after this page:"
-	echo "  Normal Mode:    [Navigate with Lt/Rt arrow keys] [Menu Up/Dn with arrow Keys] [Play/Pause Audio with 'm key'] [Quit with q | Q]"
-	echo "  Autopilot Mode: [Autopilot a | A] [Quit with q | Q]"
+	echo "Continue using the following Modes:"
+	echo "  Normal Mode:                Press [ Enter or Right Arrow ] "
+	echo "  Chant Audio Autopilot Mode: Press [ a or A ] "
+	echo "  Exit/Quit:                  Press [ q, Q, or Esc ] "
 	stty -echo
 
 	while read -sN1 key
@@ -356,6 +355,10 @@ function howToPage {
 				autoPilot=0
 				forceCrossBead
 				return
+				;;
+
+			"q" | "Q" | $escKey )
+				goodbyescreen
 				;;
 
 		esac
