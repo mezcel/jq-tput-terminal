@@ -62,6 +62,7 @@ function startMPlayerDemo {
 
 	# mplayer $hostedDirPath/audio/chime.ogg </dev/null >/dev/null 2>&1 &ep 5 ; echo quit >/tmp/mi1 ;echo quit >/tmp/mi2)&
 	ogg123 $hostedDirPath/audio/chime.ogg </dev/null >/dev/null 2>&1 &
+	# ogg123 -q $hostedDirPath/audio/chime.ogg &
 }
 
 function download_dependencies {	
