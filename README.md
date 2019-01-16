@@ -34,7 +34,7 @@ Recommended Use Cases:
 
 ### About:
 
-This is a CLI GUI App. This App's .json db is imported from [electron-container](https://github.com/mezcel/electron-container).
+This is a CLI GUI App. This App uses a slimmed down .json db which was ported from [electron-container](https://github.com/mezcel/electron-container).
 
 ### Requirement Dependencies:
 
