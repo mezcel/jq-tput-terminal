@@ -325,12 +325,14 @@ function howToPage {
 
 	height=$(tput lines)
 	if [ $height -ge 34 ]; then
-		tput cup $[$(tput lines)-5]
+		tput cup $[$(tput lines)-7]
 	fi
-	echo "Continue using the following Modes:"
-	echo "  * Normal Mode                : Press [ Enter or Right Arrow ] "
-	echo "  + Chant Audio Autopilot Mode : Press [ a or A ] "
-	echo "  - Exit/Quit                  : Press [ q, Q, or Esc ] "
+	echo "
+	${MODE_BEGIN_UNDERLINE}Select Use Case Mode${MODE_EXIT_UNDERLINE}
+
+	* Normal Mode                :: Press [ Enter or Right Arrow ]
+	+ Chant Audio Autopilot Mode :: Press [ a or A ]
+	- Exit/Quit                  :: Press [ q, Q, or Esc ]"
 	stty -echo
 
 	while read -sN1 key
