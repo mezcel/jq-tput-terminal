@@ -66,9 +66,9 @@ function pfmTableDate {
 
 	yearDiv3_decimal=$(echo "scale=3; $thisYear / 19" | bc)
 	yearDiv3_int=$(( $thisYear / 19 ))
-	last3dec=$(echo "scale=3; $yearDiv3_decimal - $yearDiv3_int" | bc)
+	last3dec=$( echo "scale=3; $yearDiv3_decimal - $yearDiv3_int" | bc )
 	wholeNum=$( echo "scale=0; $last3dec * 1000" | bc )
-	wholeNum=$( echo $wholeNum | awk '{print int($0)}' ) ## Floor Round
+	wholeNum=$( echo $wholeNum | awk '{print int($0)}' ) ## Floor Round'
 
 	## Paschal Full Moon (PFM) Date for Years 326 to 2599 (M=March, A=April)
 

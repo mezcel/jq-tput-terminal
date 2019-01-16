@@ -289,7 +289,6 @@ function menuUPautopilot {
 			if [ $autoPilot -eq 1 ]; then
 				autoPilot=0
 				exitAutoPilotApp
-
 			else
 				goodbyescreen
 				tput cnorm
@@ -297,22 +296,9 @@ function menuUPautopilot {
 				reset
 				exit
 			fi
-
 			break
 			;;
-		*)	## na
 	esac
-
-	if [ $introFlag -eq 1 ]; then
-		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
-		clear
-		howToPage
-	else
-		echo $STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR
-		clear
-		tputBeadDisplay
-		progressbars
-	fi
 }
 
 function menuDN {
@@ -374,7 +360,6 @@ function menuDNautopilot {
 		"1" "English - New American Bible" "$nabSwitch" \
 		"2"	"Latin - Vulgate" "$vulgateSwitch" ) || selectedMenuTranslation=$translation
 
-
 	translation=$selectedMenuTranslation
 	translationDB
 	jqQuery
@@ -432,8 +417,7 @@ function prayerMenu {
 	bashEcho=""
 	dialogPrayerText=${dialogPrayerText//$htmlPattern/$bashEcho}
 
-    whiptail \
-        --title "$dialogPrayerName" \
-        --msgbox "$dialogPrayerText" 0 0
-
+	whiptail \
+		--title "$dialogPrayerName" \
+		--msgbox "$dialogPrayerText" 0 0
 }

@@ -353,7 +353,7 @@ function howToPage {
 				return
 				;;
 
-			$arrowRt | $'\x0a' )
+			$arrowRt | $returnKey )
 				## Start the bead sequence
 				autoPilot=0
 				forceCrossBead

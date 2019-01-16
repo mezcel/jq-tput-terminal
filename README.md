@@ -20,13 +20,11 @@ Recommended Use Cases:
 
 * ```v0.1.6.2``` added a music Autopilot to serve as spiritual room ambiance. It runs proximately +1.75 hours per 1 full mystery.
 
-* ```v0.1.8.4``` current dev branch release.
+* ```v0.1.8.4``` current dev branch release. ( I have not yet run a full test drive, but I think the whole thing works )
  
-	* Going back and 'user-proofing' the UI
+	* simplified the ( while loop / shared var ) dilema
 	
-	* New take on the Autopilot while loop
-	
-	* Broke down the app script into modular source scripts
+	* refactored the 1 long script into many modular scriptlets
 
 | Test Distro's | Development Environment Notes |
 | --- | --- |

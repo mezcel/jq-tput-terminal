@@ -32,9 +32,9 @@ function translationDB {
 
 function initializeFlags {
 	# Save screen
-    tput smcup
+	tput smcup
 
-    BACKGROUNDCOLOR=${BG_BLACK}
+	BACKGROUNDCOLOR=${BG_BLACK}
 	FOREGROUNDCOLOR=${FG_GREEN}
 	BAR_BG=${BG_GREEN}
 	BAR_FG=${FG_BLACK}

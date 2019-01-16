@@ -54,8 +54,9 @@ function inputControlls {
 	arrowDown=$'\e[B'
 	arrowRt=$'\e[C'
 	arrowLt=$'\e[D'
-	# escKey=$'\['
-	# f1Key=$'\[OP'
+	
+	returnKey=$'\x0a'
+	escKey=$'\e'
 }
 
 function resizeWindow {
