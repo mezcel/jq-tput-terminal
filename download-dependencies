@@ -145,8 +145,8 @@ function download_dependencies {
 		echo " This only matters if:
 
 	* It is this computer's 1st time installation.
-	* You wany daily Mass readings
-	* You want an automatic [ git pull ] updates from github.com/mezcel
+	* You want daily Mass readings.
+	* You want automatic [ git pull ] updates from github.com/mezcel
 
 	"
 		read -p " Press enter to continue ..."
