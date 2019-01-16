@@ -8,20 +8,20 @@ Basically... Im just injecting text, compartmentalized by function var names, to
 
 ### Load Sequence
 
-A load sequence is not necessary, but if it were...
+A load sequence is not necessary, but if one were necessary, the following would apply.
 
-* ```ui-appearance.txt```
-* ```jq-parsing.txt```
-* ```paschal-full-moon.txt```
-* ```tput-formatting.txt```
-* ```webscrape.txt```
-* ```menu-dialog.txt```
-* ```ui-keybinding.txt```
+| ```.``` source | description |
+| --- | --- |
+|```ui-appearance.txt```  | # audio visual settings |
+|```jq-parsing.txt``` | # calling jq to query a json db |
+|```paschal-full-moon.txt``` | # PFM Liturgical Calendar calculations |
+|```tput-formatting.txt``` | # text display layout rendering |
+|```webscrape.txt``` | # web scraping and formatting scraped data |
+|```menu-dialog.txt``` | # menu options using dialog/whiptail |
+|```ui-keybinding.txt``` | # user keyboard interface/input instructions |
 
-### Script which loads all the scripts into the Bash Process instance
-
-* ```initialize-sources.txt```
+* ```initialize-sources.txt``` # Script which loads all the scripts into the Bash Process instance
 
 ### Run
 
-The bash file, ```bash-rosary```, in the app's root dir, is the primary bash executable.
+The bash file, ```bash-rosary```, in the app's root dir, is the primary bash ```./``` executable.

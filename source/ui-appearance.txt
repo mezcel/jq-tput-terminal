@@ -1,5 +1,3 @@
-#!/bin/bash
-
 ###################################################
 ## UI Appearance Vars
 ###################################################
@@ -54,7 +52,7 @@ function inputControlls {
 	arrowDown=$'\e[B'
 	arrowRt=$'\e[C'
 	arrowLt=$'\e[D'
-	
+
 	returnKey=$'\x0a'
 	escKey=$'\e'
 }
