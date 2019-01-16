@@ -223,9 +223,12 @@ function musicsalAutoPilot {
 				;;
 			"q" | "Q" | $escKey ) # Force quit app and mplayer and xterm
 				autoPilot=0
+
+				currentDirPath=$(dirname $0)
 				if [ -f $currentDirPath/myWhileloopVar ] ; then
 					rm $currentDirPath/myWhileloopVar
 				fi
+				
 				exitAutoPilotApp
 				;;
 		esac
