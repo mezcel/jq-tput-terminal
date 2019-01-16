@@ -1,5 +1,3 @@
-#!/bin/bash
-
 ###################################################
 ## Elinks Mass Readings
 ###################################################
@@ -39,7 +37,7 @@ function elinksUsccbMassReadings {
 	## Make a tmp text file for bash display in elinks or Linx
 	rm $htmlFilePath
 	headerDate=$(date)
-	echo "<p><hr><h1>$headerDate</h1>Press [q] to exit.<br>Press [Insert/Delete] to scroll up/down line-wise.<hr></p>$cropText" >> $htmlFilePath
+	echo "<p><hr><center><b>$headerDate</b></center><br><i>Press [q] to exit.<br>Press [Insert/Delete] to scroll up/down line-wise.</i><hr></p>$cropText" >> $htmlFilePath
 
 	echo "${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"
 	clear
@@ -76,4 +74,19 @@ function elinksUsccbMassReadings {
 
 	## Display Text in a terminal web browser
 	elinks $htmlFilePath
+}
+
+function pingUsccb {
+	## check if sever is up
+	myPingAddr=usccb.org
+	ping -c1 $myPingAddr &>/dev/null 
+	pingFlag=$?
+	sleep 1s
+	
+	if [ $pingFlag -eq 0 ]; then
+		elinksUsccbMassReadings
+	else
+		currentDirPath=$(dirname $0)
+		elinks "$currentDirPath/DailyMass/404.html"
+	fi
 }

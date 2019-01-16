@@ -85,12 +85,49 @@ function download_software {
 }
 
 function download_dependencies {
-	download_software
-	download_audio
+	## check if general internet is up, https://www.google.com is typically reliable
+	myPingAddr=google.com
+	ping -c1 $myPingAddr &>/dev/null 
+	pingFlag=$?
+	sleep 1s
+	
+	if [ $pingFlag -eq 0 ]; then
+		checkGithubUpdates
+		download_software
+		download_audio
+		sleep 2s
+	else
+		
+		echo "Can't connect to the internet.
+		You do not have internet connectivity to $myPingAddr
+		$(echo ping -c1 $myPingAddr) returned $pingFlag
+		"
+		
+		read -p "Press enter to continue ..."
+	fi
+}
+
+function checkGithubUpdates {
+	## check if github.com host provider sever is up
+	myPingAddr=github.com
+	ping -c1 $myPingAddr &>/dev/null  
+	pingFlag=$?
+	sleep 1s
+	
+	if [[ $pingFlag -eq 0 ]]; then
+		echo "checking github for latest update ..."
+		git pull &>/dev/null
+		sleep 2s
+	else
+		
+		echo "Can't connect to Github at this time.
+		You do not have internet connectivity to $myPingAddr
+		$(echo ping -c1 $myPingAddr) returned $pingFlag
+		"
+		
+		read -p "Press enter to continue ..."
+	fi
 }
 
 ## Run
-echo "checking github for latest update ..."
-git pull &>/dev/null
-
 download_dependencies
