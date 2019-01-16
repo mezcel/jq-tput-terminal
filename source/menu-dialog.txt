@@ -131,6 +131,16 @@ function change_color_menu {
 
 function menuUP {
 
+	myPingAddr=usccb.org
+	ping -c1 $myPingAddr &>/dev/null
+	pingFlag=$?
+
+	if [[ $pingFlag -eq 0 ]]; then
+		showonlineStatus=online
+	else
+		showonlineStatus=offline
+	fi
+
 	screenTitle="Terminal Rosary using Jq and Bash"
 	dialogTitle="Main Menu"
 	selectedMenuItem=$(dialog 2>&1 >/dev/tty \
@@ -149,7 +159,7 @@ function menuUP {
 		"6"	"View Prayers"\
 		"7" "Change Color Theme"\
 		"8" "Feast Day Countdown"\
-		"9" "Daily Mass Readings (online)"\
+		"9" "Daily Mass Readings ($showonlineStatus)"\
 		"10" "Exit App")
 
 	case "$selectedMenuItem" in
@@ -239,6 +249,15 @@ function menuUP {
 }
 
 function menuUPautopilot {
+	myPingAddr=usccb.org
+	ping -c1 $myPingAddr &>/dev/null
+	pingFlag=$?
+
+	if [[ $pingFlag -eq 0 ]]; then
+		showonlineStatus=online
+	else
+		showonlineStatus=offline
+	fi
 
 	screenTitle="Terminal Rosary using Jq and Bash"
 	dialogTitle="Main Menu"
@@ -253,7 +272,7 @@ function menuUPautopilot {
 		"1" "About"\
 		"6"	"View Prayers"\
 		"8" "Feast Day Countdown"\
-		"9" "Daily Mass Readings (online)"\
+		"9" "Daily Mass Readings ($showonlineStatus)"\
 		"10" "Exit App")
 
 	case "$selectedMenuItem" in
