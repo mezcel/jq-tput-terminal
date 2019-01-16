@@ -1,5 +1,3 @@
-#!/bin/bash
-
 ###################################################
 ## JQ
 ###################################################
@@ -129,5 +127,3 @@ function formatJqText {
 	$newLineWith"
 	return_prayerText=${return_prayerText/$newLineWith/$bashEcho}
 }
-
-

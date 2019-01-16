@@ -1,5 +1,3 @@
-#!/bin/bash
-
 ###################################################
 ## Keyboard Arrows UI
 ###################################################
@@ -125,12 +123,12 @@ function musicsalAutoPilot {
 	if [ -f $currentDirPath/myWhileloopVar ] ; then
 		rm $currentDirPath/myWhileloopVar
 	fi
-				
+
 	while [ $autoPilot -eq 1 ]
 	do
 		## isOggPlaying=$(echo pgrep -x "ogg123")
 		if ! pgrep -x "ogg123" > /dev/null
-		then			
+		then
 			currentDirPath=$(dirname $0)
 			if [ -f $currentDirPath/myWhileloopVar ] ; then
 				isMenuOpen=1
@@ -146,8 +144,8 @@ function musicsalAutoPilot {
 				ogg123 $beadAudioFile </dev/null >/dev/null 2>&1 &
 			fi
 		fi
-		
-		
+
+
 
 	done & while read -sN1 key
 	do
@@ -165,26 +163,26 @@ function musicsalAutoPilot {
 				if ! [ -f $currentDirPath/myWhileloopVar ] ; then
 					echo "$beadCounter,$hailmaryCounter,$thisDecadeSet,$mysteryProgress,$(date)" > $currentDirPath/myWhileloopVar
 				fi
-				
+
 				menuUPautopilot
-				
+
 				currentDirPath=$(dirname $0)
 				if [ -f $currentDirPath/myWhileloopVar ] ; then
-				
+
 					tempTxtToVar=$(cat $currentDirPath/myWhileloopVar)
-					
+
 					beadCounter=$( echo $tempTxtToVar | cut -d "," -f 1 )
 					rosaryBeadID=$beadCounter
 					hailmaryCounter=$( echo $tempTxtToVar | cut -d "," -f 2 )
 					thisDecadeSet=$( echo $tempTxtToVar | cut -d "," -f 3 )
 					mysteryProgress=$( echo $tempTxtToVar | cut -d "," -f 4 )
-					
+
 					 clear
 					 blank_transition_display
 					 jqQuery
 					 bundledDisplay
 					 setBeadAudio
-			
+
 					rm $currentDirPath/myWhileloopVar
 				fi
 
@@ -197,26 +195,26 @@ function musicsalAutoPilot {
 				if ! [ -f $currentDirPath/myWhileloopVar ] ; then
 					echo "$beadCounter,$hailmaryCounter,$thisDecadeSet,$mysteryProgress,$(date)" > $currentDirPath/myWhileloopVar
 				fi
-				
+
 				menuDN
-				
+
 				currentDirPath=$(dirname $0)
 				if [ -f $currentDirPath/myWhileloopVar ] ; then
-				
+
 					tempTxtToVar=$(cat $currentDirPath/myWhileloopVar)
-					
+
 					beadCounter=$( echo $tempTxtToVar | cut -d "," -f 1 )
 					rosaryBeadID=$beadCounter
 					hailmaryCounter=$( echo $tempTxtToVar | cut -d "," -f 2 )
 					thisDecadeSet=$( echo $tempTxtToVar | cut -d "," -f 3 )
 					mysteryProgress=$( echo $tempTxtToVar | cut -d "," -f 4 )
-					
+
 					 clear
 					 blank_transition_display
 					 jqQuery
 					 bundledDisplay
 					 setBeadAudio
-			
+
 					rm $currentDirPath/myWhileloopVar
 				fi
 
@@ -225,9 +223,12 @@ function musicsalAutoPilot {
 				;;
 			"q" | "Q" | $escKey ) # Force quit app and mplayer and xterm
 				autoPilot=0
-				if [ -f $currentDirPath/myWhileloopVar ] ; then			
+
+				currentDirPath=$(dirname $0)
+				if [ -f $currentDirPath/myWhileloopVar ] ; then
 					rm $currentDirPath/myWhileloopVar
 				fi
+				
 				exitAutoPilotApp
 				;;
 		esac

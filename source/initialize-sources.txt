@@ -1,5 +1,3 @@
-#!/bin/bash
-
 function translationDB {
 
 	hostedDirPath=$(dirname $0)
@@ -100,4 +98,3 @@ function download_dependencies {
 	currentDirPath=$(dirname $0)
 	bash "$currentDirPath/download-dependencies"
 }
-

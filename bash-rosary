@@ -2,14 +2,20 @@
 
 function loadSourceScripts {
 	currentDirPath=$(dirname $0)
-	
+
+	## remove tmp script generated from any previous session
+	if [ -f $currentDirPath/myWhileloopVar ] ; then
+		rm $currentDirPath/myWhileloopVar
+	fi
+
+	## Populate Bash session with source script
 	for i in $currentDirPath/source/*.txt; do
 		source "$i" -H   || break
 	done
-	
+
 }
 
-function useTheLoadedSource {	
+function useTheLoadedSource {
 	mainInit
 	myMian
 }
