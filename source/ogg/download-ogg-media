@@ -1,7 +1,5 @@
 #!/bin/bash
 
-### install audio used in this app
-
 function download_ogg_media {
 
 	currentDirPath=$(dirname $0)
