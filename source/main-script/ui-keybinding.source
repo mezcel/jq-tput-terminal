@@ -53,7 +53,6 @@ function arrowInputs {
 
 		case "$key" in
 			$arrowUp ) # menu
-				# menuUP
 				menuUP
 
 				## hide cursor

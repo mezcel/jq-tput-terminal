@@ -424,6 +424,8 @@ function progressbars {
 
 	if [ $height -ge 34 ]; then
 
+		## Header
+		
 		tputAppPrayer=$(tput cup $[$(tput lines)-9] 0; printf "%${width}s" ""; tput cup 24 8; echo $return_prayerText)
 
 		str=" PROGRESS BARS "
@@ -432,7 +434,7 @@ function progressbars {
 		centerText=$(((width/ 2)-(length / 2)))
 		progressBarTitle=$(tput cup $[$(tput lines)-8] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-8] $centerText; echo $BAR_BG$BAR_FG$str$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 
-		#########
+		## Decade Bar
 		
 		if [ $thisDecadeSet -lt 10 ]; then
 			decDisp=" $thisDecadeSet"
@@ -447,9 +449,9 @@ function progressbars {
 		barWidth=$((width*$proportion))
 		barWidth=$((barWidth - 2))
 		barDecade=$(printf '%*s\n' "${COLUMNS:-$barWidth}" ' ' | tr ' ' '|')
-		tputDecadeBar=$(tput cup $[$(tput lines)-6] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-6] 1; echo $BAR_BG$BAR_FG$barDecade$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
+		tputDecadeBar=$(tput cup $[$(tput lines)-6] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-6] 0; echo $BAR_BG$BAR_FG$barDecade$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 
-		#########
+		## Mystery Bar
 		
 		if [ $mysteryProgress -lt 10 ]; then
 			mystDisp=" $mysteryProgress"
@@ -464,9 +466,23 @@ function progressbars {
 		barWidth=$((width*$proportion))
 		barWidth=$((barWidth - 2))
 		barMystery=$(printf '%*s\n' "${COLUMNS:-$barWidth}" ' ' | tr ' ' '|')
-		tputMysteryBar=$(tput cup $[$(tput lines)-2] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-1] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-3] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-3] 1; echo $BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
+		tputMysteryBar=$(tput cup $[$(tput lines)-2] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-1] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-3] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-3] 0; echo $BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 
+		## Render Display
+		
 		echo "$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR$progressBarDivider$progressBarTitle$tputDecadeBarLabel$tputDecadeBar$tputMysteryBarLabel$tputMysteryBar"
+
+		clear
+		echo "
+		proportion=$thisDecadeSet/10
+		barWidth=\$((width*$proportion))
+		barWidth $barWidth
+\$(printf '%*s\n' "\${COLUMNS:-$barWidth}" ' ' | tr ' ' '|')
+$(printf '%*s\n' "${COLUMNS:-$barWidth}" ' ' | tr ' ' '|')
+\$(printf '%*s\n' "\${COLUMNS:$barWidth}" ' ' | tr ' ' '|')
+$(printf '%*s\n' "${COLUMNS:$barWidth}" ' ' | tr ' ' '|')
+		"
+		
 	fi
 
 }
