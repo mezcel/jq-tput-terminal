@@ -9,13 +9,14 @@ function loadSourceScripts {
 	fi
 
 	## Populate Bash session with source script
-	for i in $currentDirPath/source/main-script/*.txt; do
-		source "$i" -H   || break
+	for i in $currentDirPath/source/main-script/*.source; do
+		source "$i" -H ## || break
 	done
 
 }
 
 function useTheLoadedSource {
+	sleep 1s
 	mainInit
 	myMian
 }

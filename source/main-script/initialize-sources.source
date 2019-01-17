@@ -1,5 +1,3 @@
-#!/bin/bash
-
 function translationDB {
 
 	hostedDirPath=$(dirname $0)

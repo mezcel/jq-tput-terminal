@@ -24,15 +24,26 @@ function packageManagerPacman {
 	sudo pacman -Sy
 	
 	# sudo pacman -S --needed bash xterm grep sed wget gawk bc curl ncurses dialog jq gcc vorbis-tools elinks git
-	sudo pacman -S --needed - < pacman_pkglist.txt
+	currentDirPath=$(dirname $0)	
+	sudo pacman -S --needed - < $currentDirPath/pacman_pkglist.txt
 
 	## Fix for ogg123 (vorbis-tools) ## I just commented out a line
-	sed -i -e 's/dev=default/# dev=default/g' /etc/libao.conf
+	if [ -f /etc/libao.conf ]; then
+		sed -i -e 's/dev=default/# dev=default/g' /etc/libao.conf
+	fi
+
+	## make a confirmation flag
+	## conirm package install pacman -Qs <packagename>
+	echo "Installed using pacman on $(date)" > $currentDirPath/installedFlag
 }
 
 function packageManagerAlpine {
 	## Apk
 	sudo apk add bash xterm grep sed wget gawk bc curl ncurses dialog jq gcc vorbis-tools elinks git
+
+	## make a confirmation flag
+	currentDirPath=$(dirname $0)
+	echo "Installed using pacman on $(date)" > $currentDirPath/installedFlag
 }
 
 
@@ -41,6 +52,10 @@ function packageManagerDPKG {
 	sudo apt-get update
 	
 	sudo apt-get install bash xterm grep sed wget gawk bc curl grep sed wget gawk bc curl libncurses5-dev libncursesw5-dev dialog jq gcc vorbis-tools elinks
+
+	## make a confirmation flag
+	currentDirPath=$(dirname $0)
+	echo "Installed using pacman on $(date)" > $currentDirPath/installedFlag
 }
 
 function packageManagerSlapt {
@@ -50,6 +65,10 @@ function packageManagerSlapt {
 	sudo slapt-get --install bash xterm grep sed wget gawk bc curl grep sed wget gawk bc curl libncurses5-dev libncursesw5-dev dialog jq gcc vorbis-tools elinks
 	
 	compileJq
+
+	## make a confirmation flag
+	currentDirPath=$(dirname $0)
+	echo "Installed using pacman on $(date)" > $currentDirPath/installedFlag
 }
 
 function identifyPackageManager {
@@ -58,21 +77,20 @@ function identifyPackageManager {
 		distroName=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
 	fi
 
-	if [ -f /etc/dpkg ] ; then
+	if [ -d /etc/dpkg ] ; then
 		distroType="Debian"
 		packageManager="apt"
 		
 		return
 	fi
 
-	if [ -f /etc/pacman.d ] ; then
+	if [ -d /etc/pacman.d ] ; then
 		distroType="Arch"
 		packageManager="pacman"
-
 		return
 	fi
 
-	## if [ -f /etc/apk ] ; then
+	## if [ -d /etc/apk ] ; then
 	if [ $distroName -eq "Alpine Linux" ]; then
 		distroType="Alpine"
 		packageManager="apk"
@@ -90,28 +108,25 @@ function identifyPackageManager {
 }
 
 function download_gnu_software {
+	
 	currentDirPath=$(dirname $0)
 	
-	if ! [ -f $currentDirPath/installedFlag ] ; then
+	if [ ! -f $currentDirPath/installedFlag ] ; then
 
 		identifyPackageManager
 
 		case $packageManager in
-			"apt")
-				packageManagerPacman
-				echo "Installed using pacman on $(date)" > $currentDirPath/installedFlag
-				;;
 			"pacman")
+				packageManagerPacman
+				;;
+			"apt")
 				packageManagerDPKG
-				echo "Installed using dpkg on $(date)" > $currentDirPath/installedFlag
 				;;
 			"apk")
 				packageManagerAlpine
-				echo "Installed using apk on $(date)" > $currentDirPath/installedFlag
 				;;
 			"slapt")
 				packageManagerSlapt
-				echo "Installed using slapt on $(date)" > i$currentDirPath/nstalledFlag
 				;;
 		esac
 	
