@@ -20,7 +20,9 @@ Recommended Use Cases:
 
 * ```v0.1.6.2``` added a music Autopilot to serve as spiritual room ambiance. It runs proximately +1.75 hours per 1 full mystery.
 
-* ```v0.1.8.4``` current dev branch release. Modified menu transitions, input prompts, and added ping tests
+* ```v0.1.8.4``` current branch release.
+
+* ```v0.1.9-arch``` current dev branch. Redoing the dir tree and trimming the bloat, but keeping the same algorithm. Nothing works here yet
 
 
 | Test Distro's | Development Environment Notes |

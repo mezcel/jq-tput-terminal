@@ -1,0 +1,27 @@
+#!/bin/bash
+
+function loadSourceScripts {
+	currentDirPath=$(dirname $0)
+
+	## rm previous tmp script
+	if [ -f $currentDirPath/myWhileloopVar ] ; then
+		rm $currentDirPath/myWhileloopVar
+	fi
+
+	## Populate Bash session with source script
+	for i in $currentDirPath/source/*.txt; do
+		source "$i" -H   || break
+	done
+
+}
+
+function useTheLoadedSource {
+	mainInit
+	myMian
+}
+
+## RUN APP
+
+loadSourceScripts
+
+useTheLoadedSource
