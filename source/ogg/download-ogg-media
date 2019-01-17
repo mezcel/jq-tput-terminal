@@ -2,12 +2,12 @@
 
 ### install audio used in this app
 
-function downloadOggFiles {
+function download_ogg_media {
 
 	currentDirPath=$(dirname $0)
 	
-	## wget if file is not locally installed
-	wget -nc-i $currentDirPath/ogg-list.txt
+	## install from list, and install only if file does not exist
+	wget -nc -i $currentDirPath/ogg-list.txt
 }
 
-ogg_audio_files
+download_ogg_media

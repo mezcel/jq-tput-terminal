@@ -1,27 +1,61 @@
 #!/bin/bash
 
-## I assume most linux distros will have awk, sed, and wget
-
-function download_audio {
-	currentDirPath=$(dirname $0)
-
-	bash "$currentDirPath/audio/dl-app-audio"
-}
-
-
-function linuxDistroArch {
+function packageManagerPacman {
 	## Pacman
+
+	sudo pacman -Sy
+	
 	# sudo pacman -S --needed bash xterm grep sed wget gawk bc curl ncurses dialog jq gcc vorbis-tools elinks git
-	pacman -S --needed - < pacman_pkglist.txt
+	
+	sudo pacman -S --needed - < pacman_pkglist.txt
 
 	## Fix for ogg123 (vorbis-tools)
+	## I just commented out a line
 	sed -i -e 's/dev=default/# dev=default/g' /etc/libao.conf
 
 }
 
-function linuxDistroDebian {
+function packageManagerDPKG {
 	## Debian Apt
-
+	
+	sudo apt-get update
+	
 	sudo apt-get install bash xterm grep sed wget gawk bc curl grep sed wget gawk bc curl libncurses5-dev libncursesw5-dev dialog jq gcc vorbis-tools elinks
 
 }
+
+function identifyPackageManager {
+	
+	if [ -f /etc/os-release ]; then
+		distroName=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
+	fi
+
+	if [ -f /etc/dpkg ] ; then
+		distroType="Debian"
+		packageManager="apt"
+	fi
+
+	if [ -f /etc/pacman.d ] ; then
+		distroType="Arch"
+		packageManager="pacman"
+	fi
+	
+}
+
+function download_gnu_software {
+	
+	identifyPackageManager
+
+	case $packageManager in
+		"apt")
+			packageManagerPacman
+			;;
+		"pacman")
+			packageManagerDPKG
+			;;
+	esac
+}
+
+## RUN
+
+download_gnu_software
