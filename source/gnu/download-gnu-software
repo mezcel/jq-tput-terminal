@@ -92,26 +92,26 @@ function identifyPackageManager {
 function download_gnu_software {
 	currentDirPath=$(dirname $0)
 	
-	if ! [ -f installedFlag ] ; then
+	if ! [ -f $currentDirPath/installedFlag ] ; then
 
 		identifyPackageManager
 
 		case $packageManager in
 			"apt")
 				packageManagerPacman
-				echo "Installed using pacman on $(date)" > installedFlag
+				echo "Installed using pacman on $(date)" > $currentDirPath/installedFlag
 				;;
 			"pacman")
 				packageManagerDPKG
-				echo "Installed using dpkg on $(date)" > installedFlag
+				echo "Installed using dpkg on $(date)" > $currentDirPath/installedFlag
 				;;
 			"apk")
 				packageManagerAlpine
-				echo "Installed using apk on $(date)" > installedFlag
+				echo "Installed using apk on $(date)" > $currentDirPath/installedFlag
 				;;
 			"slapt")
 				packageManagerSlapt
-				echo "Installed using slapt on $(date)" > installedFlag
+				echo "Installed using slapt on $(date)" > i$currentDirPath/nstalledFlag
 				;;
 		esac
 	
