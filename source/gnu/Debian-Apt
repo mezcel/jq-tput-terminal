@@ -1,0 +1,3 @@
+## Debian Apt
+
+sudo apt-get install bash xterm grep sed wget gawk bc curl grep sed wget gawk bc curl libncurses5-dev libncursesw5-dev dialog jq gcc vorbis-tools elinks

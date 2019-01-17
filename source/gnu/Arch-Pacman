@@ -1,0 +1,7 @@
+## Pacman
+
+sudo pacman -S --needed bash xterm grep sed wget gawk bc curl ncurses dialog jq gcc vorbis-tools elinks git
+
+## Fix for ogg123 (vorbis-tools)
+sed -i -e 's/dev=default/# dev=default/g' /etc/libao.conf
+

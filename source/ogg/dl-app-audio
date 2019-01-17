@@ -2,29 +2,6 @@
 
 ### install audio used in this app
 
-function arch_audio_players {
-	if [ -f /etc/os-release ]; then
-		distroName=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
-		thisOS=$distroName
-	fi
-
-	## ogg audio player
-	if ! [ -f /usr/bin/ogg123 ];then
-
-		## gnu fix for arch
-		if [ $thisOS -eq "Arch Linux" ]; then
-			sudo pacman -S --needed vorbis-tools
-
-			## ogg123 fix for playback
-			## comment out line "dev=default"
-			sed -i -e 's/dev=default/# dev=default/g' /etc/libao.conf
-		else
-			sudo apt-get install vorbis-tools
-			sudo slapt-get --install vorbis-tools
-		fi
-	fi
-}
-
 function ogg_audio_files {
 
 	currentDirPath=$(dirname $0)
@@ -32,36 +9,3 @@ function ogg_audio_files {
 	## wget if file is not locally installed
 	wget -nc-i $currentDirPath/ogg-list.txt
 }
-
-function publicdomainserverCheck {
-	## check if internet is up
-	# myPingAddr=archive.org
-	# myPingAddr=wikimedia.org
-	ping -c1 $myPingAddr &>/dev/null
-	pingFlag=$?
-	sleep 1s
-
-	if [ $pingFlag -ne 0 ]; then
-
-		clear
-		str="Terminal Rosary using Jq and Bash"
-		width=$(tput cols)
-		length=${#str}
-		centerText=$(((width / 2)-(length / 2)))
-		tput cup 0 $centerText
-		echo $str
-
-		printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' "."
-		echo ""
-		echo " Can not download audio dependancy files at this time. Try the network again later.
-
-		Host server for the $localFile file is: $myPingAddr "
-
-		sleep 4s
-		break
-	fi
-}
-
-## RUN
-arch_audio_players
-ogg_audio_files
