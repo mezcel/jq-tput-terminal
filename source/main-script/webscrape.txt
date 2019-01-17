@@ -12,7 +12,7 @@ function elinksUsccbMassReadings {
 	thisDay=$(date +%d)
 
 	currentDirPath=$(dirname $0)
-	destinationPath=$currentDirPath/DailyMass/
+	destinationPath=$currentDirPath/source/usccb-scrape/
 	if [ -f $destinationPath ]; then
 		mkdir $destinationPath
 	fi
@@ -87,6 +87,6 @@ function pingUsccb {
 		elinksUsccbMassReadings
 	else
 		currentDirPath=$(dirname $0)
-		elinks "$currentDirPath/DailyMass/404.html"
+		elinks "$currentDirPath/source/usccb-scrape/404.html"
 	fi
 }

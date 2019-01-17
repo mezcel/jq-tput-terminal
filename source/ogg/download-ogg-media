@@ -2,7 +2,7 @@
 
 ### install audio used in this app
 
-function ogg_audio_files {
+function downloadOggFiles {
 
 	currentDirPath=$(dirname $0)
 	
