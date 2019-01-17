@@ -2,26 +2,6 @@
 ## JQ
 ###################################################
 
-function compileJq {
-	## Manually compile jq if needed
-	git clone https://github.com/stedolan/jq.git
-
-	cd jq
-
-	git submodule update --init # if building from git to get oniguruma
-	autoreconf -fi              # if building from git
-	./configure --with-oniguruma=builtin
-	make -j8
-	make check
-
-	## To build a statically linked version of jq, run:
-	make LDFLAGS=-all-static
-
-	## After make finishes, you'll be able to use ./jq. You can also install it using:
-	sudo make install
-
-}
-
 function jqQuery {
 	## The longest rout for query, 1N DB Query
 

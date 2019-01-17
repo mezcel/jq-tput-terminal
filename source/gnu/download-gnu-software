@@ -1,27 +1,55 @@
 #!/bin/bash
 
+function compileJq {
+	## Manually compile jq if needed
+	git clone https://github.com/stedolan/jq.git
+
+	cd jq
+
+	git submodule update --init # if building from git to get oniguruma
+	autoreconf -fi              # if building from git
+	./configure --with-oniguruma=builtin
+	make -j8
+	make check
+
+	## To build a statically linked version of jq, run:
+	make LDFLAGS=-all-static
+
+	## After make finishes, you'll be able to use ./jq. You can also install it using:
+	sudo make install
+}
+
 function packageManagerPacman {
 	## Pacman
-
 	sudo pacman -Sy
 	
 	# sudo pacman -S --needed bash xterm grep sed wget gawk bc curl ncurses dialog jq gcc vorbis-tools elinks git
-	
 	sudo pacman -S --needed - < pacman_pkglist.txt
 
-	## Fix for ogg123 (vorbis-tools)
-	## I just commented out a line
+	## Fix for ogg123 (vorbis-tools) ## I just commented out a line
 	sed -i -e 's/dev=default/# dev=default/g' /etc/libao.conf
-
 }
+
+function packageManagerAlpine {
+	## Apk
+	sudo apk add bash xterm grep sed wget gawk bc curl ncurses dialog jq gcc vorbis-tools elinks git
+}
+
 
 function packageManagerDPKG {
 	## Debian Apt
-	
 	sudo apt-get update
 	
 	sudo apt-get install bash xterm grep sed wget gawk bc curl grep sed wget gawk bc curl libncurses5-dev libncursesw5-dev dialog jq gcc vorbis-tools elinks
+}
 
+function packageManagerSlapt {
+	## SlackApt
+	sudo slapt-get --update
+	
+	sudo slapt-get --install bash xterm grep sed wget gawk bc curl grep sed wget gawk bc curl libncurses5-dev libncursesw5-dev dialog jq gcc vorbis-tools elinks
+	
+	compileJq
 }
 
 function identifyPackageManager {
@@ -33,27 +61,62 @@ function identifyPackageManager {
 	if [ -f /etc/dpkg ] ; then
 		distroType="Debian"
 		packageManager="apt"
+		
+		return
 	fi
 
 	if [ -f /etc/pacman.d ] ; then
 		distroType="Arch"
 		packageManager="pacman"
+
+		return
+	fi
+
+	## if [ -f /etc/apk ] ; then
+	if [ $distroName -eq "Alpine Linux" ]; then
+		distroType="Alpine"
+		packageManager="apk"
+
+		return
+	fi
+
+	if [ $distroName -eq "Slackware" ]; then
+		distroType="Slackware"
+		packageManager="slapt"
+
+		return
 	fi
 	
 }
 
 function download_gnu_software {
+	currentDirPath=$(dirname $0)
 	
-	identifyPackageManager
+	if ! [ -f installedFlag ] ; then
 
-	case $packageManager in
-		"apt")
-			packageManagerPacman
-			;;
-		"pacman")
-			packageManagerDPKG
-			;;
-	esac
+		identifyPackageManager
+
+		case $packageManager in
+			"apt")
+				packageManagerPacman
+				echo "Installed using pacman on $(date)" > installedFlag
+				;;
+			"pacman")
+				packageManagerDPKG
+				echo "Installed using dpkg on $(date)" > installedFlag
+				;;
+			"apk")
+				packageManagerAlpine
+				echo "Installed using apk on $(date)" > installedFlag
+				;;
+			"slapt")
+				packageManagerSlapt
+				echo "Installed using slapt on $(date)" > installedFlag
+				;;
+		esac
+	
+	fi
+
 }
 
 ## RUN

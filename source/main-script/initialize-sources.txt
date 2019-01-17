@@ -36,8 +36,9 @@ function initializeFlags {
 	beadCounter=0
 	thisDecadeSet=0
 	mysteryProgress=0
-	# beadAudioFile="-loop 0 $currentDirPath/audio/AveMaria2.ogg"
-	beadAudioFile="$currentDirPath/source/ogg/AveMaria2.ogg"
+	
+	## instrumental version. Not used
+	beadAudioFile="$currentDirPath/source/ogg/JOHN_MICHEL_CELLO-BACH_AVE_MARIA.ogg"
 
 	introFlag=1
 	translation=1
