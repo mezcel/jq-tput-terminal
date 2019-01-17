@@ -9,3 +9,5 @@ function ogg_audio_files {
 	## wget if file is not locally installed
 	wget -nc-i $currentDirPath/ogg-list.txt
 }
+
+ogg_audio_files
