@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ###################################################
 ## Elinks Mass Readings
 ###################################################
@@ -12,7 +14,7 @@ function elinksUsccbMassReadings {
 	thisDay=$(date +%d)
 
 	currentDirPath=$(dirname $0)
-	destinationPath=$currentDirPath/source/usccb-scrape/
+	destinationPath=$currentDirPath/source/html/
 	if [ -f $destinationPath ]; then
 		mkdir $destinationPath
 	fi
@@ -88,6 +90,6 @@ function elinksUsccb {
 		elinksUsccbMassReadings
 	else
 		currentDirPath=$(dirname $0)
-		elinks "$currentDirPath/source/usccb-scrape/404.html"
+		elinks "$currentDirPath/source/html/404.html"
 	fi
 }

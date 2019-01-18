@@ -1,8 +1,9 @@
+#!/bin/bash
 ###################################################
 ## tput Page Display
 ###################################################
 
-function initTputStingVars {
+function transitionalTputStingVars {
 	clearTpuLine=$(tput el)
 
 	width=$(tput cols)
@@ -17,19 +18,26 @@ function initTputStingVars {
 	tputAppHeaderLine=$(tput cup 1 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
 
 	tputAppMysteryLabel=$(tput cup 4 0; echo "Mystery Name" )
-	tputAppMystery=$(tput cup 6 0; printf "%${width}s" ""; tput cup 6 4; echo "	loading..." )
-
 	tputAppDecadeLabel=$(tput cup 8 0; echo "Mystery Decade")
-	tputAppDecade=$(tput cup 10 0; printf "%${width}s" ""; tput cup 10 4; echo "	loading..."  )
-
 	tputAppMessageLabel=$(tput cup 12 0; echo "Mystery Message")
-	tputAppMessage=$(tput cup 14 0; printf "%${width}s" ""; tput cup 14 4; echo "	loading..."  )
-
 	tputAppScriptureLabel=$(tput cup 16 0; echo "Scripture Text")
-	tputAppScripture=$(tput cup 18 0; printf "%${width}s" "" )$(tput cup 19 0; printf "%${width}s" "" )$(tput cup 20 0; printf "%${width}s" "" )$(tput cup 21 0; printf "%${width}s" "" )$( tput cup 18 4; echo "	loading..." )
 
-	tputAppPrayerLabel=$(tput cup 22 0; printf "%${width}s" "" )$(tput cup 22 0; echo "Prayer Text")
+	if [ $mysteryProgress -eq 0 ]; then
+		## Introduction Prayers
+		tputAppMystery=$(tput cup 6 0; printf "%${width}s" ""; tput cup 6 4; printf "%${width}s" "")
+		tputAppMessage=$(tput cup 14 0; printf "%${width}s" ""; tput cup 14 4; printf "%${width}s" "")
+		tputAppScripture=$(tput cup 18 0; printf "%${width}s" "" )$(tput cup 19 0; printf "%${width}s" "" )$(tput cup 20 0; printf "%${width}s" "" )$(tput cup 21 0; printf "%${width}s" "" )$( tput cup 18 4; printf "%${width}s" "")
+	else
+		## the rest of the rosary
+		tputAppMystery=$(tput cup 6 0; printf "%${width}s" ""; tput cup 6 4; echo "	loading..." )
+		tputAppMessage=$(tput cup 14 0; printf "%${width}s" ""; tput cup 14 4; echo "	loading..."  )
+		tputAppScripture=$(tput cup 18 0; printf "%${width}s" "" )$(tput cup 19 0; printf "%${width}s" "" )$(tput cup 20 0; printf "%${width}s" "" )$(tput cup 21 0; printf "%${width}s" "" )$( tput cup 18 4; echo "	loading..." )
+	fi
+
 	tputAppPrayer=$(tput cup 23 0; printf "%${width}s" "" )$(tput cup 24 0; printf "%${width}s" "" )$(tput cup 25 0; printf "%${width}s" "" )$(tput cup 26 0; printf "%${width}s" "" )$(tput cup 27 0; printf "%${width}s" "" )$(tput cup 28 0; printf "%${width}s" "" )$(tput cup 24 4; echo "	loading..." )
+
+	## Render terminal layout display
+	echo "${tputAppTitle}${tputAppClock}${tputAppTranslation}${tputAppHeaderLine}${tputAppMysteryLabel}${tputAppMystery}${tputAppDecadeLabel}${tputAppDecade}${tputAppMessageLabel}${tputAppMessage}${tputAppScriptureLabel}${tputAppScripture}${tputAppPrayerLabel}${tputAppPrayer}${tputAppBeadTypeNameLabel}${tputAppBeadTypeName}${tputClearProgressFooter}"
 }
 
 function tputStingVars {
@@ -55,11 +63,23 @@ function tputStingVars {
 	tputAppMessageLabel=$(tput cup 12 0; echo "${MODE_BEGIN_UNDERLINE}Mystery Message${MODE_EXIT_UNDERLINE}:")
 	tputAppMessage=$(tput cup 14 0; printf "%${width}s" ""; tput cup 14 8; echo $return_mesageText)
 
-	tputAppScriptureLabel=$(tput cup 16 0; echo "${MODE_BEGIN_UNDERLINE}Scripture Text${MODE_EXIT_UNDERLINE}:")
-	tputAppScripture=$(tput cup 18 0; printf "%${width}s" ""; tput cup 18 8; echo $return_scriptureText)$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR
+	if [ $mysteryProgress -eq 0 ]; then
+		## Introduction Prayers
+		tputAppScriptureLabel=$(tput cup 16 0; echo "${MODE_BEGIN_UNDERLINE}Scripture Text${MODE_EXIT_UNDERLINE}:")
+		tputAppScripture=$(tput cup 18 0; printf "%${width}s" "")$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR
+	else
+		## the rest of the rosary
+		tputAppScriptureLabel=$(tput cup 16 0; echo "${MODE_BEGIN_UNDERLINE}Scripture Text${MODE_EXIT_UNDERLINE}:")
+		tputAppScripture=$(tput cup 18 0; printf "%${width}s" ""; tput cup 18 8; echo $return_scriptureText)$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR
+	fi
 
 	tputAppPrayerLabel=$(tput cup 22 0; echo "${MODE_BEGIN_UNDERLINE}Prayer Text${MODE_EXIT_UNDERLINE}:")
 	tputAppPrayer=$(tput cup 24 0; printf "%${width}s" ""; tput cup 24 8; echo $return_prayerText)
+
+
+
+	## Render terminal layout display
+	echo "$tputAppTitle$tputAppClock$tputAppTranslation$tputAppHeaderLine$tputAppMysteryLabel$tputAppMystery$tputAppDecadeLabel$tputAppDecade$tputAppMessageLabel$tputAppMessage$tputAppScriptureLabel$tputAppScripture$tputAppPrayerLabel$tputAppPrayer$tputAppBeadTypeNameLabel$tputAppBeadTypeName$tputClearProgressFooter"
 }
 
 function tputStingVars_DecadeInfo {
@@ -85,11 +105,16 @@ function tputStingVars_DecadeInfo {
 	tputAppMessageLabel=$(tput cup 12 0; echo "${MODE_BEGIN_UNDERLINE}Mystery Message${MODE_EXIT_UNDERLINE}:")
 	tputAppMessage=$(tput cup 14 0; printf "%${width}s" ""; tput cup 14 8; echo $return_mesageText)
 
-	tputAppScriptureLabel=$(tput cup 16 0; echo "${MODE_BEGIN_UNDERLINE}Background${MODE_EXIT_UNDERLINE}:")
-	tputAppScripture=$(tput cup 18 0; printf "%${width}s" ""; tput cup 18 8; echo $return_decadeInfo)$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR
+	## Replace the scripture space with mystery background notes
+	tputAppScriptureLabel=$(tput cup 16 0; printf "%${width}s" ""; tput cup 16 0; echo "${MODE_BEGIN_UNDERLINE}Background${MODE_EXIT_UNDERLINE}:")
+	tputAppScripture=$(tput cup 18 0; printf "%${width}s" ""; tput cup 19 0; printf "%${width}s" ""; tput cup 20 0; printf "%${width}s" ""; tput cup 21 0; printf "%${width}s" ""; tput cup 18 8; echo $return_decadeInfo)$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR
 
+	## Clear lines reserved for prayer text
 	tputAppPrayerLabel=$(tput cup 22 0; printf "%${width}s" "")
-	tputAppPrayer=$(tput cup 24 0; printf "%${width}s" ""; tput cup 24 8; printf "%${width}s" "")
+	tputAppPrayer=$(tput cup 24 0; printf "%${width}s" ""; tput cup 25 0; printf "%${width}s" ""; tput cup 26 0; printf "%${width}s" ""; tput cup 27 0; printf "%${width}s" ""; tput cup 28 0; printf "%${width}s" "")
+
+	## Render terminal layout display
+	echo "$tputAppTitle$tputAppClock$tputAppTranslation$tputAppHeaderLine$tputAppMysteryLabel$tputAppMystery$tputAppDecadeLabel$tputAppDecade$tputAppMessageLabel$tputAppMessage$tputAppPrayerLabel$tputAppPrayer$tputAppScriptureLabel$tputAppScripture$tputAppBeadTypeNameLabel$tputAppBeadTypeName$tputClearProgressFooter"
 }
 
 function myAbout {
@@ -433,24 +458,18 @@ function blank_transition_display {
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 	updateScreenSize
 
-	initTputStingVars
-
-	echo "${tputAppTitle}${tputAppClock}${tputAppTranslation}${tputAppHeaderLine}${tputAppMysteryLabel}${tputAppMystery}${tputAppDecadeLabel}${tputAppDecade}${tputAppMessageLabel}${tputAppMessage}${tputAppScriptureLabel}${tputAppScripture}${tputAppPrayerLabel}${tputAppPrayer}${tputAppBeadTypeNameLabel}${tputAppBeadTypeName}${tputClearProgressFooter}"
+	transitionalTputStingVars
 }
 
 function tputBeadDisplay {
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 	updateScreenSize
 
-
 	if [ $beadID -eq 3 ] && [ $prayerIndex -eq 3 ]; then
 		tputStingVars_DecadeInfo
 	else
 		tputStingVars
 	fi
-
-
-	echo "$tputAppTitle$tputAppClock$tputAppTranslation$tputAppHeaderLine$tputAppMysteryLabel$tputAppMystery$tputAppDecadeLabel$tputAppDecade$tputAppMessageLabel$tputAppMessage$tputAppScriptureLabel$tputAppScripture$tputAppPrayerLabel$tputAppPrayer$tputAppBeadTypeNameLabel$tputAppBeadTypeName$tputClearProgressFooter"
 }
 
 #
@@ -471,7 +490,8 @@ function progressbars {
 		centerText=$(((width/ 2)-(length / 2)))
 		progressBarTitle=$(tput cup $[$(tput lines)-8] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-8] $centerText; echo $BAR_BG$BAR_FG$str$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 
-		## Decade
+		## Decade Bar
+
 		if [ $thisDecadeSet -lt 10 ]; then
 			decDisp=" $thisDecadeSet"
 		else
@@ -486,7 +506,8 @@ function progressbars {
 		barDecade=$(printf '%*s\n' "${COLUMNS:-$barWidth}" ' ' | tr ' ' '|')
 		tputDecadeBar=$(tput cup $[$(tput lines)-6] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-6] 1; echo $BAR_BG$BAR_FG$barDecade$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 
-		## Mystery
+		## Mystery Bar
+
 		if [ $mysteryProgress -lt 10 ]; then
 			mystDisp=" $mysteryProgress"
 		else

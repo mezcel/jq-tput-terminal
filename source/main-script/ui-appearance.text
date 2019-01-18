@@ -43,8 +43,11 @@ function decorativeColors {
 	## Clear screen and home cursor
 	CLR_ALL=$(tput clear)
 
+	## Blink
+	BLINKING=$(tput blink)
+
 	## horizontal line across screen
-	hr=$(printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
+	## hr=$(printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
 }
 
 function inputControlls {
@@ -138,7 +141,7 @@ function setBeadAudio {
 
 	currentDirPath=$(dirname $0)
 	isLiveStreaming=0
-	
+
 	case $prayerIndex in
 		0 ) ## none
 			beadAudioFile="$currentDirPath/source/ogg/beep.ogg"

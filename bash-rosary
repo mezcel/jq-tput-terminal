@@ -22,6 +22,7 @@ function useTheLoadedSource {
 }
 
 function installSoftwareMultimedia {
+	clear
 	echo "Checking the internet for updates and establishing this computer's compatability for this app.
 	Stand by ..."
 	sleep 2s
