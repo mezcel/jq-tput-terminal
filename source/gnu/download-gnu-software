@@ -1,5 +1,6 @@
 #!/bin/bash
 
+## Manual JQ package compile
 function compileJq {
 	## Manually compile jq if needed
 	git clone https://github.com/stedolan/jq.git
@@ -22,50 +23,32 @@ function compileJq {
 ## Arch based distros
 function packageManagerPacman {
 	## Pacman
-
 	sudo pacman -Sy
 
+	declare -a missingPackageArr=()
+	count=0
+
+	## Check if required software is allready installed
+	## Add missing packages to an array of missing packages
 	currentDirPath=$(dirname $0)
 	while read linePackage
 	do
-		sudo pacman -S --needed $linePackage
+	    count=$(( $count + 1 ))
+	    statusMsg=$(pacman -Qs $linePackage)
+	    isPackageMissing=$?
+	    if [ $isPackageMissing -eq 1 ]; then
+	        missingPackageArr+=($linePackage)
+	    fi
 	done < $currentDirPath/pacman_pkglist.txt
 
-	## Fix for ogg123 (vorbis-tools) ## I just commented out a line
-	if [ -f /etc/libao.conf ]; then
-		sed -i -e 's/dev=default/# dev=default/g' /etc/libao.conf
-	fi
-
-	## make a confirmation flag
-	echo "Installed using pacman on $(date)" > $currentDirPath/installedFlag
-
-}
-
-function verifyPacmanPackages {
-	currentDirPath=$(dirname $0)
-	while read linePackage
+	## Install only the missing packages
+	for (( i=1; i<${#missingPackageArr[@]}+1; i++ ));
 	do
-		sudo pacman -Qs $linePackage
-	done < $currentDirPath/pacman_pkglist.txt
+	  sudo pacman -S --needed ${missingPackageArr[$i-1]}
+	  ## make a confirmation log
+	  echo "Performed pacman -S --needed ${missingPackageArr[$i-1]} on: $(date)" >> $currentDirPath/installationLog
+	done
 }
-
-## Alpine Linux
-function packageManagerAlpine {
-	## Apk
-	sudo apk update
-
-	# sudo apk add bash xterm grep sed wget gawk bc curl ncurses dialog jq gcc vorbis-tools elinks git
-	currentDirPath=$(dirname $0)
-	while read linePackage
-	do
-		sudo apk add $linePackage
-	done < $currentDirPath/pacman_pkglist.txt
-
-	## make a confirmation flag
-	currentDirPath=$(dirname $0)
-	echo "Installed using pacman on $(date)" > $currentDirPath/installedFlag
-}
-# function verifyAlpinePackages {}
 
 ## Debian based distros
 function packageManagerDPKG {
@@ -76,6 +59,7 @@ function packageManagerDPKG {
 	count=0
 
 	## Check if required software is allready installed
+	## Add missing packages to an array of missing packages
 	currentDirPath=$(dirname $0)
 	while read linePackage
 	do
@@ -94,15 +78,31 @@ function packageManagerDPKG {
 	  ## make a confirmation log
 	  echo "Performed apt-get install ${missingPackageArr[$i-1]} on: $(date)" >> $currentDirPath/installationLog
 	done
-
 }
+
+## Alpine Linux
+function packageManagerAlpine {
+	## Apk
+	sudo apk update
+
+	# sudo apk add bash xterm grep sed wget gawk bc curl ncurses dialog jq gcc vorbis-tools elinks git
+	currentDirPath=$(dirname $0)
+	while read linePackage
+	do
+		sudo apk add $linePackage
+	done < $currentDirPath/pacman_pkglist.txt
+
+	## make a confirmation flag
+	currentDirPath=$(dirname $0)
+	echo "Installed using apk on $(date)" > $currentDirPath/installedFlag
+}
+
 
 ## Slackware based distros
 function packageManagerSlapt {
 	## SlackApt
 	slapt-get --dist-upgrade --ignore-excludes --download-only
 
-	# sudo slapt-get --install bash xterm grep sed wget gawk bc curl grep sed wget gawk bc curl libncurses5-dev libncursesw5-dev dialog jq gcc vorbis-tools elinks
 	currentDirPath=$(dirname $0)
 	while read linePackage
 	do
@@ -113,9 +113,8 @@ function packageManagerSlapt {
 
 	## make a confirmation flag
 	currentDirPath=$(dirname $0)
-	echo "Installed using pacman on $(date)" > $currentDirPath/installedFlag
+	echo "Installed using slapt on $(date)" > $currentDirPath/installedFlag
 }
-# function verifySlackwarePackages {}
 
 function testPing {
 	ping -c1 $myPingAddr &>/dev/null
