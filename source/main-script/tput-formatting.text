@@ -17,10 +17,10 @@ function transitionalTputStingVars {
 	tputAppClock=$(tput cup 0 $[$(tput cols)-29]; echo `date`)
 	tputAppHeaderLine=$(tput cup 1 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
 
-	tputAppMysteryLabel=$(tput cup 4 0; echo "Mystery Name" )
-	tputAppDecadeLabel=$(tput cup 8 0; echo "Mystery Decade")
-	tputAppMessageLabel=$(tput cup 12 0; echo "Mystery Message")
-	tputAppScriptureLabel=$(tput cup 16 0; echo "Scripture Text")
+	tputAppMysteryLabel=$(tput cup 4 0; echo "Mystery Name:" )
+	tputAppDecadeLabel=$(tput cup 8 0; echo "Mystery Decade:")
+	tputAppMessageLabel=$(tput cup 12 0; echo "Mystery Message:")
+	tputAppScriptureLabel=$(tput cup 16 0; echo "Scripture Text:")
 
 	if [ $mysteryProgress -eq 0 ]; then
 		## Introduction Prayers
@@ -76,45 +76,27 @@ function tputStingVars {
 	tputAppPrayerLabel=$(tput cup 22 0; echo "${MODE_BEGIN_UNDERLINE}Prayer Text${MODE_EXIT_UNDERLINE}:")
 	tputAppPrayer=$(tput cup 24 0; printf "%${width}s" ""; tput cup 24 8; echo $return_prayerText)
 
+	## Special Condition to display backgoud information before starting a decade
+	if [ $beadID -eq 3 ] && [ $prayerIndex -eq 3 ]; then
+		# Decade start
+
+		## Replace the scripture space with mystery background notes
+		tputAppScriptureLabel=$(tput cup 16 0; printf "%${width}s" ""; tput cup 16 0; echo "${MODE_BEGIN_UNDERLINE}Background${MODE_EXIT_UNDERLINE}:")
+		tputAppScripture=$(tput cup 18 0; printf "%${width}s" ""; tput cup 19 0; printf "%${width}s" ""; tput cup 20 0; printf "%${width}s" ""; tput cup 21 0; printf "%${width}s" ""; tput cup 18 8; echo $return_decadeInfo)$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR
+
+		## Clear lines reserved for prayer text
+		tputAppPrayerLabel=$(tput cup 22 0; printf "%${width}s" "")
+		tputAppPrayer=$(tput cup 24 0; printf "%${width}s" ""; tput cup 25 0; printf "%${width}s" ""; tput cup 26 0; printf "%${width}s" ""; tput cup 27 0; printf "%${width}s" ""; tput cup 28 0; printf "%${width}s" "")
+
+		## Render terminal layout display
+		echo "$tputAppTitle$tputAppClock$tputAppTranslation$tputAppHeaderLine$tputAppMysteryLabel$tputAppMystery$tputAppDecadeLabel$tputAppDecade$tputAppMessageLabel$tputAppMessage$tputAppPrayerLabel$tputAppPrayer$tputAppScriptureLabel$tputAppScripture$tputAppBeadTypeNameLabel$tputAppBeadTypeName$tputClearProgressFooter"
+	else
+		## Normal rendering sequence
+		## Render terminal layout display
+		echo "$tputAppTitle$tputAppClock$tputAppTranslation$tputAppHeaderLine$tputAppMysteryLabel$tputAppMystery$tputAppDecadeLabel$tputAppDecade$tputAppMessageLabel$tputAppMessage$tputAppScriptureLabel$tputAppScripture$tputAppPrayerLabel$tputAppPrayer$tputAppBeadTypeNameLabel$tputAppBeadTypeName$tputClearProgressFooter"
+	fi
 
 
-	## Render terminal layout display
-	echo "$tputAppTitle$tputAppClock$tputAppTranslation$tputAppHeaderLine$tputAppMysteryLabel$tputAppMystery$tputAppDecadeLabel$tputAppDecade$tputAppMessageLabel$tputAppMessage$tputAppScriptureLabel$tputAppScripture$tputAppPrayerLabel$tputAppPrayer$tputAppBeadTypeNameLabel$tputAppBeadTypeName$tputClearProgressFooter"
-}
-
-function tputStingVars_DecadeInfo {
-	formatJqText
-
-	width=$(tput cols)
-	height=$(tput lines)
-	str="Terminal Rosary using Jq and Bash"
-	length=${#str}
-	centerText=$(( (width/2)-(length / 2) ))
-	tputAppTitle=$(tput cup 0 $centerText; echo "$str")
-
-	tputAppTranslation=$(tput cup 0 1; echo $translationName)
-	tputAppClock=$(tput cup 0 $[$(tput cols)-29]; echo `date`)
-	tputAppHeaderLine=$(tput cup 1 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
-
-	tputAppMysteryLabel=$(tput cup 4 0; echo "${MODE_BEGIN_UNDERLINE}Mystery Name${MODE_EXIT_UNDERLINE}:")
-	tputAppMystery=$(tput cup 6 0; printf "%${width}s" ""; tput cup 6 8; echo $return_mysteryName)
-
-	tputAppDecadeLabel=$(tput cup 8 0; echo "${MODE_BEGIN_UNDERLINE}Mystery Decade${MODE_EXIT_UNDERLINE}:")
-	tputAppDecade=$(tput cup 10 0; printf "%${width}s" ""; tput cup 10 8; echo $return_decadeName)
-
-	tputAppMessageLabel=$(tput cup 12 0; echo "${MODE_BEGIN_UNDERLINE}Mystery Message${MODE_EXIT_UNDERLINE}:")
-	tputAppMessage=$(tput cup 14 0; printf "%${width}s" ""; tput cup 14 8; echo $return_mesageText)
-
-	## Replace the scripture space with mystery background notes
-	tputAppScriptureLabel=$(tput cup 16 0; printf "%${width}s" ""; tput cup 16 0; echo "${MODE_BEGIN_UNDERLINE}Background${MODE_EXIT_UNDERLINE}:")
-	tputAppScripture=$(tput cup 18 0; printf "%${width}s" ""; tput cup 19 0; printf "%${width}s" ""; tput cup 20 0; printf "%${width}s" ""; tput cup 21 0; printf "%${width}s" ""; tput cup 18 8; echo $return_decadeInfo)$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR
-
-	## Clear lines reserved for prayer text
-	tputAppPrayerLabel=$(tput cup 22 0; printf "%${width}s" "")
-	tputAppPrayer=$(tput cup 24 0; printf "%${width}s" ""; tput cup 25 0; printf "%${width}s" ""; tput cup 26 0; printf "%${width}s" ""; tput cup 27 0; printf "%${width}s" ""; tput cup 28 0; printf "%${width}s" "")
-
-	## Render terminal layout display
-	echo "$tputAppTitle$tputAppClock$tputAppTranslation$tputAppHeaderLine$tputAppMysteryLabel$tputAppMystery$tputAppDecadeLabel$tputAppDecade$tputAppMessageLabel$tputAppMessage$tputAppPrayerLabel$tputAppPrayer$tputAppScriptureLabel$tputAppScripture$tputAppBeadTypeNameLabel$tputAppBeadTypeName$tputClearProgressFooter"
 }
 
 function myAbout {
@@ -445,9 +427,6 @@ function goodbyescreen {
 	read -t 3 -p "" exitVar
 	echo "$CLR_ALL"
 	reset
-
-	## kill process monitor if the xterm-launcher was used
-	killall top
 }
 
 #
@@ -457,19 +436,13 @@ function goodbyescreen {
 function blank_transition_display {
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 	updateScreenSize
-
 	transitionalTputStingVars
 }
 
 function tputBeadDisplay {
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 	updateScreenSize
-
-	if [ $beadID -eq 3 ] && [ $prayerIndex -eq 3 ]; then
-		tputStingVars_DecadeInfo
-	else
-		tputStingVars
-	fi
+	tputStingVars
 }
 
 #
