@@ -32,7 +32,7 @@ function elinksUsccbMassReadings {
 
 	## Put website text into a var
 	websiteHtmlText=$(curl $usccbHostUrl)
-	
+
 	## Crop the desited text section
 	cropText=$(echo $websiteHtmlText | grep -oP '\<div class\=\"contentarea\"\>\s*\K.*(?=\s+\<style type\=\"text\/css\"\>)')
 
@@ -88,7 +88,7 @@ function elinksUsccb {
 	myPingAddr=usccb.org
 	ping -c1 $myPingAddr &>/dev/null
 	pingFlag=$?
-	sleep 1s
+	sleep .5s
 
 	if [ $pingFlag -eq 0 ]; then
 		elinksUsccbMassReadings

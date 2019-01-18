@@ -72,4 +72,4 @@ This App will perform a requirements check and install Audio & Software, as need
 
 - App Launcher for Desktop Environment: ```./xterm-launcher``` (it will call ```./bash-rosary```)
 
-- Add needed software that is missing on your system: ```./download-dependencies``` (Called automatically from within App or you can run it manually)
+- Automatically verify and add needed software that is missing on your system. ```./gnu/download-dependencies``` (Called automatically from within App or you can run it manually)

@@ -9,9 +9,6 @@ function beadFWD {
 	rosaryBeadID=$beadCounter
 	jqQuery
 
-	## keep the terminal from looping too fast
-	# sleep 1
-
 	if [ $beadCounter -eq $counterMAX ]; then
 		# reset counter
 		beadCounter=0
@@ -31,7 +28,7 @@ function beadREV {
 
 function killAutopilot {
 	goodbyescreen
-	
+
 	if pgrep -x "ogg123" &>/dev/null
 	then
 		killall ogg123 &>/dev/null; killall bash-rosary &>/dev/null
@@ -83,9 +80,7 @@ function arrowInputs {
 
 				if ! pgrep -x "ogg123" > /dev/null
 				then
-					# mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
 					ogg123 $beadAudioFile </dev/null >/dev/null 2>&1 &
-					# ogg123 -q $beadAudioFile &
 					sleep .5s
 				else
 					if pgrep -x "ogg123" &>/dev/null
@@ -103,6 +98,7 @@ function arrowInputs {
 		esac
 
 	done
+	
 	# Restore screen
     tput rmcup
 }

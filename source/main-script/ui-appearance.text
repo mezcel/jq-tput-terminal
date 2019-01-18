@@ -45,9 +45,6 @@ function decorativeColors {
 
 	## Blink
 	BLINKING=$(tput blink)
-
-	## horizontal line across screen
-	## hr=$(printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
 }
 
 function inputControlls {
@@ -65,7 +62,7 @@ function resizeWindow {
 	## I designed this App with Xterm in mind. Other terminals may not look how I intended.
 	## Optimal desktop gui terminal Size
 
-	## Do resize if the shell is a Desktop app, or not a Linux login term
+	## Resize if the shell is a Desktop app, or not a Linux login term
 
 	processPidName=$(echo $TERM)
 
