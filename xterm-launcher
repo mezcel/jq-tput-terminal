@@ -59,18 +59,17 @@ function startMPlayerDemo {
 
 	## Set initial pulseaudio system volume
 	amixer set Master 25% </dev/null >/dev/null 2>&1
-
-	# mplayer $hostedDirPath/audio/chime.ogg </dev/null >/dev/null 2>&1 &ep 5 ; echo quit >/tmp/mi1 ;echo quit >/tmp/mi2)&
 	ogg123 $hostedDirPath/audio/chime.ogg </dev/null >/dev/null 2>&1 &
-	# ogg123 -q $hostedDirPath/audio/chime.ogg &
 }
 
-function download_dependencies {	
+function download_dependencies {
 	currentDirPath=$(dirname $0)
-	bash "$currentDirPath/download-dependencies"
+	bash "$currentDirPath/source/gnu/download-gnu-software"
 }
 
 download_dependencies
 startMPlayerDemo
 splashScreen
+
+currentDirPath=$(dirname $0)
 launch_new_window

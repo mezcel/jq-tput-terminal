@@ -31,6 +31,7 @@ function beadREV {
 
 function killAutopilot {
 	goodbyescreen
+	
 	if pgrep -x "ogg123" &>/dev/null
 	then
 		killall ogg123 &>/dev/null; killall bash-rosary &>/dev/null
@@ -174,7 +175,7 @@ function musicsalAutoPilot {
 				ogg123 $beadAudioFile </dev/null >/dev/null 2>&1 &
 			fi
 		fi
-		
+
 	done & while read -sN1 key
 	do
 		## catch 3 multi char sequence within a time window
@@ -195,7 +196,7 @@ function musicsalAutoPilot {
 				## hide cursor
 				tput civis
 				;;
-				
+
 			$arrowDown ) # language toggle
 				isMenuOpen=1
 				beforeUpDnMenu_autopilot
@@ -206,7 +207,7 @@ function musicsalAutoPilot {
 				## hide cursor
 				tput civis
 				;;
-				
+
 			"q" | "Q" | $escKey ) # Force quit app and mplayer and xterm
 				autoPilot=0
 				removeTempVarFile

@@ -53,7 +53,7 @@ function packageManagerPacman {
 ## Debian based distros
 function packageManagerDPKG {
 	## Debian Apt
-	sudo apt-get update
+	# sudo apt-get update -qq
 
 	declare -a missingPackageArr=()
 	count=0
@@ -96,7 +96,6 @@ function packageManagerAlpine {
 	currentDirPath=$(dirname $0)
 	echo "Installed using apk on $(date)" > $currentDirPath/installedFlag
 }
-
 
 ## Slackware based distros
 function packageManagerSlapt {
