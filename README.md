@@ -6,6 +6,10 @@ A Scripture Rosary GUI on the Bash CLI.
 - Daily Mass Readings (scraped from usccb.org)
 - Chant Soundtrack ( Ogg Audio provided by [wikimedia.org](https://commons.wikimedia.org) / [archive.org](archive.org) )
 
+### About:
+
+This is a CLI GUI App. This App uses a slimmed down .json db which was ported from [electron-container](https://github.com/mezcel/electron-container).
+
 Recommended Use Cases:
 
 - "Busy Persons Retreat"
@@ -13,6 +17,29 @@ Recommended Use Cases:
 - Host on a ssh/ssl network. (compatible, but not included in app)
     - ssh -p 22 host-user@ip.addr
     - [shellinabox](https://code.google.com/archive/p/shellinabox/) service to any Firefox, Chrome, Edge, ect. client.
+
+
+### Requirement Dependencies:
+
+As of ```v0.1.8``` the audio and software used in this App are GNU
+
+* Basic GNU Terminal Tools: [Bash](https://www.gnu.org/software/bash/), [ncurses/tput](https://ss64.com/bash/tput.html), wget, cal, bc, awk, & grep
+* [JQ](https://stedolan.github.io/jq) is a cross-platform C program which parses json script via command line terminal
+* [dialog / whiptail](http://linuxcommand.org/lc3_adv_dialog.php) is a terminal App for making dialog box style input prompts
+* [ogg123](https://xiph.org/vorbis) is a [ogg](https://xiph.org/vorbis) audio player which can run within terminal environment
+* [elinks](http://elinks.or.cz/) is a well-established feature-rich text mode web (HTTP/FTP/..) browser.
+* Cultural and scholarly perspective on the Catholic Marian ministry (debug, troubleshoot, security, validation)
+
+### Feature Functionalities:
+
+* Paschal Full Moon Liturgical Calendar calculations. (and Liturgical Cycles)
+* Decorative color themes corresponding to Liturgical Calendar Seasons.
+* Feast day triggered events.
+* Play Traditional Latin Hymns (audio).
+* Automatically install software dependencies.
+* Retrieve daily Mass readings from the web.
+
+---
 
 ### Development Status and Milestones:
 
@@ -37,30 +64,6 @@ Recommended Use Cases:
 | Ubuntu | [Trisquel](https://trisquel.info), Tahrpup, and Mint. Average performance. |
 | Debian | Jq/gcc performed the best on Debian resulting in fast query processing |
 | [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) | All the GNU works, but other than testing, I did dot build it for WLS |
-
-### About:
-
-This is a CLI GUI App. This App uses a slimmed down .json db which was ported from [electron-container](https://github.com/mezcel/electron-container).
-
-### Requirement Dependencies:
-
-As of ```v0.1.8``` the audio and software used in this App are GNU
-
-* Basic GNU Terminal Tools: [Bash](https://www.gnu.org/software/bash/), [ncurses/tput](https://ss64.com/bash/tput.html), wget, cal, bc, awk, & grep
-* [JQ](https://stedolan.github.io/jq) is a cross-platform C program which parses json script via command line terminal
-* [dialog / whiptail](http://linuxcommand.org/lc3_adv_dialog.php) is a terminal App for making dialog box style input prompts
-* [ogg123](https://xiph.org/vorbis) is a [ogg](https://xiph.org/vorbis) audio player which can run within terminal environment
-* [elinks](http://elinks.or.cz/) is a well-established feature-rich text mode web (HTTP/FTP/..) browser.
-* Cultural and scholarly perspective on the Catholic Marian ministry (debug, troubleshoot, security, validation)
-
-### Feature Functionalities:
-
-* Paschal Full Moon Liturgical Calendar calculations. (and Liturgical Cycles)
-* Decorative color themes corresponding to Liturgical Calendar Seasons.
-* Feast day triggered events.
-* Play Traditional Latin Hymns (audio).
-* Automatically install software dependencies.
-* Retrieve daily Mass readings from the web.
 
 ---
 
