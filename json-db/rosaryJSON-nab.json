@@ -2559,7 +2559,9 @@
             "decadeID": 0,
             "mysteryIndex": 0,
             "decadeNo": 0,
-            "decadeName": ""
+            "decadeName": "",
+			"decadeInfo": "spiritual preparation",
+			"infoRefference": ""
         },
         {
             "decadeID": 1,
