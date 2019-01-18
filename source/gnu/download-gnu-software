@@ -19,13 +19,17 @@ function compileJq {
 	sudo make install
 }
 
+## Arch based distros
 function packageManagerPacman {
 	## Pacman
+
 	sudo pacman -Sy
-	
-	# sudo pacman -S --needed bash xterm grep sed wget gawk bc curl ncurses dialog jq gcc vorbis-tools elinks git
-	currentDirPath=$(dirname $0)	
-	sudo pacman -S --needed - < $currentDirPath/pacman_pkglist.txt
+
+	currentDirPath=$(dirname $0)
+	while read linePackage
+	do
+		sudo pacman -S --needed $linePackage
+	done < $currentDirPath/pacman_pkglist.txt
 
 	## Fix for ogg123 (vorbis-tools) ## I just commented out a line
 	if [ -f /etc/libao.conf ]; then
@@ -33,46 +37,93 @@ function packageManagerPacman {
 	fi
 
 	## make a confirmation flag
-	## conirm package install pacman -Qs <packagename>
 	echo "Installed using pacman on $(date)" > $currentDirPath/installedFlag
+
 }
 
+function verifyPacmanPackages {
+	currentDirPath=$(dirname $0)
+	while read linePackage
+	do
+		sudo pacman -Qs $linePackage
+	done < $currentDirPath/pacman_pkglist.txt
+}
+
+## Alpine Linux
 function packageManagerAlpine {
 	## Apk
-	sudo apk add bash xterm grep sed wget gawk bc curl ncurses dialog jq gcc vorbis-tools elinks git
+	sudo apk update
+
+	# sudo apk add bash xterm grep sed wget gawk bc curl ncurses dialog jq gcc vorbis-tools elinks git
+	currentDirPath=$(dirname $0)
+	while read linePackage
+	do
+		sudo apk add $linePackage
+	done < $currentDirPath/pacman_pkglist.txt
 
 	## make a confirmation flag
 	currentDirPath=$(dirname $0)
 	echo "Installed using pacman on $(date)" > $currentDirPath/installedFlag
 }
+# function verifyAlpinePackages {}
 
-
+## Debian based distros
 function packageManagerDPKG {
 	## Debian Apt
 	sudo apt-get update
-	
-	sudo apt-get install bash xterm grep sed wget gawk bc curl grep sed wget gawk bc curl libncurses5-dev libncursesw5-dev dialog jq gcc vorbis-tools elinks
 
-	## make a confirmation flag
+	declare -a missingPackageArr=()
+	count=0
+
+	## Check if required software is allready installed
 	currentDirPath=$(dirname $0)
-	echo "Installed using pacman on $(date)" > $currentDirPath/installedFlag
+	while read linePackage
+	do
+	    count=$(( $count + 1 ))
+	    statusMsg=$(dpkg -s $linePackage 2> /dev/null |  grep Status)
+	    isPackageMissing=$?
+	    if [ $isPackageMissing -eq 1 ]; then
+	        missingPackageArr+=($linePackage)
+	    fi
+	done < $currentDirPath/dpkg_pkglist.txt
+
+	## Install only the missing packages
+	for (( i=1; i<${#missingPackageArr[@]}+1; i++ ));
+	do
+	  sudo apt-get install  ${missingPackageArr[$i-1]}
+	  ## make a confirmation log
+	  echo "Performed apt-get install ${missingPackageArr[$i-1]} on: $(date)" >> $currentDirPath/installationLog
+	done
+
 }
 
+## Slackware based distros
 function packageManagerSlapt {
 	## SlackApt
-	sudo slapt-get --update
-	
-	sudo slapt-get --install bash xterm grep sed wget gawk bc curl grep sed wget gawk bc curl libncurses5-dev libncursesw5-dev dialog jq gcc vorbis-tools elinks
-	
+	slapt-get --dist-upgrade --ignore-excludes --download-only
+
+	# sudo slapt-get --install bash xterm grep sed wget gawk bc curl grep sed wget gawk bc curl libncurses5-dev libncursesw5-dev dialog jq gcc vorbis-tools elinks
+	currentDirPath=$(dirname $0)
+	while read linePackage
+	do
+		slapt-get --install $linePackage
+	done < $currentDirPath/dpkg_pkglist.txt
+
 	compileJq
 
 	## make a confirmation flag
 	currentDirPath=$(dirname $0)
 	echo "Installed using pacman on $(date)" > $currentDirPath/installedFlag
 }
+# function verifySlackwarePackages {}
+
+function testPing {
+	ping -c1 $myPingAddr &>/dev/null
+	pingFlag=$?
+}
 
 function identifyPackageManager {
-	
+
 	if [ -f /etc/os-release ]; then
 		distroName=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
 	fi
@@ -80,13 +131,16 @@ function identifyPackageManager {
 	if [ -d /etc/dpkg ] ; then
 		distroType="Debian"
 		packageManager="apt"
-		
+		myPingAddr="debian.org"
+		testPing
 		return
 	fi
 
 	if [ -d /etc/pacman.d ] ; then
 		distroType="Arch"
 		packageManager="pacman"
+		myPingAddr="archlinux.org"
+		testPing
 		return
 	fi
 
@@ -94,27 +148,45 @@ function identifyPackageManager {
 	if [ $distroName -eq "Alpine Linux" ]; then
 		distroType="Alpine"
 		packageManager="apk"
-
+		myPingAddr="alpinelinux.org"
+		testPing
 		return
 	fi
 
-	if [ $distroName -eq "Slackware" ]; then
+	## if [ $distroName -eq "Slackware" ]; then
+	if [ -d /var/slapt-get ]; then
 		distroType="Slackware"
 		packageManager="slapt"
-
+		myPingAddr="slackware.com"
+		testPing
 		return
 	fi
-	
+
+}
+
+function tryAgainLater {
+	clear
+	echo " App will not install dependencies at this time.
+
+	No Internet. No online dependency installation
+	Tested on $myPingAddr
+
+	You may have most of the dependancies anyway.
+	The ones you probably won't have are: ncurses, dialog, vorbis-tools, and jq
+
+
+	"
+	echo "Press [enter] to exit and get some internet and try again."
+	read
+
+	exit
 }
 
 function download_gnu_software {
-	
-	currentDirPath=$(dirname $0)
-	
-	if [ ! -f $currentDirPath/installedFlag ] ; then
 
-		identifyPackageManager
+	identifyPackageManager
 
+	if [[ $pingFlag -eq 0 ]]; then
 		case $packageManager in
 			"pacman")
 				packageManagerPacman
@@ -129,7 +201,21 @@ function download_gnu_software {
 				packageManagerSlapt
 				;;
 		esac
-	
+	else
+		case $packageManager in
+			"pacman")
+				packageManagerPacman
+				;;
+			"apt")
+				packageManagerDPKG
+				;;
+			"apk")
+				packageManagerAlpine
+				;;
+			"slapt")
+				packageManagerSlapt
+				;;
+		esac
 	fi
 
 }
