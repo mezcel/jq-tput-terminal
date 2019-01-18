@@ -1,4 +1,3 @@
-#!/bin/bash
 ###################################################
 ## tput Page Display
 ###################################################
@@ -22,6 +21,7 @@ function transitionalTputStingVars {
 	tputAppMessageLabel=$(tput cup 12 0; echo "Mystery Message:")
 	tputAppScriptureLabel=$(tput cup 16 0; echo "Scripture Text:")
 
+	## Special condition for introdution prayers
 	if [ $mysteryProgress -eq 0 ]; then
 		## Introduction Prayers
 		tputAppMystery=$(tput cup 6 0; printf "%${width}s" ""; tput cup 6 4; printf "%${width}s" "")
@@ -63,6 +63,7 @@ function tputStingVars {
 	tputAppMessageLabel=$(tput cup 12 0; echo "${MODE_BEGIN_UNDERLINE}Mystery Message${MODE_EXIT_UNDERLINE}:")
 	tputAppMessage=$(tput cup 14 0; printf "%${width}s" ""; tput cup 14 8; echo $return_mesageText)
 
+	## Special condition for introdution prayers
 	if [ $mysteryProgress -eq 0 ]; then
 		## Introduction Prayers
 		tputAppScriptureLabel=$(tput cup 16 0; echo "${MODE_BEGIN_UNDERLINE}Scripture Text${MODE_EXIT_UNDERLINE}:")
@@ -95,8 +96,6 @@ function tputStingVars {
 		## Render terminal layout display
 		echo "$tputAppTitle$tputAppClock$tputAppTranslation$tputAppHeaderLine$tputAppMysteryLabel$tputAppMystery$tputAppDecadeLabel$tputAppDecade$tputAppMessageLabel$tputAppMessage$tputAppScriptureLabel$tputAppScripture$tputAppPrayerLabel$tputAppPrayer$tputAppBeadTypeNameLabel$tputAppBeadTypeName$tputClearProgressFooter"
 	fi
-
-
 }
 
 function myAbout {
@@ -273,28 +272,17 @@ function welcomepage {
 
 	echo "
 
-	${MODE_BEGIN_UNDERLINE}Basic UI Instructions:${MODE_EXIT_UNDERLINE}
-		Rt/Enter and Lt arrow keyboard keys navigate forward or backwards.
-		Down arrow key opens Language Translation Menu ( English NAB or Latin Vulgate )
-		Up arrow key opens the Main Menu
-		'q'/Esc Key to terminate app ( or Ctrl + C )
-		'm' Key toggles Latin prayer audio (plays prayer only once)
+	${MODE_BEGIN_UNDERLINE}Basic UI Controlls:${MODE_EXIT_UNDERLINE}
+		Right or Left Keys | Navigate forward or backwards.
+		Down Key           | Open Language Translation Menu ( English NAB or Latin Vulgate )
+		Up Key             | Open the Main Menu
+		'q' or Esc Key     | terminate app ( or Ctrl + C )
+		'm' Key            | toggles Latin prayer audio (plays prayer only once)
 
 
 	${MODE_BEGIN_UNDERLINE}Advice:${MODE_EXIT_UNDERLINE}
 		Pause after navigating to allow a moment for text querying to complete and display.
-		Optimal screen size: width 140 cols, height is 40 lines on Xterm
-
-
-	${MODE_BEGIN_UNDERLINE}Software Dependencies:${MODE_EXIT_UNDERLINE} (The app should have installed the following if necessary)
-		* Linux Kernel, Bash (xterm), gawk, ncurses (tput), bc, grep, dialog, sed, wget, grep
-		* jq with gcc
-		* vorbis-tools, ogg123 (used only for play .ogg audio)
-		* elinks console browser (used only for viewing daily mass readings from usccb.org)
-
-		If \"Mystery of the day\" has a value, you probably have most of the essential requirement software.
-		If things look glitchy... double check if awk, bc, grep, or jq was installed correctly
-
+		Optimal Xterm Screen Dimentions: (Minimum) 140 cols x 40 lines
 	"
 
 	height=$(tput lines)
@@ -351,10 +339,10 @@ function howToPage {
 	11. Say the Prayer After the Rosary.
 
 
-	Reality Check:
+	Reality Check (Usability):
 
-	* This App is just a (personal) technical exercise. This App is a linguistic and scriptural \"refference\".
-	* Try focusing more on the mysteries than on the actual prayers. But focus on the prayers too.
+	* This App is/was just a (personal) technical exercise.
+	* This App is a linguistic and scriptural \"refference\".
 	* Use a blessed rosary. Some blessed rosaries may be associated with additional benefits.
 	* Take a moment at the beginning of each decade to reflect on the mystery it represents"
 
@@ -365,11 +353,11 @@ function howToPage {
 		tput cup $[$(tput lines)-7]
 	fi
 	echo "
-	${MODE_BEGIN_UNDERLINE}Select Use Case Mode${MODE_EXIT_UNDERLINE}
+	${MODE_BEGIN_UNDERLINE}Select a Use Case Mode${MODE_EXIT_UNDERLINE}
 
 	* Normal Mode                :: Press [ Enter or Right Arrow ]
 	+ Chant Audio Autopilot Mode :: Press [ a or A ]
-	- Exit/Quit                  :: Press [ q, Q, or Esc ]"
+	- Exit/Quit at any time      :: Press [ q, Q, or Esc ]"
 	stty -echo
 
 	while read -sN1 key
