@@ -2,21 +2,23 @@
 
 A Scripture Rosary GUI on the Bash CLI.
 
-- Liturgical Calendar with Seasonal and Feast Day triggered events.
+- Liturgical Calendar (Paschal Full Moon) with Seasonal and Feast Day triggered events.
+- Vulgate Latin and NAB English Biblical translation database
 - Daily Mass Readings (scraped from usccb.org)
-- Chant Soundtrack ( Ogg Audio provided by [wikimedia.org](https://commons.wikimedia.org) / [archive.org](archive.org) )
+- Prayer Chant Soundtrack ( Ogg Audio provided by [wikimedia.org](https://commons.wikimedia.org) / [archive.org](archive.org) )
 
 ### About:
 
 This is a CLI GUI App. This App uses a slimmed down .json db which was ported from [electron-container](https://github.com/mezcel/electron-container).
 
-Recommended Use Cases:
+**Recommended Use Cases:**
 
 - "Busy Persons Retreat"
 - Run locally in a background terminal session for audio room ambiance or for use as an educational quick reference.
 - Host on a ssh/ssl network. (compatible, but not included in app)
     - ssh -p 22 host-user@ip.addr
     - [shellinabox](https://code.google.com/archive/p/shellinabox/) service to any Firefox, Chrome, Edge, ect. client.
+- Academic exercise and linguistic reference
 
 
 ### Requirement Dependencies:
@@ -47,13 +49,9 @@ As of ```v0.1.8``` the audio and software used in this App are GNU
 
 * ```v0.1.6.2``` added a music Autopilot to serve as spiritual room ambiance. It runs proximately +1.75 hours per 1 full mystery.
 
-* ```v0.1.8.4``` current branch release.
-
-* ```v0.1.9-deb``` current dev branch. (because Deb translates well with WLS)
-    * WIP
-    * Redoing the dir tree and trimming the bloat, but keeping the same algorithm.
-    * Nothing works here yet
-    * I am developing on debian since, I messed up my arch computers and don't want to mess with troubleshooting other problems at the moment.
+* ```v0.1.10``` release / current development branch.
+    * Did a lot of refactoring since from v0.1.6.2
+    * Right now the focus is going back and discovering bugs/inconsistencies when ran on the default configurations of of other Linux distros. ATM Debian performs well.
 
 
 | Test Distro's | Development Environment Notes |
@@ -75,4 +73,4 @@ This App will perform a requirements check and install Audio & Software, as need
 
 - App Launcher for Desktop Environment: ```./xterm-launcher``` (it will call ```./bash-rosary```)
 
-- Automatically verify and add needed software that is missing on your system. ```./gnu/download-dependencies``` (Called automatically from within App or you can run it manually)
+- Automatically verify and add needed software that is missing on your system. ```./source/gnu/download-gnu-software``` (Called automatically from within App or you can run it manually)
