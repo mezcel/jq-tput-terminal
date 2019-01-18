@@ -77,12 +77,24 @@ function elinksUsccbMassReadings {
 }
 
 function pingUsccb {
+	myPingAddr=usccb.org
+	ping -c1 $myPingAddr &>/dev/null
+	pingFlag=$?
+
+	if [[ $pingFlag -eq 0 ]]; then
+		usccbOnlineStatus=online
+	else
+		usccbOnlineStatus=offline
+	fi
+}
+
+function elinksUsccb {
 	## check if sever is up
 	myPingAddr=usccb.org
-	ping -c1 $myPingAddr &>/dev/null 
+	ping -c1 $myPingAddr &>/dev/null
 	pingFlag=$?
 	sleep 1s
-	
+
 	if [ $pingFlag -eq 0 ]; then
 		elinksUsccbMassReadings
 	else

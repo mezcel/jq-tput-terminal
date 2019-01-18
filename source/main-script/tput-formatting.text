@@ -62,6 +62,36 @@ function tputStingVars {
 	tputAppPrayer=$(tput cup 24 0; printf "%${width}s" ""; tput cup 24 8; echo $return_prayerText)
 }
 
+function tputStingVars_DecadeInfo {
+	formatJqText
+
+	width=$(tput cols)
+	height=$(tput lines)
+	str="Terminal Rosary using Jq and Bash"
+	length=${#str}
+	centerText=$(( (width/2)-(length / 2) ))
+	tputAppTitle=$(tput cup 0 $centerText; echo "$str")
+
+	tputAppTranslation=$(tput cup 0 1; echo $translationName)
+	tputAppClock=$(tput cup 0 $[$(tput cols)-29]; echo `date`)
+	tputAppHeaderLine=$(tput cup 1 0; printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
+
+	tputAppMysteryLabel=$(tput cup 4 0; echo "${MODE_BEGIN_UNDERLINE}Mystery Name${MODE_EXIT_UNDERLINE}:")
+	tputAppMystery=$(tput cup 6 0; printf "%${width}s" ""; tput cup 6 8; echo $return_mysteryName)
+
+	tputAppDecadeLabel=$(tput cup 8 0; echo "${MODE_BEGIN_UNDERLINE}Mystery Decade${MODE_EXIT_UNDERLINE}:")
+	tputAppDecade=$(tput cup 10 0; printf "%${width}s" ""; tput cup 10 8; echo $return_decadeName)
+
+	tputAppMessageLabel=$(tput cup 12 0; echo "${MODE_BEGIN_UNDERLINE}Mystery Message${MODE_EXIT_UNDERLINE}:")
+	tputAppMessage=$(tput cup 14 0; printf "%${width}s" ""; tput cup 14 8; echo $return_mesageText)
+
+	tputAppScriptureLabel=$(tput cup 16 0; echo "${MODE_BEGIN_UNDERLINE}Background${MODE_EXIT_UNDERLINE}:")
+	tputAppScripture=$(tput cup 18 0; printf "%${width}s" ""; tput cup 18 8; echo $return_decadeInfo)$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR
+
+	tputAppPrayerLabel=$(tput cup 22 0; printf "%${width}s" "")
+	tputAppPrayer=$(tput cup 24 0; printf "%${width}s" ""; tput cup 24 8; printf "%${width}s" "")
+}
+
 function myAbout {
 	aboutText="Author: \n    Mezcel (https://github.com/mezcel) \n    Wiki based on the 1st version (https://mezcel.wixsite.com/rosary)\n\nDescription:\n    This is a Rosary App for the Linux Bash terminal.\n    This app was developed on the default Xterm on Arch.\n    The best UI experience for this app is through a login console TTY CLI\n\n    This App is just a (personal) technical exercise. This App is a linguistic and scriptural \"reference\". \n\nSource Code:\n    git clone https://github.com/mezcel/jq-tput-terminal.git"
 
@@ -412,7 +442,13 @@ function tputBeadDisplay {
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 	updateScreenSize
 
-	tputStingVars
+
+	if [ $beadID -eq 3 ] && [ $prayerIndex -eq 3 ]; then
+		tputStingVars_DecadeInfo
+	else
+		tputStingVars
+	fi
+
 
 	echo "$tputAppTitle$tputAppClock$tputAppTranslation$tputAppHeaderLine$tputAppMysteryLabel$tputAppMystery$tputAppDecadeLabel$tputAppDecade$tputAppMessageLabel$tputAppMessage$tputAppScriptureLabel$tputAppScripture$tputAppPrayerLabel$tputAppPrayer$tputAppBeadTypeNameLabel$tputAppBeadTypeName$tputClearProgressFooter"
 }
@@ -435,7 +471,7 @@ function progressbars {
 		centerText=$(((width/ 2)-(length / 2)))
 		progressBarTitle=$(tput cup $[$(tput lines)-8] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-8] $centerText; echo $BAR_BG$BAR_FG$str$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 
-		#########
+		## Decade
 		if [ $thisDecadeSet -lt 10 ]; then
 			decDisp=" $thisDecadeSet"
 		else
@@ -450,7 +486,7 @@ function progressbars {
 		barDecade=$(printf '%*s\n' "${COLUMNS:-$barWidth}" ' ' | tr ' ' '|')
 		tputDecadeBar=$(tput cup $[$(tput lines)-6] 0; printf "%${width}s" ""; tput cup $[$(tput lines)-6] 1; echo $BAR_BG$BAR_FG$barDecade$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 
-		#########
+		## Mystery
 		if [ $mysteryProgress -lt 10 ]; then
 			mystDisp=" $mysteryProgress"
 		else
@@ -468,6 +504,7 @@ function progressbars {
 		# stringLength=${#isAudio}
 		# isAudio=$(put cup $[$(tput lines)-1] $[$(tput cols)-$stringLength]; echo $isAudio)
 
+		## Rendering
 		echo "$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR$progressBarDivider$progressBarTitle$tputDecadeBarLabel$tputDecadeBar$tputMysteryBarLabel$tputMysteryBar"
 	fi
 

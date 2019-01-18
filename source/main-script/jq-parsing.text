@@ -23,6 +23,7 @@ function jqQuery {
 	query_beadType=.bead[$beadIndex].beadType
 	# query_decadeID=.decade[$decadeIndex].decadeID
 	query_decadeName=.decade[$decadeIndex].decadeName
+	query_decadeInfo=.decade[$decadeIndex].decadeInfo
 	query_mysteryName=.mystery[$mysteryIndex].mysteryName
 	query_prayerName=.prayer[$prayerIndex].prayerName
 	query_prayerText=.prayer[$prayerIndex].prayerText
@@ -33,6 +34,7 @@ function jqQuery {
 	return_beadType=$(jq $query_beadType $rosaryJSON)
 	# return_decadeID=$(jq $query_decadeID $rosaryJSON)
 	return_decadeName=$(jq $query_decadeName $rosaryJSON)
+	return_decadeInfo=$(jq $query_decadeInfo $rosaryJSON)
 	return_mysteryName=$(jq $query_mysteryName $rosaryJSON)
 	return_prayerText=$(jq $query_prayerText $rosaryJSON)
 	return_prayerName=$(jq $query_prayerName $rosaryJSON)
@@ -53,8 +55,22 @@ function formatJqText {
 	return_mesageText=$temp
 	temp="${return_decadeName%\"}"; temp="${temp#\"}"
 	return_decadeName=$temp
+	temp="${return_decadeInfo%\"}"; temp="${temp#\"}"
+	return_decadeInfo=$temp
 	temp="${return_beadType%\"}"; temp="${temp#\"}"
 	return_beadType=$temp
+
+	## STANDOUT <p></p>
+	htmlPstart="\<p\>"
+	htmlPend="\<\/p\>"
+	bashEcho="${MODE_ENTER_STANDOUT}"
+	return_decadeInfo=${return_decadeInfo/$htmlPstart/$bashEcho}
+	temp="${return_decadeInfo%\"}"; temp="${temp#\"}"
+	return_decadeInfo=$temp
+	bashEcho="${MODE_EXIT_STANDOUT}"
+	return_decadeInfo=${return_decadeInfo/$htmlPend/$bashEcho}
+	temp="${return_decadeInfo%\"}"; temp="${temp#\"}"
+	return_decadeInfo=$temp
 
 	## Dim after <hr>
 	htmlHR="\<hr\>"
