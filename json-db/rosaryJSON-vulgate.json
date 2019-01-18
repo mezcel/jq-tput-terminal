@@ -4331,104 +4331,87 @@
         {
             "prayerID": 0,
             "prayerName": "",
-            "prayerText": "...",
-            "prayerFooter": ""
+            "prayerText": "..."
         },
         {
             "prayerID": 1,
             "prayerName": "Signum Crucis",
-            "prayerText": "In nómine Patris, et Fílii, et Spíritus Sancti. Amen.<hr>(As you say this, with your right hand touch your forehead when you say Father, touch your breastbone when you say Son, touch your left shoulder when you say Holy, and touch your right shoulder when you say Spirit.)",
-            "prayerFooter": ""
+            "prayerText": "In nómine Patris, et Fílii, et Spíritus Sancti. Amen.<hr>(As you say this, with your right hand touch your forehead when you say Father, touch your breastbone when you say Son, touch your left shoulder when you say Holy, and touch your right shoulder when you say Spirit.)"
         },
         {
             "prayerID": 2,
             "prayerName": "Credo in Deum Patrem",
-            "prayerText": "Credo in Deum Patrem omnipoténtem, Creatórem cćli et terrć. Et in Iesum Christum, Fílium eius únicum, Dóminum nostrum, qui concéptus est de Spíritu Sancto, natus ex María Vírgine, passus sub Póntio Piláto, crucifíxus, mórtuus, et sepúltus, descéndit ad ínfernos, tértia die resurréxit a mórtuis, ascéndit ad cćlos, sedet ad déxteram Dei Patris omnipoténtis, inde ventúrus est iudicáre vivos et mórtuos. Credo in Spíritum Sanctum, sanctam Ecclésiam cathólicam, sanctórum communiónem, remissiónem peccatórum, carnis resurrectiónem, vitam ćtérnam. Amen.",
-            "prayerFooter": ""
+            "prayerText": "Credo in Deum Patrem omnipoténtem, Creatórem cćli et terrć. Et in Iesum Christum, Fílium eius únicum, Dóminum nostrum, qui concéptus est de Spíritu Sancto, natus ex María Vírgine, passus sub Póntio Piláto, crucifíxus, mórtuus, et sepúltus, descéndit ad ínfernos, tértia die resurréxit a mórtuis, ascéndit ad cćlos, sedet ad déxteram Dei Patris omnipoténtis, inde ventúrus est iudicáre vivos et mórtuos. Credo in Spíritum Sanctum, sanctam Ecclésiam cathólicam, sanctórum communiónem, remissiónem peccatórum, carnis resurrectiónem, vitam ćtérnam. Amen."
         },
         {
             "prayerID": 3,
             "prayerName": "Pater noster",
-            "prayerText": "Pater noster, qui es in cćlis, sanctificétur nomen tuum. Advéniat regnum tuum. Fiat volúntas tua, sicut in cćlo, et in terra. Panem nostrum cotidiánum da nobis hódie, et dimítte nobis débita nostra sicut et nos dimíttimus debitóribus nostris. Et ne nos indúcas in tentatiónem, sed líbera nos a malo. Amen.",
-            "prayerFooter": ""
+            "prayerText": "Pater noster, qui es in cćlis, sanctificétur nomen tuum. Advéniat regnum tuum. Fiat volúntas tua, sicut in cćlo, et in terra. Panem nostrum cotidiánum da nobis hódie, et dimítte nobis débita nostra sicut et nos dimíttimus debitóribus nostris. Et ne nos indúcas in tentatiónem, sed líbera nos a malo. Amen."
         },
         {
             "prayerID": 4,
             "prayerName": "Ave Maria",
-            "prayerText": "Ave María, grátia plena, Dóminus tecum. Benedícta tu in muliéribus, et benedíctus fructus ventris tui, Iesus. Sancta María, Mater Dei, ora pro nobis peccatóribus, nunc, et in hora mortis nostrć. Amen.",
-            "prayerFooter": ""
+            "prayerText": "Ave María, grátia plena, Dóminus tecum. Benedícta tu in muliéribus, et benedíctus fructus ventris tui, Iesus. Sancta María, Mater Dei, ora pro nobis peccatóribus, nunc, et in hora mortis nostrć. Amen."
         },
         {
             "prayerID": 5,
             "prayerName": "Gloria Patri",
-            "prayerText": "Glória Patri, et Fílio, et Spirítui Sancto. Sicut erat in princípio, et nunc, et semper, et in sćcula sćculórum. Amen.",
-            "prayerFooter": ""
+            "prayerText": "Glória Patri, et Fílio, et Spirítui Sancto. Sicut erat in princípio, et nunc, et semper, et in sćcula sćculórum. Amen."
         },
         {
             "prayerID": 6,
             "prayerName": "Orato Fatima",
-            "prayerText": "Domine Iesu, dimitte nobis debita nostra, salva nos ab igne inferiori, perduc in cćlum omnes animas, prćsertim eas, quć misericordić tuć maxime indigent. Amen.",
-            "prayerFooter": ""
+            "prayerText": "Domine Iesu, dimitte nobis debita nostra, salva nos ab igne inferiori, perduc in cćlum omnes animas, prćsertim eas, quć misericordić tuć maxime indigent. Amen."
         },
         {
             "prayerID": 7,
             "prayerName": "Salve Regina",
-            "prayerText": "Salve Regína, Mater misericórdić; Vita dulcédo, et spes nostra, salve. Ad te Clamámus éxsules fílii Evć; Ad te Suspirámus, geméntes et flentes in hac lacrimárum valle. Eia ergo, Advocáta nostra, Illos tuos misericórdes óculos ad nos convérte: Et Iesum, benedíctum fructum ventris tui, Nobis post hoc exsílium osténde. O clemens, o pia, o dulcis Virgo María. V/. Ora pro nobis, Sancta Dei Génetrix. R/. Ut digni efficiámur promissionibus Christi. Amen.",
-            "prayerFooter": ""
+            "prayerText": "Salve Regína, Mater misericórdić; Vita dulcédo, et spes nostra, salve. Ad te Clamámus éxsules fílii Evć; Ad te Suspirámus, geméntes et flentes in hac lacrimárum valle. Eia ergo, Advocáta nostra, Illos tuos misericórdes óculos ad nos convérte: Et Iesum, benedíctum fructum ventris tui, Nobis post hoc exsílium osténde. O clemens, o pia, o dulcis Virgo María. V/. Ora pro nobis, Sancta Dei Génetrix. R/. Ut digni efficiámur promissionibus Christi. Amen."
         },
         {
             "prayerID": 8,
             "prayerName": "Oremus",
-            "prayerText": "Deus, cujus Unigénitus, per vitam, mortem et resurrectiónem suam nobis salútis ćtérnć prćmia comparávit: concéde, qućsumus; ut, hćc mystéria sanctíssimo beátć Maríć Virginis Rosário recoléntes; et imitémur quod cóntinent, et quod promíttunt, assequámur. Per eúmdem Christum Dóminum nostrum. Amen.",
-            "prayerFooter": ""
+            "prayerText": "Deus, cujus Unigénitus, per vitam, mortem et resurrectiónem suam nobis salútis ćtérnć prćmia comparávit: concéde, qućsumus; ut, hćc mystéria sanctíssimo beátć Maríć Virginis Rosário recoléntes; et imitémur quod cóntinent, et quod promíttunt, assequámur. Per eúmdem Christum Dóminum nostrum. Amen."
         },
         {
             "prayerID": 9,
             "prayerName": "Litaniae Lauretanae",
-            "prayerText": "<p>Kyrie, eleison.<br> <b>R.</b> Christe, eleison. <br> Kyrie, eleison.<br> Christe, audi nos.<br> <b>R.</b> Christe, exaudi nos.</p><p>Pater de caelis, Deus,<br> <b>R. miserere nobis.</b> &#8634;<br> &#8627; Fili, Redemptor mundi, Deus,<br> &#8627; Spiritus Sancte Deus,<br> &#8627; Sancta Trinitas, unus Deus,</p><p>Sancta Maria,<br> <b>R. ora pro nobis.</b> &#8634;<br> &#8627; Sancta Dei Genetrix,<br> &#8627; Sancta Virgo virginum,<br> &#8627; Mater Christi,<br> &#8627; Mater Ecclesiae,<br> &#8627; Mater Divinae gratiae,<br> &#8627; Mater purissima,<br> &#8627; Mater castissima,<br> &#8627; Mater inviolata,<br> &#8627; Mater intemerata,<br> &#8627; Mater amabilis,<br> &#8627; Mater admirabilis,<br> &#8627; Mater boni Consilii,<br> &#8627; Mater Creatoris,<br> &#8627; Mater Salvatoris,<br> &#8627; Mother of mercy,<br> &#8627; Virgo prudentissima,<br> &#8627; Virgo veneranda,<br> &#8627; Virgo praedicanda,<br> &#8627; Virgo potens,<br> &#8627; Virgo clemens,<br> &#8627; Virgo fidelis,<br> &#8627; Speculum iustitiae,<br> &#8627; Sedes sapientiae,<br> &#8627; Causa nostrae laetitiae,<br> &#8627; Vas spirituale,<br> &#8627; Vas honorabile,<br> &#8627; Vas insigne devotionis,<br> &#8627; Rosa mystica,<br> &#8627; Turris Davidica,<br> &#8627; Turris eburnea,<br> &#8627; Domus aurea,<br> &#8627; Foederis arca,<br> &#8627; Stella matutina,<br> &#8627; Ianua caeli,<br> &#8627; Salus infirmorum,<br> &#8627; Refugium peccatorum,<br> &#8627; Consolatrix afflictorum,<br> &#8627; Auxilium Christianorum,<br> &#8627; Regina Angelorum,<br> &#8627; Regina Patriarcharum,<br> &#8627; Regina Prophetarum,<br> &#8627; Regina Apostolorum,<br> &#8627; Regina Martyrum,<br> &#8627; Regina Confessorum,<br> &#8627; Regina Virginum,<br> &#8627; Regina Sanctorum omnium,<br> &#8627; Regina sine labe originali concepta,<br> &#8627; Regina in caelum assumpta,<br> &#8627; Regina Sacratissimi Rosarii<br> &#8627; Regina familiae,<br> &#8627; Regina pacis,</p><p>Agnus Dei, qui tollis peccata mundi,<br> <b>R. parce nobis, Domine. </b></p><p>Agnus Dei, qui tollis peccata mundi,<br> <b>R. exaudi nos, Domine. </b></p><p>Agnus Dei, qui tollis peccata mundi,<br> <b>R. miserere nobis.</b></p><p>Ora pro nobis, Sancta Dei Genetrix,<br> <b>R. Ut digni efficiamur promissionibus Christi. </b></p><p>Oremus<br> Concede nos famulos tuos, quaesumus, Domine Deus, perpetua mentis et corporis sanitate gaudere: et gloriosa beatae Mariae semper Virginis intercessione, a praesenti liberari tristitia, et aeterna perfrui laetitia. Per Christum Dominum nostrum.</p> <b>R.</b> Amen.",
-            "prayerFooter": ""
+            "prayerText": "<p>Kyrie, eleison.<br> <b>R.</b> Christe, eleison. <br> Kyrie, eleison.<br> Christe, audi nos.<br> <b>R.</b> Christe, exaudi nos.</p><p>Pater de caelis, Deus,<br> <b>R. miserere nobis.</b> &#8634;<br> &#8627; Fili, Redemptor mundi, Deus,<br> &#8627; Spiritus Sancte Deus,<br> &#8627; Sancta Trinitas, unus Deus,</p><p>Sancta Maria,<br> <b>R. ora pro nobis.</b> &#8634;<br> &#8627; Sancta Dei Genetrix,<br> &#8627; Sancta Virgo virginum,<br> &#8627; Mater Christi,<br> &#8627; Mater Ecclesiae,<br> &#8627; Mater Divinae gratiae,<br> &#8627; Mater purissima,<br> &#8627; Mater castissima,<br> &#8627; Mater inviolata,<br> &#8627; Mater intemerata,<br> &#8627; Mater amabilis,<br> &#8627; Mater admirabilis,<br> &#8627; Mater boni Consilii,<br> &#8627; Mater Creatoris,<br> &#8627; Mater Salvatoris,<br> &#8627; Mother of mercy,<br> &#8627; Virgo prudentissima,<br> &#8627; Virgo veneranda,<br> &#8627; Virgo praedicanda,<br> &#8627; Virgo potens,<br> &#8627; Virgo clemens,<br> &#8627; Virgo fidelis,<br> &#8627; Speculum iustitiae,<br> &#8627; Sedes sapientiae,<br> &#8627; Causa nostrae laetitiae,<br> &#8627; Vas spirituale,<br> &#8627; Vas honorabile,<br> &#8627; Vas insigne devotionis,<br> &#8627; Rosa mystica,<br> &#8627; Turris Davidica,<br> &#8627; Turris eburnea,<br> &#8627; Domus aurea,<br> &#8627; Foederis arca,<br> &#8627; Stella matutina,<br> &#8627; Ianua caeli,<br> &#8627; Salus infirmorum,<br> &#8627; Refugium peccatorum,<br> &#8627; Consolatrix afflictorum,<br> &#8627; Auxilium Christianorum,<br> &#8627; Regina Angelorum,<br> &#8627; Regina Patriarcharum,<br> &#8627; Regina Prophetarum,<br> &#8627; Regina Apostolorum,<br> &#8627; Regina Martyrum,<br> &#8627; Regina Confessorum,<br> &#8627; Regina Virginum,<br> &#8627; Regina Sanctorum omnium,<br> &#8627; Regina sine labe originali concepta,<br> &#8627; Regina in caelum assumpta,<br> &#8627; Regina Sacratissimi Rosarii<br> &#8627; Regina familiae,<br> &#8627; Regina pacis,</p><p>Agnus Dei, qui tollis peccata mundi,<br> <b>R. parce nobis, Domine. </b></p><p>Agnus Dei, qui tollis peccata mundi,<br> <b>R. exaudi nos, Domine. </b></p><p>Agnus Dei, qui tollis peccata mundi,<br> <b>R. miserere nobis.</b></p><p>Ora pro nobis, Sancta Dei Genetrix,<br> <b>R. Ut digni efficiamur promissionibus Christi. </b></p><p>Oremus<br> Concede nos famulos tuos, quaesumus, Domine Deus, perpetua mentis et corporis sanitate gaudere: et gloriosa beatae Mariae semper Virginis intercessione, a praesenti liberari tristitia, et aeterna perfrui laetitia. Per Christum Dominum nostrum.</p> <b>R.</b> Amen."
         },
         {
             "prayerID": 10,
             "prayerName": "Credo",
-            "prayerText": "<p> Credo in unum Deum,<br> Patrem omnipoténtem,<br> factórem caeli et terrae,<br> visibílium ómnium et invisibílium;</p><p> Et in unum Dóminum Iesum Christum,<br> Fílium Dei unigénitum,<br> et ex Patre natum, ante ómnia saécula,<br> Deum de Deo, lumen de lúmine,<br> Deum verum de Deo vero,<br> génitum, non factum, consubstantiálem Patri,<br> per quem ómnia facta sunt,<br> Qui propter nos hómines et propter nostram salútem<br> descéndit de caelis,</p><p> Et incarnátus est de Spíritu Sancto<br> ex María Vírgine, et homo factus est,</p><p> Crucifíxus étiam pro nobis sub Póntio Piláto,<br> passus et sepúltus est,<br> et resurréxit tértia die,<br> secúndum Scriptúras,<br> et ascéndit in caelum,<br> sedet ad déxteram Patris,<br> Et íterum ventúrus est cum glória,<br> iudicáre vivos et mórtuos,<br> cuius regni non erit finis;</p><p> Et in Spíritum Sanctum, Dóminum et vivificántem,<br> qui ex Patre Filióque procédit,<br> Qui cum Patre et Fílio simul adorátur et conglorificátur,<br> qui locútus est per prophétas;</p><p> Et unam, sanctam, cathólicam et apostólicam Ecclésiam,<br> Confíteor unum baptísma in remissiónem peccatórum,<br> Et exspecto resurrectiónem mortuórum,<br> et vitam ventúri saéculi.</p> Amen",
-            "prayerFooter": ""
+            "prayerText": "<p> Credo in unum Deum,<br> Patrem omnipoténtem,<br> factórem caeli et terrae,<br> visibílium ómnium et invisibílium;</p><p> Et in unum Dóminum Iesum Christum,<br> Fílium Dei unigénitum,<br> et ex Patre natum, ante ómnia saécula,<br> Deum de Deo, lumen de lúmine,<br> Deum verum de Deo vero,<br> génitum, non factum, consubstantiálem Patri,<br> per quem ómnia facta sunt,<br> Qui propter nos hómines et propter nostram salútem<br> descéndit de caelis,</p><p> Et incarnátus est de Spíritu Sancto<br> ex María Vírgine, et homo factus est,</p><p> Crucifíxus étiam pro nobis sub Póntio Piláto,<br> passus et sepúltus est,<br> et resurréxit tértia die,<br> secúndum Scriptúras,<br> et ascéndit in caelum,<br> sedet ad déxteram Patris,<br> Et íterum ventúrus est cum glória,<br> iudicáre vivos et mórtuos,<br> cuius regni non erit finis;</p><p> Et in Spíritum Sanctum, Dóminum et vivificántem,<br> qui ex Patre Filióque procédit,<br> Qui cum Patre et Fílio simul adorátur et conglorificátur,<br> qui locútus est per prophétas;</p><p> Et unam, sanctam, cathólicam et apostólicam Ecclésiam,<br> Confíteor unum baptísma in remissiónem peccatórum,<br> Et exspecto resurrectiónem mortuórum,<br> et vitam ventúri saéculi.</p> Amen"
         },
         {
             "prayerID": 11,
             "prayerName": "Magníficat",
-            "prayerText": "Magníficat ánima mea Dóminum,<br> et exsultávit spíritus meus<br> in Deo salvatóre meo,<br> quia respéxit humilitátem<br> ancíllae suae.<br> Ecce enim ex hoc beátam<br> me dicent omnes generatiónes,<br> quia fecit mihi magna,<br> qui potens est,<br> et sanctum nomen eius,<br> et misericórdia eius in progénies<br> et progénies timéntibus eum.<br> Fecit poténtiam in bráchio suo,<br> dispérsit supérbos<br> mente cordis sui;<br> depósuit poténtes de sede<br> et exaltávit húmiles.<br> Esuriéntes implévit bonis<br> et dívites dimísit inánes.<br> Suscépit Ísraël púerum suum,<br> recordátus misericórdiae,<br> sicut locútus est ad patres nostros,<br> Ábraham et sémini eius in saécula.<br> Glória Patri et Fílio<br> et Spirítui Sancto.<br> Sicut erat in princípio,<br> et nunc et semper,<br> et in saécula saeculórum.<br> Amen.",
-            "prayerFooter": ""
+            "prayerText": "Magníficat ánima mea Dóminum,<br> et exsultávit spíritus meus<br> in Deo salvatóre meo,<br> quia respéxit humilitátem<br> ancíllae suae.<br> Ecce enim ex hoc beátam<br> me dicent omnes generatiónes,<br> quia fecit mihi magna,<br> qui potens est,<br> et sanctum nomen eius,<br> et misericórdia eius in progénies<br> et progénies timéntibus eum.<br> Fecit poténtiam in bráchio suo,<br> dispérsit supérbos<br> mente cordis sui;<br> depósuit poténtes de sede<br> et exaltávit húmiles.<br> Esuriéntes implévit bonis<br> et dívites dimísit inánes.<br> Suscépit Ísraël púerum suum,<br> recordátus misericórdiae,<br> sicut locútus est ad patres nostros,<br> Ábraham et sémini eius in saécula.<br> Glória Patri et Fílio<br> et Spirítui Sancto.<br> Sicut erat in princípio,<br> et nunc et semper,<br> et in saécula saeculórum.<br> Amen."
         },
         {
             "prayerID": 12,
             "prayerName": "Actus Contritiónis",
-            "prayerText": "Deus meus, ex toto corde pǽnitet me <br> ómnium meórum peccatórum, <br> éaque detéstor, quia peccándo, <br> non solum pœnas a te juste <br> statútas proméritus sum, <br> sed præsértim quia offéndi te, <br> summum bonum, <br> ac dignum qui super ómnia diligáris. <br> Ídeo fírmiter propóno, <br> adjuvánte grátia tua, <br> de cétero me non peccatúrum <br> peccandíque occasiónes próximas fugitúrum. <br> Amen.",
-            "prayerFooter": ""
+            "prayerText": "Deus meus, ex toto corde pǽnitet me <br> ómnium meórum peccatórum, <br> éaque detéstor, quia peccándo, <br> non solum pœnas a te juste <br> statútas proméritus sum, <br> sed præsértim quia offéndi te, <br> summum bonum, <br> ac dignum qui super ómnia diligáris. <br> Ídeo fírmiter propóno, <br> adjuvánte grátia tua, <br> de cétero me non peccatúrum <br> peccandíque occasiónes próximas fugitúrum. <br> Amen."
         },
         {
             "prayerID": 13,
             "prayerName": "Actus Fidei",
-            "prayerText": "Dómine Deus,<br>firma fide credo et confíteor ómnia et síngula<br>quae sancta Ecclésia Cathólica propónit,<br>quia tu, Deus, ea ómnia revelásti,<br>qui es aetérna véritas et sapiéntia<br>quae nec fállere nec falli potest.<br>In hac fide vívere et mori státuo.",
-            "prayerFooter": ""
+            "prayerText": "Dómine Deus,<br>firma fide credo et confíteor ómnia et síngula<br>quae sancta Ecclésia Cathólica propónit,<br>quia tu, Deus, ea ómnia revelásti,<br>qui es aetérna véritas et sapiéntia<br>quae nec fállere nec falli potest.<br>In hac fide vívere et mori státuo."
         },
         {
             "prayerID": 14,
             "prayerName": "Actus Spei",
-            "prayerText": "Dómine Deus,<br>spero per grátiam tuam<br>remissiónem ómnium peccatórum,<br>et post hanc vitam<br>aetérnam felicitátem me esse consecutúrum,<br>quia tu promisísti,<br>qui es infiníte potens,<br>fidélis, benígnus, et miséricors.<br>In hac spe vívere et mori státuo.<br>Amen.",
-            "prayerFooter": ""
+            "prayerText": "Dómine Deus,<br>spero per grátiam tuam<br>remissiónem ómnium peccatórum,<br>et post hanc vitam<br>aetérnam felicitátem me esse consecutúrum,<br>quia tu promisísti,<br>qui es infiníte potens,<br>fidélis, benígnus, et miséricors.<br>In hac spe vívere et mori státuo.<br>Amen."
         },
         {
             "prayerID": 15,
             "prayerName": "Actus Caritatis",
-            "prayerText": "Dómine Deus,<br>amo te super ómnia<br>et próximum meum propter te,<br>quia tu es summum,<br>infinítum et perfectíssimum bonum,<br> omni dilectióne dignum.<br>In hac caritáte vívere et mori státuo.<br> Amen.",
-            "prayerFooter": ""
+            "prayerText": "Dómine Deus,<br>amo te super ómnia<br>et próximum meum propter te,<br>quia tu es summum,<br>infinítum et perfectíssimum bonum,<br> omni dilectióne dignum.<br>In hac caritáte vívere et mori státuo.<br> Amen."
         },
         {
             "prayerID": 16,
             "prayerName": "Sancte Míchaël Archángele",
-            "prayerText": "Sancte Míchaël Archángele,<br> defénde nos in proélio;<br> contra nequítiam et insídias<br> diáboli esto praesídium.<br> Ímperet illi Deus,<br> súpplices deprecámur,<br> tuque, Princeps milítiae caeléstis,<br> Sátanam aliósque spíritus malígnos,<br> qui ad perditiónem animárum<br> pervagántur in mundo,<br> divína virtúte, in inférnum detrúde.<br> Amen.",
-            "prayerFooter": ""
+            "prayerText": "Sancte Míchaël Archángele,<br> defénde nos in proélio;<br> contra nequítiam et insídias<br> diáboli esto praesídium.<br> Ímperet illi Deus,<br> súpplices deprecámur,<br> tuque, Princeps milítiae caeléstis,<br> Sátanam aliósque spíritus malígnos,<br> qui ad perditiónem animárum<br> pervagántur in mundo,<br> divína virtúte, in inférnum detrúde.<br> Amen."
         }
     ]
 }

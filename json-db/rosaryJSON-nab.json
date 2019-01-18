@@ -4338,98 +4338,82 @@
 		{
 			"prayerID": 1,
 			"prayerName": "Sign of the Cross",
-			"prayerText": "IN THE NAME of the Father, and of the Son, and of the Holy Spirit. Amen. <hr> (As you say this, with your right hand touch your forehead when you say Father, touch your breastbone when you say Son, touch your left shoulder when you say Holy, and touch your right shoulder when you say Spirit.)",
-            "prayerFooter": ""
+			"prayerText": "IN THE NAME of the Father, and of the Son, and of the Holy Spirit. Amen. <hr> (As you say this, with your right hand touch your forehead when you say Father, touch your breastbone when you say Son, touch your left shoulder when you say Holy, and touch your right shoulder when you say Spirit.)"
 		},
 		{
 			"prayerID": 2,
 			"prayerName": "Apostle's Creed",
-			"prayerText": "I BELIEVE IN GOD, the Father almighty, Creator of Heaven and earth. And in Jesus Christ, His only Son, our Lord, Who was conceived by the Holy Spirit, born of the Virgin Mary, suffered under Pontius Pilate; was crucified, died, and was buried. He descended into Hell. The third day He rose again from the dead. He ascended into Heaven, and sits at the right hand of God,the Father almighty. He shall come again to judge the living and the dead. I believe in the Holy Spirit, the holy Catholic Church, the communion of saints, the forgiveness of sins, the resurrection of the body, and life everlasting. Amen",
-            "prayerFooter": ""
+			"prayerText": "I BELIEVE IN GOD, the Father almighty, Creator of Heaven and earth. And in Jesus Christ, His only Son, our Lord, Who was conceived by the Holy Spirit, born of the Virgin Mary, suffered under Pontius Pilate; was crucified, died, and was buried. He descended into Hell. The third day He rose again from the dead. He ascended into Heaven, and sits at the right hand of God,the Father almighty. He shall come again to judge the living and the dead. I believe in the Holy Spirit, the holy Catholic Church, the communion of saints, the forgiveness of sins, the resurrection of the body, and life everlasting. Amen"
 		},
 		{
 			"prayerID": 3,
 			"prayerName": "Our Father",
-			"prayerText": "OUR FATHER, Who art in Heaven, hallowed be Thy Name. Thy kingdom come, Thy will be done on earth as it is in Heaven. Give us this day our daily bread, and forgive us our trespasses, as we forgive those who trespass against us. And lead us not into temptation, but deliver us from evil. Amen.",
-            "prayerFooter": ""
+			"prayerText": "OUR FATHER, Who art in Heaven, hallowed be Thy Name. Thy kingdom come, Thy will be done on earth as it is in Heaven. Give us this day our daily bread, and forgive us our trespasses, as we forgive those who trespass against us. And lead us not into temptation, but deliver us from evil. Amen."
 		},
 		{
 			"prayerID": 4,
 			"prayerName": "Hail Mary",
-			"prayerText": "HAIL MARY, full of grace, the Lord is with thee. Blessed art thou among women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.",
-            "prayerFooter": ""
+			"prayerText": "HAIL MARY, full of grace, the Lord is with thee. Blessed art thou among women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen."
 		},
 		{
 			"prayerID": 5,
 			"prayerName": "Glory Be",
-			"prayerText": "GLORY BE to the Father, and to the Son, and to the Holy Spirit. As it was in the beginning is now, and ever shall be, world without end. Amen.",
-            "prayerFooter": ""
+			"prayerText": "GLORY BE to the Father, and to the Son, and to the Holy Spirit. As it was in the beginning is now, and ever shall be, world without end. Amen."
 		},
 		{
 			"prayerID": 6,
 			"prayerName": "Fatima Prayer",
-			"prayerText": "O MY JESUS, forgive us our sins, save us from the fires of Hell; lead all souls to Heaven, especially those in most need of Thy mercy. Amen.",
-            "prayerFooter": ""
+			"prayerText": "O MY JESUS, forgive us our sins, save us from the fires of Hell; lead all souls to Heaven, especially those in most need of Thy mercy. Amen."
 		},
 		{
 			"prayerID": 7,
 			"prayerName": "Hail Holy Queen",
-			"prayerText": "HAIL HOLY QUEEN, mother of mercy; our life, our sweetness, and our hope. To thee do we cry, poor banished children of Eve. To thee do we send up our sighs, mourning and weeping in this vale of tears. Turn, then, most gracious advocate, thine eyes of mercy toward us. And after this, our exile, show unto us the blessed fruit of thy womb, Jesus. O clement, O loving, O sweet Virgin Mary. Pray for us, O holy Mother of God, that we may be made worthy of the promises of Christ. Amen.",
-            "prayerFooter": ""
+			"prayerText": "HAIL HOLY QUEEN, mother of mercy; our life, our sweetness, and our hope. To thee do we cry, poor banished children of Eve. To thee do we send up our sighs, mourning and weeping in this vale of tears. Turn, then, most gracious advocate, thine eyes of mercy toward us. And after this, our exile, show unto us the blessed fruit of thy womb, Jesus. O clement, O loving, O sweet Virgin Mary. Pray for us, O holy Mother of God, that we may be made worthy of the promises of Christ. Amen."
 		},
 		{
 			"prayerID": 8,
 			"prayerName": "O God",
-			"prayerText": "O GOD, WHOSE only-begotten Son by His life, death and resurrection, has purchased for us the rewards of eternal life; grant, we beseech Thee, that by meditating upon these mysteries of the Most Holy Rosary of the Blessed Virgin Mary, we may imitate what they contain and obtain what they promise, through the same Christ our Lord. Amen. Pour forth we beseech Thee, O Lord, Thy grace into our hearts, that we to whom the incarnation of Christ, Thy Son, was made known by the message of an angel, may by His passion and cross be brought to the glory of His resurrection, through the same Christ Our Lord. Amen.",
-            "prayerFooter": ""
+			"prayerText": "O GOD, WHOSE only-begotten Son by His life, death and resurrection, has purchased for us the rewards of eternal life; grant, we beseech Thee, that by meditating upon these mysteries of the Most Holy Rosary of the Blessed Virgin Mary, we may imitate what they contain and obtain what they promise, through the same Christ our Lord. Amen. Pour forth we beseech Thee, O Lord, Thy grace into our hearts, that we to whom the incarnation of Christ, Thy Son, was made known by the message of an angel, may by His passion and cross be brought to the glory of His resurrection, through the same Christ Our Lord. Amen."
 		},
         {
             "prayerID": 9,
             "prayerName": "Litany of Loreto",
-            "prayerText": "<p>Lord have mercy on us.<br> <b>R.</b> Christ have mercy on us.<br> Lord have mercy.<br> Christ hear us.<br> <b>R.</b> Christ graciously hear us.</p><p>God, the Father of heaven,<br> <b>R. have mercy on us.</b> &#8634;</br> &#8627; God the Son, Redeemer of the world,<br> &#8627; God the Holy Spirit,<br> &#8627; Holy Trinity, one God,</p><p>Holy Mary,<br> <b>R. pray for us.</b> &#8634;<br> &#8627; Holy Mother of God,<br> &#8627; Holy Virgin of virgins,<br> &#8627; Mother of Christ,<br> &#8627; Mother of the Church,<br> &#8627; Mother of divine grace,<br> &#8627; Mother most pure,<br> &#8627; Mother most chaste,<br> &#8627; Mother inviolate,<br> &#8627; Mother undefiled,<br> &#8627; Mother most amiable,<br> &#8627; Mother admirable,<br> &#8627; Mother of good counsel,<br> &#8627; Mother of our Creator,<br> &#8627; Mother of our Saviour,<br> &#8627; Mother of mercy,<br> &#8627; Virgin most prudent,<br> &#8627; Virgin most venerable,<br> &#8627; Virgin most renowned,<br> &#8627; Virgin most powerful,<br> &#8627; Virgin most merciful,<br> &#8627; Virgin most faithful,<br> &#8627; Mirror of justice,<br> &#8627; Seat of wisdom,<br> &#8627; Cause of our joy,<br> &#8627; Spiritual vessel,<br> &#8627; Vessel of honour,<br> &#8627; Singular vessel of devotion,<br> &#8627; Mystical rose,<br> &#8627; Tower of David,<br> &#8627; Tower if ivory,<br> &#8627; House of gold,<br> &#8627; Ark of the covenant,<br> &#8627; Gate of heaven,<br> &#8627; Morning star,<br> &#8627; Health of the sick,<br> &#8627; Refuge of sinners,<br> &#8627; Comfort of the afflicted,<br> &#8627; Help of Christians,<br> &#8627; Queen of Angels,<br> &#8627; Queen of Patriarchs,<br> &#8627; Queen of Prophets,<br> &#8627; Queen of Apostles,<br> &#8627; Queen of Martyrs,<br> &#8627; Queen of Confessors,<br> &#8627; Queen of Virgins,<br> &#8627; Queen of all Saints,<br> &#8627; Queen conceived without original sin,<br> &#8627; Queen assumed into heaven,<br> &#8627; Queen of the most holy Rosary,<br> &#8627; Queen of families,<br> &#8627; Queen of peace.</p><p>Lamb of God, who takest away the sins of the world,<br> <b>R. spare us, O Lord.</b></p><p>Lamb of God, who takest away the sins of the world,<br> <b>R. graciously hear us, O Lord.</b></p><p>Lamb of God, who takest away the sins of the world,<br> <b>R. have mercy on us.</b></p><p>Pray for us, O holy Mother of God.<br> <b>R. That we may be made worthy of the promises of Christ.</b></p><p>Let us pray.<br> Grant, we beseech thee,<br> O Lord God,<br> that we, your servants,<br> may enjoy perpetual health of mind and body;<br> and by the intercession of the Blessed Mary, ever Virgin,<br> may be delivered from present sorrow,<br> and obtain eternal joy.<br> Through Christ our Lord.<br> Amen.</p>",
-            "prayerFooter": ""
+            "prayerText": "<p>Lord have mercy on us.<br> <b>R.</b> Christ have mercy on us.<br> Lord have mercy.<br> Christ hear us.<br> <b>R.</b> Christ graciously hear us.</p><p>God, the Father of heaven,<br> <b>R. have mercy on us.</b> &#8634;</br> &#8627; God the Son, Redeemer of the world,<br> &#8627; God the Holy Spirit,<br> &#8627; Holy Trinity, one God,</p><p>Holy Mary,<br> <b>R. pray for us.</b> &#8634;<br> &#8627; Holy Mother of God,<br> &#8627; Holy Virgin of virgins,<br> &#8627; Mother of Christ,<br> &#8627; Mother of the Church,<br> &#8627; Mother of divine grace,<br> &#8627; Mother most pure,<br> &#8627; Mother most chaste,<br> &#8627; Mother inviolate,<br> &#8627; Mother undefiled,<br> &#8627; Mother most amiable,<br> &#8627; Mother admirable,<br> &#8627; Mother of good counsel,<br> &#8627; Mother of our Creator,<br> &#8627; Mother of our Saviour,<br> &#8627; Mother of mercy,<br> &#8627; Virgin most prudent,<br> &#8627; Virgin most venerable,<br> &#8627; Virgin most renowned,<br> &#8627; Virgin most powerful,<br> &#8627; Virgin most merciful,<br> &#8627; Virgin most faithful,<br> &#8627; Mirror of justice,<br> &#8627; Seat of wisdom,<br> &#8627; Cause of our joy,<br> &#8627; Spiritual vessel,<br> &#8627; Vessel of honour,<br> &#8627; Singular vessel of devotion,<br> &#8627; Mystical rose,<br> &#8627; Tower of David,<br> &#8627; Tower if ivory,<br> &#8627; House of gold,<br> &#8627; Ark of the covenant,<br> &#8627; Gate of heaven,<br> &#8627; Morning star,<br> &#8627; Health of the sick,<br> &#8627; Refuge of sinners,<br> &#8627; Comfort of the afflicted,<br> &#8627; Help of Christians,<br> &#8627; Queen of Angels,<br> &#8627; Queen of Patriarchs,<br> &#8627; Queen of Prophets,<br> &#8627; Queen of Apostles,<br> &#8627; Queen of Martyrs,<br> &#8627; Queen of Confessors,<br> &#8627; Queen of Virgins,<br> &#8627; Queen of all Saints,<br> &#8627; Queen conceived without original sin,<br> &#8627; Queen assumed into heaven,<br> &#8627; Queen of the most holy Rosary,<br> &#8627; Queen of families,<br> &#8627; Queen of peace.</p><p>Lamb of God, who takest away the sins of the world,<br> <b>R. spare us, O Lord.</b></p><p>Lamb of God, who takest away the sins of the world,<br> <b>R. graciously hear us, O Lord.</b></p><p>Lamb of God, who takest away the sins of the world,<br> <b>R. have mercy on us.</b></p><p>Pray for us, O holy Mother of God.<br> <b>R. That we may be made worthy of the promises of Christ.</b></p><p>Let us pray.<br> Grant, we beseech thee,<br> O Lord God,<br> that we, your servants,<br> may enjoy perpetual health of mind and body;<br> and by the intercession of the Blessed Mary, ever Virgin,<br> may be delivered from present sorrow,<br> and obtain eternal joy.<br> Through Christ our Lord.<br> Amen.</p>"
         },
         {
             "prayerID": 10,
             "prayerName": "Nicene Creed",
-            "prayerText": "<p> I believe in one God<br> the Father almighty,<br> maker of heaven and earth<br> of all things visible and invisible.</p><p> I believe in one Lord Jesus Christ,<br> the Only-begotten Son of God,<br> born of the Father before all ages.<br> God from God, Light from Light,<br> true God from true God,<br> begotten, not made, consubstantial with the Father;<br> through Him all things were made.<br> For us men and for our salvation<br> He came down from heaven,.</p><p> and by the Holy Ghost was incarnate<br> of the Virgin Mary, and became man..</p><p> For our sake He was crucified under Pontius Pilate,<br> He suffered death and was buried,<br> and rose again on the third day<br> in accordance with the Scriptures.<br> He ascended into heaven<br> and is seated at the right hand of the Father.<br> He will come again in glory<br> to judge the living and the dead.<br> His kingdom will have no end..</p><p> I believe in the Holy Ghost, the Lord, the giver of life<br> who proceeds from the Father and the Son,<br> who with the Father and the Son is adored and glorified,<br> who has spoken through the prophets;.</p><p> I believe in one, holy, catholic, and apostolic Church.<br> I confess one baptism for the forgiveness of sins.<br> I look forward to the resurrection of the dead<br> and the life of the world to come..</p> Amen.",
-            "prayerFooter": ""
+            "prayerText": "<p> I believe in one God<br> the Father almighty,<br> maker of heaven and earth<br> of all things visible and invisible.</p><p> I believe in one Lord Jesus Christ,<br> the Only-begotten Son of God,<br> born of the Father before all ages.<br> God from God, Light from Light,<br> true God from true God,<br> begotten, not made, consubstantial with the Father;<br> through Him all things were made.<br> For us men and for our salvation<br> He came down from heaven,.</p><p> and by the Holy Ghost was incarnate<br> of the Virgin Mary, and became man..</p><p> For our sake He was crucified under Pontius Pilate,<br> He suffered death and was buried,<br> and rose again on the third day<br> in accordance with the Scriptures.<br> He ascended into heaven<br> and is seated at the right hand of the Father.<br> He will come again in glory<br> to judge the living and the dead.<br> His kingdom will have no end..</p><p> I believe in the Holy Ghost, the Lord, the giver of life<br> who proceeds from the Father and the Son,<br> who with the Father and the Son is adored and glorified,<br> who has spoken through the prophets;.</p><p> I believe in one, holy, catholic, and apostolic Church.<br> I confess one baptism for the forgiveness of sins.<br> I look forward to the resurrection of the dead<br> and the life of the world to come..</p> Amen."
         },
         {
             "prayerID": 11,
             "prayerName": "Magnificat",
-            "prayerText": "My soul magnifies the Lord,<br> And my spirit rejoices<br> in God my Savior.<br> For He has regarded the low estate<br> of His handmaiden,<br> For behold, henceforth all generations<br> shall call me blessed.<br> For He who is mighty<br> has done great things for me,<br> and holy is His name.<br> And His mercy is on those who fear Him<br> from generation to generation.<br> He has shown strength with His arm.<br> He has scattered the proud<br> in the imagination of their hearts.<br> He has put down the mighty from their thrones,<br> and exalted those of low degree.<br> He has filled the hungry with good things,<br> and the rich He has sent empty away.<br> He has helped His servant Israel,<br> in remembrance of His mercy,<br> as He spoke to our fathers,<br> to Abraham and to his posterity forever.<br> Glory be to the Father and to the Son <br> and to the Holy Ghost.<br> As it was in the beginning,<br> is now and ever shall be,<br> world without end.<br> Amen.",
-            "prayerFooter": ""
+            "prayerText": "My soul magnifies the Lord,<br> And my spirit rejoices<br> in God my Savior.<br> For He has regarded the low estate<br> of His handmaiden,<br> For behold, henceforth all generations<br> shall call me blessed.<br> For He who is mighty<br> has done great things for me,<br> and holy is His name.<br> And His mercy is on those who fear Him<br> from generation to generation.<br> He has shown strength with His arm.<br> He has scattered the proud<br> in the imagination of their hearts.<br> He has put down the mighty from their thrones,<br> and exalted those of low degree.<br> He has filled the hungry with good things,<br> and the rich He has sent empty away.<br> He has helped His servant Israel,<br> in remembrance of His mercy,<br> as He spoke to our fathers,<br> to Abraham and to his posterity forever.<br> Glory be to the Father and to the Son <br> and to the Holy Ghost.<br> As it was in the beginning,<br> is now and ever shall be,<br> world without end.<br> Amen."
         },
         {
             "prayerID": 12,
             "prayerName": "Act of Contrition",
-            "prayerText": "O my God, I am heartily sorry for having offended Thee,<br>and I detest my sins above every other evil<br>because they are displeasing to Thee, my God.<br>Who for thy infinite goodness are so deserving of all my love<br>and I firmly resolve by Thy holy grace<br>never more to offend Thee and to amend my life. Amen.",
-            "prayerFooter": ""
+            "prayerText": "O my God, I am heartily sorry for having offended Thee,<br>and I detest my sins above every other evil<br>because they are displeasing to Thee, my God.<br>Who for thy infinite goodness are so deserving of all my love<br>and I firmly resolve by Thy holy grace<br>never more to offend Thee and to amend my life. Amen."
         },
         {
             "prayerID": 13,
             "prayerName": "Act of Faith",
-            "prayerText": "O Lord God,<br> I firmly believe all the truths<br> which the Holy Catholic Church teaches<br> because thou hast revealed them<br> who art eternal truth and wisdom,<br> who can neither deceive nor be deceived.<br> In this faith I intend to live and die.<br> Amen.",
-            "prayerFooter": ""
+            "prayerText": "O Lord God,<br> I firmly believe all the truths<br> which the Holy Catholic Church teaches<br> because thou hast revealed them<br> who art eternal truth and wisdom,<br> who can neither deceive nor be deceived.<br> In this faith I intend to live and die.<br> Amen."
         },
         {
             "prayerID": 14,
             "prayerName": "Act of Hope",
-            "prayerText": "O Lord God,<br> I hope by thy grace<br> for the pardon of all my sins,<br> and after life here<br> to gain eternal happiness,<br> because thou hast promised it<br> who art infinitely powerful,<br> faithful, kind, and merciful.<br> In this hope I intend to live and die.<br> Amen.",
-            "prayerFooter": ""
+            "prayerText": "O Lord God,<br> I hope by thy grace<br> for the pardon of all my sins,<br> and after life here<br> to gain eternal happiness,<br> because thou hast promised it<br> who art infinitely powerful,<br> faithful, kind, and merciful.<br> In this hope I intend to live and die.<br> Amen."
         },
         {
             "prayerID": 15,
             "prayerName": "Act of Love",
-            "prayerText": "O Lord God,<br> I love thee above all things<br> and I love my neighbor for thy sake,<br> because thou art the highest,<br> infinite and perfect good,<br> worthy of all my love.<br> In this love I intend to live and die.<br> Amen.",
-            "prayerFooter": ""
+            "prayerText": "O Lord God,<br> I love thee above all things<br> and I love my neighbor for thy sake,<br> because thou art the highest,<br> infinite and perfect good,<br> worthy of all my love.<br> In this love I intend to live and die.<br> Amen."
         },
         {
             "prayerID": 16,
             "prayerName": "To Saint Michael",
-            "prayerText": "Saint Michael the Archangel,<br> defend us in battle,<br> be our protection<br> against the wickedness and snares of the devil.<br> May God rebuke him,<br> we humbly pray,<br> and do thou, O Prince of the heavenly host,<br> by the power of God, thrust into hell<br> Satan and all the evil spirits<br> who prowl about the world<br> seeking the ruin of souls.<br> Amen.",
-            "prayerFooter": ""
+            "prayerText": "Saint Michael the Archangel,<br> defend us in battle,<br> be our protection<br> against the wickedness and snares of the devil.<br> May God rebuke him,<br> we humbly pray,<br> and do thou, O Prince of the heavenly host,<br> by the power of God, thrust into hell<br> Satan and all the evil spirits<br> who prowl about the world<br> seeking the ruin of souls.<br> Amen."
         }
 	]
 }
