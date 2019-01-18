@@ -221,6 +221,3 @@ function download_gnu_software {
 ## RUN
 
 download_gnu_software
-
-## Determine ahead of time if usccb host is available for web scraping
-pingUsccb

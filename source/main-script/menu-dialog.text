@@ -149,7 +149,7 @@ function menuUP {
 		"6"	"View Prayers"\
 		"7" "Change Color Theme"\
 		"8" "Feast Day Countdown"\
-		"9" "Daily Mass Readings ($usccbOnlineStatus)"\
+		"9" "Daily Mass Readings"\
 		"10" "Exit App")
 
 	case "$selectedMenuItem" in

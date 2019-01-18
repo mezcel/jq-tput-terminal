@@ -76,17 +76,6 @@ function elinksUsccbMassReadings {
 	elinks $htmlFilePath
 }
 
-function pingUsccb {
-	myPingAddr=usccb.org
-	ping -c1 $myPingAddr &>/dev/null
-	pingFlag=$?
-
-	if [[ $pingFlag -eq 0 ]]; then
-		usccbOnlineStatus=online
-	else
-		usccbOnlineStatus=offline
-	fi
-}
 
 function elinksUsccb {
 	## check if sever is up
