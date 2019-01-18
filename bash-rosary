@@ -9,7 +9,7 @@ function loadSourceScripts {
 	fi
 
 	## Populate Bash session with source script
-	for i in $currentDirPath/source/main-script/*.source; do
+	for i in $currentDirPath/source/main-script/*.text; do
 		source "$i" -H ## || break
 	done
 
@@ -25,7 +25,7 @@ function installSoftwareMultimedia {
 	currentDirPath=$(dirname $0)
 	## gnu software
 	bash "$currentDirPath/source/gnu/download-gnu-software"
-	
+
 	## audio
 	bash "$currentDirPath/source/ogg/download-ogg-media"
 }
