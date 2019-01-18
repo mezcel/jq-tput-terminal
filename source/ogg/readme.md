@@ -1,12 +1,12 @@
 # Audio
 
-When this App starts, it will call ```dl-app-audio.sh``` which will download GNU Audio Oggs.
+When this App starts, it will call ```./source/ogg/download-ogg-media``` which will download GNU Audio Oggs.
 
 - I focused on Ogg for GNU sake. ogg123 is a vorbis-tools audio player which will play audio from within the terminal console using pulseaudio
 
 ## Source Audio:
 
-The following files are used in this app and taken from [wikimedia.org](https://commons.wikimedia.org/wiki/Category:Ogg_files_of_Christian_music)
+Taken from [wikimedia.org](https://commons.wikimedia.org/wiki/Category:Ogg_files_of_Christian_music)
 
 - [Schola_Gregoriana-Ave_Maria.ogg](https://en.wikipedia.org/wiki/File:Schola_Gregoriana-Ave_Maria.ogg)
 
@@ -23,7 +23,7 @@ The following files are used in this app and taken from [wikimedia.org](https://
 - [The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg](https://commons.wikimedia.org/wiki/File:The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg)
 
 
-The following files are used in this app and taken from [archive.org](archive.org)
+Taken from [archive.org](archive.org)
 
 * [Beep.ogg](https://archive.org/details/kkkfffbird_yahoo_Beep_201607)
 
@@ -33,33 +33,24 @@ The following files are used in this app and taken from [archive.org](archive.or
 
 ---
 
-Potential audio candidates:
-
-* [SalveRegina.ogg](https://archive.org/details/SalveRegina_889) [link](https://archive.org/download/SalveRegina_889/SalveRegina.ogg)
-
-* [Litany_of_Loreto.ogg](https://archive.org/details/LitanyOfLoreto) [link](https://archive.org/download/LitanyOfLoreto/Litany_of_Loreto.ogg)
-
-* [HolyRosaryPrayer.zip](https://archive.org/details/HolyRosaryPrayer) [link](https://archive.org/compress/HolyRosaryPrayer/formats=OGG%20VORBIS&file=/HolyRosaryPrayer.zip)
-
----
-
 ### Audio Software:
 
-play midi audio files
+This app uses Ogg audio files.
+
+I use ogg123 media player
+
+* [ogg123](https://xiph.org/vorbis) is a [ogg](https://xiph.org/vorbis) audio player which can run within terminal environment
+
 ```sh
-## midi player with soundfont
-sudo pacman -S --needed fluidsynth
-sudo pacman -S --needed soundfont-fluid
+## Debian
+apt-get install vorbis-tools
 
-## audio requires fluidsynth and a midi soundfont
-fluidsynth -a alsa -m alsa_seq -l -i -R 1 -C 1 /usr/share/soundfonts/FluidR3_GM.sf2 ./audio/*.mid
+## Arch
+pacman -S vorbis-tools
 
-```
+## Alpine
+apk add vorbis-tools
 
-play .wav, .mp3, .ogg files
-```sh
-## multimedia player for video and audio
-sudo pacman -S --needed mplayer
-
-mplayer ./audio/*.ogg
+## Slackware
+slapt-get --install vorbis-tools
 ```
