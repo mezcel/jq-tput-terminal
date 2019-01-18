@@ -22,7 +22,11 @@ Recommended Use Cases:
 
 * ```v0.1.8.4``` current branch release.
 
-* ```v0.1.9-deb``` current dev branch. WIP Redoing the dir tree and trimming the bloat, but keeping the same algorithm. Nothing works here yet
+* ```v0.1.9-deb``` current dev branch. (because Deb translates well with WLS)
+    * WIP
+    * Redoing the dir tree and trimming the bloat, but keeping the same algorithm.
+    * Nothing works here yet
+    * I am developing on debian since, I messed up my arch computers and don't want to mess with troubleshooting other problems at the moment.
 
 
 | Test Distro's | Development Environment Notes |
