@@ -2555,157 +2555,177 @@
 		}
 	],
 	"decade": [
-		{
-			"decadeID": 0,
-			"mysteryIndex": 0,
-			"decadeNo": 0,
-			"decadeName": "",
-			"decadeArt": "http://1.bp.blogspot.com/-YvXtiei6hRA/VNRnxBrmgPI/AAAAAAAAJoc/64W4plee7t0/s1600/Atr%2BGoswijn%2Bvan%2Bder%2BWeyden_15%2BMysteries%2Band%2BVirgin%2Bof%2Bthe%2BRosary_c.1515-20_Met.jpg"
-		},
-		{
-			"decadeID": 1,
-			"mysteryIndex": 1,
-			"decadeNo": 1,
-			"decadeName": "The First Joyful Mystery: The Annunciation",
-			"decadeArt": "http://www.joyfulheart.com/christmas/tissot-christmas-childhood/tissot-the-annunciation-753x590x72.jpg"
-		},
-		{
-			"decadeID": 2,
-			"mysteryIndex": 2,
-			"decadeNo": 2,
-			"decadeName": "The Second Joyful Mystery: The Visitation",
-			"decadeArt": "http://3.bp.blogspot.com/-nH9kVrV2d6s/Tgry1A3xx9I/AAAAAAAAAG8/bmvEkFl57pQ/s1600/DSC01145.JPG"
-		},
-		{
-			"decadeID": 3,
-			"mysteryIndex": 4,
-			"decadeNo": 3,
-			"decadeName": "The Third Joyful Mystery: The Nativity",
-			"decadeArt": "https://benedictsbeads.files.wordpress.com/2015/04/duccio_di_buoninsegna_-_the_nativity_with_the_prophets_isaiah_and_ezekiel_-_google_art_project.jpg?w=1024&h=415&crop=1"
-		},
-		{
-			"decadeID": 4,
-			"mysteryIndex": 4,
-			"decadeNo": 4,
-			"decadeName": "The Fourth Joyful Mystery: The Presentation of Jesus at the Temple",
-			"decadeArt": ""
-		},
-		{
-			"decadeID": 5,
-			"mysteryIndex": 5,
-			"decadeNo": 5,
-			"decadeName": "The Fifth Joyful Mystery: The Finding of Jesus at the Temple",
-			"decadeArt": ""
-		},
+        {
+            "decadeID": 0,
+            "mysteryIndex": 0,
+            "decadeNo": 0,
+            "decadeName": "",
+			"decadeInfo": "spiritual preparation",
+			"infoRefference": ""
+        },
+        {
+            "decadeID": 1,
+            "mysteryIndex": 1,
+            "decadeNo": 1,
+            "decadeName": "The First Joyful Mystery: The Annunciation",
+			"decadeInfo": "<p>The Annunciation (from Latin annuntiatio), also referred to as the Annunciation to the Blessed Virgin Mary, the Annunciation of Our Lady, or the Annunciation of the Lord, is the Christian celebration of the announcement by the angel Gabriel to the Virgin Mary that she would conceive and become the mother of Jesus, the Son of God, marking his Incarnation. Gabriel told Mary to name her son Yehoshua , meaning \"YHWH is salvation\".</p> <p>According to Luke 1:26, the Annunciation occurred in \"the sixth month\" of Elizabeth's pregnancy with John the Baptist. Many Christians observe this event with the Feast of the Annunciation on 25 March, an approximation of the northern vernal equinox nine full months before Christmas, the ceremonial birthday of Jesus. In England, this came to be known as Lady Day. It marked the new year until 1752. The 2nd-century writer Irenaeus of Lyon regarded the conception of Jesus as 25 March coinciding with the Passion.</p> <p>The Annunciation has been a key topic in Christian art in general, as well as in Marian art in the Catholic Church, particularly during the Middle Ages and Renaissance. A work of art depicting the Annunciation is sometimes itself called an Annunciation.</p>",
+			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Annunciation' target='_blank'>link</a>"
+        },
+        {
+            "decadeID": 2,
+            "mysteryIndex": 2,
+            "decadeNo": 2,
+            "decadeName": "The Second Joyful Mystery: The Visitation",
+			"decadeInfo": "<p>In the Gospel of Luke, the author's accounts of the Annunciation and Visitation are constructed using eight points of literary parallelism to compare Mary to the Ark of the Covenant.</p><p>In Catholicism, it is held that the purpose of this visit was to bring divine grace to both Elizabeth and her unborn child. Even though he was still in his mother's womb, John became aware of the presence of Christ, and leapt for joy as he was cleansed from original sin and filled with divine grace. Elizabeth also responded and recognized the presence of Jesus, and thus Mary exercised her function as mediatrix between God and man for the first time.</p>",
+			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Visitation_(Christianity)' target='_blank'>link</a>"
+        },
+        {
+            "decadeID": 3,
+            "mysteryIndex": 4,
+            "decadeNo": 3,
+            "decadeName": "The Third Joyful Mystery: The Nativity",
+			"decadeInfo": "<p>In Christian theology the nativity marks the incarnation of Jesus as the second Adam, in fulfillment of the divine will of God, undoing the damage caused by the fall of the first man, Adam. The artistic depiction of the nativity has been an important subject for Christian artists since the 4th century. Since the 13th century, the nativity scene has emphasized the humility of Jesus and promoted a more tender image of him, as a major turning point from the early \"Lord and Master\" image, which has had an effect on the basic approaches of Christian pastoral ministry.</p><p>The nativity plays a major role in the Christian liturgical year. Christian congregations of the Western tradition (including the Catholic Church, the Western Rite Orthodox, the Anglican Communion, and many Protestants) begin observing the season of Advent four Sundays before Christmas, the traditional feast-day of his birth, which falls on December 25.</p>",
+			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Nativity_of_Jesus' target='_blank'>link</a>"
+        },
+        {
+            "decadeID": 4,
+            "mysteryIndex": 4,
+            "decadeNo": 4,
+            "decadeName": "The Fourth Joyful Mystery: The Presentation of Jesus at the Temple",
+			"decadeInfo": "<p>The Presentation of Jesus at the Temple is an early episode in the life of Jesus that is celebrated by the Church on the holiday of Candlemas. It is described in the Gospel of Luke of the New Testament in the Christian Bible.[1] Within the account, \"Luke's narration of the Presentation in the Temple combines the purification rite with the Jewish ceremony of the redemption of the firstborn (Luke 2:23-24).\"</p>",
+			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Presentation_of_Jesus_at_the_Temple' target='_blank'>link</a>"
+        },
+        {
+            "decadeID": 5,
+            "mysteryIndex": 5,
+            "decadeNo": 5,
+            "decadeName": "The Fifth Joyful Mystery: The Finding of Jesus at the Temple",
+			"decadeInfo": "<p>The episode is described in Luke 2:41-52. Jesus at the age of twelve accompanies Mary, Joseph and a large group of their relatives and friends to Jerusalem on pilgrimage, following \"the custom of the feast\" (NKJV) - that is, Passover. On the day of their return, Jesus \"lingered\" in the Temple, but Mary and Joseph thought that he was among their group. Mary and Joseph headed back home and after a day of travel realized Jesus was missing, so they returned to Jerusalem, finding Jesus three days later.</p><p>The story was slightly elaborated in later literature, such as the apocryphal 2nd-century Infancy Gospel of Thomas (19:1-12). The losing of Jesus is the third of the Seven Sorrows of Mary, and the Finding in the Temple is the fifth Joyful Mystery of the Rosary.</p>",
+			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Finding_in_the_Temple' target='_blank'>link</a>"
+        },
 
-		{
-			"decadeID": 6,
-			"mysteryIndex": 1,
-			"decadeNo": 1,
-			"decadeName": "First Luminous Mystery: The Baptism in the Jordan",
-			"decadeArt": ""
-		},
-		{
-			"decadeID": 7,
-			"mysteryIndex": 2,
-			"decadeNo": 2,
-			"decadeName": "Second Luminous Mystery: The wedding at Cana, when Christ manifested himself",
-			"decadeArt": ""
-		},
-		{
-			"decadeID": 8,
-			"mysteryIndex": 3,
-			"decadeNo": 3,
-			"decadeName": "Third Luminous Mystery: The Proclamation of the Kingdom",
-			"decadeArt": ""
-		},
-		{
-			"decadeID": 9,
-			"mysteryIndex": 4,
-			"decadeNo": 4,
-			"decadeName": "Fourth Luminous Mystery: The Transfiguration of our Lord",
-			"decadeArt": ""
-		},
-		{
-			"decadeID": 10,
-			"mysteryIndex": 5,
-			"decadeNo": 5,
-			"decadeName": "Fifth Luminous Mystery: The Last Supper, when our Lord gave us the Eucharist",
-			"decadeArt": ""
-		},
+        {
+            "decadeID": 6,
+            "mysteryIndex": 1,
+            "decadeNo": 1,
+            "decadeName": "First Luminous Mystery: The Baptism in the Jordan",
+			"decadeInfo": "<p>The Jordan River flows through the Jordan Rift Valley into the Sea of the Galilee and then continues down into the Dead Sea with no outlet. It is a place of many important biblical events. However, for most Christians the first association with the river would be the scene of Jesus Christ being baptized by John the Baptist.</p><p>According to the Christian faith, the Jordan River is considered the third most holy site in the Holy Land, just after Nativity Grotto in Bethlehem and Golgotha in Jerusalem, because it is the site of the most important event of Jesus’ life – His baptism and beginning of his ministry.</p>",
+			"infoRefference": "<a href='https://travelujah.com/stories/celebrating-baptism-the-jordan-river-in-the-time-of-jesus' target='_blank'>link</a>"
+        },
+        {
+            "decadeID": 7,
+            "mysteryIndex": 2,
+            "decadeNo": 2,
+            "decadeName": "Second Luminous Mystery: The wedding at Cana, when Christ manifested himself",
+			"decadeInfo": "<p>The transformation of water into wine at the Marriage at Cana or Wedding at Cana is the first miracle attributed to Jesus in the Gospel of John. In the Gospel account, Jesus, his mother and his disciples are invited to a wedding, and when the wine runs out, Jesus delivers a sign of his glory by turning water into wine.</p>",
+			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Marriage_at_Cana' target='_blank'>link</a>"
+        },
+        {
+            "decadeID": 8,
+            "mysteryIndex": 3,
+            "decadeNo": 3,
+            "decadeName": "Third Luminous Mystery: The Proclamation of the Kingdom",
+			"decadeInfo": "<p>The \"Kingdom of God\" and its equivalent form \"Kingdom of Heaven\" in the Gospel of Matthew is one of the key elements of the teachings of Jesus in the New Testament. The Gospel of Mark indicates that the gospel is the good news about the Kingdom of God. The term pertains to the kingdom that Jesus will establish on the earth when he returns. Kingdom of \"heaven\" appears in Matthew's gospel due primarily to Jewish sensibilities about uttering the \"name\" (God).</p>",
+			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Kingship_and_kingdom_of_God' target='_blank'>link</a>"
+        },
+        {
+            "decadeID": 9,
+            "mysteryIndex": 4,
+            "decadeNo": 4,
+            "decadeName": "Fourth Luminous Mystery: The Transfiguration of our Lord",
+			"decadeInfo": "<p>The transfiguration of Jesus is an event reported in the New Testament when Jesus is transfigured and becomes radiant in glory upon a mountain. Jesus and three of his apostles, Peter, James, John, go to a mountain (the Mount of Transfiguration) to pray. On the mountain, Jesus begins to shine with bright rays of light. Then the prophets Moses and Elijah appear next to him and he speaks with them. Jesus is then called \"Son\" by a voice in the sky, assumed to be God the Father, as in the Baptism of Jesus.</p>",
+			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Transfiguration_of_Jesus' target='_blank'>link</a>"
+        },
+        {
+            "decadeID": 10,
+            "mysteryIndex": 5,
+            "decadeNo": 5,
+            "decadeName": "Fifth Luminous Mystery: The Last Supper, when our Lord gave us the Eucharist",
+			"decadeInfo": "<p>The Last Supper is the final meal that, in the Gospel accounts, Jesus shared with his Apostles in Jerusalem before his crucifixion. The Last Supper is commemorated by Christians especially on Maundy Thursday. The Last Supper provides the scriptural basis for the Eucharist, also known as \"Holy Communion\" or \"The Lord's Supper\". </p>",
+			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Last_Supper' target='_blank'>link</a>"
+        },
+        {
+            "decadeID": 11,
+            "mysteryIndex": 1,
+            "decadeNo": 1,
+            "decadeName": "First Sorrowful Mystery: The Agony in the Garden",
+			"decadeInfo": "<p>Jesus did not allow his fears to turn him away from his passion and death. Instead, he made the decision with seven simple words: \"Not my will, but yours be done!\"</p>",
+			"infoRefference": "<a href='http://blog.franciscanmedia.org/sam/lessons-from-jesus-agony-in-the-garden' target='_blank'>link</a>"
+        },
+        {
+            "decadeID": 12,
+            "mysteryIndex": 2,
+            "decadeNo": 2,
+            "decadeName": "Second Sorrowful Mystery: The Scourging At The Pillar",
+			"decadeInfo": "<p>According to all four Gospels, immediately after the Last Supper, Jesus took a walk to pray. The gospels of Matthew and Mark identify this place of prayer as Gethsemane. Jesus was accompanied by three Apostles: Peter, John and James, whom he asked to stay awake and pray.</p>",
+			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Agony_in_the_Garden' target='_blank'>link</a>"
+        },
+        {
+            "decadeID": 13,
+            "mysteryIndex": 3,
+            "decadeNo": 3,
+            "decadeName": "Third Sorrowful Mystery: The Crowning with Thorns",
+			"decadeInfo": "<p>According to three of the canonical Gospels, a woven crown of thorns was placed on the head of Jesus during the events leading up to the crucifixion of Jesus. It was one of the instruments of the Passion, employed by Jesus' captors both to cause him pain and to mock his claim of authority.</p>",
+			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Crown_of_thorns' target='_blank'>link</a>"
+        },
+        {
+            "decadeID": 14,
+            "mysteryIndex": 4,
+            "decadeNo": 4,
+            "decadeName": "Fourth Sorrowful Mystery: The Carrying of the Cross",
+			"decadeInfo": "The Carrying of the Cross",
+			"infoRefference": "none"
+        },
+        {
+            "decadeID": 15,
+            "mysteryIndex": 5,
+            "decadeNo": 5,
+            "decadeName": "Fifth Sorrowful Mystery: The Crucifixion of Our Lord",
+			"decadeInfo": "<p>The crucifixion of Jesus occurred in 1st-century Judea, most likely between AD 30 and 33.</p>",
+			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Crucifixion_of_Jesus' target='_blank'>link</a>"
+        },
 
-		{
-			"decadeID": 11,
-			"mysteryIndex": 1,
-			"decadeNo": 1,
-			"decadeName": "First Sorrowful Mystery: The Agony in the Garden",
-			"decadeArt": ""
-		},
-		{
-			"decadeID": 12,
-			"mysteryIndex": 2,
-			"decadeNo": 2,
-			"decadeName": "Second Sorrowful Mystery: The Scourging At The Pillar",
-			"decadeArt": ""
-		},
-		{
-			"decadeID": 13,
-			"mysteryIndex": 3,
-			"decadeNo": 3,
-			"decadeName": "Third Sorrowful Mystery: The Crowning with Thorns",
-			"decadeArt": ""
-		},
-		{
-			"decadeID": 14,
-			"mysteryIndex": 4,
-			"decadeNo": 4,
-			"decadeName": "Fourth Sorrowful Mystery: The Carrying of the Cross",
-			"decadeArt": ""
-		},
-		{
-			"decadeID": 15,
-			"mysteryIndex": 5,
-			"decadeNo": 5,
-			"decadeName": "Fifth Sorrowful Mystery: The Crucifixion of Our Lord",
-			"decadeArt": ""
-		},
-
-		{
-			"decadeID": 16,
-			"mysteryIndex": 1,
-			"decadeNo": 1,
-			"decadeName": "First Glorious Mystery: The Resurrection",
-			"decadeArt": ""
-		},
-		{
-			"decadeID": 17,
-			"mysteryIndex": 2,
-			"decadeNo": 2,
-			"decadeName": "Second Glorious Mystery: The Ascension",
-			"decadeArt": ""
-		},
-		{
-			"decadeID": 18,
-			"mysteryIndex": 3,
-			"decadeNo": 3,
-			"decadeName": "Third Glorious Mystery: The Descent of the Holy Spirit",
-			"decadeArt": ""
-		},
-		{
-			"decadeID": 19,
-			"mysteryIndex": 4,
-			"decadeNo": 4,
-			"decadeName": "Fourth Glorious Mystery: The Assumption",
-			"decadeArt": ""
-		},
-		{
-			"decadeID": 20,
-			"mysteryIndex": 5,
-			"decadeNo": 5,
-			"decadeName": "Fifth Glorious Mystery: The Coronation",
-			"decadeArt": ""
-		}
-	],
+        {
+            "decadeID": 16,
+            "mysteryIndex": 1,
+            "decadeNo": 1,
+            "decadeName": "First Glorious Mystery: The Resurrection",
+			"decadeInfo": "<p>The resurrection of Jesus or resurrection of Christ is the Christian religious belief that, after being put to death, Jesus rose again from the dead: as the Nicene Creed expresses it, \"On the third day he rose again in accordance with the Scriptures\"</p>",
+			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Resurrection_of_Jesus' target='_blank'>link</a>"
+        },
+        {
+            "decadeID": 17,
+            "mysteryIndex": 2,
+            "decadeNo": 2,
+            "decadeName": "Second Glorious Mystery: The Ascension",
+			"decadeInfo": "<p>In the Christian tradition, reflected in the major Christian creeds and confessional statements, the ascension is connected with the exaltation of Jesus, meaning that through his ascension, Jesus took his seat at the right hand of God</p>",
+			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Ascension_of_Jesus' target='_blank'>link</a>"
+        },
+        {
+            "decadeID": 18,
+            "mysteryIndex": 3,
+            "decadeNo": 3,
+            "decadeName": "Third Glorious Mystery: The Descent of the Holy Spirit",
+			"decadeInfo": "<p>The Christian feast day of Pentecost is seven weeks after Easter Sunday: that is to say, the fiftieth day after Easter inclusive of Easter Sunday. It commemorates the descent of the Holy Spirit upon the Apostles and other followers of Jesus Christ while they were in Jerusalem celebrating the Feast of Weeks, as described in the Acts of the Apostles. Some Christians believe that this event represents the birth of the Church.</p>",
+			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Pentecost' target='_blank'>link</a>"
+        },
+        {
+            "decadeID": 19,
+            "mysteryIndex": 4,
+            "decadeNo": 4,
+            "decadeName": "Fourth Glorious Mystery: The Assumption",
+			"decadeInfo": "<p>The Catholic Church teaches as dogma that the Virgin Mary \"having completed the course of her earthly life, was assumed body and soul into heavenly glory\".[5] This doctrine was dogmatically defined by Pope Pius XII on 1 November 1950, in the apostolic constitution Munificentissimus Deus by exercising papal infallibility.</p>",
+			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Assumption_of_Mary' target='_blank'>link</a>"
+        },
+        {
+            "decadeID": 20,
+            "mysteryIndex": 5,
+            "decadeNo": 5,
+            "decadeName": "Fifth Glorious Mystery: The Coronation",
+			"decadeInfo": "<p>The belief in Mary as Queen of Heaven obtained the papal sanction of Pope Pius XII in his encyclical Ad Caeli Reginam (English: Queenship of Mary in Heaven) of October 11, 1954. It is also the fifth Glorious Mystery of the Rosary. The Roman Catholic Church celebrates the feast every August 22, where it replaced the former octave of the Assumption of Mary in 1969, a move made by Pope Paul VI.</p>",
+			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Coronation_of_the_Virgin' target='_blank'>link</a>"
+        }
+    ],
 	"mystery": [
 		{
 			"mysteryID": 0,
@@ -4320,263 +4340,82 @@
 		{
 			"prayerID": 1,
 			"prayerName": "Sign of the Cross",
-			"prayerText": "IN THE NAME of the Father, and of the Son, and of the Holy Spirit. Amen. <hr> (As you say this, with your right hand touch your forehead when you say Father, touch your breastbone when you say Son, touch your left shoulder when you say Holy, and touch your right shoulder when you say Spirit.)",
-            "prayerFooter": ""
+			"prayerText": "IN THE NAME of the Father, and of the Son, and of the Holy Spirit. Amen. <hr> (As you say this, with your right hand touch your forehead when you say Father, touch your breastbone when you say Son, touch your left shoulder when you say Holy, and touch your right shoulder when you say Spirit.)"
 		},
 		{
 			"prayerID": 2,
 			"prayerName": "Apostle's Creed",
-			"prayerText": "I BELIEVE IN GOD, the Father almighty, Creator of Heaven and earth. And in Jesus Christ, His only Son, our Lord, Who was conceived by the Holy Spirit, born of the Virgin Mary, suffered under Pontius Pilate; was crucified, died, and was buried. He descended into Hell. The third day He rose again from the dead. He ascended into Heaven, and sits at the right hand of God,the Father almighty. He shall come again to judge the living and the dead. I believe in the Holy Spirit, the holy Catholic Church, the communion of saints, the forgiveness of sins, the resurrection of the body, and life everlasting. Amen",
-            "prayerFooter": ""
+			"prayerText": "I BELIEVE IN GOD, the Father almighty, Creator of Heaven and earth. And in Jesus Christ, His only Son, our Lord, Who was conceived by the Holy Spirit, born of the Virgin Mary, suffered under Pontius Pilate; was crucified, died, and was buried. He descended into Hell. The third day He rose again from the dead. He ascended into Heaven, and sits at the right hand of God,the Father almighty. He shall come again to judge the living and the dead. I believe in the Holy Spirit, the holy Catholic Church, the communion of saints, the forgiveness of sins, the resurrection of the body, and life everlasting. Amen"
 		},
 		{
 			"prayerID": 3,
 			"prayerName": "Our Father",
-			"prayerText": "OUR FATHER, Who art in Heaven, hallowed be Thy Name. Thy kingdom come, Thy will be done on earth as it is in Heaven. Give us this day our daily bread, and forgive us our trespasses, as we forgive those who trespass against us. And lead us not into temptation, but deliver us from evil. Amen.",
-            "prayerFooter": ""
+			"prayerText": "OUR FATHER, Who art in Heaven, hallowed be Thy Name. Thy kingdom come, Thy will be done on earth as it is in Heaven. Give us this day our daily bread, and forgive us our trespasses, as we forgive those who trespass against us. And lead us not into temptation, but deliver us from evil. Amen."
 		},
 		{
 			"prayerID": 4,
 			"prayerName": "Hail Mary",
-			"prayerText": "HAIL MARY, full of grace, the Lord is with thee. Blessed art thou among women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.",
-            "prayerFooter": ""
+			"prayerText": "HAIL MARY, full of grace, the Lord is with thee. Blessed art thou among women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen."
 		},
 		{
 			"prayerID": 5,
 			"prayerName": "Glory Be",
-			"prayerText": "GLORY BE to the Father, and to the Son, and to the Holy Spirit. As it was in the beginning is now, and ever shall be, world without end. Amen.",
-            "prayerFooter": ""
+			"prayerText": "GLORY BE to the Father, and to the Son, and to the Holy Spirit. As it was in the beginning is now, and ever shall be, world without end. Amen."
 		},
 		{
 			"prayerID": 6,
 			"prayerName": "Fatima Prayer",
-			"prayerText": "O MY JESUS, forgive us our sins, save us from the fires of Hell; lead all souls to Heaven, especially those in most need of Thy mercy. Amen.",
-            "prayerFooter": ""
+			"prayerText": "O MY JESUS, forgive us our sins, save us from the fires of Hell; lead all souls to Heaven, especially those in most need of Thy mercy. Amen."
 		},
 		{
 			"prayerID": 7,
 			"prayerName": "Hail Holy Queen",
-			"prayerText": "HAIL HOLY QUEEN, mother of mercy; our life, our sweetness, and our hope. To thee do we cry, poor banished children of Eve. To thee do we send up our sighs, mourning and weeping in this vale of tears. Turn, then, most gracious advocate, thine eyes of mercy toward us. And after this, our exile, show unto us the blessed fruit of thy womb, Jesus. O clement, O loving, O sweet Virgin Mary. Pray for us, O holy Mother of God, that we may be made worthy of the promises of Christ. Amen.",
-            "prayerFooter": ""
+			"prayerText": "HAIL HOLY QUEEN, mother of mercy; our life, our sweetness, and our hope. To thee do we cry, poor banished children of Eve. To thee do we send up our sighs, mourning and weeping in this vale of tears. Turn, then, most gracious advocate, thine eyes of mercy toward us. And after this, our exile, show unto us the blessed fruit of thy womb, Jesus. O clement, O loving, O sweet Virgin Mary. Pray for us, O holy Mother of God, that we may be made worthy of the promises of Christ. Amen."
 		},
 		{
 			"prayerID": 8,
 			"prayerName": "O God",
-			"prayerText": "O GOD, WHOSE only-begotten Son by His life, death and resurrection, has purchased for us the rewards of eternal life; grant, we beseech Thee, that by meditating upon these mysteries of the Most Holy Rosary of the Blessed Virgin Mary, we may imitate what they contain and obtain what they promise, through the same Christ our Lord. Amen. Pour forth we beseech Thee, O Lord, Thy grace into our hearts, that we to whom the incarnation of Christ, Thy Son, was made known by the message of an angel, may by His passion and cross be brought to the glory of His resurrection, through the same Christ Our Lord. Amen.",
-            "prayerFooter": ""
+			"prayerText": "O GOD, WHOSE only-begotten Son by His life, death and resurrection, has purchased for us the rewards of eternal life; grant, we beseech Thee, that by meditating upon these mysteries of the Most Holy Rosary of the Blessed Virgin Mary, we may imitate what they contain and obtain what they promise, through the same Christ our Lord. Amen. Pour forth we beseech Thee, O Lord, Thy grace into our hearts, that we to whom the incarnation of Christ, Thy Son, was made known by the message of an angel, may by His passion and cross be brought to the glory of His resurrection, through the same Christ Our Lord. Amen."
 		},
         {
             "prayerID": 9,
             "prayerName": "Litany of Loreto",
-            "prayerText": "<p>Lord have mercy on us.<br> <b>R.</b> Christ have mercy on us.<br> Lord have mercy.<br> Christ hear us.<br> <b>R.</b> Christ graciously hear us.</p><p>God, the Father of heaven,<br> <b>R. have mercy on us.</b> &#8634;</br> &#8627; God the Son, Redeemer of the world,<br> &#8627; God the Holy Spirit,<br> &#8627; Holy Trinity, one God,</p><p>Holy Mary,<br> <b>R. pray for us.</b> &#8634;<br> &#8627; Holy Mother of God,<br> &#8627; Holy Virgin of virgins,<br> &#8627; Mother of Christ,<br> &#8627; Mother of the Church,<br> &#8627; Mother of divine grace,<br> &#8627; Mother most pure,<br> &#8627; Mother most chaste,<br> &#8627; Mother inviolate,<br> &#8627; Mother undefiled,<br> &#8627; Mother most amiable,<br> &#8627; Mother admirable,<br> &#8627; Mother of good counsel,<br> &#8627; Mother of our Creator,<br> &#8627; Mother of our Saviour,<br> &#8627; Mother of mercy,<br> &#8627; Virgin most prudent,<br> &#8627; Virgin most venerable,<br> &#8627; Virgin most renowned,<br> &#8627; Virgin most powerful,<br> &#8627; Virgin most merciful,<br> &#8627; Virgin most faithful,<br> &#8627; Mirror of justice,<br> &#8627; Seat of wisdom,<br> &#8627; Cause of our joy,<br> &#8627; Spiritual vessel,<br> &#8627; Vessel of honour,<br> &#8627; Singular vessel of devotion,<br> &#8627; Mystical rose,<br> &#8627; Tower of David,<br> &#8627; Tower if ivory,<br> &#8627; House of gold,<br> &#8627; Ark of the covenant,<br> &#8627; Gate of heaven,<br> &#8627; Morning star,<br> &#8627; Health of the sick,<br> &#8627; Refuge of sinners,<br> &#8627; Comfort of the afflicted,<br> &#8627; Help of Christians,<br> &#8627; Queen of Angels,<br> &#8627; Queen of Patriarchs,<br> &#8627; Queen of Prophets,<br> &#8627; Queen of Apostles,<br> &#8627; Queen of Martyrs,<br> &#8627; Queen of Confessors,<br> &#8627; Queen of Virgins,<br> &#8627; Queen of all Saints,<br> &#8627; Queen conceived without original sin,<br> &#8627; Queen assumed into heaven,<br> &#8627; Queen of the most holy Rosary,<br> &#8627; Queen of families,<br> &#8627; Queen of peace.</p><p>Lamb of God, who takest away the sins of the world,<br> <b>R. spare us, O Lord.</b></p><p>Lamb of God, who takest away the sins of the world,<br> <b>R. graciously hear us, O Lord.</b></p><p>Lamb of God, who takest away the sins of the world,<br> <b>R. have mercy on us.</b></p><p>Pray for us, O holy Mother of God.<br> <b>R. That we may be made worthy of the promises of Christ.</b></p><p>Let us pray.<br> Grant, we beseech thee,<br> O Lord God,<br> that we, your servants,<br> may enjoy perpetual health of mind and body;<br> and by the intercession of the Blessed Mary, ever Virgin,<br> may be delivered from present sorrow,<br> and obtain eternal joy.<br> Through Christ our Lord.<br> Amen.</p>",
-            "prayerFooter": ""
+            "prayerText": "<p>Lord have mercy on us.<br> <b>R.</b> Christ have mercy on us.<br> Lord have mercy.<br> Christ hear us.<br> <b>R.</b> Christ graciously hear us.</p><p>God, the Father of heaven,<br> <b>R. have mercy on us.</b> &#8634;</br> &#8627; God the Son, Redeemer of the world,<br> &#8627; God the Holy Spirit,<br> &#8627; Holy Trinity, one God,</p><p>Holy Mary,<br> <b>R. pray for us.</b> &#8634;<br> &#8627; Holy Mother of God,<br> &#8627; Holy Virgin of virgins,<br> &#8627; Mother of Christ,<br> &#8627; Mother of the Church,<br> &#8627; Mother of divine grace,<br> &#8627; Mother most pure,<br> &#8627; Mother most chaste,<br> &#8627; Mother inviolate,<br> &#8627; Mother undefiled,<br> &#8627; Mother most amiable,<br> &#8627; Mother admirable,<br> &#8627; Mother of good counsel,<br> &#8627; Mother of our Creator,<br> &#8627; Mother of our Saviour,<br> &#8627; Mother of mercy,<br> &#8627; Virgin most prudent,<br> &#8627; Virgin most venerable,<br> &#8627; Virgin most renowned,<br> &#8627; Virgin most powerful,<br> &#8627; Virgin most merciful,<br> &#8627; Virgin most faithful,<br> &#8627; Mirror of justice,<br> &#8627; Seat of wisdom,<br> &#8627; Cause of our joy,<br> &#8627; Spiritual vessel,<br> &#8627; Vessel of honour,<br> &#8627; Singular vessel of devotion,<br> &#8627; Mystical rose,<br> &#8627; Tower of David,<br> &#8627; Tower if ivory,<br> &#8627; House of gold,<br> &#8627; Ark of the covenant,<br> &#8627; Gate of heaven,<br> &#8627; Morning star,<br> &#8627; Health of the sick,<br> &#8627; Refuge of sinners,<br> &#8627; Comfort of the afflicted,<br> &#8627; Help of Christians,<br> &#8627; Queen of Angels,<br> &#8627; Queen of Patriarchs,<br> &#8627; Queen of Prophets,<br> &#8627; Queen of Apostles,<br> &#8627; Queen of Martyrs,<br> &#8627; Queen of Confessors,<br> &#8627; Queen of Virgins,<br> &#8627; Queen of all Saints,<br> &#8627; Queen conceived without original sin,<br> &#8627; Queen assumed into heaven,<br> &#8627; Queen of the most holy Rosary,<br> &#8627; Queen of families,<br> &#8627; Queen of peace.</p><p>Lamb of God, who takest away the sins of the world,<br> <b>R. spare us, O Lord.</b></p><p>Lamb of God, who takest away the sins of the world,<br> <b>R. graciously hear us, O Lord.</b></p><p>Lamb of God, who takest away the sins of the world,<br> <b>R. have mercy on us.</b></p><p>Pray for us, O holy Mother of God.<br> <b>R. That we may be made worthy of the promises of Christ.</b></p><p>Let us pray.<br> Grant, we beseech thee,<br> O Lord God,<br> that we, your servants,<br> may enjoy perpetual health of mind and body;<br> and by the intercession of the Blessed Mary, ever Virgin,<br> may be delivered from present sorrow,<br> and obtain eternal joy.<br> Through Christ our Lord.<br> Amen.</p>"
         },
         {
             "prayerID": 10,
             "prayerName": "Nicene Creed",
-            "prayerText": "<p> I believe in one God<br> the Father almighty,<br> maker of heaven and earth<br> of all things visible and invisible.</p><p> I believe in one Lord Jesus Christ,<br> the Only-begotten Son of God,<br> born of the Father before all ages.<br> God from God, Light from Light,<br> true God from true God,<br> begotten, not made, consubstantial with the Father;<br> through Him all things were made.<br> For us men and for our salvation<br> He came down from heaven,.</p><p> and by the Holy Ghost was incarnate<br> of the Virgin Mary, and became man..</p><p> For our sake He was crucified under Pontius Pilate,<br> He suffered death and was buried,<br> and rose again on the third day<br> in accordance with the Scriptures.<br> He ascended into heaven<br> and is seated at the right hand of the Father.<br> He will come again in glory<br> to judge the living and the dead.<br> His kingdom will have no end..</p><p> I believe in the Holy Ghost, the Lord, the giver of life<br> who proceeds from the Father and the Son,<br> who with the Father and the Son is adored and glorified,<br> who has spoken through the prophets;.</p><p> I believe in one, holy, catholic, and apostolic Church.<br> I confess one baptism for the forgiveness of sins.<br> I look forward to the resurrection of the dead<br> and the life of the world to come..</p> Amen.",
-            "prayerFooter": ""
+            "prayerText": "<p> I believe in one God<br> the Father almighty,<br> maker of heaven and earth<br> of all things visible and invisible.</p><p> I believe in one Lord Jesus Christ,<br> the Only-begotten Son of God,<br> born of the Father before all ages.<br> God from God, Light from Light,<br> true God from true God,<br> begotten, not made, consubstantial with the Father;<br> through Him all things were made.<br> For us men and for our salvation<br> He came down from heaven,.</p><p> and by the Holy Ghost was incarnate<br> of the Virgin Mary, and became man..</p><p> For our sake He was crucified under Pontius Pilate,<br> He suffered death and was buried,<br> and rose again on the third day<br> in accordance with the Scriptures.<br> He ascended into heaven<br> and is seated at the right hand of the Father.<br> He will come again in glory<br> to judge the living and the dead.<br> His kingdom will have no end..</p><p> I believe in the Holy Ghost, the Lord, the giver of life<br> who proceeds from the Father and the Son,<br> who with the Father and the Son is adored and glorified,<br> who has spoken through the prophets;.</p><p> I believe in one, holy, catholic, and apostolic Church.<br> I confess one baptism for the forgiveness of sins.<br> I look forward to the resurrection of the dead<br> and the life of the world to come..</p> Amen."
         },
         {
             "prayerID": 11,
             "prayerName": "Magnificat",
-            "prayerText": "My soul magnifies the Lord,<br> And my spirit rejoices<br> in God my Savior.<br> For He has regarded the low estate<br> of His handmaiden,<br> For behold, henceforth all generations<br> shall call me blessed.<br> For He who is mighty<br> has done great things for me,<br> and holy is His name.<br> And His mercy is on those who fear Him<br> from generation to generation.<br> He has shown strength with His arm.<br> He has scattered the proud<br> in the imagination of their hearts.<br> He has put down the mighty from their thrones,<br> and exalted those of low degree.<br> He has filled the hungry with good things,<br> and the rich He has sent empty away.<br> He has helped His servant Israel,<br> in remembrance of His mercy,<br> as He spoke to our fathers,<br> to Abraham and to his posterity forever.<br> Glory be to the Father and to the Son <br> and to the Holy Ghost.<br> As it was in the beginning,<br> is now and ever shall be,<br> world without end.<br> Amen.",
-            "prayerFooter": ""
+            "prayerText": "My soul magnifies the Lord,<br> And my spirit rejoices<br> in God my Savior.<br> For He has regarded the low estate<br> of His handmaiden,<br> For behold, henceforth all generations<br> shall call me blessed.<br> For He who is mighty<br> has done great things for me,<br> and holy is His name.<br> And His mercy is on those who fear Him<br> from generation to generation.<br> He has shown strength with His arm.<br> He has scattered the proud<br> in the imagination of their hearts.<br> He has put down the mighty from their thrones,<br> and exalted those of low degree.<br> He has filled the hungry with good things,<br> and the rich He has sent empty away.<br> He has helped His servant Israel,<br> in remembrance of His mercy,<br> as He spoke to our fathers,<br> to Abraham and to his posterity forever.<br> Glory be to the Father and to the Son <br> and to the Holy Ghost.<br> As it was in the beginning,<br> is now and ever shall be,<br> world without end.<br> Amen."
         },
         {
             "prayerID": 12,
             "prayerName": "Act of Contrition",
-            "prayerText": "O my God, I am heartily sorry for having offended Thee,<br>and I detest my sins above every other evil<br>because they are displeasing to Thee, my God.<br>Who for thy infinite goodness are so deserving of all my love<br>and I firmly resolve by Thy holy grace<br>never more to offend Thee and to amend my life. Amen.",
-            "prayerFooter": ""
+            "prayerText": "O my God, I am heartily sorry for having offended Thee,<br>and I detest my sins above every other evil<br>because they are displeasing to Thee, my God.<br>Who for thy infinite goodness are so deserving of all my love<br>and I firmly resolve by Thy holy grace<br>never more to offend Thee and to amend my life. Amen."
         },
         {
             "prayerID": 13,
             "prayerName": "Act of Faith",
-            "prayerText": "O Lord God,<br> I firmly believe all the truths<br> which the Holy Catholic Church teaches<br> because thou hast revealed them<br> who art eternal truth and wisdom,<br> who can neither deceive nor be deceived.<br> In this faith I intend to live and die.<br> Amen.",
-            "prayerFooter": ""
+            "prayerText": "O Lord God,<br> I firmly believe all the truths<br> which the Holy Catholic Church teaches<br> because thou hast revealed them<br> who art eternal truth and wisdom,<br> who can neither deceive nor be deceived.<br> In this faith I intend to live and die.<br> Amen."
         },
         {
             "prayerID": 14,
             "prayerName": "Act of Hope",
-            "prayerText": "O Lord God,<br> I hope by thy grace<br> for the pardon of all my sins,<br> and after life here<br> to gain eternal happiness,<br> because thou hast promised it<br> who art infinitely powerful,<br> faithful, kind, and merciful.<br> In this hope I intend to live and die.<br> Amen.",
-            "prayerFooter": ""
+            "prayerText": "O Lord God,<br> I hope by thy grace<br> for the pardon of all my sins,<br> and after life here<br> to gain eternal happiness,<br> because thou hast promised it<br> who art infinitely powerful,<br> faithful, kind, and merciful.<br> In this hope I intend to live and die.<br> Amen."
         },
         {
             "prayerID": 15,
             "prayerName": "Act of Love",
-            "prayerText": "O Lord God,<br> I love thee above all things<br> and I love my neighbor for thy sake,<br> because thou art the highest,<br> infinite and perfect good,<br> worthy of all my love.<br> In this love I intend to live and die.<br> Amen.",
-            "prayerFooter": ""
+            "prayerText": "O Lord God,<br> I love thee above all things<br> and I love my neighbor for thy sake,<br> because thou art the highest,<br> infinite and perfect good,<br> worthy of all my love.<br> In this love I intend to live and die.<br> Amen."
         },
         {
             "prayerID": 16,
             "prayerName": "To Saint Michael",
-            "prayerText": "Saint Michael the Archangel,<br> defend us in battle,<br> be our protection<br> against the wickedness and snares of the devil.<br> May God rebuke him,<br> we humbly pray,<br> and do thou, O Prince of the heavenly host,<br> by the power of God, thrust into hell<br> Satan and all the evil spirits<br> who prowl about the world<br> seeking the ruin of souls.<br> Amen.",
-            "prayerFooter": ""
+            "prayerText": "Saint Michael the Archangel,<br> defend us in battle,<br> be our protection<br> against the wickedness and snares of the devil.<br> May God rebuke him,<br> we humbly pray,<br> and do thou, O Prince of the heavenly host,<br> by the power of God, thrust into hell<br> Satan and all the evil spirits<br> who prowl about the world<br> seeking the ruin of souls.<br> Amen."
         }
-	],
-	"mysteryInfo": [
-		{
-			"infoID": 0,
-			"infoHeader": "",
-			"infoSubHeader": "",
-			"infoFooter": "",
-			"infoText": "",
-			"infoRefference": ""
-		},
-		{
-			"infoID": 1,
-			"infoHeader": "First Joyful Mystery",
-			"infoSubHeader": "The Annunciation",
-			"infoFooter": "",
-			"infoText": "<p>The Annunciation (from Latin annuntiatio), also referred to as the Annunciation to the Blessed Virgin Mary, the Annunciation of Our Lady, or the Annunciation of the Lord, is the Christian celebration of the announcement by the angel Gabriel to the Virgin Mary that she would conceive and become the mother of Jesus, the Son of God, marking his Incarnation. Gabriel told Mary to name her son Yehoshua , meaning \"YHWH is salvation\".</p> <p>According to Luke 1:26, the Annunciation occurred in \"the sixth month\" of Elizabeth's pregnancy with John the Baptist. Many Christians observe this event with the Feast of the Annunciation on 25 March, an approximation of the northern vernal equinox nine full months before Christmas, the ceremonial birthday of Jesus. In England, this came to be known as Lady Day. It marked the new year until 1752. The 2nd-century writer Irenaeus of Lyon regarded the conception of Jesus as 25 March coinciding with the Passion.</p> <p>The Annunciation has been a key topic in Christian art in general, as well as in Marian art in the Catholic Church, particularly during the Middle Ages and Renaissance. A work of art depicting the Annunciation is sometimes itself called an Annunciation.</p>",
-			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Annunciation' target='_blank'>link</a>"
-		},
-		{
-			"infoID": 2,
-			"infoHeader": "Second Joyful Mystery",
-			"infoSubHeader": "The Visitation",
-			"infoFooter": "",
-			"infoText": "<p>In the Gospel of Luke, the author's accounts of the Annunciation and Visitation are constructed using eight points of literary parallelism to compare Mary to the Ark of the Covenant.</p><p>In Catholicism, it is held that the purpose of this visit was to bring divine grace to both Elizabeth and her unborn child. Even though he was still in his mother's womb, John became aware of the presence of Christ, and leapt for joy as he was cleansed from original sin and filled with divine grace. Elizabeth also responded and recognized the presence of Jesus, and thus Mary exercised her function as mediatrix between God and man for the first time.</p>",
-			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Visitation_(Christianity)' target='_blank'>link</a>"
-		},
-		{
-			"infoID": 3,
-			"infoHeader": "Third Joyful Mystery",
-			"infoSubHeader": "Nativity of Jesus",
-			"infoFooter": "",
-			"infoText": "<p>In Christian theology the nativity marks the incarnation of Jesus as the second Adam, in fulfillment of the divine will of God, undoing the damage caused by the fall of the first man, Adam. The artistic depiction of the nativity has been an important subject for Christian artists since the 4th century. Since the 13th century, the nativity scene has emphasized the humility of Jesus and promoted a more tender image of him, as a major turning point from the early \"Lord and Master\" image, which has had an effect on the basic approaches of Christian pastoral ministry.</p><p>The nativity plays a major role in the Christian liturgical year. Christian congregations of the Western tradition (including the Catholic Church, the Western Rite Orthodox, the Anglican Communion, and many Protestants) begin observing the season of Advent four Sundays before Christmas, the traditional feast-day of his birth, which falls on December 25.</p>",
-			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Nativity_of_Jesus' target='_blank'>link</a>"
-		},
-		{
-			"infoID": 4,
-			"infoHeader": "Fourth Joyful Mystery",
-			"infoSubHeader": "Presentation of Jesus at the Temple",
-			"infoFooter": "",
-			"infoText": "<p>The Presentation of Jesus at the Temple is an early episode in the life of Jesus that is celebrated by the Church on the holiday of Candlemas. It is described in the Gospel of Luke of the New Testament in the Christian Bible.[1] Within the account, \"Luke's narration of the Presentation in the Temple combines the purification rite with the Jewish ceremony of the redemption of the firstborn (Luke 2:23-24).\"</p>",
-			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Presentation_of_Jesus_at_the_Temple' target='_blank'>link</a>"
-		},
-		{
-			"infoID": 5,
-			"infoHeader": "Fifth Joyful Mystery",
-			"infoSubHeader": "Finding in the Temple",
-			"infoFooter": "",
-			"infoText": "<p>The episode is described in Luke 2:41-52. Jesus at the age of twelve accompanies Mary, Joseph and a large group of their relatives and friends to Jerusalem on pilgrimage, following \"the custom of the feast\" (NKJV) - that is, Passover. On the day of their return, Jesus \"lingered\" in the Temple, but Mary and Joseph thought that he was among their group. Mary and Joseph headed back home and after a day of travel realized Jesus was missing, so they returned to Jerusalem, finding Jesus three days later.</p><p>The story was slightly elaborated in later literature, such as the apocryphal 2nd-century Infancy Gospel of Thomas (19:1-12). The losing of Jesus is the third of the Seven Sorrows of Mary, and the Finding in the Temple is the fifth Joyful Mystery of the Rosary.</p>",
-			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Finding_in_the_Temple' target='_blank'>link</a>"
-		},
-		{
-			"infoID": 6,
-			"infoHeader": "First Luminous Mystery",
-			"infoSubHeader": "The Baptism in the Jordan",
-			"infoFooter": "-",
-			"infoText": "<p>The Jordan River flows through the Jordan Rift Valley into the Sea of the Galilee and then continues down into the Dead Sea with no outlet. It is a place of many important biblical events. However, for most Christians the first association with the river would be the scene of Jesus Christ being baptized by John the Baptist.</p><p>According to the Christian faith, the Jordan River is considered the third most holy site in the Holy Land, just after Nativity Grotto in Bethlehem and Golgotha in Jerusalem, because it is the site of the most important event of Jesus’ life – His baptism and beginning of his ministry.</p>",
-			"infoRefference": "<a href='https://travelujah.com/stories/celebrating-baptism-the-jordan-river-in-the-time-of-jesus' target='_blank'>link</a>"
-		},
-		{
-			"infoID": 7,
-			"infoHeader": "Second Luminous Mystery",
-			"infoSubHeader": "The wedding at Cana",
-			"infoFooter": "-",
-			"infoText": "<p>The transformation of water into wine at the Marriage at Cana or Wedding at Cana is the first miracle attributed to Jesus in the Gospel of John. In the Gospel account, Jesus, his mother and his disciples are invited to a wedding, and when the wine runs out, Jesus delivers a sign of his glory by turning water into wine.</p>",
-			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Marriage_at_Cana' target='_blank'>link</a>"
-		},
-		{
-			"infoID": 8,
-			"infoHeader": "Third Luminous Mystery",
-			"infoSubHeader": "The Proclamation of the Kingdom",
-			"infoFooter": "-",
-			"infoText": "<p>The \"Kingdom of God\" and its equivalent form \"Kingdom of Heaven\" in the Gospel of Matthew is one of the key elements of the teachings of Jesus in the New Testament. The Gospel of Mark indicates that the gospel is the good news about the Kingdom of God. The term pertains to the kingdom that Jesus will establish on the earth when he returns. Kingdom of \"heaven\" appears in Matthew's gospel due primarily to Jewish sensibilities about uttering the \"name\" (God).</p>",
-			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Kingship_and_kingdom_of_God' target='_blank'>link</a>"
-		},
-		{
-			"infoID": 9,
-			"infoHeader": "Fourth Luminous Mystery",
-			"infoSubHeader": "The Transfiguration",
-			"infoFooter": "-",
-			"infoText": "<p>The transfiguration of Jesus is an event reported in the New Testament when Jesus is transfigured and becomes radiant in glory upon a mountain. Jesus and three of his apostles, Peter, James, John, go to a mountain (the Mount of Transfiguration) to pray. On the mountain, Jesus begins to shine with bright rays of light. Then the prophets Moses and Elijah appear next to him and he speaks with them. Jesus is then called \"Son\" by a voice in the sky, assumed to be God the Father, as in the Baptism of Jesus.</p>",
-			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Transfiguration_of_Jesus' target='_blank'>link</a>"
-		},
-		{
-			"infoID": 10,
-			"infoHeader": "Fifth Luminous Mystery",
-			"infoSubHeader": "The Last Supper",
-			"infoFooter": "-",
-			"infoText": "<p>The Last Supper is the final meal that, in the Gospel accounts, Jesus shared with his Apostles in Jerusalem before his crucifixion. The Last Supper is commemorated by Christians especially on Maundy Thursday. The Last Supper provides the scriptural basis for the Eucharist, also known as \"Holy Communion\" or \"The Lord's Supper\". </p>",
-			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Last_Supper' target='_blank'>link</a>"
-		},
-		{
-			"infoID": 11,
-			"infoHeader": "First Sorrowful Mystery",
-			"infoSubHeader": "The Agony in the Garden",
-			"infoFooter": "-",
-			"infoText": "<p>Jesus did not allow his fears to turn him away from his passion and death. Instead, he made the decision with seven simple words: \"Not my will, but yours be done!\"</p>",
-			"infoRefference": "<a href='http://blog.franciscanmedia.org/sam/lessons-from-jesus-agony-in-the-garden' target='_blank'>link</a>"
-		},
-		{
-			"infoID": 12,
-			"infoHeader": "Second Sorrowful Mystery",
-			"infoSubHeader": "The Scourging At The Pillar",
-			"infoFooter": "-",
-			"infoText": "<p>According to all four Gospels, immediately after the Last Supper, Jesus took a walk to pray. The gospels of Matthew and Mark identify this place of prayer as Gethsemane. Jesus was accompanied by three Apostles: Peter, John and James, whom he asked to stay awake and pray.</p>",
-			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Agony_in_the_Garden' target='_blank'>link</a>"
-		},
-		{
-			"infoID": 13,
-			"infoHeader": "Third Sorrowful Mystery",
-			"infoSubHeader": "The Crowning with Thorns",
-			"infoFooter": "-",
-			"infoText": "<p>According to three of the canonical Gospels, a woven crown of thorns was placed on the head of Jesus during the events leading up to the crucifixion of Jesus. It was one of the instruments of the Passion, employed by Jesus' captors both to cause him pain and to mock his claim of authority.</p>",
-			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Crown_of_thorns' target='_blank'>link</a>"
-		},
-		{
-			"infoID": 14,
-			"infoHeader": "Fourth Sorrowful Mystery",
-			"infoSubHeader": "The Carrying of the Cross",
-			"infoFooter": "-",
-			"infoText": "The Carrying of the Cross",
-			"infoRefference": "none"
-		}, {
-			"infoID": 15,
-			"infoHeader": "Fifth Sorrowful Mystery",
-			"infoSubHeader": "The Crucifixion of Our Lord",
-			"infoFooter": "-",
-			"infoText": "<p>The crucifixion of Jesus occurred in 1st-century Judea, most likely between AD 30 and 33.</p>",
-			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Crucifixion_of_Jesus' target='_blank'>link</a>"
-		}, {
-			"infoID": 16,
-			"infoHeader": "First Glorious Mystery",
-			"infoSubHeader": "The Resurrection",
-			"infoFooter": "-",
-			"infoText": "<p>The resurrection of Jesus or resurrection of Christ is the Christian religious belief that, after being put to death, Jesus rose again from the dead: as the Nicene Creed expresses it, \"On the third day he rose again in accordance with the Scriptures\"</p>",
-			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Resurrection_of_Jesus' target='_blank'>link</a>"
-		}, {
-			"infoID": 17,
-			"infoHeader": "Second Glorious Mystery",
-			"infoSubHeader": "The Ascension",
-			"infoFooter": "-",
-			"infoText": "<p>In the Christian tradition, reflected in the major Christian creeds and confessional statements, the ascension is connected with the exaltation of Jesus, meaning that through his ascension, Jesus took his seat at the right hand of God</p>",
-			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Ascension_of_Jesus' target='_blank'>link</a>"
-		}, {
-			"infoID": 18,
-			"infoHeader": "Third Glorious Mystery",
-			"infoSubHeader": "The Descent of the Holy Spirit",
-			"infoFooter": "-",
-			"infoText": "<p>The Christian feast day of Pentecost is seven weeks after Easter Sunday: that is to say, the fiftieth day after Easter inclusive of Easter Sunday. It commemorates the descent of the Holy Spirit upon the Apostles and other followers of Jesus Christ while they were in Jerusalem celebrating the Feast of Weeks, as described in the Acts of the Apostles. Some Christians believe that this event represents the birth of the Church.</p>",
-			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Pentecost' target='_blank'>link</a>"
-		}, {
-			"infoID": 19,
-			"infoHeader": "Fourth Glorious Mystery",
-			"infoSubHeader": "The Assumption",
-			"infoFooter": "-",
-			"infoText": "<p>The Catholic Church teaches as dogma that the Virgin Mary \"having completed the course of her earthly life, was assumed body and soul into heavenly glory\".[5] This doctrine was dogmatically defined by Pope Pius XII on 1 November 1950, in the apostolic constitution Munificentissimus Deus by exercising papal infallibility.</p>",
-			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Assumption_of_Mary' target='_blank'>link</a>"
-		}, {
-			"infoID": 20,
-			"infoHeader": "Fifth Glorious Mystery",
-			"infoSubHeader": "The Coronation",
-			"infoFooter": "-",
-			"infoText": "<p>The belief in Mary as Queen of Heaven obtained the papal sanction of Pope Pius XII in his encyclical Ad Caeli Reginam (English: Queenship of Mary in Heaven) of October 11, 1954. It is also the fifth Glorious Mystery of the Rosary. The Roman Catholic Church celebrates the feast every August 22, where it replaced the former octave of the Assumption of Mary in 1969, a move made by Pope Paul VI.</p>",
-			"infoRefference": "<a href='https://en.wikipedia.org/wiki/Coronation_of_the_Virgin' target='_blank'>link</a>"
-		}
-
 	]
 }

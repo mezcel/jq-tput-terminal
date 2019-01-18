@@ -814,8 +814,7 @@ function dispPieChart {
 	echo ""
 
 	currentDirPath=$(dirname $0)
-	## cat ascii-pie-chart.txt
-	cat "$currentDirPath/graphics/tiny-pie.txt"
+	cat "$currentDirPath/source/main-script/tiny-pie.txt"
 
 	height=$(tput lines)
 	if [ $height -ge 34 ]; then

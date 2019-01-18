@@ -1,3 +1,4 @@
+#!/bin/bash
 ###################################################
 ## Elinks Mass Readings
 ###################################################
@@ -12,8 +13,8 @@ function elinksUsccbMassReadings {
 	thisDay=$(date +%d)
 
 	currentDirPath=$(dirname $0)
-	destinationPath=$currentDirPath/DailyMass/
-	if [ -f $destinationPath ]; then
+	destinationPath=$currentDirPath/source/html/
+	if ! [ -f $destinationPath ]; then
 		mkdir $destinationPath
 	fi
 
@@ -23,10 +24,16 @@ function elinksUsccbMassReadings {
 	# wget $usccbHostUrl -P $destinationPath -O $htmlFileName
 	usccbHostUrl="http://www.usccb.org/bible/readings/"$thisMonth$thisDay$thisYear".cfm"
 
+	if ! [ -f $destinationPath/visitUsccbLog.txt ]; then
+		echo "Website Visit Log:" > $destinationPath/visitUsccbLog.txt
+		echo "------------------------------------------------------------------------------" >> $destinationPath/visitUsccbLog.txt
+	fi
+	echo "$(date)	$usccbHostUrl" >> $destinationPath/visitUsccbLog.txt
+
 	## Put website text into a var
 	websiteHtmlText=$(curl $usccbHostUrl)
+
 	## Crop the desited text section
-	#
 	cropText=$(echo $websiteHtmlText | grep -oP '\<div class\=\"contentarea\"\>\s*\K.*(?=\s+\<style type\=\"text\/css\"\>)')
 
 	## convert local path to remote path
@@ -76,17 +83,17 @@ function elinksUsccbMassReadings {
 	elinks $htmlFilePath
 }
 
-function pingUsccb {
+function elinksUsccb {
 	## check if sever is up
 	myPingAddr=usccb.org
-	ping -c1 $myPingAddr &>/dev/null 
+	ping -c1 $myPingAddr &>/dev/null
 	pingFlag=$?
-	sleep 1s
-	
+	sleep .5s
+
 	if [ $pingFlag -eq 0 ]; then
 		elinksUsccbMassReadings
 	else
 		currentDirPath=$(dirname $0)
-		elinks "$currentDirPath/DailyMass/404.html"
+		elinks "$currentDirPath/source/html/404.html"
 	fi
 }

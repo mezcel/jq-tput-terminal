@@ -4,23 +4,39 @@ function loadSourceScripts {
 	currentDirPath=$(dirname $0)
 
 	## rm previous tmp script
-	if [ -f $currentDirPath/myWhileloopVar ] ; then
-		rm $currentDirPath/myWhileloopVar
+	if [ -f $currentDirPath/source/main-script/tmp/varFile ] ; then
+		rm $currentDirPath/source/main-script/tmp/varFile
 	fi
 
 	## Populate Bash session with source script
-	for i in $currentDirPath/source/*.txt; do
-		source "$i" -H   || break
+	for i in $currentDirPath/source/main-script/*.text; do
+		source "$i" -H ## || break
 	done
 
 }
 
 function useTheLoadedSource {
+	sleep 1s
 	mainInit
 	myMian
 }
 
+function installSoftwareMultimedia {
+	clear
+	echo "Checking the internet for updates and establishing this computer's compatability for this app.
+	Stand by ..."
+	sleep 2s
+	currentDirPath=$(dirname $0)
+	## gnu software
+	bash "$currentDirPath/source/gnu/download-gnu-software"
+
+	## audio
+	bash "$currentDirPath/source/ogg/download-ogg-media"
+}
+
 ## RUN APP
+
+installSoftwareMultimedia
 
 loadSourceScripts
 

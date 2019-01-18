@@ -43,8 +43,8 @@ function decorativeColors {
 	## Clear screen and home cursor
 	CLR_ALL=$(tput clear)
 
-	## horizontal line across screen
-	hr=$(printf '%*s\n' "${COLUMNS:-$(tput cols)}" ' ' | tr ' ' ".")
+	## Blink
+	BLINKING=$(tput blink)
 }
 
 function inputControlls {
@@ -62,7 +62,7 @@ function resizeWindow {
 	## I designed this App with Xterm in mind. Other terminals may not look how I intended.
 	## Optimal desktop gui terminal Size
 
-	## Do resize if the shell is a Desktop app, or not a Linux login term
+	## Resize if the shell is a Desktop app, or not a Linux login term
 
 	processPidName=$(echo $TERM)
 
@@ -138,88 +138,41 @@ function setBeadAudio {
 
 	currentDirPath=$(dirname $0)
 	isLiveStreaming=0
+
 	case $prayerIndex in
 		0 ) ## none
-			if [ $isLiveStreaming -eq 1 ]; then
-				beadAudioFile="https://archive.org/download/kkkfffbird_yahoo_Beep_201607/beep.ogg"
-			else
-				beadAudioFile="$currentDirPath/audio/beep.ogg"
-			fi
+			beadAudioFile="$currentDirPath/source/ogg/beep.ogg"
 			;;
 		1 ) ## sign of the cross
-			if [ $isLiveStreaming -eq 1 ]; then
-				beadAudioFile="https://archive.org/download/01SignOfTheCross/01%20Sign%20of%20the%20cross.ogg"
-			else
-				beadAudioFile="$currentDirPath/audio/cross-english.ogg"
-			fi
-
+			beadAudioFile="$currentDirPath/source/ogg/01\ Sign\ of\ the\ cross.ogg"
 			;;
 		2 ) ## Credo
-			if [ $isLiveStreaming -eq 1 ]; then
-				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/c/c0/Byrd_4-Part_Mass_-_Credo.ogg"
-			else
-				beadAudioFile="$currentDirPath/audio/Credo.ogg"
-			fi
+			beadAudioFile="$currentDirPath/source/ogg/Byrd_4-Part_Mass_-_Credo.ogg"
 			;;
 		3 ) ## PaterNoster
-			if [ $isLiveStreaming -eq 1 ]; then
-				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/a/af/Schola_Gregoriana-Pater_Noster.ogg"
-			else
-				beadAudioFile="$currentDirPath/audio/PaterNoster.ogg"
-			fi
-
+			beadAudioFile="$currentDirPath/source/ogg/Schola_Gregoriana-Pater_Noster.ogg"
 			;;
 		4 ) ## AveMaria
-			if [ $isLiveStreaming -eq 1 ]; then
-				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/2/23/Schola_Gregoriana-Ave_Maria.ogg"
-			else
-				beadAudioFile="$currentDirPath/audio/AveMaria.ogg"
-			fi
+			beadAudioFile="$currentDirPath/source/ogg/Schola_Gregoriana-Ave_Maria.ogg"
+			## beadAudioFile="$currentDirPath/source/ogg/JOHN_MICHEL_CELLO-BACH_AVE_MARIA.ogg"
 			;;
 		5 ) ## GloriaPatri
-			if [ $isLiveStreaming -eq 1 ]; then
-				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/4/45/The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg"
-			else
-				beadAudioFile="$currentDirPath/audio/GloriaPatri.ogg"
-			fi
-
+			beadAudioFile="$currentDirPath/source/ogg/The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg"
 			;;
 		6 ) ## Fatima Prayer
-
-			## I dont have a fatima prayer yet
-			if [ $isLiveStreaming -eq 1 ]; then
-				beadAudioFile="https://archive.org/download/WindChimeCellPhoneAlert/WindChime.ogg"
-			else
-				beadAudioFile="$currentDirPath/audio/chime.ogg"
-			fi
+			beadAudioFile="$currentDirPath/source/ogg/WindChime.ogg"
 			;;
 		7 ) ## SalveRegina
-			if [ $isLiveStreaming -eq 1 ]; then
-				beadAudioFile="https://upload.wikimedia.org/wikipedia/commons/4/46/Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg"
-			else
-				beadAudioFile="$currentDirPath/audio/SalveRegina.ogg"
-			fi
+			beadAudioFile="$currentDirPath/source/ogg/Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg"
 			;;
 		8 ) ## Oremus
-			if [ $isLiveStreaming -eq 1 ]; then
-				beadAudioFile="https://archive.org/download/WindChimeCellPhoneAlert/WindChime.ogg"
-			else
-				beadAudioFile="$currentDirPath/audio/chime.ogg"
-			fi
+			beadAudioFile="$currentDirPath/source/ogg/WindChime.ogg"
 			;;
 		9 ) ## Litaniae Lauretanae
-			if [ $isLiveStreaming -eq 1 ]; then
-				beadAudioFile="https://archive.org/download/WindChimeCellPhoneAlert/WindChime.ogg"
-			else
-				beadAudioFile="$currentDirPath/audio/chime.ogg"
-			fi
+			beadAudioFile="$currentDirPath/source/ogg/WindChime.ogg"
 			;;
 		* ) ## none
-			if [ $isLiveStreaming -eq 1 ]; then
-				beadAudioFile="https://archive.org/download/kkkfffbird_yahoo_Beep_201607/beep.ogg"
-			else
-				beadAudioFile="$currentDirPath/audio/beep.ogg"
-			fi
+			beadAudioFile="$currentDirPath/source/ogg/beep.ogg"
 			;;
 	esac
 

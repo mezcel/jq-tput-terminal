@@ -2,22 +2,10 @@ function translationDB {
 
 	hostedDirPath=$(dirname $0)
 
-	isLiveStreaming=0
-
 	## define DB within a global var
 	if [ $translation -eq 1 ]; then
 		# NAB
-
-		if [ $isLiveStreaming -eq 1 ]; then
-			## NAB demo script
-			rosaryJSONGithub="https://raw.githubusercontent.com/mezcel/jq-tput-terminal/master/json-db/rosaryJSON-nab.json"
-			rosaryJSON="$hostedDirPath/json-db/rosaryJSON-nab.json"
-			wget $rosaryJSONGithub
-			sleep 5s
-		else
-			rosaryJSON=`echo $hostedDirPath/json-db/rosaryJSON-nab.json`
-		fi
-
+		rosaryJSON=`echo $hostedDirPath/json-db/rosaryJSON-nab.json`
 		translationName="The New American Bible (NAB)"
 	fi
 
@@ -39,6 +27,7 @@ function initializeFlags {
 	echo ${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}
 	clear
 
+	directionFwRw=1
 	initialMysteryFlag=0
 	initialHailMaryCounter=0
 	stringSpaceCounter=0
@@ -46,8 +35,9 @@ function initializeFlags {
 	beadCounter=0
 	thisDecadeSet=0
 	mysteryProgress=0
-	# beadAudioFile="-loop 0 $currentDirPath/audio/AveMaria2.ogg"
-	beadAudioFile="$currentDirPath/audio/AveMaria2.ogg"
+
+	## instrumental version. Not used
+	beadAudioFile="$currentDirPath/source/ogg/JOHN_MICHEL_CELLO-BACH_AVE_MARIA.ogg"
 
 	introFlag=1
 	translation=1
@@ -72,9 +62,6 @@ function mainInit {
 }
 
 function myMian {
-	## streaming test
-	isLiveStreaming=0
-
 	resizeWindow
 
 	decorativeColors
@@ -96,5 +83,5 @@ function myMian {
 
 function download_dependencies {
 	currentDirPath=$(dirname $0)
-	bash "$currentDirPath/download-dependencies"
+	bash "$currentDirPath/source/gnu/download-gnu-software"
 }

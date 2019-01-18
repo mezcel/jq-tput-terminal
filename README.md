@@ -2,39 +2,24 @@
 
 A Scripture Rosary GUI on the Bash CLI.
 
-- Liturgical Calendar with Seasonal and Feast Day triggered events.
+- Liturgical Calendar (Paschal Full Moon) with Seasonal and Feast Day triggered events.
+- Vulgate Latin and NAB English Biblical translation database
 - Daily Mass Readings (scraped from usccb.org)
-- Chant Soundtrack ( Ogg Audio provided by [wikimedia.org](https://commons.wikimedia.org) / [archive.org](archive.org) )
+- Prayer Chant Soundtrack ( Ogg Audio provided by [wikimedia.org](https://commons.wikimedia.org) / [archive.org](archive.org) )
 
-Recommended Use Cases:
+### About:
+
+This is a CLI GUI App. This App uses a slimmed down .json db which was ported from [electron-container](https://github.com/mezcel/electron-container).
+
+**Recommended Use Cases:**
 
 - "Busy Persons Retreat"
 - Run locally in a background terminal session for audio room ambiance or for use as an educational quick reference.
 - Host on a ssh/ssl network. (compatible, but not included in app)
     - ssh -p 22 host-user@ip.addr
     - [shellinabox](https://code.google.com/archive/p/shellinabox/) service to any Firefox, Chrome, Edge, ect. client.
+- Academic exercise and linguistic reference
 
-### Development Status and Milestones:
-
-* ```v0.1.4``` Meaningful stop point with working functionalities. Demo Preview: [asciinema](https://asciinema.org/a/217793)
-
-* ```v0.1.6.2``` added a music Autopilot to serve as spiritual room ambiance. It runs proximately +1.75 hours per 1 full mystery.
-
-* ```v0.1.8.4``` current dev branch release. Modified menu transitions, input prompts, and added ping tests
-
-
-| Test Distro's | Development Environment Notes |
-| --- | --- |
-| [Arch](https://wiki.archlinux.org/) | This App was developed on Arch Linux. [Parabola](https://wiki.parabola.nu/Category:Migration) is a 'free' Arch alternative. I also tested it with [shellinabox](https://aur.archlinux.org/packages/shellinabox-git/) hosting.|
-| Slackware | Tested on Salix ( legacy repo linux platform compatible ) |
-| [Alpine](https://alpinelinux.org/about/) | OpenRC, Docker, BusyBox. Fastest install and setup process |
-| Ubuntu | [Trisquel](https://trisquel.info), Tahrpup, and Mint. Average performance. |
-| Debian | Jq/gcc performed the best on Debian resulting in fast query processing |
-| [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) | All the GNU works, but other than testing, I did dot build it for WLS |
-
-### About:
-
-This is a CLI GUI App. This App uses a slimmed down .json db which was ported from [electron-container](https://github.com/mezcel/electron-container).
 
 ### Requirement Dependencies:
 
@@ -58,6 +43,28 @@ As of ```v0.1.8``` the audio and software used in this App are GNU
 
 ---
 
+### Development Status and Milestones:
+
+* ```v0.1.4``` Meaningful stop point with working functionalities. Demo Preview: [asciinema](https://asciinema.org/a/217793)
+
+* ```v0.1.6.2``` added a music Autopilot to serve as spiritual room ambiance. It runs proximately +1.75 hours per 1 full mystery.
+
+* ```v0.1.10``` release / current development branch.
+    * Did a lot of refactoring since from v0.1.6.2
+    * Right now the focus is going back and discovering bugs/inconsistencies when ran on the default configurations of of other Linux distros. ATM Debian performs well.
+
+
+| Test Distro's | Development Environment Notes |
+| --- | --- |
+| [Arch](https://wiki.archlinux.org/) | This App was developed on Arch Linux. [Parabola](https://wiki.parabola.nu/Category:Migration) is a 'free' Arch alternative. I also tested it with [shellinabox](https://aur.archlinux.org/packages/shellinabox-git/) hosting.|
+| Slackware | Tested on Salix ( legacy repo linux platform compatible ) |
+| [Alpine](https://alpinelinux.org/about/) | OpenRC, Docker, BusyBox. Fastest install and setup process |
+| Ubuntu | [Trisquel](https://trisquel.info), Tahrpup, and Mint. Average performance. |
+| Debian | Jq/gcc performed the best on Debian resulting in fast query processing |
+| [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) | All the GNU works, but other than testing, I did dot build it for WLS |
+
+---
+
 ### Run
 
 This App will perform a requirements check and install Audio & Software, as needed, on startup. When possible, it will render in Xterm at 140x40. Your [alsa](http://alsa-project.org/main/index.php/Main_Page) or [pulseaudio](https://www.freedesktop.org/wiki/Software/PulseAudio/) must already be configured on your system for audio to work.
@@ -66,4 +73,4 @@ This App will perform a requirements check and install Audio & Software, as need
 
 - App Launcher for Desktop Environment: ```./xterm-launcher``` (it will call ```./bash-rosary```)
 
-- Add needed software that is missing on your system: ```./download-dependencies``` (Called automatically from within App or you can run it manually)
+- Automatically verify and add needed software that is missing on your system. ```./source/gnu/download-gnu-software``` (Called automatically from within App or you can run it manually)

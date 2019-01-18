@@ -1,0 +1,223 @@
+#!/bin/bash
+
+## Manual JQ package compile
+function compileJq {
+	## Manually compile jq if needed
+	git clone https://github.com/stedolan/jq.git
+
+	cd jq
+
+	git submodule update --init # if building from git to get oniguruma
+	autoreconf -fi              # if building from git
+	./configure --with-oniguruma=builtin
+	make -j8
+	make check
+
+	## To build a statically linked version of jq, run:
+	make LDFLAGS=-all-static
+
+	## After make finishes, you'll be able to use ./jq. You can also install it using:
+	sudo make install
+}
+
+## Arch based distros
+function packageManagerPacman {
+	## Pacman
+	sudo pacman -Sy
+
+	declare -a missingPackageArr=()
+	count=0
+
+	## Check if required software is allready installed
+	## Add missing packages to an array of missing packages
+	currentDirPath=$(dirname $0)
+	while read linePackage
+	do
+	    count=$(( $count + 1 ))
+	    statusMsg=$(pacman -Qs $linePackage)
+	    isPackageMissing=$?
+	    if [ $isPackageMissing -eq 1 ]; then
+	        missingPackageArr+=($linePackage)
+	    fi
+	done < $currentDirPath/pacman_pkglist.txt
+
+	## Install only the missing packages
+	for (( i=1; i<${#missingPackageArr[@]}+1; i++ ));
+	do
+	  sudo pacman -S --needed ${missingPackageArr[$i-1]}
+	  ## make a confirmation log
+	  echo "Performed pacman -S --needed ${missingPackageArr[$i-1]} on: $(date)" >> $currentDirPath/installationLog
+	done
+}
+
+## Debian based distros
+function packageManagerDPKG {
+	## Debian Apt
+	# sudo apt-get update -qq
+
+	declare -a missingPackageArr=()
+	count=0
+
+	## Check if required software is allready installed
+	## Add missing packages to an array of missing packages
+	currentDirPath=$(dirname $0)
+	while read linePackage
+	do
+	    count=$(( $count + 1 ))
+	    statusMsg=$(dpkg -s $linePackage 2> /dev/null |  grep Status)
+	    isPackageMissing=$?
+	    if [ $isPackageMissing -eq 1 ]; then
+	        missingPackageArr+=($linePackage)
+	    fi
+	done < $currentDirPath/dpkg_pkglist.txt
+
+	## Install only the missing packages
+	for (( i=1; i<${#missingPackageArr[@]}+1; i++ ));
+	do
+	  sudo apt-get install  ${missingPackageArr[$i-1]}
+	  ## make a confirmation log
+	  echo "Performed apt-get install ${missingPackageArr[$i-1]} on: $(date)" >> $currentDirPath/installationLog
+	done
+}
+
+## Alpine Linux
+function packageManagerAlpine {
+	## Apk
+	sudo apk update
+
+	# sudo apk add bash xterm grep sed wget gawk bc curl ncurses dialog jq gcc vorbis-tools elinks git
+	currentDirPath=$(dirname $0)
+	while read linePackage
+	do
+		sudo apk add $linePackage
+	done < $currentDirPath/pacman_pkglist.txt
+
+	## make a confirmation flag
+	currentDirPath=$(dirname $0)
+	echo "Installed using apk on $(date)" > $currentDirPath/installedFlag
+}
+
+## Slackware based distros
+function packageManagerSlapt {
+	## SlackApt
+	slapt-get --dist-upgrade --ignore-excludes --download-only
+
+	currentDirPath=$(dirname $0)
+	while read linePackage
+	do
+		slapt-get --install $linePackage
+	done < $currentDirPath/dpkg_pkglist.txt
+
+	compileJq
+
+	## make a confirmation flag
+	currentDirPath=$(dirname $0)
+	echo "Installed using slapt on $(date)" > $currentDirPath/installedFlag
+}
+
+function testPing {
+	ping -c1 $myPingAddr &>/dev/null
+	pingFlag=$?
+}
+
+function identifyPackageManager {
+
+	if [ -f /etc/os-release ]; then
+		distroName=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
+	fi
+
+	if [ -d /etc/dpkg ] ; then
+		distroType="Debian"
+		packageManager="apt"
+		myPingAddr="debian.org"
+		testPing
+		return
+	fi
+
+	if [ -d /etc/pacman.d ] ; then
+		distroType="Arch"
+		packageManager="pacman"
+		myPingAddr="archlinux.org"
+		testPing
+		return
+	fi
+
+	## if [ -d /etc/apk ] ; then
+	if [ $distroName -eq "Alpine Linux" ]; then
+		distroType="Alpine"
+		packageManager="apk"
+		myPingAddr="alpinelinux.org"
+		testPing
+		return
+	fi
+
+	## if [ $distroName -eq "Slackware" ]; then
+	if [ -d /var/slapt-get ]; then
+		distroType="Slackware"
+		packageManager="slapt"
+		myPingAddr="slackware.com"
+		testPing
+		return
+	fi
+
+}
+
+function tryAgainLater {
+	clear
+	echo "This App will not install dependencies at this time.
+
+	No Internet. No online dependency installation
+	Tested on $myPingAddr
+
+	You may have most of the dependancies anyway.
+	The ones you probably won't have are: ncurses, dialog, vorbis-tools, and jq
+
+
+	"
+	echo "Press [enter] to exit and get some internet and try again."
+	read
+
+	exit
+}
+
+function download_gnu_software {
+
+	identifyPackageManager
+
+	if [[ $pingFlag -eq 0 ]]; then
+		case $packageManager in
+			"pacman")
+				packageManagerPacman
+				;;
+			"apt")
+				packageManagerDPKG
+				;;
+			"apk")
+				packageManagerAlpine
+				;;
+			"slapt")
+				packageManagerSlapt
+				;;
+		esac
+	else
+		case $packageManager in
+			"pacman")
+				packageManagerPacman
+				;;
+			"apt")
+				packageManagerDPKG
+				;;
+			"apk")
+				packageManagerAlpine
+				;;
+			"slapt")
+				packageManagerSlapt
+				;;
+		esac
+	fi
+
+}
+
+## RUN
+
+download_gnu_software

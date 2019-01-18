@@ -1,0 +1,15 @@
+bash
+xterm
+grep
+sed
+wget
+gawk
+bc
+curl
+ncurses
+dialog
+jq
+gcc
+vorbis-tools
+elinks
+git

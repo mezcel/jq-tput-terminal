@@ -131,16 +131,6 @@ function change_color_menu {
 
 function menuUP {
 
-	myPingAddr=usccb.org
-	ping -c1 $myPingAddr &>/dev/null
-	pingFlag=$?
-
-	if [[ $pingFlag -eq 0 ]]; then
-		showonlineStatus=online
-	else
-		showonlineStatus=offline
-	fi
-
 	screenTitle="Terminal Rosary using Jq and Bash"
 	dialogTitle="Main Menu"
 	selectedMenuItem=$(dialog 2>&1 >/dev/tty \
@@ -152,14 +142,14 @@ function menuUP {
 		\n " \
 		0 0 0 \
 		"1" "About"\
-		"2" "Start Joyful Mystery"\
-		"3" "Start Luminous Mystery"\
-		"4" "Start Sorrowfull Mystery"\
-		"5" "Start Glorious Mystery"\
+		"2" "Goto Joyful Mystery"\
+		"3" "Goto Luminous Mystery"\
+		"4" "Goto Sorrowfull Mystery"\
+		"5" "Goto Glorious Mystery"\
 		"6"	"View Prayers"\
 		"7" "Change Color Theme"\
 		"8" "Feast Day Countdown"\
-		"9" "Daily Mass Readings ($showonlineStatus)"\
+		"9" "Daily Mass Readings (usccb.org)"\
 		"10" "Exit App")
 
 	case "$selectedMenuItem" in
@@ -216,7 +206,7 @@ function menuUP {
 			feastDayCountdown
 			;;
 		9) # elinks mass readings
-			pingUsccb
+			elinksUsccb
 			;;
 		10)	## exit app
 			if [ $autoPilot -eq 1 ]; then
@@ -284,7 +274,7 @@ function menuUPautopilot {
 			feastDayCountdown
 			;;
 		9) # elinks mass readings
-			pingUsccb
+			elinksUsccb
 			;;
 		10)	## exit app
 			if [ $autoPilot -eq 1 ]; then

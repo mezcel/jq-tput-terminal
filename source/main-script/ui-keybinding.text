@@ -9,9 +9,6 @@ function beadFWD {
 	rosaryBeadID=$beadCounter
 	jqQuery
 
-	## keep the terminal from looping too fast
-	# sleep 1
-
 	if [ $beadCounter -eq $counterMAX ]; then
 		# reset counter
 		beadCounter=0
@@ -29,8 +26,9 @@ function beadREV {
 	fi
 }
 
-function exitAutoPilotApp {
+function killAutopilot {
 	goodbyescreen
+
 	if pgrep -x "ogg123" &>/dev/null
 	then
 		killall ogg123 &>/dev/null; killall bash-rosary &>/dev/null
@@ -53,7 +51,6 @@ function arrowInputs {
 
 		case "$key" in
 			$arrowUp ) # menu
-				# menuUP
 				menuUP
 
 				## hide cursor
@@ -83,9 +80,7 @@ function arrowInputs {
 
 				if ! pgrep -x "ogg123" > /dev/null
 				then
-					# mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
 					ogg123 $beadAudioFile </dev/null >/dev/null 2>&1 &
-					# ogg123 -q $beadAudioFile &
 					sleep .5s
 				else
 					if pgrep -x "ogg123" &>/dev/null
@@ -98,13 +93,50 @@ function arrowInputs {
 				;;
 			"q" | "Q" | $escKey ) # Force quit app and mplayer and xterm
 				autoPilot=0
-				exitAutoPilotApp
+				killAutopilot
 				;;
 		esac
 
 	done
+	
 	# Restore screen
     tput rmcup
+}
+
+function removeTempVarFile {
+	currentDirPath=$(dirname $0)
+	if [ -f $currentDirPath/source/main-script/temp/varFile ] ; then
+		rm $currentDirPath/source/main-script/temp/varFile
+	fi
+}
+
+function beforeUpDnMenu_autopilot {
+	currentDirPath=$(dirname $0)
+	if ! [ -f $currentDirPath/source/main-script/temp/varFile ] ; then
+		echo "$beadCounter,$hailmaryCounter,$thisDecadeSet,$mysteryProgress,$(date)" > $currentDirPath/source/main-script/temp/varFile
+	fi
+}
+
+function afterUpDnMenu_autopilot {
+	currentDirPath=$(dirname $0)
+	if [ -f $currentDirPath/source/main-script/temp/varFile ] ; then
+
+		tempTxtToVar=$(cat $currentDirPath/source/main-script/temp/varFile)
+
+		beadCounter=$( echo $tempTxtToVar | cut -d "," -f 1 )
+		rosaryBeadID=$beadCounter
+		hailmaryCounter=$( echo $tempTxtToVar | cut -d "," -f 2 )
+		thisDecadeSet=$( echo $tempTxtToVar | cut -d "," -f 3 )
+		mysteryProgress=$( echo $tempTxtToVar | cut -d "," -f 4 )
+
+		 clear
+		 blank_transition_display
+		 jqQuery
+		 bundledDisplay
+		 setBeadAudio
+
+		rm $currentDirPath/source/main-script/temp/varFile
+	fi
 }
 
 function musicsalAutoPilot {
@@ -112,17 +144,12 @@ function musicsalAutoPilot {
 	stty -echo
 
 	setBeadAudio
-	# mplayer $beadAudioFile </dev/null >/dev/null 2>&1 &
 	ogg123 $beadAudioFile </dev/null >/dev/null 2>&1 &
-	# ogg123 -q $beadAudioFile &
 	sleep .5s
 
 	autoPilot=1
 	isMenuOpen=0
-	currentDirPath=$(dirname $0)
-	if [ -f $currentDirPath/myWhileloopVar ] ; then
-		rm $currentDirPath/myWhileloopVar
-	fi
+	removeTempVarFile
 
 	while [ $autoPilot -eq 1 ]
 	do
@@ -130,12 +157,12 @@ function musicsalAutoPilot {
 		if ! pgrep -x "ogg123" > /dev/null
 		then
 			currentDirPath=$(dirname $0)
-			if [ -f $currentDirPath/myWhileloopVar ] ; then
+			if [ -f $currentDirPath/source/main-script/temp/varFile ] ; then
 				isMenuOpen=1
 				beadFWD
 				setBeadAudio
 				ogg123 $beadAudioFile </dev/null >/dev/null 2>&1 &
-				echo "$beadCounter,$hailmaryCounter,$thisDecadeSet,$mysteryProgress,$(date)" > $currentDirPath/myWhileloopVar
+				echo "$beadCounter,$hailmaryCounter,$thisDecadeSet,$mysteryProgress,$(date)" > $currentDirPath/source/main-script/temp/varFile
 			else
 				blank_transition_display
 				beadFWD
@@ -144,8 +171,6 @@ function musicsalAutoPilot {
 				ogg123 $beadAudioFile </dev/null >/dev/null 2>&1 &
 			fi
 		fi
-
-
 
 	done & while read -sN1 key
 	do
@@ -159,77 +184,30 @@ function musicsalAutoPilot {
 		case "$key" in
 			$arrowUp ) # menu
 				isMenuOpen=1
-				currentDirPath=$(dirname $0)
-				if ! [ -f $currentDirPath/myWhileloopVar ] ; then
-					echo "$beadCounter,$hailmaryCounter,$thisDecadeSet,$mysteryProgress,$(date)" > $currentDirPath/myWhileloopVar
-				fi
+				beforeUpDnMenu_autopilot
 
 				menuUPautopilot
-
-				currentDirPath=$(dirname $0)
-				if [ -f $currentDirPath/myWhileloopVar ] ; then
-
-					tempTxtToVar=$(cat $currentDirPath/myWhileloopVar)
-
-					beadCounter=$( echo $tempTxtToVar | cut -d "," -f 1 )
-					rosaryBeadID=$beadCounter
-					hailmaryCounter=$( echo $tempTxtToVar | cut -d "," -f 2 )
-					thisDecadeSet=$( echo $tempTxtToVar | cut -d "," -f 3 )
-					mysteryProgress=$( echo $tempTxtToVar | cut -d "," -f 4 )
-
-					 clear
-					 blank_transition_display
-					 jqQuery
-					 bundledDisplay
-					 setBeadAudio
-
-					rm $currentDirPath/myWhileloopVar
-				fi
+				afterUpDnMenu_autopilot
 
 				## hide cursor
 				tput civis
 				;;
+
 			$arrowDown ) # language toggle
 				isMenuOpen=1
-				currentDirPath=$(dirname $0)
-				if ! [ -f $currentDirPath/myWhileloopVar ] ; then
-					echo "$beadCounter,$hailmaryCounter,$thisDecadeSet,$mysteryProgress,$(date)" > $currentDirPath/myWhileloopVar
-				fi
+				beforeUpDnMenu_autopilot
 
 				menuDN
-
-				currentDirPath=$(dirname $0)
-				if [ -f $currentDirPath/myWhileloopVar ] ; then
-
-					tempTxtToVar=$(cat $currentDirPath/myWhileloopVar)
-
-					beadCounter=$( echo $tempTxtToVar | cut -d "," -f 1 )
-					rosaryBeadID=$beadCounter
-					hailmaryCounter=$( echo $tempTxtToVar | cut -d "," -f 2 )
-					thisDecadeSet=$( echo $tempTxtToVar | cut -d "," -f 3 )
-					mysteryProgress=$( echo $tempTxtToVar | cut -d "," -f 4 )
-
-					 clear
-					 blank_transition_display
-					 jqQuery
-					 bundledDisplay
-					 setBeadAudio
-
-					rm $currentDirPath/myWhileloopVar
-				fi
+				afterUpDnMenu_autopilot
 
 				## hide cursor
 				tput civis
 				;;
+
 			"q" | "Q" | $escKey ) # Force quit app and mplayer and xterm
 				autoPilot=0
-
-				currentDirPath=$(dirname $0)
-				if [ -f $currentDirPath/myWhileloopVar ] ; then
-					rm $currentDirPath/myWhileloopVar
-				fi
-				
-				exitAutoPilotApp
+				removeTempVarFile
+				killAutopilot
 				;;
 		esac
 

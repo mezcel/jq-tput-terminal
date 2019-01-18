@@ -1,0 +1,11 @@
+#!/bin/bash
+
+function download_ogg_media {
+
+	currentDirPath=$(dirname $0)
+	
+	## install from list, and install only if file does not exist
+	wget -q -nc -i $currentDirPath/ogg-list.txt -P $currentDirPath/
+}
+
+download_ogg_media
