@@ -22,7 +22,7 @@ Recommended Use Cases:
 
 * ```v0.1.8.4``` current branch release.
 
-* ```v0.1.9-arch``` current dev branch. WIP Redoing the dir tree and trimming the bloat, but keeping the same algorithm. Nothing works here yet
+* ```v0.1.9-deb``` current dev branch. WIP Redoing the dir tree and trimming the bloat, but keeping the same algorithm. Nothing works here yet
 
 
 | Test Distro's | Development Environment Notes |
