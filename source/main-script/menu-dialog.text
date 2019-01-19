@@ -233,9 +233,8 @@ function menuUP {
 		howToPage
 	else
 		# bundledDisplay
-		# resizeWindow
+		resizeWindow
 		tputBeadDisplay
-		# beadProgress
 		progressbars
 	fi
 
@@ -331,7 +330,10 @@ function menuDN {
 	if [ $introFlag -eq 1 ]; then
 		howToPage
 	else
-		bundledDisplay
+		# bundledDisplay
+		resizeWindow
+		tputBeadDisplay
+		progressbars
 	fi
 }
 
@@ -368,7 +370,10 @@ function menuDNautopilot {
 	if [ $introFlag -eq 1 ]; then
 		howToPage
 	else
-		bundledDisplay
+		# bundledDisplay
+		resizeWindow
+		tputBeadDisplay
+		progressbars
 	fi
 }
 

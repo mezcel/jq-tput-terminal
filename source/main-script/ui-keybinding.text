@@ -61,8 +61,7 @@ function arrowInputs {
 				## hide cursor
 				tput civis
 				;;
-			# $arrowRt | $returnKey ) # navigate forward
-			$arrowRt ) # navigate forward
+			$arrowRt | $returnKey ) # navigate forward
 				if [ $introFlag -ne 1 ]; then
 					blank_transition_display
 					beadFWD
