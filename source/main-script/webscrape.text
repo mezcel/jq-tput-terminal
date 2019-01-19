@@ -35,8 +35,9 @@ function elinksUsccbMassReadings {
 
 	## Crop the desited text section
 	cropText=$(echo $websiteHtmlText | grep -oP '\<div class\=\"contentarea\"\>\s*\K.*(?=\s+\<style type\=\"text\/css\"\>)')
+	cropText="$(echo "$cropText" | sed 's/<a name\=\"readingssignup\".*$//g')"
 
-	## convert local path to remote path
+	## convert local url path to remote web path
 	htmlahref="href=\""
 	urlhostahref="${htmlahref}http://www.usccb.org"
 	cropText=${cropText//$htmlahref/$urlhostahref}
