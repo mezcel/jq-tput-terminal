@@ -7,21 +7,31 @@ A Scripture Rosary GUI on the Bash CLI.
 - Daily Mass Readings (scraped from usccb.org)
 - Prayer Chant Soundtrack ( Ogg Audio provided by [wikimedia.org](https://commons.wikimedia.org) / [archive.org](archive.org) )
 
+---
+
 ### About:
 
 This is a CLI GUI App. This App uses a slimmed down .json db which was ported from [electron-container](https://github.com/mezcel/electron-container).
 
-**Recommended Use Cases:**
+__Recommended Use Cases:__
 
 - "Busy Persons Retreat"
-- Run locally in a background terminal session for audio room ambiance or for use as an educational quick reference.
-- Host on a ssh/ssl network. (compatible, but not included in app)
-    - ssh -p 22 host-user@ip.addr
-    - [shellinabox](https://code.google.com/archive/p/shellinabox/) service to any Firefox, Chrome, Edge, ect. client.
-- Academic exercise and linguistic reference
+- Run locally in a background terminal session for audio room ambiance. Interactive Jukebox
+- Host on a ssh/ssl network.
+    - Recommendation 1: ssh -p 22 host-user@ip.addr
+    - Recommendation 2: [shellinabox](https://code.google.com/archive/p/shellinabox/) service to any Firefox, Safari, Chrome, Edge, ect. client.
+- For use as an educational quick reference (Catechism, linguistic, terminal cli, cultural history)
 
+#### Feature Functionalities:
 
-### Requirement Dependencies:
+* Paschal Full Moon Liturgical Calendar calculations. (and Liturgical Cycles)
+* Decorative color themes corresponding to Liturgical Calendar Seasons.
+* Feast day triggered events.
+* Play Traditional Latin Hymns (audio).
+* Automatically install software dependencies.
+* Retrieve daily Mass readings from the web.
+
+#### Requirement Dependencies:
 
 As of ```v0.1.8``` the audio and software used in this App are GNU
 
@@ -31,15 +41,6 @@ As of ```v0.1.8``` the audio and software used in this App are GNU
 * [ogg123](https://xiph.org/vorbis) is a [ogg](https://xiph.org/vorbis) audio player which can run within terminal environment
 * [elinks](http://elinks.or.cz/) is a well-established feature-rich text mode web (HTTP/FTP/..) browser.
 * Cultural and scholarly perspective on the Catholic Marian ministry (debug, troubleshoot, security, validation)
-
-### Feature Functionalities:
-
-* Paschal Full Moon Liturgical Calendar calculations. (and Liturgical Cycles)
-* Decorative color themes corresponding to Liturgical Calendar Seasons.
-* Feast day triggered events.
-* Play Traditional Latin Hymns (audio).
-* Automatically install software dependencies.
-* Retrieve daily Mass readings from the web.
 
 ---
 
