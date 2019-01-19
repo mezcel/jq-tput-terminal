@@ -199,21 +199,6 @@ function download_gnu_software {
 				packageManagerSlapt
 				;;
 		esac
-	else
-		case $packageManager in
-			"pacman")
-				packageManagerPacman
-				;;
-			"apt")
-				packageManagerDPKG
-				;;
-			"apk")
-				packageManagerAlpine
-				;;
-			"slapt")
-				packageManagerSlapt
-				;;
-		esac
 	fi
 
 }
