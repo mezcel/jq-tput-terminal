@@ -34,7 +34,7 @@ function transitionalTputStingVars {
 		tputAppScripture=$(tput cup 18 0; printf "%${width}s" "" )$(tput cup 19 0; printf "%${width}s" "" )$(tput cup 20 0; printf "%${width}s" "" )$(tput cup 21 0; printf "%${width}s" "" )$( tput cup 18 4; echo "	loading..." )
 	fi
 
-	tputAppPrayerLabel=$(tput cup 22 0; echo "Prayer Text:")
+	tputAppPrayerLabel=$(tput cup 22 0; printf "%${width}s" ""; tput cup 22 0; echo "Prayer Text:"; printf "%${width}s" "")
 	tputAppPrayer=$(tput cup 23 0; printf "%${width}s" "" )$(tput cup 24 0; printf "%${width}s" "" )$(tput cup 25 0; printf "%${width}s" "" )$(tput cup 26 0; printf "%${width}s" "" )$(tput cup 27 0; printf "%${width}s" "" )$(tput cup 28 0; printf "%${width}s" "" )$(tput cup 24 4; echo "	loading..." )
 
 	## Render terminal layout display
@@ -75,7 +75,7 @@ function tputStingVars {
 		tputAppScripture=$(tput cup 18 0; printf "%${width}s" ""; tput cup 18 8; echo $return_scriptureText)$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR
 	fi
 
-	tputAppPrayerLabel=$(tput cup 22 0; echo "${MODE_BEGIN_UNDERLINE}Prayer Text${MODE_EXIT_UNDERLINE}:")
+	tputAppPrayerLabel=$(tput cup 22 0; printf "%${width}s" ""; tput cup 22 0; echo "${MODE_BEGIN_UNDERLINE}Prayer Text${MODE_EXIT_UNDERLINE}:")
 	tputAppPrayer=$(tput cup 24 0; printf "%${width}s" ""; tput cup 24 8; echo $return_prayerText)
 
 	## Special Condition to display backgoud information before starting a decade
