@@ -7,21 +7,31 @@ A Scripture Rosary GUI on the Bash CLI.
 - Daily Mass Readings (scraped from usccb.org)
 - Prayer Chant Soundtrack ( Ogg Audio provided by [wikimedia.org](https://commons.wikimedia.org) / [archive.org](archive.org) )
 
+---
+
 ### About:
 
 This is a CLI GUI App. This App uses a slimmed down .json db which was ported from [electron-container](https://github.com/mezcel/electron-container).
 
-**Recommended Use Cases:**
+__Recommended Use Cases:__
 
 - "Busy Persons Retreat"
-- Run locally in a background terminal session for audio room ambiance or for use as an educational quick reference.
-- Host on a ssh/ssl network. (compatible, but not included in app)
-    - ssh -p 22 host-user@ip.addr
-    - [shellinabox](https://code.google.com/archive/p/shellinabox/) service to any Firefox, Chrome, Edge, ect. client.
-- Academic exercise and linguistic reference
+- Run locally in a background terminal session for audio room ambiance. Interactive Jukebox
+- Host on a ssh/ssl network.
+    - Recommendation 1: ssh -p 22 host-user@ip.addr
+    - Recommendation 2: [shellinabox](https://code.google.com/archive/p/shellinabox/) service to any Firefox, Safari, Chrome, Edge, ect. client.
+- For use as an educational quick reference (Catechism, linguistic, terminal cli, cultural history)
 
+#### Feature Functionalities:
 
-### Requirement Dependencies:
+* Paschal Full Moon Liturgical Calendar calculations. (and Liturgical Cycles)
+* Decorative color themes corresponding to Liturgical Calendar Seasons.
+* Feast day triggered events.
+* Play Traditional Latin Hymns (audio).
+* Automatically install software dependencies.
+* Retrieve daily Mass readings from the web.
+
+#### Requirement Dependencies:
 
 As of ```v0.1.8``` the audio and software used in this App are GNU
 
@@ -32,15 +42,6 @@ As of ```v0.1.8``` the audio and software used in this App are GNU
 * [elinks](http://elinks.or.cz/) is a well-established feature-rich text mode web (HTTP/FTP/..) browser.
 * Cultural and scholarly perspective on the Catholic Marian ministry (debug, troubleshoot, security, validation)
 
-### Feature Functionalities:
-
-* Paschal Full Moon Liturgical Calendar calculations. (and Liturgical Cycles)
-* Decorative color themes corresponding to Liturgical Calendar Seasons.
-* Feast day triggered events.
-* Play Traditional Latin Hymns (audio).
-* Automatically install software dependencies.
-* Retrieve daily Mass readings from the web.
-
 ---
 
 ### Development Status and Milestones:
@@ -49,9 +50,9 @@ As of ```v0.1.8``` the audio and software used in this App are GNU
 
 * ```v0.1.6.2``` added a music Autopilot to serve as spiritual room ambiance. It runs proximately +1.75 hours per 1 full mystery.
 
-* ```v0.1.10``` release / current development branch.
+* ```v0.1.10.1``` release / current development branch.
     * Did a lot of refactoring since from v0.1.6.2
-    * Right now the focus is going back and discovering bugs/inconsistencies when ran on the default configurations of of other Linux distros. ATM Debian performs well.
+    * Right now the focus is going back and discovering bugs/inconsistencies when ran on the default configurations of of other Linux distros. ATM Debian performs the best despite being developed on an Arch.
 
 
 | Test Distro's | Development Environment Notes |

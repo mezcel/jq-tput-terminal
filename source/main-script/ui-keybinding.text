@@ -16,7 +16,6 @@ function beadFWD {
 }
 
 function beadREV {
-
 	if [ $beadCounter -gt $counterMIN ]; then
 		directionFwRw=0
 		beadCounter=$((beadCounter-1))
@@ -98,7 +97,7 @@ function arrowInputs {
 		esac
 
 	done
-	
+
 	# Restore screen
     tput rmcup
 }
