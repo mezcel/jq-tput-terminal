@@ -227,7 +227,7 @@ function menuUP {
 	esac
 
 
-	echo "$STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR"
+	echo "$STYLES_OFF $CLR_ALL $CLR_ALL_LINES $BACKGROUNDCOLOR $FOREGROUNDCOLOR"
 	clear
 
 	if [ $introFlag -eq 1 ]; then
@@ -325,7 +325,7 @@ function menuDN {
 	translationDB
 	jqQuery
 
-	echo "$STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR"
+	echo "$STYLES_OFF $CLR_ALL $CLR_ALL_LINES $BACKGROUNDCOLOR $FOREGROUNDCOLOR"
 	clear
 
 	if [ $introFlag -eq 1 ]; then
@@ -365,7 +365,7 @@ function menuDNautopilot {
 	translationDB
 	jqQuery
 
-	echo "$STYLES_OFF $CLR_ALL $BACKGROUNDCOLOR $FOREGROUNDCOLOR"
+	echo "$STYLES_OFF $CLR_ALL $CLR_ALL_LINES $BACKGROUNDCOLOR $FOREGROUNDCOLOR"
 	clear
 
 	if [ $introFlag -eq 1 ]; then

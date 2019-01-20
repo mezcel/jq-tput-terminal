@@ -8,7 +8,9 @@ function beadFWD {
 	beadCounter=$((beadCounter+1))
 
 	rosaryBeadID=$beadCounter
-	jqQuery
+	# jqQuery
+	determine_what_to_query
+	
 
 	if [ $beadCounter -eq $counterMAX ]; then
 		# reset counter
@@ -22,7 +24,8 @@ function beadREV {
 		beadCounter=$((beadCounter-1))
 
 		rosaryBeadID=$beadCounter
-		jqQuery
+		# jqQuery
+		determine_what_to_query
 	fi
 }
 
