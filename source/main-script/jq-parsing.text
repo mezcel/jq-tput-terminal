@@ -49,6 +49,7 @@ function jqQuery {
 #
 ## Format text for terminal display
 #
+
 function formatJqText {
 	## Undo formatting and modify Jq generated text
 
