@@ -15,7 +15,7 @@ This is a CLI GUI App. This App uses a slimmed down .json db which was ported fr
 
 __Recommended Use Cases:__
 
-- "Busy Persons Retreat"
+- "Busy Persons Retreat" Leccio Divina
 - Run locally in a background terminal session for audio room ambiance. Interactive Jukebox
 - Host on a ssh/ssl network.
     - Recommendation 1: ssh -p 22 host-user@ip.addr
