@@ -53,10 +53,11 @@ As of ```v0.1.8``` the audio and software used in this App are GNU
 * ```v0.1.10.1``` release
     * Did a lot of refactoring since from v0.1.6.2
     * Right now the focus is going back and discovering bugs/inconsistencies when ran on the default configurations of of other Linux distros. ATM Debian performs the best despite being developed on an Arch.
-    
+
 * ```v0.1.10.2``` dev branch
     * Trying to make jq perform a bit better
     * The usual look and feel tweaks
+    * Update the .json db, updated decadeInfo content
 
 
 | Test Distro's | Development Environment Notes |
