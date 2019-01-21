@@ -39,6 +39,7 @@ function transitionalTputStingVars {
 	tputAppPrayer=$( tput cup 23 0; printf "%${width}s" "" )$( tput cup 24 0; printf "%${width}s" "" )$( tput cup 25 0; printf "%${width}s" "" )$( tput cup 26 0; printf "%${width}s" "" )$( tput cup 27 0; printf "%${width}s" "" )$( tput cup 28 0; printf "%${width}s" "" )$( tput cup 24 4; echo "	loading..." )
 
 	## Render terminal layout display
+	tput civis
 	echo "${tputAppTitle}${tputAppClock}${tputAppTranslation}${tputAppHeaderLine}${tputAppMysteryLabel}${tputAppMystery}${tputAppDecadeLabel}${tputAppDecade}${tputAppMessageLabel}${tputAppMessage}${tputAppScriptureLabel}${tputAppScripture}${tputAppPrayerLabel}${tputAppPrayer}${tputAppBeadTypeNameLabel}${tputAppBeadTypeName}${tputClearProgressFooter}"
 }
 
@@ -103,6 +104,7 @@ function tputStingVars {
 		tputAppMessage=$( tput cup 14 0; printf "%${width}s" ""; tput cup 15 0; printf "%${width}s" ""; tput cup 14 0; echo $return_decadeInfo)
 
 		## Output string
+		tput civis
 		echo "$tputAppTitle$tputAppClock$tputAppTranslation$tputAppHeaderLine$tputAppMysteryLabel$tputAppMystery$tputAppDecadeLabel$tputAppDecade$tputAppScriptureLabel$tputAppScripture$tputAppMessageLabel$tputAppMessage$tputAppPrayerLabel$tputAppPrayer$tputAppBeadTypeNameLabel$tputAppBeadTypeName$tputClearProgressFooter"
 	else
 		## Normal rendering sequence
@@ -112,6 +114,7 @@ function tputStingVars {
 		tputAppScripture=$( tput cup 18 0; printf "%${width}s" ""; tput cup 18 8; echo $return_scriptureText)$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR
 
 		## Output string
+		tput civis
 		echo "$tputAppTitle$tputAppClock$tputAppTranslation$tputAppHeaderLine$tputAppMysteryLabel$tputAppMystery$tputAppDecadeLabel$tputAppDecade$tputAppMessageLabel$tputAppMessage$tputAppScriptureLabel$tputAppScripture$tputAppPrayerLabel$tputAppPrayer$tputAppBeadTypeNameLabel$tputAppBeadTypeName$tputClearProgressFooter"
 	fi
 

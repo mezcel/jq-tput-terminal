@@ -100,12 +100,12 @@ function packageManagerAlpine {
 ## Slackware based distros
 function packageManagerSlapt {
 	## SlackApt
-	slapt-get --dist-upgrade --ignore-excludes --download-only
+	sudo slapt-get --update
 
 	currentDirPath=$(dirname $0)
 	while read linePackage
 	do
-		slapt-get --install $linePackage
+		sudo slapt-get --install $linePackage
 	done < $currentDirPath/dpkg_pkglist.txt
 
 	compileJq
@@ -151,7 +151,7 @@ function identifyPackageManager {
 		return
 	fi
 
-	## if [ $distroName -eq "Slackware" ]; then
+	## if [ -d /etc/slapt-get ]; then
 	if [ -d /var/slapt-get ]; then
 		distroType="Slackware"
 		packageManager="slapt"
