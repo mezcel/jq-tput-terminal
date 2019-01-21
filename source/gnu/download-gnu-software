@@ -2,7 +2,7 @@
 
 ## Manual JQ package compile
 function compileJq {
-	## Manually compile jq if needed	
+	## Manually compile jq if needed
 
 	currentDirPath=$(dirname $0)
 	if ! [ -d $currentDirPath/jq ]; then
@@ -147,8 +147,7 @@ function identifyPackageManager {
 		return
 	fi
 
-	## if [ -d /etc/apk ] ; then
-	if [ $distroName -eq "Alpine Linux" ]; then
+	if [ -d /etc/apk ] ; then
 		distroType="Alpine"
 		packageManager="apk"
 		myPingAddr="alpinelinux.org"
