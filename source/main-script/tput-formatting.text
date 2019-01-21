@@ -234,15 +234,21 @@ function welcomepage {
 	fi
 
 	if [ $isTodayHoly_Thursday -eq 1 ]; then
-		echo "						This is Holy Thursday"
+		echo "						This is Holy Thursday
+
+										Commemoration of the Last Supper of Jesus Christ"
 	fi
 
 	if [ $isTodayGood_Friday -eq 1 ]; then
-		echo "						This is the Good Friday"
+		echo "						This is the Good Friday
+
+										Commemoration of the crucifixion of Jesus"
 	fi
 
 	if [ $isTodayHoly_Saturday -eq 1 ]; then
-		echo "						This is the Holy Saturday"
+		echo "						This is the Holy Saturday
+
+										Commemoration of the day that Jesus' body lay in the tomb"
 	fi
 
 	if [ $isTodayJesus_Assension -eq 1 ]; then
@@ -250,11 +256,17 @@ function welcomepage {
 	fi
 
 	if [ $isTodayPentecost -eq 1 ]; then
-		echo "						Tday is Pentecost"
+		echo "						Tday is Pentecost
+
+										Day on which the Spirit descended upon the apostles.
+										Jewish  \"Feast of harvest\"."
 	fi
 
 	if [ $isTodayImmaculateConception -eq 1 ]; then
-		echo "						Today is the feast of the Immaculate Conception"
+		echo "						Today is the feast of the Immaculate Conception
+
+		(490) To become the mother of the Savior, Mary \"was enriched by God with gifts appropriate to such a role.\" The angel Gabriel at the moment of the annunciation salutes her as \"full of grace\". In fact, in order for Mary to be able to give the free assent of her faith to the announcement of her vocation, it was necessary that she be wholly borne by God's grace. - Catechism of the Catholic Church"
+
 	fi
 
 	if [ $isTodayAdventStart -eq 1 ]; then
@@ -274,11 +286,15 @@ function welcomepage {
 	fi
 
 	if [ $isTodaySolemnityOfMary -eq 1 ]; then
-		echo "						Today is the Feast of the Solemnity of Mary"
+		echo "						Today is the Feast of the Solemnity of Mary
+		
+										The honoring of Mary as the Mother of God"
 	fi
 
 	if [ $isTodayEpiphany -eq 1 ]; then
-		echo "						Today is the Feast of the Epiphany"
+		echo "						Today is the Feast of the Epiphany
+		
+										Day that celebrates the revelation of God incarnate as Jesus Christ."
 	fi
 
 	if [ $isTodayAll_Saints -eq 1 ]; then
@@ -292,6 +308,7 @@ function welcomepage {
 	echo "
 
 	${MODE_BEGIN_UNDERLINE}Basic UI Controlls:${MODE_EXIT_UNDERLINE}
+	
 		Right or Left Keys | Navigate forward or backwards.
 		Down Key           | Open Language Translation Menu ( English NAB or Latin Vulgate )
 		Up Key             | Open the Main Menu
@@ -300,6 +317,7 @@ function welcomepage {
 
 
 	${MODE_BEGIN_UNDERLINE}Advice:${MODE_EXIT_UNDERLINE}
+	
 		Pause after navigating to allow a moment for text querying to complete and display.
 		Optimal Xterm Screen Dimentions: (Minimum) 140 cols x 40 lines
 	"

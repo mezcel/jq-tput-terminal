@@ -24,9 +24,17 @@ function useTheLoadedSource {
 function installSoftwareMultimedia {
 	clear
 	echo "Checking the internet for updates and establishing this computer's compatability for this app.
-	Stand by ..."
-	sleep 2s
+	
+	Stand by ...
+
+	You will be prompted to install GNU software if needed.
+	You will also get the latest app updates [ https://github.com/mezcel/jq-tput-terminal.git ]
+	"
+	
+	sleep 3s
+
 	currentDirPath=$(dirname $0)
+
 	## gnu software
 	bash "$currentDirPath/source/gnu/download-gnu-software"
 
