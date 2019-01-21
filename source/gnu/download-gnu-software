@@ -2,22 +2,27 @@
 
 ## Manual JQ package compile
 function compileJq {
-	## Manually compile jq if needed
-	git clone https://github.com/stedolan/jq.git
+	## Manually compile jq if needed	
 
-	cd jq
+	currentDirPath=$(dirname $0)
+	if ! [ -d $currentDirPath/jq ]; then
+		git clone https://github.com/stedolan/jq.git
 
-	git submodule update --init # if building from git to get oniguruma
-	autoreconf -fi              # if building from git
-	./configure --with-oniguruma=builtin
-	make -j8
-	make check
+		cd jq
 
-	## To build a statically linked version of jq, run:
-	make LDFLAGS=-all-static
+		git submodule update --init # if building from git to get oniguruma
+		autoreconf -fi              # if building from git
+		./configure --with-oniguruma=builtin
+		make -j8
+		make check
 
-	## After make finishes, you'll be able to use ./jq. You can also install it using:
-	sudo make install
+		## To build a statically linked version of jq, run:
+		make LDFLAGS=-all-static
+
+		## After make finishes, you'll be able to use ./jq. You can also install it using:
+		sudo make install
+	fi
+
 }
 
 ## Arch based distros
