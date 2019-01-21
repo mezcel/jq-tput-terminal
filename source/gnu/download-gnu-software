@@ -5,7 +5,10 @@ function compileJq {
 	## Manually compile jq if needed
 
 	currentDirPath=$(dirname $0)
-	if ! [ -d $currentDirPath/jq ]; then
+
+	command -v jq
+	isJqInstalled=$?
+	if [ isJqInstalled -eq 1 ]; then
 		git clone https://github.com/stedolan/jq.git
 
 		cd jq
