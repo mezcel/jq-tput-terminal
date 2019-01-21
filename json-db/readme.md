@@ -3,6 +3,7 @@
 The text database is the same ER used in [electron-container](https://github.com/mezcel/electron-container).
 
 * The text content is mostly the same.
+* I replaced decade info with content from www.how-to-pray-the-rosary-everyday.com
 * I removed unused "about" meta data, but I kept a large amount of unused supplementary mystery data.
 * I renamed the Fatima prayer name text.
 * I kept everything the same on purpose. I just used regex workarounds for residual html markup text

@@ -1,3 +1,4 @@
+#!/bin/bash
 ###################################################
 ## UI Appearance Vars
 ###################################################
@@ -42,6 +43,7 @@ function decorativeColors {
 
 	## Clear screen and home cursor
 	CLR_ALL=$(tput clear)
+	CLR_ALL_LINES=$(tput cup 0 0 && tput ed)
 
 	## Blink
 	BLINKING=$(tput blink)

@@ -22,8 +22,8 @@ function compileJq {
 
 ## Arch based distros
 function packageManagerPacman {
-	## Pacman
-	sudo pacman -Sy
+	## Pacman in silen mode
+	sudo pacman -Sy &>/dev/null
 
 	declare -a missingPackageArr=()
 	count=0
