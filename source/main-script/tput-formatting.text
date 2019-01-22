@@ -25,12 +25,12 @@ function transitionalTputStingVars {
 	## Special condition for introdution prayers
 	if [ $mysteryProgress -eq 0 ]; then
 		## Introduction Prayers
-		tputAppMystery=$( tput cup 6 0; printf "%${width}s" ""; tput cup 6 4; printf "%${width}s" "" )
+		# tputAppMystery=$( tput cup 6 0; printf "%${width}s" ""; tput cup 6 4; printf "%${width}s" "" )
 		tputAppMessage=$( tput cup 14 0; printf "%${width}s" ""; tput cup 14 4; printf "%${width}s" ""; tput cup 15 0; printf "%${width}s" "" )
 		tputAppScripture=$( tput cup 18 0; printf "%${width}s" "" )$( tput cup 19 0; printf "%${width}s" "" )$( tput cup 20 0; printf "%${width}s" "" )$( tput cup 21 0; printf "%${width}s" "" )$( tput cup 18 4; printf "%${width}s" "" )
 	else
 		## the rest of the rosary
-		tputAppMystery=$( tput cup 6 0; printf "%${width}s" ""; tput cup 6 4; echo "	loading..." )
+		# tputAppMystery=$( tput cup 6 0; printf "%${width}s" ""; tput cup 6 4; echo "	loading..." )
 		tputAppMessage=$( tput cup 14 0;  printf "%${width}s" ""; tput cup 14 4; echo "	loading..."; tput cup 15 0; printf "%${width}s" "" )
 		tputAppScripture=$( tput cup 18 0; printf "%${width}s" "" )$( tput cup 19 0; printf "%${width}s" "" )$( tput cup 20 0; printf "%${width}s" "" )$( tput cup 21 0; printf "%${width}s" "" )$( tput cup 18 4; echo "	loading..." )
 	fi
@@ -39,6 +39,7 @@ function transitionalTputStingVars {
 	tputAppPrayer=$( tput cup 23 0; printf "%${width}s" "" )$( tput cup 24 0; printf "%${width}s" "" )$( tput cup 25 0; printf "%${width}s" "" )$( tput cup 26 0; printf "%${width}s" "" )$( tput cup 27 0; printf "%${width}s" "" )$( tput cup 28 0; printf "%${width}s" "" )$( tput cup 24 4; echo "	loading..." )
 
 	## Render terminal layout display
+	tput civis
 	echo "${tputAppTitle}${tputAppClock}${tputAppTranslation}${tputAppHeaderLine}${tputAppMysteryLabel}${tputAppMystery}${tputAppDecadeLabel}${tputAppDecade}${tputAppMessageLabel}${tputAppMessage}${tputAppScriptureLabel}${tputAppScripture}${tputAppPrayerLabel}${tputAppPrayer}${tputAppBeadTypeNameLabel}${tputAppBeadTypeName}${tputClearProgressFooter}"
 }
 
@@ -103,6 +104,7 @@ function tputStingVars {
 		tputAppMessage=$( tput cup 14 0; printf "%${width}s" ""; tput cup 15 0; printf "%${width}s" ""; tput cup 14 0; echo $return_decadeInfo)
 
 		## Output string
+		tput civis
 		echo "$tputAppTitle$tputAppClock$tputAppTranslation$tputAppHeaderLine$tputAppMysteryLabel$tputAppMystery$tputAppDecadeLabel$tputAppDecade$tputAppScriptureLabel$tputAppScripture$tputAppMessageLabel$tputAppMessage$tputAppPrayerLabel$tputAppPrayer$tputAppBeadTypeNameLabel$tputAppBeadTypeName$tputClearProgressFooter"
 	else
 		## Normal rendering sequence
@@ -112,6 +114,7 @@ function tputStingVars {
 		tputAppScripture=$( tput cup 18 0; printf "%${width}s" ""; tput cup 18 8; echo $return_scriptureText)$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR
 
 		## Output string
+		tput civis
 		echo "$tputAppTitle$tputAppClock$tputAppTranslation$tputAppHeaderLine$tputAppMysteryLabel$tputAppMystery$tputAppDecadeLabel$tputAppDecade$tputAppMessageLabel$tputAppMessage$tputAppScriptureLabel$tputAppScripture$tputAppPrayerLabel$tputAppPrayer$tputAppBeadTypeNameLabel$tputAppBeadTypeName$tputClearProgressFooter"
 	fi
 
@@ -287,13 +290,13 @@ function welcomepage {
 
 	if [ $isTodaySolemnityOfMary -eq 1 ]; then
 		echo "						Today is the Feast of the Solemnity of Mary
-		
+
 										The honoring of Mary as the Mother of God"
 	fi
 
 	if [ $isTodayEpiphany -eq 1 ]; then
 		echo "						Today is the Feast of the Epiphany
-		
+
 										Day that celebrates the revelation of God incarnate as Jesus Christ."
 	fi
 
@@ -308,7 +311,7 @@ function welcomepage {
 	echo "
 
 	${MODE_BEGIN_UNDERLINE}Basic UI Controlls:${MODE_EXIT_UNDERLINE}
-	
+
 		Right or Left Keys | Navigate forward or backwards.
 		Down Key           | Open Language Translation Menu ( English NAB or Latin Vulgate )
 		Up Key             | Open the Main Menu
@@ -317,7 +320,7 @@ function welcomepage {
 
 
 	${MODE_BEGIN_UNDERLINE}Advice:${MODE_EXIT_UNDERLINE}
-	
+
 		Pause after navigating to allow a moment for text querying to complete and display.
 		Optimal Xterm Screen Dimentions: (Minimum) 140 cols x 40 lines
 	"

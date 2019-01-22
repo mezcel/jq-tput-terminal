@@ -1,6 +1,5 @@
 bash
 xterm
-xorg-fonts-misc
 grep
 sed
 wget
