@@ -756,10 +756,12 @@ function yearCycleABC {
 
 	if [ $saveTheDate -lt 0 ]; then
 		# use next year
-		cycleYear=$(( $thisYear + 1 ))
+		# cycleYear=$(( $thisYear + 1 ))
+		cycleYear=$thisYear
 	else
 		# use this year
-		cycleYear=$thisYear
+		# cycleYear=$thisYear
+		cycleYear=$(( $thisYear - 1 ))
 	fi
 
 	decadeYear=$(( $cycleYear - 2000 ))
@@ -767,15 +769,15 @@ function yearCycleABC {
 
 	case $modularDiv3 in
 		1 )
-			cycleLetter="Cycle A: The Gospel of Matthew"
+			cycleLetter="Sunday Cycle A: The Gospel of Matthew"
 			abcNo=1
 			;;
 		2 )
-			cycleLetter="Cycle B: The Gospel of Mark"
+			cycleLetter="Sunday Cycle B: The Gospel of Mark"
 			abcNo=2
 			;;
 		0 )
-			cycleLetter="Cycle C: The Gospel of Luke"
+			cycleLetter="Sunday Cycle C: The Gospel of Luke"
 			abcNo=3
 			;;
 	esac
