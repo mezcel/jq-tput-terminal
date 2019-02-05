@@ -11,11 +11,11 @@ A Scripture Rosary GUI on the Bash CLI.
 
 ### About:
 
-This is a CLI GUI App. This App uses a slimmed down .json db which was ported from [electron-container](https://github.com/mezcel/electron-container).
+This is a CLI terminal GUI App. This App uses a slimmed down json database which was ported from [electron-container](https://github.com/mezcel/electron-container). It was developed for use within a GNU software environment.
 
 __Recommended Use Cases:__
 
-- "Busy Persons Retreat" Leccio Divina
+- ["Busy Persons Retreat"](https://vocationscava.org/wp-content/uploads/2014/11/ONLINE_BPR_EDITED_October_2013.pdf) and or [Leccio Divina](https://ocarm.org/en/content/lectio/what-lectio-divina)
 - Run locally in a background terminal session for audio room ambiance. Interactive Jukebox
 - Host on a ssh/ssl network.
     - Recommendation 1: ssh -p 22 host-user@ip.addr
@@ -50,7 +50,7 @@ As of ```v0.1.8``` the audio and software used in this App are GNU
 
 * ```v0.1.6.2``` added a music Autopilot to serve as spiritual room ambiance. It runs proximately +1.75 hours per 1 full mystery.
 
-* ```v0.1.10.1``` release
+* ```v0.1.10.2``` release
     * Did a lot of refactoring since from v0.1.6.2
     * Right now the focus is going back and discovering bugs/inconsistencies when ran on the default configurations of of other Linux distros. ATM Debian performs the best despite being developed on an Arch.
 
