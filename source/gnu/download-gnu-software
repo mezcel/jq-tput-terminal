@@ -50,11 +50,13 @@ function packageManagerPacman {
 	done < $currentDirPath/pacman_pkglist.txt
 
 	## Install only the missing packages
+	## -Sy install and sync. Needed for alsa and pulse audio to config properly ???
 	for (( i=1; i<${#missingPackageArr[@]}+1; i++ ));
 	do
-	  sudo pacman -S --needed ${missingPackageArr[$i-1]}
-	  ## make a confirmation log
-	  echo "Performed pacman -S --needed ${missingPackageArr[$i-1]} on: $(date)" >> $currentDirPath/installationLog
+		# sudo pacman -S --needed ${missingPackageArr[$i-1]}
+		sudo pacman -Sy --needed ${missingPackageArr[$i-1]}
+		## make a confirmation log
+		echo "Performed pacman -S --needed ${missingPackageArr[$i-1]} on: $(date)" >> $currentDirPath/installationLog
 	done
 }
 
@@ -71,12 +73,12 @@ function packageManagerDPKG {
 	currentDirPath=$(dirname $0)
 	while read linePackage
 	do
-	    count=$(( $count + 1 ))
-	    statusMsg=$(dpkg -s $linePackage 2> /dev/null |  grep Status)
-	    isPackageMissing=$?
-	    if [ $isPackageMissing -eq 1 ]; then
-	        missingPackageArr+=($linePackage)
-	    fi
+		count=$(( $count + 1 ))
+		statusMsg=$(dpkg -s $linePackage 2> /dev/null |  grep Status)
+		isPackageMissing=$?
+		if [ $isPackageMissing -eq 1 ]; then
+			missingPackageArr+=($linePackage)
+		fi
 	done < $currentDirPath/dpkg_pkglist.txt
 
 	## Install only the missing packages
@@ -187,7 +189,13 @@ function tryAgainLater {
 	exit
 }
 
+function getLatestRepoUpdates {
+	# git remote update ## to bring remote refs up to date
+	git pull
+}
+
 function download_gnu_software {
+	getLatestRepoUpdates
 
 	identifyPackageManager
 
@@ -207,6 +215,9 @@ function download_gnu_software {
 				;;
 		esac
 	fi
+	
+	## changes to gunu will take effect the next time this app runs
+	## getLatestRepoUpdates
 
 }
 

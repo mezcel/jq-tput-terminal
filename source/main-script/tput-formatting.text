@@ -504,7 +504,8 @@ function progressbars {
 		proportion=$thisDecadeSet/10
 		barWidth=$(( width*$proportion))
 		barWidth=$((barWidth - 2 ))
-		barDecade=$(printf '%*s\n' "${COLUMNS:-$barWidth}" ' ' | tr ' ' '|')
+		# barDecade=$(printf '%*s\n' "${COLUMNS:-$barWidth}" ' ' | tr ' ' '|')
+		barDecade=$(printf '%*s\n' "$barWidth" ' ' | tr ' ' '|')
 		tputDecadeBar=$( tput cup $[$( tput lines )-6] 0; printf "%${width}s" ""; tput cup $[$( tput lines )-6] 1; echo $BAR_BG$BAR_FG$barDecade$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 
 		## Mystery Bar
@@ -520,14 +521,15 @@ function progressbars {
 		proportion=$mysteryProgress/50
 		barWidth=$(( width*$proportion))
 		barWidth=$((barWidth - 2 ))
-		barMystery=$(printf '%*s\n' "${COLUMNS:-$barWidth}" ' ' | tr ' ' '|')
+		# barMystery=$(printf '%*s\n' "${COLUMNS:-$barWidth}" ' ' | tr ' ' '/')
+		barMystery=$(printf '%*s\n' "$barWidth" ' ' | tr ' ' '|')
 		tputMysteryBar=$( tput cup $[$( tput lines )-2] 0; printf "%${width}s" ""; tput cup $[$( tput lines )-1] 0; printf "%${width}s" ""; tput cup $[$( tput lines )-3] 0; printf "%${width}s" ""; tput cup $[$( tput lines )-3] 1; echo $BAR_BG$BAR_FG$barMystery$BACKGROUNDCOLOR$FOREGROUNDCOLOR)
 
 		# stringLength=${#isAudio}
 		# isAudio=$(put cup $[$( tput lines )-1] $[$( tput cols )-$stringLength]; echo $isAudio)
 
 		## Rendering
-		echo "$STYLES_OFF$BACKGROUNDCOLOR$FOREGROUNDCOLOR$progressBarDivider$progressBarTitle$tputDecadeBarLabel$tputDecadeBar$tputMysteryBarLabel$tputMysteryBar"
+		echo "${STYLES_OFF}${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}${progressBarDivider}${progressBarTitle}${tputDecadeBarLabel}${tputDecadeBar}${tputMysteryBarLabel}${tputMysteryBar}"
 	fi
 
 }

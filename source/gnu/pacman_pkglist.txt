@@ -11,6 +11,10 @@ ncurses
 dialog
 jq
 gcc
+alsa
+alsa-utils
+pulseaudio
+pulseaudio-alsa
 vorbis-tools
 elinks
 git

@@ -48,21 +48,14 @@ As of ```v0.1.8``` the audio and software used in this App are GNU
 
 * ```v0.1.4``` Meaningful stop point with working functionalities. Demo Preview: [asciinema](https://asciinema.org/a/217793)
 
-* ```v0.1.6.2``` added a music Autopilot to serve as spiritual room ambiance. It runs proximately +1.75 hours per 1 full mystery.
-
-* ```v0.1.10.2``` release
-    * Did a lot of refactoring since from v0.1.6.2
-    * Right now the focus is going back and discovering bugs/inconsistencies when ran on the default configurations of of other Linux distros. ATM Debian performs the best despite being developed on an Arch.
-
-* ```v0.1.10.2``` dev branch
-    * Trying to make jq perform a bit better
-    * The usual look and feel tweaks
-    * Update the .json db, updated decadeInfo content
+* ```v0.1.11``` dev branch and master
+	* mindmap program anatomy
+	* workarrounds for latest Arch rolling release changes
 
 
 | Test Distro's | Development Environment Notes |
 | --- | --- |
-| [Arch](https://wiki.archlinux.org/) | This App was developed on Arch Linux. [Parabola](https://wiki.parabola.nu/Category:Migration) is a 'free' Arch alternative. I also tested it with [shellinabox](https://aur.archlinux.org/packages/shellinabox-git/) hosting.|
+| [Arch](https://wiki.archlinux.org/) | This App was developed on Arch Linux. I also tested it with [shellinabox](https://aur.archlinux.org/packages/shellinabox-git/) hosting.|
 | Slackware | Tested on Salix ( legacy repo linux platform compatible ) |
 | [Alpine](https://alpinelinux.org/about/) | OpenRC, Docker, BusyBox. Fastest install and setup process |
 | Ubuntu | [Trisquel](https://trisquel.info), Tahrpup, and Mint. Average performance. |

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 function translationDB {
 
 	hostedDirPath=$(dirname $0)
@@ -44,7 +46,7 @@ function initializeFlags {
 	isMenuOpen=0
 
 	## Set initial pulseaudio system volume
-	amixer set Master 25% </dev/null >/dev/null 2>&1
+	amixer set Master 50% </dev/null >/dev/null 2>&1
 
 	## determine mystery of the day
 	initializeFeastFlags

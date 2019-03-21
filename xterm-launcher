@@ -54,16 +54,16 @@ function launch_new_window {
 
 }
 
-function startMPlayerDemo {
+function startOgg123Demo {
 	hostedDirPath=$(dirname $0)
 
 	## Set initial pulseaudio system volume
 	if [ -f /usr/bin/amixer ]; then
-		amixer -q set Master 25% </dev/null >/dev/null 2>&1
+		amixer -q set Master 50% </dev/null >/dev/null 2>&1
 	fi
 	
 	if [ -f /usr/bin/ogg123 ]; then
-		ogg123 -q $hostedDirPath/audio/chime.ogg </dev/null >/dev/null 2>&1 &
+		ogg123 -q $hostedDirPath/source/ogg/WindChime.ogg </dev/null >/dev/null 2>&1 &
 	fi	
 	
 }
@@ -74,7 +74,7 @@ function download_dependencies {
 }
 
 # download_dependencies
-startMPlayerDemo
+startOgg123Demo
 splashScreen
 
 currentDirPath=$(dirname $0)

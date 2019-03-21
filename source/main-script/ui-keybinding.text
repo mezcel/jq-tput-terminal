@@ -72,6 +72,13 @@ function arrowInputs {
 					tput civis
 					bundledDisplay
 					setBeadAudio
+					
+					## kill audio when navigating
+					if pgrep -x "ogg123" &>/dev/null
+					then
+						killall ogg123 &>/dev/null
+					fi
+					
 				fi
 				;;
 			$arrowLt ) # navigate back
@@ -80,12 +87,18 @@ function arrowInputs {
 				tput civis
 				bundledDisplay
 				setBeadAudio
+				
+				## kill audio when navigating
+				if pgrep -x "ogg123" &>/dev/null
+				then
+					killall ogg123 &>/dev/null
+				fi
+					
 				;;
-			"m" | "M" ) # mplayer audio
-
+			"m" | "M" | "p" | "P" ) # ogg123 audio player
 				if ! pgrep -x "ogg123" > /dev/null
 				then
-					ogg123 -q $beadAudioFile </dev/null >/dev/null 2>&1 &
+					ogg123 -q "$beadAudioFile" </dev/null >/dev/null 2>&1 &
 					sleep .5s
 				else
 					if pgrep -x "ogg123" &>/dev/null
@@ -149,7 +162,7 @@ function musicsalAutoPilot {
 	stty -echo
 
 	setBeadAudio
-	ogg123 -q $beadAudioFile </dev/null >/dev/null 2>&1 &
+	ogg123 -q "$beadAudioFile" </dev/null >/dev/null 2>&1 &
 	sleep .5s
 
 	autoPilot=1
@@ -166,14 +179,14 @@ function musicsalAutoPilot {
 				isMenuOpen=1
 				beadFWD
 				setBeadAudio
-				ogg123 -q $beadAudioFile </dev/null >/dev/null 2>&1 &
+				ogg123 -q "$beadAudioFile" </dev/null >/dev/null 2>&1 &
 				echo "$beadCounter,$hailmaryCounter,$thisDecadeSet,$mysteryProgress,$(date)" > $currentDirPath/source/main-script/temp/varFile
 			else
 				blank_transition_display
 				beadFWD
 				bundledDisplay
 				setBeadAudio
-				ogg123 -q $beadAudioFile </dev/null >/dev/null 2>&1 &
+				ogg123 -q "$beadAudioFile" </dev/null >/dev/null 2>&1 &
 			fi
 		fi
 

@@ -157,8 +157,6 @@ function determine_what_to_query {
 	fi
 }
 
-
-
 #
 ## Format text for terminal display
 #
