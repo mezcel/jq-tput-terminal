@@ -212,8 +212,7 @@ function menuUP {
 		10)	## exit app
 			if [ $autoPilot -eq 1 ]; then
 				autoPilot=0
-				exitAutoPilotApp
-
+				# exitAutoPilotApp
 			else
 				goodbyescreen
 				tput cnorm
@@ -285,7 +284,7 @@ function menuUPautopilot {
 		10)	## exit app
 			if [ $autoPilot -eq 1 ]; then
 				autoPilot=0
-				exitAutoPilotApp
+				# exitAutoPilotApp
 			else
 				goodbyescreen
 				tput cnorm

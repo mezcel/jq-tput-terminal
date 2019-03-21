@@ -6,58 +6,103 @@
 <icon BUILTIN="edit"/>
 <node CREATED="1552961853119" ID="ID_1716726130" LINK="../bash-rosary" MODIFIED="1552982461153" TEXT="installSoftwareMultimedia">
 <icon BUILTIN="list"/>
-<node CREATED="1552973951542" ID="ID_1072812991" LINK="../source/gnu/download-gnu-software" MODIFIED="1552974065598" TEXT="download-gnu-software">
+<node CREATED="1552973951542" ID="ID_1072812991" LINK="../source/gnu/download-gnu-software" MODIFIED="1553138676850" TEXT="./download-gnu-software">
 <icon BUILTIN="edit"/>
-<node CREATED="1552974379142" ID="ID_907675875" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982470388" TEXT="download_gnu_software">
+<node CREATED="1552971483970" ID="ID_1520976438" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982519429" TEXT="download_gnu_software">
 <icon BUILTIN="list"/>
-<node CREATED="1552974282134" ID="ID_199647565" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982470388" TEXT="packageManagerPacman">
+<node CREATED="1552971501282" ID="ID_472773007" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982519428" TEXT="packageManagerPacman">
+<icon BUILTIN="list"/>
+<node CREATED="1553140430876" ID="ID_1934982963" LINK="../source/gnu/pacman_pkglist.txt" MODIFIED="1553140441298" TEXT="pacman_pkglist.txt">
+<icon BUILTIN="edit"/>
+</node>
+</node>
+<node CREATED="1552971514133" ID="ID_206737850" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982519428" TEXT="packageManagerDPKG">
+<icon BUILTIN="list"/>
+<node CREATED="1553140461980" ID="ID_803609736" LINK="../source/gnu/dpkg_pkglist.txt" MODIFIED="1553140468322" TEXT="dpkg_pkglist.txt">
+<icon BUILTIN="edit"/>
+</node>
+</node>
+<node CREATED="1552971519422" ID="ID_273701270" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982519427" TEXT="packageManagerAlpine">
+<icon BUILTIN="list"/>
+<node CREATED="1553140430876" ID="ID_415931726" LINK="../source/gnu/pacman_pkglist.txt" MODIFIED="1553140441298" TEXT="pacman_pkglist.txt">
+<icon BUILTIN="edit"/>
+</node>
+</node>
+<node CREATED="1552971526238" ID="ID_1716029988" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982519426" TEXT="packageManagerSlapt">
+<icon BUILTIN="list"/>
+<node CREATED="1552971761213" ID="ID_613159042" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982519425" TEXT="compileJq">
 <icon BUILTIN="list"/>
 </node>
-<node CREATED="1552974288382" ID="ID_1318701693" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982470387" TEXT="packageManagerDPKG">
+<node CREATED="1553140461980" ID="ID_1292900540" LINK="../source/gnu/dpkg_pkglist.txt" MODIFIED="1553140468322" TEXT="dpkg_pkglist.txt">
+<icon BUILTIN="edit"/>
+</node>
+</node>
+<node CREATED="1552971979314" ID="ID_521076787" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982519426" TEXT="identifyPackageManager">
 <icon BUILTIN="list"/>
 </node>
-<node CREATED="1552974293019" ID="ID_32952389" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982470387" TEXT="packageManagerAlpine">
-<icon BUILTIN="list"/>
-</node>
-<node CREATED="1552974298034" ID="ID_1991714287" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982470386" TEXT="packageManagerSlapt">
-<icon BUILTIN="list"/>
-</node>
-<node CREATED="1552974365622" ID="ID_98485988" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982470385" TEXT="identifyPackageManager">
+<node CREATED="1553140615093" ID="ID_1656299453" LINK="../source/gnu/download-gnu-software" MODIFIED="1553140636819" TEXT="getLatestRepoUpdates">
 <icon BUILTIN="list"/>
 </node>
 </node>
 </node>
-<node CREATED="1552973969767" ID="ID_888210828" LINK="../source/ogg/download-ogg-media" MODIFIED="1552974077701" TEXT="download-ogg-media">
+<node CREATED="1552973969767" ID="ID_888210828" LINK="../source/ogg/download-ogg-media" MODIFIED="1553138681514" TEXT="./download-ogg-media">
 <icon BUILTIN="edit"/>
 <node CREATED="1552974155922" ID="ID_1596860983" LINK="../source/ogg/download-ogg-media" MODIFIED="1552982475953" TEXT="download_ogg_media">
 <icon BUILTIN="list"/>
+<node CREATED="1552975562867" ID="ID_657378540" LINK="../source/ogg/beep.ogg" MODIFIED="1553137715349" TEXT="beep.ogg">
+<icon BUILTIN="knotify"/>
+</node>
+<node CREATED="1552975583415" ID="ID_311491564" LINK="../source/ogg/01%20Sign%20of%20the%20cross.ogg" MODIFIED="1553137745831" TEXT="01 Sign of the cross.ogg">
+<icon BUILTIN="knotify"/>
+</node>
+<node CREATED="1552975594713" ID="ID_872046241" LINK="../source/ogg/Byrd_4-Part_Mass_-_Credo.ogg" MODIFIED="1553137753928" TEXT="Byrd_4-Part_Mass_-_Credo.ogg">
+<icon BUILTIN="knotify"/>
+</node>
+<node CREATED="1552975603983" ID="ID_1379880324" LINK="../source/ogg/Schola_Gregoriana-Pater_Noster.ogg" MODIFIED="1553137789704" TEXT="Schola_Gregoriana-Pater_Noster.ogg">
+<icon BUILTIN="knotify"/>
+</node>
+<node CREATED="1552975612995" ID="ID_1726731644" LINK="../source/ogg/Schola_Gregoriana-Ave_Maria.ogg" MODIFIED="1553137861251" TEXT="Schola_Gregoriana-Ave_Maria.ogg">
+<icon BUILTIN="knotify"/>
+</node>
+<node CREATED="1552975623851" ID="ID_140739914" LINK="../source/ogg/The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg" MODIFIED="1553137870498" TEXT="The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg">
+<icon BUILTIN="knotify"/>
+</node>
+<node CREATED="1552975631959" ID="ID_677486937" LINK="../source/ogg/WindChime.ogg" MODIFIED="1553137880347" TEXT="WindChime.ogg">
+<icon BUILTIN="knotify"/>
+</node>
+<node CREATED="1552975640847" ID="ID_29301052" LINK="../source/ogg/Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg" MODIFIED="1553137890071" TEXT="Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg">
+<icon BUILTIN="knotify"/>
+</node>
+<node CREATED="1553138485434" ID="ID_1126559601" LINK="../source/ogg/Schola_Gregoriana-Antiphona_et_Magnificat.ogg" MODIFIED="1553138499050" TEXT="Schola_Gregoriana-Antiphona_et_Magnificat.ogg">
+<icon BUILTIN="knotify"/>
+</node>
 </node>
 </node>
 </node>
 <node CREATED="1552961862217" ID="ID_67598853" LINK="../bash-rosary" MODIFIED="1552986628392" TEXT="loadSourceScripts">
 <icon BUILTIN="list"/>
-<node CREATED="1552974586783" ID="ID_749698070" MODIFIED="1552986665090" TEXT="jq-tput-terminal/source/main-script/initialize-sources.text">
+<node CREATED="1553139034187" ID="ID_1914875097" LINK="../source/main-script/initialize-sources.text" MODIFIED="1553139048303" TEXT="initialize-sources.text">
 <icon BUILTIN="edit"/>
 </node>
-<node CREATED="1552974600675" ID="ID_1341834527" MODIFIED="1552986673363" TEXT="jq-tput-terminal/source/main-script/jq-parsing.text">
+<node CREATED="1553139034191" ID="ID_1606894855" LINK="../source/main-script/jq-parsing.text" MODIFIED="1553139048302" TEXT="jq-parsing.text">
 <icon BUILTIN="edit"/>
 </node>
-<node CREATED="1552974614164" ID="ID_600577731" MODIFIED="1552986676886" TEXT="jq-tput-terminal/source/main-script/menu-dialog.text">
+<node CREATED="1553139034197" ID="ID_1141190417" LINK="../source/main-script/menu-dialog.text" MODIFIED="1553139048300" TEXT="menu-dialog.text">
 <icon BUILTIN="edit"/>
 </node>
-<node CREATED="1552974632350" ID="ID_373141438" MODIFIED="1552986682329" TEXT="jq-tput-terminal/source/main-script/paschal-full-moon.text">
+<node CREATED="1553139034199" ID="ID_492758619" LINK="../source/main-script/paschal-full-moon.text" MODIFIED="1553139048299" TEXT="paschal-full-moon.text">
 <icon BUILTIN="edit"/>
 </node>
-<node CREATED="1552974641966" ID="ID_1898174075" MODIFIED="1552986687691" TEXT="jq-tput-terminal/source/main-script/tput-formatting.text">
+<node CREATED="1553139034200" ID="ID_113943918" LINK="../source/main-script/tput-formatting.text" MODIFIED="1553139048297" TEXT="tput-formatting.text">
 <icon BUILTIN="edit"/>
 </node>
-<node CREATED="1552974649595" ID="ID_815245521" MODIFIED="1552986692411" TEXT="jq-tput-terminal/source/main-script/ui-appearance.text">
+<node CREATED="1553139034201" ID="ID_539883125" LINK="../source/main-script/ui-appearance.text" MODIFIED="1553139048296" TEXT="ui-appearance.text">
 <icon BUILTIN="edit"/>
 </node>
-<node CREATED="1552974656730" ID="ID_1794207144" MODIFIED="1552986697453" TEXT="jq-tput-terminal/source/main-script/ui-keybinding.text">
+<node CREATED="1553139034205" ID="ID_1525874898" LINK="../source/main-script/ui-keybinding.text" MODIFIED="1553139048294" TEXT="ui-keybinding.text">
 <icon BUILTIN="edit"/>
 </node>
-<node CREATED="1552974667611" ID="ID_1057735516" MODIFIED="1552986703593" TEXT="jq-tput-terminal/source/main-script/webscrape.text">
+<node CREATED="1553139034207" ID="ID_1105646401" LINK="../source/main-script/webscrape.text" MODIFIED="1553139048293" TEXT="webscrape.text">
 <icon BUILTIN="edit"/>
 </node>
 </node>
@@ -67,26 +112,41 @@
 <icon BUILTIN="list"/>
 <node CREATED="1552962249147" ID="ID_309464801" LINK="../source/main-script/initialize-sources.text" MODIFIED="1552982519431" TEXT="download_dependencies">
 <icon BUILTIN="list"/>
-<node CREATED="1552971414902" ID="ID_1219226984" LINK="../source/gnu/download-gnu-software" MODIFIED="1552986767246" TEXT="download-gnu-software">
+<node CREATED="1552971414902" ID="ID_1219226984" LINK="../source/gnu/download-gnu-software" MODIFIED="1553138671121" TEXT="./download-gnu-software">
 <icon BUILTIN="edit"/>
 <node CREATED="1552971483970" ID="ID_1082215513" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982519429" TEXT="download_gnu_software">
 <icon BUILTIN="list"/>
 <node CREATED="1552971501282" ID="ID_1511611062" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982519428" TEXT="packageManagerPacman">
 <icon BUILTIN="list"/>
+<node CREATED="1553140430876" ID="ID_382365035" LINK="../source/gnu/pacman_pkglist.txt" MODIFIED="1553140441298" TEXT="pacman_pkglist.txt">
+<icon BUILTIN="edit"/>
+</node>
 </node>
 <node CREATED="1552971514133" ID="ID_1154498923" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982519428" TEXT="packageManagerDPKG">
 <icon BUILTIN="list"/>
+<node CREATED="1553140461980" ID="ID_619992157" LINK="../source/gnu/dpkg_pkglist.txt" MODIFIED="1553140468322" TEXT="dpkg_pkglist.txt">
+<icon BUILTIN="edit"/>
+</node>
 </node>
 <node CREATED="1552971519422" ID="ID_1399387729" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982519427" TEXT="packageManagerAlpine">
 <icon BUILTIN="list"/>
+<node CREATED="1553140430876" ID="ID_1164068000" LINK="../source/gnu/pacman_pkglist.txt" MODIFIED="1553140441298" TEXT="pacman_pkglist.txt">
+<icon BUILTIN="edit"/>
+</node>
 </node>
 <node CREATED="1552971526238" ID="ID_346606044" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982519426" TEXT="packageManagerSlapt">
 <icon BUILTIN="list"/>
 <node CREATED="1552971761213" ID="ID_306816651" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982519425" TEXT="compileJq">
 <icon BUILTIN="list"/>
 </node>
+<node CREATED="1553140461980" ID="ID_986404426" LINK="../source/gnu/dpkg_pkglist.txt" MODIFIED="1553140468322" TEXT="dpkg_pkglist.txt">
+<icon BUILTIN="edit"/>
+</node>
 </node>
 <node CREATED="1552971979314" ID="ID_421348570" LINK="../source/gnu/download-gnu-software" MODIFIED="1552982519426" TEXT="identifyPackageManager">
+<icon BUILTIN="list"/>
+</node>
+<node CREATED="1553140615093" ID="ID_906626769" LINK="../source/gnu/download-gnu-software" MODIFIED="1553140636819" TEXT="getLatestRepoUpdates">
 <icon BUILTIN="list"/>
 </node>
 </node>
@@ -115,7 +175,7 @@
 <node CREATED="1552962477908" ID="ID_1296223392" LINK="../source/main-script/paschal-full-moon.text" MODIFIED="1552982528211" TEXT="initializeFeastFlags">
 <icon BUILTIN="list"/>
 </node>
-<node CREATED="1552962483964" ID="ID_567367617" LINK="../source/main-script/paschal-full-moon.text" MODIFIED="1552982544867" TEXT="trigger_feastDay">
+<node CREATED="1552962483964" ID="ID_567367617" LINK="../source/main-script/paschal-full-moon.text" MODIFIED="1553140504372" TEXT="trigger_feastDay">
 <icon BUILTIN="list"/>
 <node CREATED="1552968604009" ID="ID_588218450" LINK="../source/main-script/paschal-full-moon.text" MODIFIED="1552982528210" TEXT="calculate_Paschal_Full_Moon">
 <icon BUILTIN="list"/>
@@ -227,8 +287,7 @@
 </node>
 <node CREATED="1552968712741" ID="ID_671558476" LINK="../source/main-script/paschal-full-moon.text" MODIFIED="1552982561231" TEXT="yearCycleABC">
 <icon BUILTIN="list"/>
-<node CREATED="1552969590197" ID="ID_1842228283" LINK="../source/main-script/paschal-full-moon.text" MODIFIED="1552982601564" TEXT="livingSeasonABC">
-<icon BUILTIN="list"/>
+<node CREATED="1552969590197" ID="ID_1842228283" LINK="../source/main-script/paschal-full-moon.text" MODIFIED="1553139349567" TEXT="livingSeasonABC">
 <icon BUILTIN="list"/>
 </node>
 </node>
@@ -238,10 +297,10 @@
 </node>
 <node CREATED="1552962498655" ID="ID_1530433246" LINK="../source/main-script/initialize-sources.text" MODIFIED="1552982544865" TEXT="translationDB">
 <icon BUILTIN="list"/>
-<node CREATED="1552986557830" ID="ID_259938555" MODIFIED="1552986581025" TEXT="json-db/rosaryJSON-nab.json">
+<node CREATED="1553138752802" ID="ID_540219686" LINK="../json-db/rosaryJSON-nab.json" MODIFIED="1553138764054" TEXT="rosaryJSON-nab.json">
 <icon BUILTIN="edit"/>
 </node>
-<node CREATED="1552986572869" ID="ID_1279600725" MODIFIED="1552986581024" TEXT="json-db/rosaryJSON-vulgate.json">
+<node CREATED="1553138752804" ID="ID_72122286" LINK="../json-db/rosaryJSON-vulgate.json" MODIFIED="1553138764051" TEXT="rosaryJSON-vulgate.json">
 <icon BUILTIN="edit"/>
 </node>
 </node>
@@ -274,37 +333,34 @@
 </node>
 <node CREATED="1552965798049" ID="ID_765486943" LINK="../source/main-script/ui-appearance.text" MODIFIED="1552982608209" TEXT="setBeadAudio">
 <icon BUILTIN="list"/>
-<node CREATED="1552975562867" ID="ID_1689966609" MODIFIED="1552982623256" TEXT="source/ogg/beep.ogg">
+<node CREATED="1552975562867" ID="ID_1689966609" LINK="../source/ogg/beep.ogg" MODIFIED="1553137715349" TEXT="beep.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975583415" ID="ID_332375730" MODIFIED="1552982623255" TEXT="source/ogg/01\ Sign\ of\ the\ cross.ogg">
+<node CREATED="1552975583415" ID="ID_332375730" LINK="../source/ogg/01%20Sign%20of%20the%20cross.ogg" MODIFIED="1553137745831" TEXT="01 Sign of the cross.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975594713" ID="ID_85393555" MODIFIED="1552982623255" TEXT="source/ogg/Byrd_4-Part_Mass_-_Credo.ogg">
+<node CREATED="1552975594713" ID="ID_85393555" LINK="../source/ogg/Byrd_4-Part_Mass_-_Credo.ogg" MODIFIED="1553137753928" TEXT="Byrd_4-Part_Mass_-_Credo.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975603983" ID="ID_1844077810" MODIFIED="1552982623254" TEXT="source/ogg/Schola_Gregoriana-Pater_Noster.ogg">
+<node CREATED="1552975603983" ID="ID_1844077810" LINK="../source/ogg/Schola_Gregoriana-Pater_Noster.ogg" MODIFIED="1553137789704" TEXT="Schola_Gregoriana-Pater_Noster.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975612995" ID="ID_1815313871" MODIFIED="1552982623254" TEXT="source/ogg/Schola_Gregoriana-Ave_Maria.ogg">
+<node CREATED="1552975612995" ID="ID_1815313871" LINK="../source/ogg/Schola_Gregoriana-Ave_Maria.ogg" MODIFIED="1553137861251" TEXT="Schola_Gregoriana-Ave_Maria.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975623851" ID="ID_1566911336" MODIFIED="1552982623253" TEXT="source/ogg/The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg">
+<node CREATED="1552975623851" ID="ID_1566911336" LINK="../source/ogg/The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg" MODIFIED="1553137870498" TEXT="The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975631959" ID="ID_107166106" MODIFIED="1552982623253" TEXT="source/ogg/WindChime.ogg">
+<node CREATED="1552975631959" ID="ID_107166106" LINK="../source/ogg/WindChime.ogg" MODIFIED="1553137880347" TEXT="WindChime.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975640847" ID="ID_1346613646" MODIFIED="1552982623252" TEXT="source/ogg/Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg">
+<node CREATED="1552975640847" ID="ID_1346613646" LINK="../source/ogg/Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg" MODIFIED="1553137890071" TEXT="Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975651135" ID="ID_1895006674" MODIFIED="1552982623252" TEXT="source/ogg/WindChime.ogg">
+<node CREATED="1552975651135" ID="ID_1895006674" LINK="../source/ogg/WindChime.ogg" MODIFIED="1553137898124" TEXT="WindChime.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975661023" ID="ID_646801028" MODIFIED="1552982623252" TEXT="source/ogg/WindChime.ogg">
-<icon BUILTIN="knotify"/>
-</node>
-<node CREATED="1552975669758" ID="ID_80208532" MODIFIED="1552982623251" TEXT="source/ogg/beep.ogg">
+<node CREATED="1553138485434" ID="ID_1418795570" LINK="../source/ogg/Schola_Gregoriana-Antiphona_et_Magnificat.ogg" MODIFIED="1553138499050" TEXT="Schola_Gregoriana-Antiphona_et_Magnificat.ogg">
 <icon BUILTIN="knotify"/>
 </node>
 </node>
@@ -328,25 +384,25 @@
 <icon BUILTIN="list"/>
 <node CREATED="1552979966747" ID="ID_146327158" LINK="../source/main-script/paschal-full-moon.text" MODIFIED="1552982658900" TEXT="dispPieChart">
 <icon BUILTIN="list"/>
-<node CREATED="1552980004920" ID="ID_1424925031" MODIFIED="1552982662071" TEXT="source/main-script/tiny-pie.txt">
+<node CREATED="1553139311729" ID="ID_1594692147" LINK="../source/main-script/tiny-pie.txt" MODIFIED="1553139328728" TEXT="tiny-pie.txt">
 <icon BUILTIN="edit"/>
 </node>
 </node>
 </node>
 <node CREATED="1552978818120" ID="ID_1907506216" LINK="../source/main-script/webscrape.text" MODIFIED="1552982639466" TEXT="elinksUsccb">
 <icon BUILTIN="list"/>
-<node CREATED="1552986968115" ID="ID_1350536280" MODIFIED="1552986975540" TEXT="source/html/404.html">
-<icon BUILTIN="edit"/>
-</node>
 <node CREATED="1552987072065" ID="ID_1526021348" LINK="../source/main-script/webscrape.text" MODIFIED="1552987111064" TEXT="elinksUsccbMassReadings">
 <icon BUILTIN="list"/>
-<node CREATED="1552987144269" ID="ID_23684611" MODIFIED="1552987147640" TEXT="visitUsccbLog.txt">
+<node CREATED="1553139371756" ID="ID_394485546" LINK="../source/html/visitUsccbLog.txt" MODIFIED="1553139385969" TEXT="visitUsccbLog.txt">
+<icon BUILTIN="edit"/>
+</node>
+<node CREATED="1553140546220" ID="ID_1374821623" LINK="../source/html/mass-readings.html" MODIFIED="1553140549845" TEXT="mass-readings.html">
 <icon BUILTIN="edit"/>
 </node>
 </node>
+<node CREATED="1553139420383" ID="ID_1008173661" LINK="../source/html/404.html" MODIFIED="1553139433905" TEXT="404.html">
+<icon BUILTIN="edit"/>
 </node>
-<node CREATED="1552978841076" ID="ID_1704906191" MODIFIED="1552982639465" TEXT="exitAutoPilotApp">
-<icon BUILTIN="list"/>
 </node>
 <node CREATED="1552978849312" ID="ID_1519141129" LINK="../source/main-script/tput-formatting.text" MODIFIED="1552982639465" TEXT="goodbyescreen">
 <icon BUILTIN="list"/>
@@ -356,12 +412,12 @@
 </node>
 <node CREATED="1552978861340" ID="ID_1709370965" LINK="../source/main-script/tput-formatting.text" MODIFIED="1552982639464" TEXT="howToPage">
 <icon BUILTIN="list"/>
-<node CREATED="1552980283999" ID="ID_966229109" MODIFIED="1552980286763" TEXT="forceCrossBead"/>
-<node CREATED="1552980290684" ID="ID_1280336308" MODIFIED="1552980294355" TEXT="goodbyescreen"/>
-<node CREATED="1552980298780" ID="ID_1752577150" MODIFIED="1552980320322" TEXT="forceCrossBead"/>
+<node CREATED="1552980283999" ID="ID_966229109" LINK="../source/main-script/tput-formatting.text" MODIFIED="1553140201615" TEXT="forceCrossBead"/>
+<node CREATED="1552980290684" ID="ID_1280336308" LINK="../source/main-script/tput-formatting.text" MODIFIED="1553140207045" TEXT="goodbyescreen"/>
+<node CREATED="1552980298780" ID="ID_1752577150" LINK="../source/main-script/tput-formatting.text" MODIFIED="1553140213718" TEXT="forceCrossBead"/>
 <node CREATED="1552980160952" ID="ID_401330749" LINK="../source/main-script/ui-appearance.text" MODIFIED="1552980227092" TEXT="resizeWindow"/>
 </node>
-<node CREATED="1552978872607" ID="ID_1725642309" MODIFIED="1552982639463" TEXT="tputBeadDisplay">
+<node CREATED="1552978872607" ID="ID_1725642309" LINK="../source/main-script/tput-formatting.text" MODIFIED="1553140295294" TEXT="tputBeadDisplay">
 <icon BUILTIN="list"/>
 </node>
 <node CREATED="1552980160952" ID="ID_1841497555" LINK="../source/main-script/ui-appearance.text" MODIFIED="1552982639463" TEXT="resizeWindow">
@@ -382,15 +438,6 @@
 </node>
 <node CREATED="1552978652772" ID="ID_1601081718" LINK="../source/main-script/tput-formatting.text" MODIFIED="1552985856357" TEXT="blank_transition_display">
 <icon BUILTIN="list"/>
-</node>
-<node CREATED="1552978663068" ID="ID_1308318108" LINK="../source/main-script/ui-keybinding.text" MODIFIED="1552985856354" TEXT="beadFWD">
-<icon BUILTIN="list"/>
-<node CREATED="1552979009832" ID="ID_1236165621" LINK="../source/main-script/jq-parsing.text" MODIFIED="1552985856352" TEXT="determine_what_to_query">
-<icon BUILTIN="list"/>
-<node CREATED="1552980522260" ID="ID_144884133" LINK="../source/main-script/jq-parsing.text" MODIFIED="1552985856346" TEXT="jqQuery_all">
-<icon BUILTIN="list"/>
-</node>
-</node>
 </node>
 <node CREATED="1552978668820" ID="ID_424319964" LINK="../source/main-script/tput-formatting.text" MODIFIED="1552985864509" TEXT="bundledDisplay">
 <icon BUILTIN="list"/>
@@ -418,37 +465,34 @@
 </node>
 <node CREATED="1552965798049" ID="ID_1078092179" LINK="../source/main-script/ui-appearance.text" MODIFIED="1552985870113" TEXT="setBeadAudio">
 <icon BUILTIN="list"/>
-<node CREATED="1552975562867" ID="ID_1084445540" MODIFIED="1552985885532" TEXT="source/ogg/beep.ogg">
+<node CREATED="1552975562867" ID="ID_1499856196" LINK="../source/ogg/beep.ogg" MODIFIED="1553137715349" TEXT="beep.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975583415" ID="ID_380371325" MODIFIED="1552985885529" TEXT="source/ogg/01\ Sign\ of\ the\ cross.ogg">
+<node CREATED="1552975583415" ID="ID_311780084" LINK="../source/ogg/01%20Sign%20of%20the%20cross.ogg" MODIFIED="1553137745831" TEXT="01 Sign of the cross.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975594713" ID="ID_1777059166" MODIFIED="1552985885528" TEXT="source/ogg/Byrd_4-Part_Mass_-_Credo.ogg">
+<node CREATED="1552975594713" ID="ID_322129132" LINK="../source/ogg/Byrd_4-Part_Mass_-_Credo.ogg" MODIFIED="1553137753928" TEXT="Byrd_4-Part_Mass_-_Credo.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975603983" ID="ID_1305938885" MODIFIED="1552985885521" TEXT="source/ogg/Schola_Gregoriana-Pater_Noster.ogg">
+<node CREATED="1552975603983" ID="ID_308530636" LINK="../source/ogg/Schola_Gregoriana-Pater_Noster.ogg" MODIFIED="1553137789704" TEXT="Schola_Gregoriana-Pater_Noster.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975612995" ID="ID_1748211941" MODIFIED="1552985885519" TEXT="source/ogg/Schola_Gregoriana-Ave_Maria.ogg">
+<node CREATED="1552975612995" ID="ID_158138966" LINK="../source/ogg/Schola_Gregoriana-Ave_Maria.ogg" MODIFIED="1553137861251" TEXT="Schola_Gregoriana-Ave_Maria.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975623851" ID="ID_1936189506" MODIFIED="1552985885518" TEXT="source/ogg/The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg">
+<node CREATED="1552975623851" ID="ID_1487133841" LINK="../source/ogg/The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg" MODIFIED="1553137870498" TEXT="The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975631959" ID="ID_1633713207" MODIFIED="1552985885515" TEXT="source/ogg/WindChime.ogg">
+<node CREATED="1552975631959" ID="ID_1302830985" LINK="../source/ogg/WindChime.ogg" MODIFIED="1553137880347" TEXT="WindChime.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975640847" ID="ID_1494084319" MODIFIED="1552985885514" TEXT="source/ogg/Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg">
+<node CREATED="1552975640847" ID="ID_267827511" LINK="../source/ogg/Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg" MODIFIED="1553137890071" TEXT="Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975651135" ID="ID_1426351369" MODIFIED="1552985885508" TEXT="source/ogg/WindChime.ogg">
+<node CREATED="1552975651135" ID="ID_1147959857" LINK="../source/ogg/WindChime.ogg" MODIFIED="1553137898124" TEXT="WindChime.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975661023" ID="ID_955470925" MODIFIED="1552985885504" TEXT="source/ogg/WindChime.ogg">
-<icon BUILTIN="knotify"/>
-</node>
-<node CREATED="1552975669758" ID="ID_825933521" MODIFIED="1552985885501" TEXT="source/ogg/beep.ogg">
+<node CREATED="1553138485434" ID="ID_542416691" LINK="../source/ogg/Schola_Gregoriana-Antiphona_et_Magnificat.ogg" MODIFIED="1553138499050" TEXT="Schola_Gregoriana-Antiphona_et_Magnificat.ogg">
 <icon BUILTIN="knotify"/>
 </node>
 </node>
@@ -461,11 +505,26 @@
 </node>
 </node>
 </node>
+<node CREATED="1552975738223" ID="ID_1575903816" LINK="../source/main-script/ui-keybinding.text" MODIFIED="1552985935116" TEXT="beadFWD">
+<icon BUILTIN="list"/>
+<node CREATED="1552976311975" ID="ID_1828890304" LINK="../source/main-script/jq-parsing.text" MODIFIED="1552985935114" TEXT="determine_what_to_query">
+<icon BUILTIN="list"/>
+<node CREATED="1552976377407" ID="ID_383548050" LINK="../source/main-script/jq-parsing.text" MODIFIED="1552985935113" TEXT="jQuery_smallbeads">
+<icon BUILTIN="list"/>
+</node>
+<node CREATED="1552976385895" ID="ID_915802961" LINK="../source/main-script/jq-parsing.text" MODIFIED="1552985935112" TEXT="jqQuery_all">
+<icon BUILTIN="list"/>
+</node>
+</node>
+</node>
 </node>
 <node CREATED="1552965810077" ID="ID_552372988" LINK="../source/main-script/ui-keybinding.text" MODIFIED="1552985958868" TEXT="musicsalAutoPilot">
 <icon BUILTIN="list"/>
 <node CREATED="1552975728139" ID="ID_229923525" LINK="../source/main-script/ui-keybinding.text" MODIFIED="1552985935117" TEXT="removeTempVarFile">
 <icon BUILTIN="list"/>
+<node CREATED="1552977415848" ID="ID_721608081" LINK="../source/main-script/temp/readme.md" MODIFIED="1553140810812" TEXT="varFile">
+<icon BUILTIN="edit"/>
+</node>
 </node>
 <node CREATED="1552975738223" ID="ID_915014489" LINK="../source/main-script/ui-keybinding.text" MODIFIED="1552985935116" TEXT="beadFWD">
 <icon BUILTIN="list"/>
@@ -508,7 +567,7 @@
 </node>
 <node CREATED="1552975776422" ID="ID_486512783" LINK="../source/main-script/ui-keybinding.text" MODIFIED="1552985942110" TEXT="beforeUpDnMenu_autopilot">
 <icon BUILTIN="list"/>
-<node CREATED="1552977415848" ID="ID_616093172" MODIFIED="1552985945152" TEXT="source/main-script/temp/varFile">
+<node CREATED="1552977415848" ID="ID_616093172" LINK="../source/main-script/temp/readme.md" MODIFIED="1553140810812" TEXT="varFile">
 <icon BUILTIN="edit"/>
 </node>
 </node>
@@ -529,7 +588,6 @@
 <icon BUILTIN="list"/>
 </node>
 </node>
-<node CREATED="1552977580511" ID="ID_1173611344" MODIFIED="1552977582725" TEXT="exitAutoPilotApp"/>
 <node CREATED="1552977585712" ID="ID_1868579225" LINK="../source/main-script/tput-formatting.text" MODIFIED="1552985953984" TEXT="goodbyescreen">
 <icon BUILTIN="list"/>
 <node CREATED="1552977925895" ID="ID_1086007371" LINK="../source/main-script/ui-appearance.text" MODIFIED="1552985953974" TEXT="resizeWindow">
@@ -554,42 +612,6 @@
 <node CREATED="1552978347879" ID="ID_1207619764" LINK="../source/main-script/jq-parsing.text" MODIFIED="1552985965912" TEXT="jqQuery">
 <icon BUILTIN="list"/>
 </node>
-<node CREATED="1552965798049" ID="ID_1727521914" LINK="../source/main-script/ui-appearance.text" MODIFIED="1552985965910" TEXT="setBeadAudio">
-<icon BUILTIN="list"/>
-<node CREATED="1552975562867" ID="ID_1446213986" MODIFIED="1552985987981" TEXT="source/ogg/beep.ogg">
-<icon BUILTIN="knotify"/>
-</node>
-<node CREATED="1552975583415" ID="ID_1555959051" MODIFIED="1552985987980" TEXT="source/ogg/01\ Sign\ of\ the\ cross.ogg">
-<icon BUILTIN="knotify"/>
-</node>
-<node CREATED="1552975594713" ID="ID_646158220" MODIFIED="1552985987979" TEXT="source/ogg/Byrd_4-Part_Mass_-_Credo.ogg">
-<icon BUILTIN="knotify"/>
-</node>
-<node CREATED="1552975603983" ID="ID_1581332474" MODIFIED="1552985987978" TEXT="source/ogg/Schola_Gregoriana-Pater_Noster.ogg">
-<icon BUILTIN="knotify"/>
-</node>
-<node CREATED="1552975612995" ID="ID_232269589" MODIFIED="1552985987977" TEXT="source/ogg/Schola_Gregoriana-Ave_Maria.ogg">
-<icon BUILTIN="knotify"/>
-</node>
-<node CREATED="1552975623851" ID="ID_1520088584" MODIFIED="1552985987976" TEXT="source/ogg/The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg">
-<icon BUILTIN="knotify"/>
-</node>
-<node CREATED="1552975631959" ID="ID_1751904467" MODIFIED="1552985987975" TEXT="source/ogg/WindChime.ogg">
-<icon BUILTIN="knotify"/>
-</node>
-<node CREATED="1552975640847" ID="ID_477699319" MODIFIED="1552985987974" TEXT="source/ogg/Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg">
-<icon BUILTIN="knotify"/>
-</node>
-<node CREATED="1552975651135" ID="ID_912414599" MODIFIED="1552985987973" TEXT="source/ogg/WindChime.ogg">
-<icon BUILTIN="knotify"/>
-</node>
-<node CREATED="1552975661023" ID="ID_1197198477" MODIFIED="1552985987972" TEXT="source/ogg/WindChime.ogg">
-<icon BUILTIN="knotify"/>
-</node>
-<node CREATED="1552975669758" ID="ID_351909351" MODIFIED="1552985987970" TEXT="source/ogg/beep.ogg">
-<icon BUILTIN="knotify"/>
-</node>
-</node>
 <node CREATED="1552975765471" ID="ID_1295376742" LINK="../source/main-script/tput-formatting.text" MODIFIED="1552985965908" TEXT="bundledDisplay">
 <icon BUILTIN="list"/>
 <node CREATED="1552976981650" ID="ID_21160697" LINK="../source/main-script/ui-appearance.text" MODIFIED="1552985999337" TEXT="resizeWindow">
@@ -611,6 +633,39 @@
 <icon BUILTIN="list"/>
 </node>
 </node>
+<node CREATED="1552965798049" ID="ID_1226051798" LINK="../source/main-script/ui-appearance.text" MODIFIED="1552985870113" TEXT="setBeadAudio">
+<icon BUILTIN="list"/>
+<node CREATED="1552975562867" ID="ID_894386616" LINK="../source/ogg/beep.ogg" MODIFIED="1553137715349" TEXT="beep.ogg">
+<icon BUILTIN="knotify"/>
+</node>
+<node CREATED="1552975583415" ID="ID_1263261184" LINK="../source/ogg/01%20Sign%20of%20the%20cross.ogg" MODIFIED="1553137745831" TEXT="01 Sign of the cross.ogg">
+<icon BUILTIN="knotify"/>
+</node>
+<node CREATED="1552975594713" ID="ID_1041684974" LINK="../source/ogg/Byrd_4-Part_Mass_-_Credo.ogg" MODIFIED="1553137753928" TEXT="Byrd_4-Part_Mass_-_Credo.ogg">
+<icon BUILTIN="knotify"/>
+</node>
+<node CREATED="1552975603983" ID="ID_447914807" LINK="../source/ogg/Schola_Gregoriana-Pater_Noster.ogg" MODIFIED="1553137789704" TEXT="Schola_Gregoriana-Pater_Noster.ogg">
+<icon BUILTIN="knotify"/>
+</node>
+<node CREATED="1552975612995" ID="ID_441234451" LINK="../source/ogg/Schola_Gregoriana-Ave_Maria.ogg" MODIFIED="1553137861251" TEXT="Schola_Gregoriana-Ave_Maria.ogg">
+<icon BUILTIN="knotify"/>
+</node>
+<node CREATED="1552975623851" ID="ID_1179220113" LINK="../source/ogg/The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg" MODIFIED="1553137870498" TEXT="The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg">
+<icon BUILTIN="knotify"/>
+</node>
+<node CREATED="1552975631959" ID="ID_1920611773" LINK="../source/ogg/WindChime.ogg" MODIFIED="1553137880347" TEXT="WindChime.ogg">
+<icon BUILTIN="knotify"/>
+</node>
+<node CREATED="1552975640847" ID="ID_331972368" LINK="../source/ogg/Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg" MODIFIED="1553137890071" TEXT="Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg">
+<icon BUILTIN="knotify"/>
+</node>
+<node CREATED="1552975651135" ID="ID_693162174" LINK="../source/ogg/WindChime.ogg" MODIFIED="1553137898124" TEXT="WindChime.ogg">
+<icon BUILTIN="knotify"/>
+</node>
+<node CREATED="1553138485434" ID="ID_1427938714" LINK="../source/ogg/Schola_Gregoriana-Antiphona_et_Magnificat.ogg" MODIFIED="1553138499050" TEXT="Schola_Gregoriana-Antiphona_et_Magnificat.ogg">
+<icon BUILTIN="knotify"/>
+</node>
+</node>
 </node>
 <node CREATED="1552975837159" ID="ID_565088592" LINK="../source/main-script/ui-keybinding.text" MODIFIED="1552986380443" TEXT="killAutopilot">
 <icon BUILTIN="list"/>
@@ -621,39 +676,36 @@
 </node>
 </node>
 </node>
-<node CREATED="1552965798049" ID="ID_1055930874" LINK="../source/main-script/ui-appearance.text" MODIFIED="1552985870113" TEXT="setBeadAudio">
+<node CREATED="1552965798049" ID="ID_1981063547" LINK="../source/main-script/ui-appearance.text" MODIFIED="1552985870113" TEXT="setBeadAudio">
 <icon BUILTIN="list"/>
-<node CREATED="1552975562867" ID="ID_1262093056" MODIFIED="1552985885532" TEXT="source/ogg/beep.ogg">
+<node CREATED="1552975562867" ID="ID_372665883" LINK="../source/ogg/beep.ogg" MODIFIED="1553137715349" TEXT="beep.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975583415" ID="ID_744736654" MODIFIED="1552985885529" TEXT="source/ogg/01\ Sign\ of\ the\ cross.ogg">
+<node CREATED="1552975583415" ID="ID_366654972" LINK="../source/ogg/01%20Sign%20of%20the%20cross.ogg" MODIFIED="1553137745831" TEXT="01 Sign of the cross.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975594713" ID="ID_1766816438" MODIFIED="1552985885528" TEXT="source/ogg/Byrd_4-Part_Mass_-_Credo.ogg">
+<node CREATED="1552975594713" ID="ID_1967312929" LINK="../source/ogg/Byrd_4-Part_Mass_-_Credo.ogg" MODIFIED="1553137753928" TEXT="Byrd_4-Part_Mass_-_Credo.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975603983" ID="ID_590815182" MODIFIED="1552985885521" TEXT="source/ogg/Schola_Gregoriana-Pater_Noster.ogg">
+<node CREATED="1552975603983" ID="ID_1109120302" LINK="../source/ogg/Schola_Gregoriana-Pater_Noster.ogg" MODIFIED="1553137789704" TEXT="Schola_Gregoriana-Pater_Noster.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975612995" ID="ID_1016645805" MODIFIED="1552985885519" TEXT="source/ogg/Schola_Gregoriana-Ave_Maria.ogg">
+<node CREATED="1552975612995" ID="ID_1084729478" LINK="../source/ogg/Schola_Gregoriana-Ave_Maria.ogg" MODIFIED="1553137861251" TEXT="Schola_Gregoriana-Ave_Maria.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975623851" ID="ID_81712938" MODIFIED="1552985885518" TEXT="source/ogg/The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg">
+<node CREATED="1552975623851" ID="ID_885277512" LINK="../source/ogg/The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg" MODIFIED="1553137870498" TEXT="The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975631959" ID="ID_575117994" MODIFIED="1552985885515" TEXT="source/ogg/WindChime.ogg">
+<node CREATED="1552975631959" ID="ID_1990871465" LINK="../source/ogg/WindChime.ogg" MODIFIED="1553137880347" TEXT="WindChime.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975640847" ID="ID_326988562" MODIFIED="1552985885514" TEXT="source/ogg/Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg">
+<node CREATED="1552975640847" ID="ID_1988261657" LINK="../source/ogg/Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg" MODIFIED="1553137890071" TEXT="Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975651135" ID="ID_1750463588" MODIFIED="1552985885508" TEXT="source/ogg/WindChime.ogg">
+<node CREATED="1552975651135" ID="ID_1148710091" LINK="../source/ogg/WindChime.ogg" MODIFIED="1553137898124" TEXT="WindChime.ogg">
 <icon BUILTIN="knotify"/>
 </node>
-<node CREATED="1552975661023" ID="ID_703703928" MODIFIED="1552985885504" TEXT="source/ogg/WindChime.ogg">
-<icon BUILTIN="knotify"/>
-</node>
-<node CREATED="1552975669758" ID="ID_629666023" MODIFIED="1552985885501" TEXT="source/ogg/beep.ogg">
+<node CREATED="1553138485434" ID="ID_1843217636" LINK="../source/ogg/Schola_Gregoriana-Antiphona_et_Magnificat.ogg" MODIFIED="1553138499050" TEXT="Schola_Gregoriana-Antiphona_et_Magnificat.ogg">
 <icon BUILTIN="knotify"/>
 </node>
 </node>
@@ -664,8 +716,11 @@
 </node>
 <node CREATED="1552961746776" ID="ID_252775459" LINK="../xterm-launcher" MODIFIED="1552964965830" POSITION="left" TEXT="./xterm-launcher">
 <icon BUILTIN="edit"/>
-<node CREATED="1552981370760" ID="ID_1051765389" LINK="../xterm-launcher" MODIFIED="1552982446431" TEXT="startMPlayerDemo">
+<node CREATED="1552981370760" ID="ID_1051765389" LINK="../xterm-launcher" MODIFIED="1553139176489" TEXT="startOgg123Demo">
 <icon BUILTIN="list"/>
+<node CREATED="1552975631959" ID="ID_1782550841" LINK="../source/ogg/WindChime.ogg" MODIFIED="1553137880347" TEXT="WindChime.ogg">
+<icon BUILTIN="knotify"/>
+</node>
 </node>
 <node CREATED="1552981377240" ID="ID_314069317" LINK="../source/main-script/tput-formatting.text" MODIFIED="1552982448993" TEXT="splashScreen">
 <icon BUILTIN="list"/>
