@@ -195,6 +195,7 @@ function getLatestRepoUpdates {
 }
 
 function download_gnu_software {
+	getLatestRepoUpdates
 
 	identifyPackageManager
 
@@ -216,7 +217,7 @@ function download_gnu_software {
 	fi
 	
 	## changes to gunu will take effect the next time this app runs
-	getLatestRepoUpdates
+	## getLatestRepoUpdates
 
 }
 
