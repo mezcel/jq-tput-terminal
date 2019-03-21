@@ -54,7 +54,7 @@ function launch_new_window {
 
 }
 
-function startMPlayerDemo {
+function startOgg123Demo {
 	hostedDirPath=$(dirname $0)
 
 	## Set initial pulseaudio system volume
@@ -74,7 +74,7 @@ function download_dependencies {
 }
 
 # download_dependencies
-startMPlayerDemo
+startOgg123Demo
 splashScreen
 
 currentDirPath=$(dirname $0)

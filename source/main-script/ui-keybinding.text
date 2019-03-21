@@ -72,6 +72,13 @@ function arrowInputs {
 					tput civis
 					bundledDisplay
 					setBeadAudio
+					
+					## kill audio when navigating
+					if pgrep -x "ogg123" &>/dev/null
+					then
+						killall ogg123 &>/dev/null
+					fi
+					
 				fi
 				;;
 			$arrowLt ) # navigate back
@@ -81,7 +88,7 @@ function arrowInputs {
 				bundledDisplay
 				setBeadAudio
 				;;
-			"m" | "M" ) # mplayer audio
+			"m" | "M" | "p" | "P" ) # ogg123 audio player
 
 				if ! pgrep -x "ogg123" > /dev/null
 				then
