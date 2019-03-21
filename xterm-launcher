@@ -59,11 +59,11 @@ function startOgg123Demo {
 
 	## Set initial pulseaudio system volume
 	if [ -f /usr/bin/amixer ]; then
-		amixer -q set Master 25% </dev/null >/dev/null 2>&1
+		amixer -q set Master 50% </dev/null >/dev/null 2>&1
 	fi
 	
 	if [ -f /usr/bin/ogg123 ]; then
-		ogg123 -q $hostedDirPath/audio/chime.ogg </dev/null >/dev/null 2>&1 &
+		ogg123 -q $hostedDirPath/source/ogg/WindChime.ogg </dev/null >/dev/null 2>&1 &
 	fi	
 	
 }
