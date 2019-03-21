@@ -10,4 +10,5 @@ My dev mindset: run sequential bash script sequence
 
 Used mostly for debugging. Months from now, I will not remember what I did, and I want a way to make edits without relearning what/why/how things are doing what it does.
 
-[mindmap html page](./mindmap.html)
+[mindmap html](./mindmap.html)
+
