@@ -108,15 +108,11 @@ function pfmTableMonth {
 		virtualMonthNo=04
 	fi
 
-	## last 2 numbers
-	if [ ${#pfmDate} -lt 3 ]; then
-		#last2numbers=$( echo -n $pfmDate | tail -c 1 )
-		last2numbers=${pfmDate:${#pfmDate}-2}
-		estimatedDay=0$last2numbers
-	else
-		#last2numbers=$( echo -n $pfmDate | tail -c 2 )
-		last2numbers=${pfmDate:${#pfmDate}-2}
-		estimatedDay=$last2numbers
+	# remove first char
+	estimatedDay=${pfmDate:1}
+
+	if [ ${#estimatedDay} -lt 2 ]; then
+		estimatedDay=0$estimatedDay
 	fi
 }
 
@@ -257,7 +253,7 @@ function calculate_Paschal_Full_Moon {
 	## Desired date - today
 	tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
 	daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
-
+	
 	if [ $daysUntill -lt 0 ]; then
 		nextYear=$(( $thisYear + 1 ))
 		thisYear=$nextYear
@@ -277,6 +273,14 @@ function calculate_Paschal_Full_Moon {
 		isTodayEaster=1
 	else
 		isTodayEaster=0
+	fi
+
+	## Determine Lent Season
+
+	if [ $daysUntillEaster -gt 0 ] && [ $daysUntillEaster -le 46 ]; then
+		isLentSeasion=1
+	else
+		isLentSeasion=0
 	fi
 }
 
@@ -373,7 +377,7 @@ function days_untill_Ash_Wednesday {
 
 	daysToRemove=$(( $daysToAdd - 46 ))
 	daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
-
+	
 	if [ $daysUntill -lt 0 ]; then
 		thisYear=$(( $thisYear + 1 ))
 
@@ -391,13 +395,7 @@ function days_untill_Ash_Wednesday {
 		isTodayAsh_Wednesday=0
 	fi
 
-	## Determine Lent Season
 
-	if [ $daysUntillEaster -gt 0 ] && [ $daysUntillEaster -le 46 ]; then
-		isLentSeasion=1
-	else
-		isLentSeasion=0
-	fi
 
 }
 
