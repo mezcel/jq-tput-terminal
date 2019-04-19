@@ -237,21 +237,20 @@ function welcomepage {
 	fi
 
 	if [ $isTodayHoly_Thursday -eq 1 ]; then
-		echo "						This is Holy Thursday
-
-										Commemoration of the Last Supper of Jesus Christ"
+		echo "						This is Holy Thursday:"
+		echo "						    Commemoration of the Last Supper of Jesus Christ"
 	fi
 
 	if [ $isTodayGood_Friday -eq 1 ]; then
-		echo "						This is the Good Friday
-
-										Commemoration of the crucifixion of Jesus"
+		echo "						This is the Good Friday:"
+		echo "						    Commemoration of the crucifixion of Jesus"
+										
 	fi
 
 	if [ $isTodayHoly_Saturday -eq 1 ]; then
-		echo "						This is the Holy Saturday
-
-										Commemoration of the day that Jesus' body lay in the tomb"
+		echo "						This is the Holy Saturday:"
+		echo "						    Commemoration of the day that Jesus' body lay in the tomb"
+										
 	fi
 
 	if [ $isTodayJesus_Assension -eq 1 ]; then
@@ -259,16 +258,14 @@ function welcomepage {
 	fi
 
 	if [ $isTodayPentecost -eq 1 ]; then
-		echo "						Tday is Pentecost
-
-										Day on which the Spirit descended upon the apostles.
-										Jewish  \"Feast of harvest\"."
+		echo "						Tday is Pentecost:"
+		echo "						    Day on which the Spirit descended upon the apostles."
+		echo "						    Jewish  \"Feast of harvest\"."
 	fi
 
 	if [ $isTodayImmaculateConception -eq 1 ]; then
-		echo "						Today is the feast of the Immaculate Conception
-
-		(490) To become the mother of the Savior, Mary \"was enriched by God with gifts appropriate to such a role.\" The angel Gabriel at the moment of the annunciation salutes her as \"full of grace\". In fact, in order for Mary to be able to give the free assent of her faith to the announcement of her vocation, it was necessary that she be wholly borne by God's grace. - Catechism of the Catholic Church"
+		echo "						Today is the feast of the Immaculate Conception:"
+		echo "		(Catholic Catechism 490) To become the mother of the Savior, Mary \"was enriched by God with gifts appropriate to such a role.\" The angel Gabriel at the moment of the annunciation salutes her as \"full of grace\". In fact, in order for Mary to be able to give the free assent of her faith to the announcement of her vocation, it was necessary that she be wholly borne by God's grace. - Catechism of the Catholic Church"
 
 	fi
 
@@ -289,15 +286,13 @@ function welcomepage {
 	fi
 
 	if [ $isTodaySolemnityOfMary -eq 1 ]; then
-		echo "						Today is the Feast of the Solemnity of Mary
-
-										The honoring of Mary as the Mother of God"
+		echo "						Today is the Feast of the Solemnity of Mary:"
+		echo "						    The honoring of Mary as the Mother of God"
 	fi
 
 	if [ $isTodayEpiphany -eq 1 ]; then
-		echo "						Today is the Feast of the Epiphany
-
-										Day that celebrates the revelation of God incarnate as Jesus Christ."
+		echo "						Today is the Feast of the Epiphany:"
+		echo "						    Day that celebrates the revelation of God incarnate as Jesus Christ."
 	fi
 
 	if [ $isTodayAll_Saints -eq 1 ]; then
