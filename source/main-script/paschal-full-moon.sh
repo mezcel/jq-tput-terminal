@@ -293,21 +293,17 @@ function days_untill_Holy_Thursday {
 
 	thisYear=$(date +%Y)
 	calculate_Paschal_Full_Moon
-
-	daysToRemove=$(( $daysToAdd - 3 ))
-	daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
-
+	
+	daysUntill=$(( $daysUntillEaster - 3 ))
 	if [ $daysUntill -lt 0 ]; then
 		thisYear=$(( $thisYear + 1 ))
 
 		calculate_Paschal_Full_Moon
-
-		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
-		daysToRemove=$(( $daysToAdd - 3 ))
-		daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+		daysUntill=$(( $daysUntillEaster - 3 ))
 	fi
-
+	
 	daysUntillHolyThursday=$daysUntill
+	
 	if [ $daysUntillHolyThursday == 0 ]; then
 		isTodayHoly_Thursday=1
 	else
@@ -318,23 +314,19 @@ function days_untill_Holy_Thursday {
 function days_untill_Good_Friday {
 	## Triduum Friday
 
-		thisYear=$(date +%Y)
+	thisYear=$(date +%Y)
 	calculate_Paschal_Full_Moon
 
-	daysToRemove=$(( $daysToAdd - 2 ))
-	daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
-
+	daysUntill=$(( $daysUntillEaster - 2 ))
 	if [ $daysUntill -lt 0 ]; then
 		thisYear=$(( $thisYear + 1 ))
 
 		calculate_Paschal_Full_Moon
-
-		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
-		daysToRemove=$(( $daysToAdd - 2 ))
-		daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+		daysUntill=$(( $daysUntillEaster - 2 ))
 	fi
-
+	
 	daysUntillGoodFriday=$daysUntill
+	
 	if [ $daysUntillGoodFriday == 0 ]; then
 		isTodayGood_Friday=1
 	else
@@ -355,13 +347,11 @@ function days_untill_Easter_Eve {
 		thisYear=$(( $thisYear + 1 ))
 
 		calculate_Paschal_Full_Moon
-
-		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
-		daysToRemove=$(( $daysToAdd - 1 ))
-		daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+		daysUntill=$(( $daysUntillEaster - 1 ))
 	fi
 
-	daysUntillHolySaturday=$daysUntill
+	daysUntillHolySaturday=$(( $daysUntillEaster - 1 ))
+	
 	if [ $daysUntillHolySaturday == 0 ]; then
 		isTodayHoly_Saturday=1
 	else
