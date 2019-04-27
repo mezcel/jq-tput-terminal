@@ -9,7 +9,7 @@ function loadSourceScripts {
 	fi
 
 	## Populate Bash session with source script
-	for i in $currentDirPath/source/main-script/*.text; do
+	for i in $currentDirPath/source/main-script/*.sh; do
 		source "$i" -H ## || break
 	done
 
