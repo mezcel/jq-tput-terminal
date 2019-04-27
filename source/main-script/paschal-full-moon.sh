@@ -403,10 +403,22 @@ function days_untill_Jesus_Assension {
 	## 40 Days After Easter, Thursday
 
 	thisYear=$(date +%Y)
-	calculate_Paschal_Full_Moon
-
-	daysToAdd=$(( $daysToAdd + 40 ))
+	## calculate_Paschal_Full_Moon
+	
+	pfmTableDate
+	pfmTableMonth
+	pfmTableYear
+	pfmTableDecade
+	pfmTableCentury
+	pfmTableSum
+	
+	tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
 	daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+	
+	if [ $daysUntill -lt 0 ]; then
+		daysToAdd=$(( $daysToAdd + 40 ))
+		daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+	fi
 
 	if [ $daysUntill -lt 0 ]; then
 		thisYear=$(( $thisYear + 1 ))
@@ -414,7 +426,7 @@ function days_untill_Jesus_Assension {
 		calculate_Paschal_Full_Moon
 
 		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
-		daysToAdd=$(( $daysToAdd + 49 ))
+		daysToAdd=$(( $daysToAdd + 40 ))
 		daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
 	fi
 
@@ -430,10 +442,22 @@ function days_untill_Pentecost {
 	## 7 Sundays after Easter
 
 	thisYear=$(date +%Y)
-	calculate_Paschal_Full_Moon
-
-	daysToAdd=$(( $daysToAdd + 49 ))
+	# calculate_Paschal_Full_Moon
+	
+	pfmTableDate
+	pfmTableMonth
+	pfmTableYear
+	pfmTableDecade
+	pfmTableCentury
+	pfmTableSum
+	
+	tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
 	daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+	
+	if [ $daysUntill -lt 0 ]; then
+		daysToAdd=$(( $daysToAdd + 49 ))
+		daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+	fi
 
 	if [ $daysUntill -lt 0 ]; then
 		thisYear=$(( $thisYear + 1 ))
