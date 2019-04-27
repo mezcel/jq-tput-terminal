@@ -7,7 +7,9 @@ A Scripture Rosary GUI on the Bash CLI.
 - Daily Mass Readings (scraped from usccb.org)
 - Prayer Chant Soundtrack ( Ogg Audio provided by [wikimedia.org](https://commons.wikimedia.org) / [archive.org](archive.org) )
 
-__Demo preview:__ [link](https://asciinema.org/a/217793) -- outdated recording
+__Demo preview:__ [link](https://asciinema.org/a/243201) -- rough navigation scenes
+
+[![asciicast](https://asciinema.org/a/243201.svg)](https://asciinema.org/a/243201)
 
 ---
 
