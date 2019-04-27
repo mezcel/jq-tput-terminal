@@ -31,12 +31,13 @@ function installSoftwareMultimedia {
 	sleep 1s
 
 	if [ $pingFlag -eq 0 ]; then
-		echo "Checking the internet for updates and establishing this computer's compatability for this app.
+		echo "Checking the internet for updates and app prerequisites.
 		
 		Stand by ...
 		
 		You will be prompted to install GNU software if needed.
-		You will also get the latest app updates [ https://github.com/mezcel/jq-tput-terminal.git ].
+		You will also get the latest app updates
+		 [ https://github.com/mezcel/jq-tput-terminal.git ].
 		"
 	
 		currentDirPath=$(dirname $0)
