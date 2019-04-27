@@ -426,7 +426,7 @@ function days_untill_Jesus_Assension {
 		calculate_Paschal_Full_Moon
 
 		tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
-		daysToAdd=$(( $daysToAdd + 49 ))
+		daysToAdd=$(( $daysToAdd + 40 ))
 		daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
 	fi
 
