@@ -7,64 +7,36 @@ A Scripture Rosary GUI on the Bash CLI.
 - Daily Mass Readings (scraped from usccb.org)
 - Prayer Chant Soundtrack ( Ogg Audio provided by [wikimedia.org](https://commons.wikimedia.org) / [archive.org](archive.org) )
 
+__Demo preview:__ [link](https://asciinema.org/a/243201) -- choppy and rough
+
+[![asciicast](https://asciinema.org/a/243201.svg)](https://asciinema.org/a/243201)
+
 ---
 
 ### About:
 
-This is a CLI terminal GUI App. This App uses a slimmed down json database which was ported from [electron-container](https://github.com/mezcel/electron-container). It was developed for use within a GNU software environment.
+This is a Linux CLI terminal GUI App. 
+
+This App was built arround a slimmed down json database which was ported from [electron-container](https://github.com/mezcel/electron-container).
 
 __Recommended Use Cases:__
 
 - ["Busy Persons Retreat"](https://vocationscava.org/wp-content/uploads/2014/11/ONLINE_BPR_EDITED_October_2013.pdf) and or [Leccio Divina](https://ocarm.org/en/content/lectio/what-lectio-divina)
 - Run locally in a background terminal session for audio room ambiance. Interactive Jukebox
 - Host on a ssh/ssl network.
-    - Recommendation 1: ssh -p 22 host-user@ip.addr
-    - Recommendation 2: [shellinabox](https://code.google.com/archive/p/shellinabox/) service to any Firefox, Safari, Chrome, Edge, ect. client.
 - For use as an educational quick reference (Catechism, linguistic, terminal cli, cultural history)
 
-#### Feature Functionalities:
-
-* Paschal Full Moon Liturgical Calendar calculations. (and Liturgical Cycles)
-* Decorative color themes corresponding to Liturgical Calendar Seasons.
-* Feast day triggered events.
-* Play Traditional Latin Hymns (audio).
-* Automatically install software dependencies.
-* Retrieve daily Mass readings from the web.
-
-#### Requirement Dependencies:
-
-As of ```v0.1.8``` the audio and software used in this App are GNU
+__Requirement Dependencies:__
 
 * Basic GNU Terminal Tools: [Bash](https://www.gnu.org/software/bash/), [ncurses/tput](https://ss64.com/bash/tput.html), wget, cal, bc, awk, & grep
 * [JQ](https://stedolan.github.io/jq) is a cross-platform C program which parses json script via command line terminal
 * [dialog / whiptail](http://linuxcommand.org/lc3_adv_dialog.php) is a terminal App for making dialog box style input prompts
 * [ogg123](https://xiph.org/vorbis) is a [ogg](https://xiph.org/vorbis) audio player which can run within terminal environment
 * [elinks](http://elinks.or.cz/) is a well-established feature-rich text mode web (HTTP/FTP/..) browser.
-* Cultural and scholarly perspective on the Catholic Marian ministry (debug, troubleshoot, security, validation)
 
 ---
 
-### Development Status and Milestones:
-
-* ```v0.1.4``` Meaningful stop point with working functionalities. Demo Preview: [asciinema](https://asciinema.org/a/217793)
-
-* ```v0.1.11``` dev branch and master
-	* mindmap program anatomy
-	* workarrounds for latest Arch rolling release changes
-
-
-| Test Distro's | Development Environment Notes |
-| --- | --- |
-| [Arch](https://wiki.archlinux.org/) | This App was developed on Arch Linux. I also tested it with [shellinabox](https://aur.archlinux.org/packages/shellinabox-git/) hosting.|
-| Slackware | Tested on Salix ( legacy repo linux platform compatible ) |
-| [Alpine](https://alpinelinux.org/about/) | OpenRC, Docker, BusyBox. Fastest install and setup process |
-| Ubuntu | [Trisquel](https://trisquel.info), Tahrpup, and Mint. Average performance. |
-| Debian | Jq/gcc performed the best on Debian resulting in fast query processing |
-| [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) | All the GNU works, but other than testing, I did dot build it for WLS |
-
----
-
-### Run
+#### Run
 
 This App will perform a requirements check and install Audio & Software, as needed, on startup. When possible, it will render in Xterm at 140x40. Your [alsa](http://alsa-project.org/main/index.php/Main_Page) or [pulseaudio](https://www.freedesktop.org/wiki/Software/PulseAudio/) must already be configured on your system for audio to work.
 
@@ -73,3 +45,16 @@ This App will perform a requirements check and install Audio & Software, as need
 - App Launcher for Desktop Environment: ```./xterm-launcher``` (it will call ```./bash-rosary```)
 
 - Automatically verify and add needed software that is missing on your system. ```./source/gnu/download-gnu-software``` (Called automatically from within App or you can run it manually)
+
+---
+
+#### Test Environments:
+
+| Test Distro's | Development Environment Notes |
+| --- | --- |
+| [Arch](https://wiki.archlinux.org/) | This App was developed on Arch Linux. I also tested it with [shellinabox](https://aur.archlinux.org/packages/shellinabox-git/) cross platform hosting.|
+| Slackware | Tested on Salix ( legacy repo linux platform compatible ) |
+| [Alpine](https://alpinelinux.org/about/) | OpenRC, Docker, BusyBox. Fastest install and setup process |
+| Ubuntu | [Trisquel](https://trisquel.info), Tahrpup, and Mint. Average performance. |
+| Debian | Jq/gcc performed the best on Debian resulting in fast query processing |
+| [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) | All the GNU works, but other than testing, I did dot build it for WLS |
