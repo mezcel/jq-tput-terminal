@@ -9,7 +9,12 @@ A Scripture Rosary GUI on the Bash CLI.
 
 __Demo preview:__ [link](https://asciinema.org/a/243201) -- choppy and rough
 
+```v0.1.11```
 [![asciicast](https://asciinema.org/a/243201.svg)](https://asciinema.org/a/243201)
+
+Current developement branch: ```v0.1.11.2```
+
+* modifying th intro progress flag counter
 
 ---
 
