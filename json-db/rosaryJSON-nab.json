@@ -620,7 +620,7 @@
 			"rosaryBeadID": 77,
 			"beadIndex": 5,
 			"decadeIndex": 0,
-			"mysteryIndex": 0,
+			"mysteryIndex": 5,
 			"prayerIndex": 7,
 			"scriptureIndex": 0,
 			"messageIndex": 0
@@ -628,7 +628,7 @@
 			"rosaryBeadID": 78,
 			"beadIndex": 5,
 			"decadeIndex": 0,
-			"mysteryIndex": 0,
+			"mysteryIndex": 5,
 			"prayerIndex": 8,
 			"scriptureIndex": 0,
 			"messageIndex": 0
@@ -1252,7 +1252,7 @@
 			"rosaryBeadID": 156,
 			"beadIndex": 5,
 			"decadeIndex": 0,
-			"mysteryIndex": 0,
+			"mysteryIndex": 5,
 			"prayerIndex": 7,
 			"scriptureIndex": 0,
 			"messageIndex": 0
@@ -1260,7 +1260,7 @@
 			"rosaryBeadID": 157,
 			"beadIndex": 5,
 			"decadeIndex": 0,
-			"mysteryIndex": 0,
+			"mysteryIndex": 5,
 			"prayerIndex": 8,
 			"scriptureIndex": 0,
 			"messageIndex": 0
@@ -1884,7 +1884,7 @@
 			"rosaryBeadID": 235,
 			"beadIndex": 5,
 			"decadeIndex": 0,
-			"mysteryIndex": 0,
+			"mysteryIndex": 5,
 			"prayerIndex": 7,
 			"scriptureIndex": 0,
 			"messageIndex": 0
@@ -1892,7 +1892,7 @@
 			"rosaryBeadID": 236,
 			"beadIndex": 5,
 			"decadeIndex": 0,
-			"mysteryIndex": 0,
+			"mysteryIndex": 5,
 			"prayerIndex": 8,
 			"scriptureIndex": 0,
 			"messageIndex": 0
@@ -2516,7 +2516,7 @@
 			"rosaryBeadID": 314,
 			"beadIndex": 5,
 			"decadeIndex": 0,
-			"mysteryIndex": 0,
+			"mysteryIndex": 5,
 			"prayerIndex": 7,
 			"scriptureIndex": 0,
 			"messageIndex": 0
@@ -2524,7 +2524,7 @@
 			"rosaryBeadID": 315,
 			"beadIndex": 5,
 			"decadeIndex": 0,
-			"mysteryIndex": 0,
+			"mysteryIndex": 5,
 			"prayerIndex": 8,
 			"scriptureIndex": 0,
 			"messageIndex": 0
@@ -2750,6 +2750,11 @@
 			"mysteryID": 4,
 			"mysteryNo": 4,
 			"mysteryName": "Glorious Mystery"
+		},
+		{
+			"mysteryID": 5,
+			"mysteryNo": 5,
+			"mysteryName": "rosary conclusion"
 		}
 	],
 	"book": [

@@ -489,13 +489,23 @@ function progressbars {
 		## Decade Bar
 
 		if [ $thisDecadeSet -lt 10 ]; then
-			decDisp=" $thisDecadeSet"
+			decDisp=" $thisDecadeSet/10"
 		else
-			decDisp=$thisDecadeSet
+			decDisp="$thisDecadeSet/10"
 		fi
+		
+		## Decade intro exception
+		if [ $mysteryProgress -eq 0 ]; then
+			if [ $initialHailMaryCounter -gt 0 ] && [ $initialHailMaryCounter -lt 4 ]; then			
+				decDisp=" $initialHailMaryCounter/3 "
+			else
+				decDisp="intro"
+			fi
+		fi
+		
 		stringLength=${#return_prayerName}
 		stringLength=$(( $stringLength + 1 ))
-		tputDecadeBarLabel=$( tput cup $[$( tput lines )-7] 0; printf "%${width}s" ""; tput cup $[$( tput lines )-7] 0; echo " Decade:  $decDisp/10	 $return_beadType" )$( tput cup $[$( tput lines )-7]  $[$( tput cols )-$stringLength]; echo $return_prayerName)
+		tputDecadeBarLabel=$( tput cup $[$( tput lines )-7] 0; printf "%${width}s" ""; tput cup $[$( tput lines )-7] 0; echo " Decade:  $decDisp	 $return_beadType" )$( tput cup $[$( tput lines )-7]  $[$( tput cols )-$stringLength]; echo $return_prayerName)
 		proportion=$thisDecadeSet/10
 		barWidth=$(( width*$proportion))
 		barWidth=$((barWidth - 2 ))
@@ -506,13 +516,14 @@ function progressbars {
 		## Mystery Bar
 
 		if [ $mysteryProgress -lt 10 ]; then
-			mystDisp=" $mysteryProgress"
+			mystDisp=" $mysteryProgress/50"
 		else
-			mystDisp=$mysteryProgress
+			mystDisp="$mysteryProgress/50"
 		fi
+		
 		stringLength=${#return_decadeName}
 		stringLength=$(( $stringLength + 1 ))
-		tputMysteryBarLabel=$( tput cup $[$( tput lines )-4] 0; printf "%${width}s" ""; tput cup $[$( tput lines )-4] 0; echo " Mystery: $mystDisp/50	 $return_mysteryName" )$( tput cup $[$( tput lines )-4] $[$( tput cols )-$stringLength]; echo $return_decadeName)
+		tputMysteryBarLabel=$( tput cup $[$( tput lines )-4] 0; printf "%${width}s" ""; tput cup $[$( tput lines )-4] 0; echo " Mystery: $mystDisp	 $return_mysteryName" )$( tput cup $[$( tput lines )-4] $[$( tput cols )-$stringLength]; echo $return_decadeName)
 		proportion=$mysteryProgress/50
 		barWidth=$(( width*$proportion))
 		barWidth=$((barWidth - 2 ))
@@ -571,7 +582,7 @@ function beadProgress {
 					fi
 				else
 					if [ $initialHailMaryCounter -eq 0 ]; then
-						$initialHailMaryCounter=3
+						initialHailMaryCounter=3
 					else
 						initialHailMaryCounter=$(($initialHailMaryCounter - 1))
 					fi
@@ -587,16 +598,19 @@ function beadProgress {
             initialHailMaryCounter=0
             thisDecadeSet=0
 
+			## reverse
             if [ $directionFwRw -ne 1 ]; then
 				moddivision=$(( hailmaryCounter % 10 ))
 				if [ $moddivision -gt 0 ]; then
 					hailmaryCounter=$(( $hailmaryCounter - 1 ))
-				fi
+				fi				
             fi
 
             ;;
 
         4) ## string space
+			thisDecadeSet=10
+			
 			if [ $directionFwRw -eq 1 ]; then
 			## fwd
 				if [ $stringSpaceCounter -eq 0 ]; then
@@ -615,6 +629,7 @@ function beadProgress {
 			else
 			## rev
 				if [ $stringSpaceCounter -eq 0 ]; then
+					mysteryProgress=$(( mysteryProgress - 1 ))
 					stringSpaceCounter=2
 					moddivision=$(( hailmaryCounter % 10 ))
 					if [ $moddivision -gt 0 ]; then
@@ -627,7 +642,7 @@ function beadProgress {
 						hailmaryCounter=$(( $hailmaryCounter + 1 ))
 					fi
 				fi
-            fi
+            fi            
 
             ;;
 
@@ -636,18 +651,26 @@ function beadProgress {
 				stringSpaceCounter=3
 			fi
 
-            stringSpaceCounter=0;
+            stringSpaceCounter=0
+            if [ $hailmaryCounter -gt 0 ]; then
+				mysteryProgress=50
+            fi
+			
 
 			;;
 		6)	## cross
 			initialHailMaryCounter=0
+			hailmaryCounter=0
             stringSpaceCounter=0
+            mysteryProgress=0
+            thisDecadeSet=0
+            mysteryProgress=0
 
 			;;
         *)
 			thisDecadeSet=0
             stringSpaceCounter=0
-            mysteryProgress=0
+            # mysteryProgress=0
 
             ;;
 
