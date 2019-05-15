@@ -22,6 +22,8 @@ Current developement branch: ```v0.1.11.2```
 
 This is a Linux CLI terminal GUI App. 
 
+Note: Script is not intended to be Code.This project is just a Bash exercise.
+
 This App was built arround a slimmed down json database which was ported from [electron-container](https://github.com/mezcel/electron-container).
 
 __Recommended Use Cases:__
