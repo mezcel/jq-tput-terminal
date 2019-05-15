@@ -58,6 +58,10 @@ function packageManagerPacman {
 		## make a confirmation log
 		echo "Performed pacman -S --needed ${missingPackageArr[$i-1]} on: $(date)" >> $currentDirPath/installationLog
 	done
+	
+	## ogg123 fix for alsa
+	sleep 2s
+	sudo sed -i -e 's/dev=default/#dev=default/g' /etc/libao.conf
 }
 
 ## Debian based distros
