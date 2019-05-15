@@ -9,13 +9,20 @@ A Scripture Rosary GUI on the Bash CLI.
 
 __Demo preview:__ [link](https://asciinema.org/a/243201) -- choppy and rough
 
+```v0.1.11```
 [![asciicast](https://asciinema.org/a/243201.svg)](https://asciinema.org/a/243201)
+
+Current developement branch: ```v0.1.11.2```
+
+* modifying th intro progress flag counter
 
 ---
 
 ### About:
 
 This is a Linux CLI terminal GUI App. 
+
+Note: Script is not intended to be Code.This project is just a Bash exercise.
 
 This App was built arround a slimmed down json database which was ported from [electron-container](https://github.com/mezcel/electron-container).
 
