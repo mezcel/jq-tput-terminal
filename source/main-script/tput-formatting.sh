@@ -126,6 +126,10 @@ function myAbout {
 	whiptail \
         --title "About" \
         --msgbox "$aboutText" 0 0
+    
+    echo $BACKGROUNDCOLOR
+	clear
+    
 }
 
 function splashScreen {

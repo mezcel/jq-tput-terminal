@@ -838,4 +838,7 @@ function dispPieChart {
 	fi
 
 	read -p "[Enter]" -s enterVar
+	
+	echo $BACKGROUNDCOLOR
+	clear
 }

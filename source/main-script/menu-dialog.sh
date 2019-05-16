@@ -426,5 +426,6 @@ function prayerMenu {
 		--title "$dialogPrayerName" \
 		--msgbox "$dialogPrayerText" 0 0
 
+	echo $BACKGROUNDCOLOR
 	clear
 }
