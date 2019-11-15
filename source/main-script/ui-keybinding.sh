@@ -240,8 +240,8 @@ function mainNavigation {
 	bundledDisplay
 	setBeadAudio
 
-	if [ -f source/main-script/temp/autoPilot ]; then
-		autoPilot=$(cat source/main-script/temp/autoPilot)
+	if [ -f source/main-script/temp/localFlags ]; then
+		autoPilot=$(grep "autoPilot" source/main-script/temp/autoPilot | awk '{printf $2}')
 	else
 		autoPilot=0
 	fi

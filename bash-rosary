@@ -48,12 +48,16 @@ function installSoftwareMultimedia {
 
 ## RUN APP
 
+touch source/main-script/temp/localFlags
 if [ $inputTag == "-a" ] || [ $inputTag == "-A" ]; then
 	autoPilot=1
-	echo "1" >  source/main-script/temp/autoPilot
+	echo "autoPilot 1" >> source/main-script/temp/localFlags
+	#sed '/autoPilot 0/d' source/main-script/temp/localFlags
+	grep -v "autoPilot 0" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
 else
 	autoPilot=0
-	echo "0" >  source/main-script/temp/autoPilot
+	echo "autoPilot 0" >> source/main-script/temp/localFlags
+	grep -v "autoPilot 1" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
 fi
 
 installSoftwareMultimedia

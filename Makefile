@@ -17,5 +17,5 @@ clean:
 	rm -rf source/ogg/*.ogg
 	rm -f source/gnu/installationLog
 	rm -f source/html/visitUsccbLog.txt
-	rm -f source/main-script/temp/autoPilot
+	rm -f source/main-script/temp/localFlags
 	#
