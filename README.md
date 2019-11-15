@@ -10,8 +10,8 @@ This is a BASH application which launches multiple "FLOSS" command line interfac
 
 | Content | Functionality |
 | --- | --- |
-| ASCII | Liturgical Calendar (Paschal Full Moon) with Seasonal and Feast Day triggered events. |
-| | Vulgate Latin and NAB English Biblical translation database |
+| Calendar Calculations | Liturgical Calendar (Paschal Full Moon) with Seasonal and Feast Day triggered events. |
+| Liturgical Library | Vulgate Latin and NAB English Biblical translation database |
 | Audio | A curated prayer chant soundtrack ( Ogg Audio provided by: [wikimedia.org](https://commons.wikimedia.org) | [archive.org](archive.org) ) |
 | Network | Daily Mass readings ( web scraped from [usccb.org/bible/readings/](usccb.org/bible/readings/) ) |
 
