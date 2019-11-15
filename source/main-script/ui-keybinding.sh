@@ -157,7 +157,7 @@ function afterUpDnMenu_autopilot {
 	fi
 }
 
-function musicsalAutoPilot {
+function musicalAutoPilot {
 	## turn off user input, ctrl+c to exit
 	stty -echo
 
@@ -245,6 +245,6 @@ function mainNavigation {
 		arrowInputs
 	else
 		## Auto Pilot
-		musicsalAutoPilot
+		musicalAutoPilot
 	fi
 }
