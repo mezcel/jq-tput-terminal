@@ -10,7 +10,7 @@ function beadFWD {
 	rosaryBeadID=$beadCounter
 	# jqQuery
 	determine_what_to_query
-	
+
 
 	if [ $beadCounter -eq $counterMAX ]; then
 		# reset counter
@@ -53,47 +53,47 @@ function arrowInputs {
 		key+=${k1}${k2}${k3} &>/dev/null
 
 		case "$key" in
-			$arrowUp ) # menu
+			$arrowUp | "w" | "W" | "j" | "J" ) # menu
 				menuUP
 
 				## hide cursor
 				tput civis
 				;;
-			$arrowDown ) # language toggle
+			$arrowDown | "s" | "S" | "k" | "K" ) # language toggle
 				menuDN
 
 				## hide cursor
 				tput civis
 				;;
-			$arrowRt | $returnKey ) # navigate forward
+			$arrowRt | $returnKey | "d" | "D" | "l" | "L" | "n" | "N" ) # navigate forward
 				if [ $introFlag -ne 1 ]; then
 					blank_transition_display
 					beadFWD
 					tput civis
 					bundledDisplay
 					setBeadAudio
-					
+
 					## kill audio when navigating
 					if pgrep -x "ogg123" &>/dev/null
 					then
 						killall ogg123 &>/dev/null
 					fi
-					
+
 				fi
 				;;
-			$arrowLt ) # navigate back
+			$arrowLt | "h" | "H" | "a" | "A" | "b" | "B" ) # navigate back
 				blank_transition_display
 				beadREV
 				tput civis
 				bundledDisplay
 				setBeadAudio
-				
+
 				## kill audio when navigating
 				if pgrep -x "ogg123" &>/dev/null
 				then
 					killall ogg123 &>/dev/null
 				fi
-					
+
 				;;
 			"m" | "M" | "p" | "P" ) # ogg123 audio player
 				if ! pgrep -x "ogg123" > /dev/null
