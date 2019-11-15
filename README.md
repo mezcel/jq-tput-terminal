@@ -16,7 +16,7 @@ This is a BASH application which launches multiple "FLOSS" command line interfac
 * Network:
     - Daily Mass readings ( web scraped from [usccb.org/bible/readings/](usccb.org/bible/readings/) )
 
-| Status | Version |
+| Development Status | Version |
 | --- | --- |
 | Current development branch | v0.1.11.2 |
 | Demo Preview | v0.1.11 |
