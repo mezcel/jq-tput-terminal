@@ -31,6 +31,7 @@ function compileJq {
 ## Arch based distros
 function packageManagerPacman {
 	## Pacman in silen mode
+	echo "package manager update ..."
 	sudo pacman -Sy
 
 	declare -a missingPackageArr=()
@@ -68,6 +69,7 @@ function packageManagerPacman {
 function packageManagerDPKG {
 	## Debian Apt
 	# sudo apt-get update -qq
+	echo "package manager update ..."
 	sudo apt-get update
 
 	declare -a missingPackageArr=()

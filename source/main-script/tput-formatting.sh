@@ -318,12 +318,12 @@ function welcomepage {
 		'q' or Esc Key     | terminate app ( or Ctrl + C )
 		'm' Key            | toggles Latin prayer audio (plays prayer only once)
 
-		Vim navigation keys equivalents will also work.
+		Vim navigation keybindings will also work. ( h, j, k, l )
 
 
 	${MODE_BEGIN_UNDERLINE}Advice:${MODE_EXIT_UNDERLINE}
 
-		Pause after navigating to allow a moment for text querying to complete and display.
+		Pause after navigating to allow a moment for text querying and display rendering to complete.
 		Optimal Xterm Screen Dimentions: (Minimum) 140 cols x 40 lines
 	"
 
