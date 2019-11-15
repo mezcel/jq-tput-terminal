@@ -16,11 +16,20 @@ This is a BASH application which launches multiple "FLOSS" command line interfac
 * Network:
     - Daily Mass readings ( web scraped from [usccb.org/bible/readings/](usccb.org/bible/readings/) )
 
-| Development Status | Version |
+| | Version |
 | --- | --- |
 | Current development branch | v0.1.11.2 |
 | Demo Preview | v0.1.11 |
 | [![asciicast](https://asciinema.org/a/243201.svg)](https://asciinema.org/a/243201) | v0.1.11 |
+
+## Install
+
+### Makefile
+
+* **make** : download software and audio prerequisites
+* **make gnu** : download software prerequisites
+* **make ogg** : download audio prerequisites
+* **make clean** : remove application audio, temp files, and log files
 
 ## Runtime
 
@@ -30,9 +39,9 @@ This App will perform a requirements check and install necessary software. Xterm
 
 - (Main) CLI App: ```./bash-rosary```
 
-- App Launcher for Desktop Environment: ```./xterm-launcher``` (it will call ```./bash-rosary```)
-
 - Automatically verify and add needed software that is missing on your system. ```./source/gnu/download-gnu-software``` (Called automatically from within App or you can run it manually)
+
+# Development Considerations:
 
 ## Recommended Use Cases:
 

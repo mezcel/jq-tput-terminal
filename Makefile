@@ -1,14 +1,19 @@
 ## Makefile (Automated Build)
 
-all: gnu
+all: gnu ogg
 
 gnu: 
 	## download gnu software dependency
 	bash source/gnu/download-gnu-software
 	#
 
+ogg:
+	## Download app audio
+	bash source/ogg/download-ogg-media
+	#
+
 clean:
-	## removing any ogg and logs
+	## removing any ogg audio, logs, and temporary webscrape files
 	rm -rf source/ogg/*.ogg 
 	rm -f source/gnu/installationLog
 	rm -f source/html/visitUsccbLog.txt
