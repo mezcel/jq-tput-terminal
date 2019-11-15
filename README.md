@@ -16,6 +16,12 @@ This is a BASH application which launches multiple "FLOSS" command line interfac
 * Network:
     - Daily Mass readings ( web scraped from [usccb.org/bible/readings/](usccb.org/bible/readings/) )
 
+| Status | Version |
+| --- | --- |
+| Current development branch | v0.1.11.2 |
+| Demo Preview | v0.1.11 |
+| [![asciicast](https://asciinema.org/a/243201.svg)](https://asciinema.org/a/243201) | v0.1.11 |
+
 ## Runtime
 
 This App will perform a requirements check and install necessary software. Xterm's minimum window size will be set at 140x40. The [alsa](http://alsa-project.org/main/index.php/Main_Page) or [pulseaudio](https://www.freedesktop.org/wiki/Software/PulseAudio/) must already be configured on your system for audio to work.
@@ -27,12 +33,6 @@ This App will perform a requirements check and install necessary software. Xterm
 - App Launcher for Desktop Environment: ```./xterm-launcher``` (it will call ```./bash-rosary```)
 
 - Automatically verify and add needed software that is missing on your system. ```./source/gnu/download-gnu-software``` (Called automatically from within App or you can run it manually)
-
-| Status | Version |
-| --- | --- |
-| Current development branch | v0.1.11.2 |
-| Demo Preview | v0.1.11 |
-| [![asciicast](https://asciinema.org/a/243201.svg)](https://asciinema.org/a/243201) | v0.1.11 |
 
 ## Recommended Use Cases:
 
