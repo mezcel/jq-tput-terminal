@@ -2,7 +2,7 @@
 
 all: gnu ogg
 
-gnu: 
+gnu:
 	## download gnu software dependency
 	bash source/gnu/download-gnu-software
 	#
@@ -13,8 +13,9 @@ ogg:
 	#
 
 clean:
-	## removing any ogg audio, logs, and temporary webscrape files
-	rm -rf source/ogg/*.ogg 
+	## removing any ogg audio, logs, temporary flags, and webscrape files
+	rm -rf source/ogg/*.ogg
 	rm -f source/gnu/installationLog
 	rm -f source/html/visitUsccbLog.txt
+	rm -f source/main-script/temp/autoPilot
 	#

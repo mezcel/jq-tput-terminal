@@ -50,8 +50,10 @@ function installSoftwareMultimedia {
 
 if [ $inputTag == "-a" ] || [ $inputTag == "-A" ]; then
 	autoPilot=1
+	echo "1" >  source/main-script/temp/autoPilot
 else
 	autoPilot=0
+	echo "0" >  source/main-script/temp/autoPilot
 fi
 
 installSoftwareMultimedia
