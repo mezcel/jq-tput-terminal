@@ -22,8 +22,6 @@ then
 
 * ```initialize-sources.txt``` # Script which loads all the scripts into the Bash Process instance
 
-### Run
+## Run
 
 The bash file, ```bash-rosary```, in the app's root dir, is the primary bash ```./``` executable.
-
-The bash file, ```xterm-launcher```, if called, will launch ```bash-rosary```

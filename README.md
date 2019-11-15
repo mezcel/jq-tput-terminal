@@ -4,7 +4,7 @@ An English & Latin Scripture Rosary on BASH.
 
 ## Description
 
-This is a BASH application which launches multiple "FLOSS" command line interface applications which perform the following tasks: *downloading dependencies, web scraping, file parsing, audio streaming, and rendering text display*.
+This is a BASH application which launches multiple "FLOSS" command line interface applications which perform the following tasks: *downloading dependencies, web scraping, file parsing, audio streaming, window scaling, and rendering text display*.
 
 ### Primary Features:
 
@@ -39,6 +39,8 @@ This is a BASH application which launches multiple "FLOSS" command line interfac
 ### Runtime:
 
 This App will perform a requirements check and install necessary software. Xterm's minimum window size will be set at 140x40. The [alsa](http://alsa-project.org/main/index.php/Main_Page) or [pulseaudio](https://www.freedesktop.org/wiki/Software/PulseAudio/) must already be configured on your system for audio to work.
+
+---
 
 # Development Consideration
 
