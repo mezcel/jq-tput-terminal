@@ -1,49 +1,24 @@
 # jq-tput-terminal
 
-A Scripture Rosary GUI on the Bash CLI.
+## NAME
 
-- Liturgical Calendar (Paschal Full Moon) with Seasonal and Feast Day triggered events.
-- Vulgate Latin and NAB English Biblical translation database
-- Daily Mass Readings (scraped from usccb.org)
-- Prayer Chant Soundtrack ( Ogg Audio provided by [wikimedia.org](https://commons.wikimedia.org) / [archive.org](archive.org) )
+jq-tput-terminal - an English & Latin scripture Rosary for BASH.
 
-__Demo preview:__ [link](https://asciinema.org/a/243201) -- choppy and rough
+## Description
 
-```v0.1.11```
-[![asciicast](https://asciinema.org/a/243201.svg)](https://asciinema.org/a/243201)
+This is a BASH application which launches multiple command line interface applications which perform the following tasks: *downloading dependencies, web scraping, file parsing, audio streaming, and rendering text display*.
 
-Current developement branch: ```v0.1.11.2```
+Feature Functionalities:
 
-* modifying th intro progress flag counter
+* Visual:
+    - Liturgical Calendar (Paschal Full Moon) with Seasonal and Feast Day triggered events.
+    - Vulgate Latin and NAB English Biblical translation database
+* Audio:
+    - Prayer Chant Soundtrack ( Ogg Audio provided by [wikimedia.org](https://commons.wikimedia.org) / [archive.org](archive.org) )
+* Network:
+    - Daily Mass Readings ( scraped from [usccb.org/bible/readings/](usccb.org/bible/readings/) )
 
----
-
-### About:
-
-This is a Linux CLI terminal GUI App. 
-
-Note: Script is not intended to be Code.This project is just a Bash exercise.
-
-This App was built arround a slimmed down json database which was ported from [electron-container](https://github.com/mezcel/electron-container).
-
-__Recommended Use Cases:__
-
-- ["Busy Persons Retreat"](https://vocationscava.org/wp-content/uploads/2014/11/ONLINE_BPR_EDITED_October_2013.pdf) and or [Leccio Divina](https://ocarm.org/en/content/lectio/what-lectio-divina)
-- Run locally in a background terminal session for audio room ambiance. Interactive Jukebox
-- Host on a ssh/ssl network.
-- For use as an educational quick reference (Catechism, linguistic, terminal cli, cultural history)
-
-__Requirement Dependencies:__
-
-* Basic GNU Terminal Tools: [Bash](https://www.gnu.org/software/bash/), [ncurses/tput](https://ss64.com/bash/tput.html), wget, cal, bc, awk, & grep
-* [JQ](https://stedolan.github.io/jq) is a cross-platform C program which parses json script via command line terminal
-* [dialog / whiptail](http://linuxcommand.org/lc3_adv_dialog.php) is a terminal App for making dialog box style input prompts
-* [ogg123](https://xiph.org/vorbis) is a [ogg](https://xiph.org/vorbis) audio player which can run within terminal environment
-* [elinks](http://elinks.or.cz/) is a well-established feature-rich text mode web (HTTP/FTP/..) browser.
-
----
-
-#### Run
+# Runtime
 
 This App will perform a requirements check and install Audio & Software, as needed, on startup. When possible, it will render in Xterm at 140x40. Your [alsa](http://alsa-project.org/main/index.php/Main_Page) or [pulseaudio](https://www.freedesktop.org/wiki/Software/PulseAudio/) must already be configured on your system for audio to work.
 
@@ -53,9 +28,32 @@ This App will perform a requirements check and install Audio & Software, as need
 
 - Automatically verify and add needed software that is missing on your system. ```./source/gnu/download-gnu-software``` (Called automatically from within App or you can run it manually)
 
+| Status | Version |
+| --- | --- |
+| Current development branch | v0.1.11.2 |
+| Demo Preview | v0.1.11 |
+| [![asciicast](https://asciinema.org/a/243201.svg)](https://asciinema.org/a/243201) | v0.1.11 |
+
+# Recommended Use Cases:
+
+- ["Busy Persons Retreat"](https://vocationscava.org/wp-content/uploads/2014/11/ONLINE_BPR_EDITED_October_2013.pdf) and or [Leccio Divina](https://ocarm.org/en/content/lectio/what-lectio-divina)
+- Run locally in a background terminal session for audio room ambiance. Interactive Jukebox
+- Host on a ssh/ssl network.
+- For use as an educational quick reference (Catechism, linguistic, terminal cli, cultural history)
+
+# Requirement Dependencies:
+
+* Basic GNU Terminal Tools: [Bash](https://www.gnu.org/software/bash/), [ncurses/tput](https://ss64.com/bash/tput.html), wget, cal, bc, awk, & grep
+* [JQ](https://stedolan.github.io/jq) is a cross-platform C program which parses json script via command line terminal
+* [dialog / whiptail](http://linuxcommand.org/lc3_adv_dialog.php) is a terminal App for making dialog box style input prompts
+* [ogg123](https://xiph.org/vorbis) is a [ogg](https://xiph.org/vorbis) audio player which can run within terminal environment
+* [elinks](http://elinks.or.cz/) is a well-established feature-rich text mode web (HTTP/FTP/..) browser.
+
+This App was built around a slimmed down json database which was initially ported from [electron-container](https://github.com/mezcel/electron-container).
+
 ---
 
-#### Test Environments:
+# Test Environments:
 
 | Test Distro's | Development Environment Notes |
 | --- | --- |
