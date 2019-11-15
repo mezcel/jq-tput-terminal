@@ -54,11 +54,11 @@ function packageManagerPacman {
 	for (( i=1; i<${#missingPackageArr[@]}+1; i++ ));
 	do
 		# sudo pacman -S --needed ${missingPackageArr[$i-1]}
-		sudo pacman -Sy --needed ${missingPackageArr[$i-1]}
+		sudo pacman -Sy --needed --noconfirm ${missingPackageArr[$i-1]}
 		## make a confirmation log
 		echo "Performed pacman -S --needed ${missingPackageArr[$i-1]} on: $(date)" >> $currentDirPath/installationLog
 	done
-	
+
 	## ogg123 fix for alsa
 	sleep 2s
 	sudo sed -i -e 's/dev=default/#dev=default/g' /etc/libao.conf
@@ -90,7 +90,7 @@ function packageManagerDPKG {
 	do
 	  sudo apt-get install  ${missingPackageArr[$i-1]}
 	  ## make a confirmation log
-	  echo "Performed apt-get install ${missingPackageArr[$i-1]} on: $(date)" >> $currentDirPath/installationLog
+	  echo "Performed apt-get install -y ${missingPackageArr[$i-1]} on: $(date)" >> $currentDirPath/installationLog
 	done
 }
 
@@ -187,7 +187,7 @@ function tryAgainLater {
 
 
 	"
-	echo "Press [enter] to exit and get some internet and try again."
+	echo "Press [enter] to exit. Connect to the internet and try again."
 	read
 
 	exit
@@ -195,6 +195,7 @@ function tryAgainLater {
 
 function getLatestRepoUpdates {
 	# git remote update ## to bring remote refs up to date
+	echo "Importing updates from https://github.com/mezcel/jq-tput-terminal.git ..."
 	git pull
 }
 
@@ -219,7 +220,7 @@ function download_gnu_software {
 				;;
 		esac
 	fi
-	
+
 	## changes to gunu will take effect the next time this app runs
 	## getLatestRepoUpdates
 
