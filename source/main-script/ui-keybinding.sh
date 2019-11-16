@@ -3,6 +3,26 @@
 ## Keyboard Arrows UI
 ###################################################
 
+function positionLog {
+	grep -v "positionLog" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
+	echo "positionLog $beadCounter $hailmaryCounter $thisDecadeSet $mysteryProgress $(date)" >> $currentDirPath/source/main-script/temp/localFlags
+}
+
+function setPauseFlag {
+	grep -v "pauseFlag" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
+	echo "pauseFlag 1 $(date)" >> $currentDirPath/source/main-script/temp/localFlags
+}
+
+function unsetPauseFlag {
+	grep -v "pauseFlag" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
+	echo "pauseFlag 0 $(date)" >> $currentDirPath/source/main-script/temp/localFlags
+}
+
+function unsetAutoPilotFlag {
+	grep -v "autoPilot" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
+	echo "autoPilot 0 $(date)" >> $currentDirPath/source/main-script/temp/localFlags
+}
+
 function beadFWD {
 	directionFwRw=1
 	beadCounter=$((beadCounter+1))
@@ -10,7 +30,6 @@ function beadFWD {
 	rosaryBeadID=$beadCounter
 	# jqQuery
 	determine_what_to_query
-
 
 	if [ $beadCounter -eq $counterMAX ]; then
 		# reset counter
@@ -34,7 +53,7 @@ function killAutopilot {
 
 	if pgrep -x "ogg123" &>/dev/null
 	then
-		killall ogg123 &>/dev/null; killall bash-rosary &>/dev/null
+		killall ogg123 &>/dev/null && killall bash-rosary &>/dev/null
 	else
 		killall bash-rosary &>/dev/null
 	fi
@@ -54,12 +73,18 @@ function arrowInputs {
 
 		case "$key" in
 			$arrowUp | "w" | "W" | "j" | "J" ) # menu
+				setPauseFlag
+				clear
+
 				menuUP
 
 				## hide cursor
 				tput civis
 				;;
 			$arrowDown | "s" | "S" | "k" | "K" ) # language toggle
+				setPauseFlag
+				clear
+
 				menuDN
 
 				## hide cursor
@@ -72,6 +97,8 @@ function arrowInputs {
 					tput civis
 					bundledDisplay
 					setBeadAudio
+
+					positionLog
 
 					## kill audio when navigating
 					if pgrep -x "ogg123" &>/dev/null
@@ -87,6 +114,8 @@ function arrowInputs {
 				tput civis
 				bundledDisplay
 				setBeadAudio
+
+				positionLog
 
 				## kill audio when navigating
 				if pgrep -x "ogg123" &>/dev/null
@@ -110,6 +139,7 @@ function arrowInputs {
 				fi
 				;;
 			"q" | "Q" | $escKey ) # Force quit app and mplayer and xterm
+				unsetAutoPilotFlag
 				autoPilot=0
 				killAutopilot
 				;;
@@ -121,39 +151,22 @@ function arrowInputs {
     tput rmcup
 }
 
-function removeTempVarFile {
-	currentDirPath=$(dirname $0)
-	if [ -f $currentDirPath/source/main-script/temp/varFile ] ; then
-		rm $currentDirPath/source/main-script/temp/varFile
-	fi
-}
-
-function beforeUpDnMenu_autopilot {
-	currentDirPath=$(dirname $0)
-	if ! [ -f $currentDirPath/source/main-script/temp/varFile ] ; then
-		echo "$beadCounter,$hailmaryCounter,$thisDecadeSet,$mysteryProgress,$(date)" > $currentDirPath/source/main-script/temp/varFile
-	fi
-}
-
 function afterUpDnMenu_autopilot {
 	currentDirPath=$(dirname $0)
-	if [ -f $currentDirPath/source/main-script/temp/varFile ] ; then
+	if [ -f $currentDirPath/source/main-script/temp/localFlags ] ; then
 
-		tempTxtToVar=$(cat $currentDirPath/source/main-script/temp/varFile)
-
-		beadCounter=$( echo $tempTxtToVar | cut -d "," -f 1 )
+		beadCounter=$( grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}' )
 		rosaryBeadID=$beadCounter
-		hailmaryCounter=$( echo $tempTxtToVar | cut -d "," -f 2 )
-		thisDecadeSet=$( echo $tempTxtToVar | cut -d "," -f 3 )
-		mysteryProgress=$( echo $tempTxtToVar | cut -d "," -f 4 )
+		hailmaryCounter=$( grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf 3}' )
+		thisDecadeSet=$( grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $4}' )
+		mysteryProgress=$( grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $5}' )
 
-		 clear
-		 blank_transition_display
-		 jqQuery
-		 bundledDisplay
-		 setBeadAudio
+		clear
+		blank_transition_display
+		jqQuery
+		bundledDisplay
+		setBeadAudio
 
-		rm $currentDirPath/source/main-script/temp/varFile
 	fi
 }
 
@@ -161,73 +174,113 @@ function musicalAutoPilot {
 	## turn off user input, ctrl+c to exit
 	stty -echo
 
-	setBeadAudio
-	ogg123 -q "$beadAudioFile" </dev/null >/dev/null 2>&1 &
-	sleep .5s
-
-	autoPilot=1
-	isMenuOpen=0
-	removeTempVarFile
+	if [ ! -z $(command -v alsamixer) ]; then
+		setBeadAudio
+		ogg123 -q "$beadAudioFile" </dev/null >/dev/null 2>&1 &
+		sleep .5s
+	fi
 
 	while [ $autoPilot -eq 1 ]
 	do
-		## isOggPlaying=$(echo pgrep -x "ogg123")
-		if ! pgrep -x "ogg123" > /dev/null
-		then
-			currentDirPath=$(dirname $0)
-			if [ -f $currentDirPath/source/main-script/temp/varFile ] ; then
-				isMenuOpen=1
-				beadFWD
-				setBeadAudio
-				ogg123 -q "$beadAudioFile" </dev/null >/dev/null 2>&1 &
-				echo "$beadCounter,$hailmaryCounter,$thisDecadeSet,$mysteryProgress,$(date)" > $currentDirPath/source/main-script/temp/varFile
-			else
+		autoPilot=$(grep "autoPilot" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+		isPauseFlag=$(grep "pauseFlag" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+
+		## check if alsamixer is possible
+		if [ -z $(command -v alsamixer) ]; then
+		isAlsaMixer=0;
+		else
+		isAlsaMixer=1;
+		fi
+
+		if [ $autoPilot -eq 1 ] && [ $isPauseFlag -eq 0 ] && [ $isAlsaMixer -eq 1 ]; then
+			## isOggPlaying=$(echo pgrep -x "ogg123")
+			if ! pgrep -x "ogg123" > /dev/null
+			then
+				currentDirPath=$(dirname $0)
+				#isPauseFlag=$(grep "pauseFlag" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+				#if [ $isPauseFlag -eq 0 ]; then
 				blank_transition_display
+				autoPilot=$(grep "autoPilot" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
 				beadFWD
+				positionLog
 				bundledDisplay
 				setBeadAudio
 				ogg123 -q "$beadAudioFile" </dev/null >/dev/null 2>&1 &
 			fi
+		elif [ $isPauseFlag -eq 0 ]; then
+			## No Audio
+			currentDirPath=$(dirname $0)
+			#isPauseFlag=$(grep "pauseFlag" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+			#if [ $isPauseFlag -eq 0 ]; then
+			blank_transition_display
+			autoPilot=$(grep "autoPilot" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+			beadFWD
+			positionLog
+			isPauseFlag=$(grep "pauseFlag" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+			sleep 3s
+			if [ $isPauseFlag -eq 0 ]; then bundledDisplay; fi
 		fi
 
 	done & while read -sN1 key
 	do
-		## catch 3 multi char sequence within a time window
-		## null outputs in case of random error msg
-		read -s -n1 -t 0.0001 k1 &>/dev/null
-		read -s -n1 -t 0.0001 k2 &>/dev/null
-		read -s -n1 -t 0.0001 k3 &>/dev/null
-		key+=${k1}${k2}${k3} &>/dev/null
+		autoPilot=$(grep "autoPilot" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+		isPauseFlag=$(grep "pauseFlag" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+		if [ $autoPilot -eq 1 ] && [ $isPauseFlag -eq 0 ] ; then
+			## catch 3 multi char sequence within a time window
+			## null outputs in case of random error msg
+			read -s -n1 -t 0.0001 k1 &>/dev/null
+			read -s -n1 -t 0.0001 k2 &>/dev/null
+			read -s -n1 -t 0.0001 k3 &>/dev/null
+			key+=${k1}${k2}${k3} &>/dev/null
 
-		case "$key" in
-			$arrowUp ) # menu
-				isMenuOpen=1
-				beforeUpDnMenu_autopilot
+			case "$key" in
+				$arrowUp ) # menu
+					autoPilot=$(grep "autoPilot" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+					setPauseFlag
+					isPauseFlag=1
+					positionLog
+					sleep 1s
+					clear
 
-				menuUPautopilot
-				afterUpDnMenu_autopilot
+					menuUPautopilot
+					afterUpDnMenu_autopilot
 
-				## hide cursor
-				tput civis
-				;;
+					## hide cursor
+					tput civis
+					;;
 
-			$arrowDown ) # language toggle
-				isMenuOpen=1
-				beforeUpDnMenu_autopilot
+				$arrowDown ) # language toggle
+					autoPilot=$(grep "autoPilot" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+					setPauseFlag
+					isPauseFlag=1
+					positionLog
+					sleep 1s
+					clear
 
-				menuDN
-				afterUpDnMenu_autopilot
+					menuDN
+					afterUpDnMenu_autopilot
 
-				## hide cursor
-				tput civis
-				;;
+					## hide cursor
+					tput civis
+					#sleep 1s
+					;;
 
-			"q" | "Q" | $escKey ) # Force quit app and mplayer and xterm
-				autoPilot=0
-				removeTempVarFile
-				killAutopilot
-				;;
-		esac
+				"q" | "Q" | $escKey ) # Force quit app and mplayer and xterm
+					clear
+					unsetAutoPilotFlag
+					autoPilot=0
+					killAutopilot
+					continue
+					;;
+			esac
+
+		else
+			clear
+			unsetAutoPilotFlag
+			autoPilot=0
+			killAutopilot
+			continue
+		fi
 
 	done
 }
@@ -241,7 +294,7 @@ function mainNavigation {
 	setBeadAudio
 
 	if [ -f source/main-script/temp/localFlags ]; then
-		autoPilot=$(grep "autoPilot" source/main-script/temp/autoPilot | awk '{printf $2}')
+		autoPilot=$(grep "autoPilot" source/main-script/temp/localFlags | awk '{printf $2}')
 	else
 		autoPilot=0
 	fi

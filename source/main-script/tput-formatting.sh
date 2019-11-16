@@ -553,8 +553,6 @@ function progressbars {
 
 }
 
-# iconSequence=0
-
 function beadProgress {
 	case $beadID in
 

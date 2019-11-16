@@ -18,4 +18,6 @@ clean:
 	rm -f source/gnu/installationLog
 	rm -f source/html/visitUsccbLog.txt
 	rm -f source/main-script/temp/localFlags
+	rm -f source/main-script/temp/varFile
+	rm -f source/html/mass-readings.html
 	#

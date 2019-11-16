@@ -5,11 +5,6 @@ inputTag=$1
 function loadSourceScripts {
 	currentDirPath=$(dirname $0)
 
-	## rm previous tmp script
-	if [ -f $currentDirPath/source/main-script/tmp/varFile ] ; then
-		rm $currentDirPath/source/main-script/tmp/varFile
-	fi
-
 	## Populate Bash session with source script
 	for i in $currentDirPath/source/main-script/*.sh; do
 		source "$i" -H ## || break
@@ -48,19 +43,18 @@ function installSoftwareMultimedia {
 
 ## RUN APP
 
-touch source/main-script/temp/localFlags
-if [ $inputTag == "-a" ] || [ $inputTag == "-A" ]; then
+echo "pauseFlag 0" > source/main-script/temp/localFlags
+if [ ! -z "$inputTag" ] && [ $inputTag == "-a" ] || [ $inputTag == "-A" ]; then
 	autoPilot=1
-	echo "autoPilot 1" >> source/main-script/temp/localFlags
-	#sed '/autoPilot 0/d' source/main-script/temp/localFlags
-	grep -v "autoPilot 0" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
+	grep -v "autoPilot" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
+	echo "autoPilot 1 $(date)" >> source/main-script/temp/localFlags
 else
 	autoPilot=0
-	echo "autoPilot 0" >> source/main-script/temp/localFlags
-	grep -v "autoPilot 1" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
+	grep -v "autoPilot" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
+	echo "autoPilot 0 $(date)" >> source/main-script/temp/localFlags
 fi
 
-installSoftwareMultimedia
+#installSoftwareMultimedia
 
 loadSourceScripts
 

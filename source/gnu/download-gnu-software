@@ -8,7 +8,7 @@ function compileJq {
 
 	command -v jq
 	isJqInstalled=$?
-	if [ isJqInstalled -eq 1 ]; then
+	if [ isJqInstalled -ne 0 ]; then
 		git clone https://github.com/stedolan/jq.git
 
 		cd jq
@@ -207,7 +207,7 @@ function download_gnu_software {
 
 	identifyPackageManager
 
-	if [[ $pingFlag -eq 0 ]]; then
+	if [ $pingFlag -eq 0 ]; then
 		case $packageManager in
 			"pacman")
 				packageManagerPacman
@@ -223,9 +223,6 @@ function download_gnu_software {
 				;;
 		esac
 	fi
-
-	## changes to gunu will take effect the next time this app runs
-	## getLatestRepoUpdates
 
 }
 

@@ -155,6 +155,7 @@ function menuUP {
 
 	case "$selectedMenuItem" in
 		1)	## About
+			#clear
 			myAbout
 			;;
 		2)	## Joyful
@@ -198,15 +199,19 @@ function menuUP {
 			jqQuery
 			;;
 		6)	## Prayer Menu
+			#clear
 			prayerMenu
 			;;
 		7)	## Color Theme
+			#clear
 			change_color_menu
 			;;
 		8)	## Feast Day List
+			#clear
 			feastDayCountdown
 			;;
 		9) # elinks mass readings
+			#clear
 			elinksUsccb
 			;;
 		10)	## exit app
@@ -253,6 +258,8 @@ function menuUPautopilot {
 		showonlineStatus=offline
 	fi
 
+	clear
+
 	screenTitle="Terminal Rosary using Jq and Bash"
 	dialogTitle="Main Menu"
 	selectedMenuItem=$( dialog 2>&1 >/dev/tty \
@@ -265,8 +272,7 @@ function menuUPautopilot {
 		"6"	"View Prayers" \
 		"8" "Feast Day Countdown" \
 		"9" "Daily Mass Readings ($showonlineStatus)" \
-		"10" "Exit App" )
-
+		"10" "Exit App" ) || clear
 
 	case "$selectedMenuItem" in
 		1)	## About
@@ -284,7 +290,9 @@ function menuUPautopilot {
 		10)	## exit app
 			if [ $autoPilot -eq 1 ]; then
 				autoPilot=0
+				unsetAutoPilotFlag
 				# exitAutoPilotApp
+				killAutopilot
 			else
 				goodbyescreen
 				tput cnorm
@@ -292,9 +300,12 @@ function menuUPautopilot {
 				reset
 				exit
 			fi
-			break
 			;;
 	esac
+
+	unsetPauseFlag
+
+	echo "$STYLES_OFF $CLR_ALL $CLR_ALL_LINES $BACKGROUNDCOLOR $FOREGROUNDCOLOR"
 }
 
 function menuDN {
@@ -307,6 +318,8 @@ function menuDN {
 		nabSwitch=OFF
 		vulgateSwitch=ON
 	fi
+
+	clear
 
 	screenTitle="Terminal Rosary using Jq and Bash"
 	dialogTitle="Language Selector"
@@ -335,6 +348,8 @@ function menuDN {
 		tputBeadDisplay
 		progressbars
 	fi
+
+	unsetPauseFlag
 }
 
 function menuDNautopilot {
@@ -405,9 +420,7 @@ function prayerMenu {
 		"15" "$(jq .prayer[15].prayerName $rosaryJSON)" \
 		"16" "$(jq .prayer[16].prayerName $rosaryJSON)" ) || return
 
-
 	dialogPrayerName=$(jq .prayer[$selectedPrayer].prayerName $rosaryJSON)
-
 	dialogPrayerText=$(jq .prayer[$selectedPrayer].prayerText $rosaryJSON)
 	htmlPattern=" \<br\>"
 	bashEcho=" \n"
