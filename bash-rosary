@@ -44,14 +44,18 @@ function installSoftwareMultimedia {
 ## RUN APP
 
 echo "pauseFlag 0" > source/main-script/temp/localFlags
-if [ ! -z "$inputTag" ] && [ $inputTag == "-a" ] || [ $inputTag == "-A" ]; then
-	autoPilot=1
-	grep -v "autoPilot" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
-	echo "autoPilot 1 $(date)" >> source/main-script/temp/localFlags
-else
-	autoPilot=0
-	grep -v "autoPilot" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
-	echo "autoPilot 0 $(date)" >> source/main-script/temp/localFlags
+autoPilot=0
+grep -v "autoPilot" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
+echo "autoPilot 0 $(date)" >> source/main-script/temp/localFlags
+
+## Autopilot
+
+if [ ! -z "$inputTag" ]; then
+	if [ $inputTag == "-a" ] || [ $inputTag == "-A" ]; then
+		autoPilot=1
+		grep -v "autoPilot" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
+		echo "autoPilot 1 $(date)" >> source/main-script/temp/localFlags
+	fi
 fi
 
 #installSoftwareMultimedia

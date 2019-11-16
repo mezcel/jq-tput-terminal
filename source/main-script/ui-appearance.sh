@@ -47,7 +47,7 @@ function decorativeColors {
 
 	## Blink
 	BLINKING=$(tput blink)
-	
+
 	HIDECURSOR=$(tput civis)
 	SHOWCURSOR=$(tput cnorm)
 }
@@ -152,7 +152,8 @@ function setBeadAudio {
 			beadAudioFile=$currentDirPath/source/ogg/'01 Sign of the cross.ogg'
 			;;
 		2 ) ## Credo
-			beadAudioFile="$currentDirPath/source/ogg/Byrd_4-Part_Mass_-_Credo.ogg"
+			## beadAudioFile="$currentDirPath/source/ogg/Byrd_4-Part_Mass_-_Credo.ogg"
+			beadAudioFile="$currentDirPath/source/ogg/beep.ogg"
 			;;
 		3 ) ## PaterNoster
 			beadAudioFile="$currentDirPath/source/ogg/Schola_Gregoriana-Pater_Noster.ogg"

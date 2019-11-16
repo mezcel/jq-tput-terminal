@@ -153,21 +153,18 @@ function arrowInputs {
 
 function afterUpDnMenu_autopilot {
 	currentDirPath=$(dirname $0)
-	if [ -f $currentDirPath/source/main-script/temp/localFlags ] ; then
 
-		beadCounter=$( grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}' )
-		rosaryBeadID=$beadCounter
-		hailmaryCounter=$( grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf 3}' )
-		thisDecadeSet=$( grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $4}' )
-		mysteryProgress=$( grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $5}' )
+	#beadCounter=$( grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}' )
+	#rosaryBeadID=$beadCounter
+	#hailmaryCounter=$( grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf 3}' )
+	#thisDecadeSet=$( grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $4}' )
+	#mysteryProgress=$( grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $5}' )
 
-		clear
-		blank_transition_display
-		jqQuery
-		bundledDisplay
-		setBeadAudio
-
-	fi
+	clear
+	blank_transition_display
+	jqQuery
+	bundledDisplay
+	setBeadAudio
 }
 
 function musicalAutoPilot {
