@@ -19,7 +19,8 @@ This application aims to serve as a casually meditative intellectual & auditory 
 
 | Project Status | Development Version |
 | :--- | :--- |
-| Current development branch ( polishing and refactoring ) | v0.1.11.2 |
+| Current master | v0.1.11.2 |
+| Current development branch | v0.1.12 |
 | Outdated Demo Preview ( rushed UI mechanics ) | v0.1.11 |
 | [![asciicast](https://asciinema.org/a/243201.svg)](https://asciinema.org/a/243201) | v0.1.11 |
 
