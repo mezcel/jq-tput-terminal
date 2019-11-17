@@ -217,7 +217,6 @@ function menuUP {
 		10)	## exit app
 			if [ $autoPilot -eq 1 ]; then
 				autoPilot=0
-				# exitAutoPilotApp
 			else
 				goodbyescreen
 				tput cnorm
@@ -258,7 +257,7 @@ function menuUPautopilot {
 		showonlineStatus=offline
 	fi
 
-	clear
+	#clear
 
 	screenTitle="Terminal Rosary using Jq and Bash"
 	dialogTitle="Main Menu"
@@ -279,10 +278,10 @@ function menuUPautopilot {
 			myAbout
 			;;
 		6)	## Prayer Menu
-			prayerMenu
+            prayerMenu
 			;;
 		8)	## Feast Day List
-			feastDayCountdown
+            feastDayCountdown
 			;;
 		9) # elinks mass readings
 			elinksUsccb
@@ -291,7 +290,6 @@ function menuUPautopilot {
 			if [ $autoPilot -eq 1 ]; then
 				autoPilot=0
 				unsetAutoPilotFlag
-				# exitAutoPilotApp
 				killAutopilot
 			else
 				goodbyescreen
@@ -306,6 +304,7 @@ function menuUPautopilot {
 	unsetPauseFlag
 
 	echo "$STYLES_OFF $CLR_ALL $CLR_ALL_LINES $BACKGROUNDCOLOR $FOREGROUNDCOLOR"
+    clear
 }
 
 function menuDN {
