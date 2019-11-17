@@ -81,7 +81,7 @@ function initializeFlags {
 }
 
 function mainInit {
-	download_dependencies
+	#download_dependencies
 	launchXterm
 	resizeWindow
 }

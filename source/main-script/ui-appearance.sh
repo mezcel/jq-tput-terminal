@@ -125,10 +125,6 @@ function launchXterm {
 		"linux" )	## login terminal
 					isLinuxTerminal=1
 					;;
-		* ) ## launch app through a new xterm
-			hostedDirPath=$(dirname $0)
-			xterm -geometry 140x40+0+0 -e "$hostedDirPath/xterm-launcher"
-			;;
 	esac
 
 }

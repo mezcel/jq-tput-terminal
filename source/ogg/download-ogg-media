@@ -8,7 +8,7 @@ function audio_credits {
 	MODE_EXIT_STANDOUT=$(tput rmso)
 
 echo "$FG_CYAN
-Audio source credits ( Libre Audio OGGs ):
+Libre audio used in this application:
 - https://commons.wikimedia.org/wiki/File:${MODE_ENTER_STANDOUT}Schola_Gregoriana-Ave_Maria.ogg${MODE_EXIT_STANDOUT}
 - https://commons.wikimedia.org/wiki/File:${MODE_ENTER_STANDOUT}Schola_Gregoriana-Pater_Noster.ogg${MODE_EXIT_STANDOUT}
 - https://commons.wikimedia.org/wiki/File:${MODE_ENTER_STANDOUT}JOHN_MICHEL_CELLO-BACH_AVE_MARIA.ogg${MODE_EXIT_STANDOUT}
@@ -31,11 +31,12 @@ function download_ogg_media {
 	if [ $pingTest -eq 0 ]; then
 		## install from list, and install only if file does not exist
 		echo "Downloading any missing audio ..."
-		audio_credits
 		wget -q -nc -i $currentDirPath/ogg-list.txt -P $currentDirPath/
 		echo "Done checking for audio."
 	fi
-}
 
+
+	audio_credits
+}
 
 download_ogg_media

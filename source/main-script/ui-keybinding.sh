@@ -28,7 +28,6 @@ function beadFWD {
 	beadCounter=$((beadCounter+1))
 
 	rosaryBeadID=$beadCounter
-	# jqQuery
 	determine_what_to_query
 
 	if [ $beadCounter -eq $counterMAX ]; then
@@ -43,7 +42,6 @@ function beadREV {
 		beadCounter=$((beadCounter-1))
 
 		rosaryBeadID=$beadCounter
-		# jqQuery
 		determine_what_to_query
 	fi
 }
@@ -242,7 +240,6 @@ function musicalAutoPilot {
 
 					setPauseFlag
 					isPauseFlag=1
-					#positionLog
 
 					menuUPautopilot
 					afterUpDnMenu_autopilot
@@ -255,7 +252,6 @@ function musicalAutoPilot {
 
 					setPauseFlag
 					isPauseFlag=1
-					#positionLog
 
 					menuDN
 					afterUpDnMenu_autopilot
@@ -266,6 +262,7 @@ function musicalAutoPilot {
 
 				"q" | "Q" | $escKey ) # Force quit app and mplayer and xterm
 
+                    clear
 					width=$( tput cols )
 					height=$( tput lines )
 					str="Terminal Rosary using Jq and Bash"
@@ -280,7 +277,7 @@ function musicalAutoPilot {
 					echo $str
 
 					read -t 3 -p "" exitVar
-					echo "$CLR_ALL"
+					echo "$CLR_ALL $SHOWCURSOR $(reset)"
 					reset
 
 					if pgrep -x "ogg123" &>/dev/null

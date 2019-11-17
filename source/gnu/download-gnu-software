@@ -183,7 +183,7 @@ function tryAgainLater {
 	echo "This App will not install dependencies at this time.
 
 	No Internet. No online dependency installation
-	Tested on $myPingAddr
+	Ping tested on $myPingAddr
 
 	You may have most of the dependancies anyway.
 	The ones you probably won't have are: ncurses, dialog, vorbis-tools, and jq
@@ -203,11 +203,22 @@ function getLatestRepoUpdates {
 }
 
 function download_gnu_software {
-	getLatestRepoUpdates
 
-	identifyPackageManager
+	MODE_BEGIN_UNDERLINE=$(tput smul)
+	MODE_EXIT_UNDERLINE=$(tput rmul)
+	BG_RED=$(tput setab 1)
+	FG_YELLOW=$(tput setaf 3)
+	SHOWCURSOR=$(tput cnorm)
+
+	myPingAddr=google.com
+	ping -c1 $myPingAddr &>/dev/null
+	pingFlag=$?
 
 	if [ $pingFlag -eq 0 ]; then
+		getLatestRepoUpdates
+
+		identifyPackageManager
+
 		case $packageManager in
 			"pacman")
 				packageManagerPacman
@@ -221,11 +232,17 @@ function download_gnu_software {
 			"slapt")
 				packageManagerSlapt
 				;;
+			* )
+				echo ""
+				echo "${BG_RED}This application was built with ${MODE_BEGIN_UNDERLINE}Archlinux${MODE_EXIT_UNDERLINE} and ${MODE_BEGIN_UNDERLINE}Debian${MODE_EXIT_UNDERLINE} in mind. Minimal effort and minimal testing was spent on Alpine and Slackware, and that was back during the initial early groundbreaking stage of development. Any other additional operating system not mentioned here might not work as the developer intended. $FG_YELLOW $STYLES_OFF $SHOWCURSOR"
+				exit
+				;;
 		esac
+	else
+		tryAgainLater
 	fi
 
 }
 
 ## RUN
-
 download_gnu_software

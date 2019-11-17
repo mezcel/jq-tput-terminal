@@ -7,7 +7,7 @@ function loadSourceScripts {
 
 	## Populate Bash session with source script
 	for i in $currentDirPath/source/main-script/*.sh; do
-		source "$i" -H ## || break
+		source "$i" -H
 	done
 
 }
@@ -29,7 +29,7 @@ function installSoftwareMultimedia {
 
 	if [ $pingFlag -eq 0 ]; then
 		echo -e "Checking the internet for updates and app prerequisites.\n\n\tStand by ... This may take a moment ..."
-		echo -e "\n\tYou will be prompted to install GNU software if needed.\n\tYou will also get the latest app updates from [ https://github.com/mezcel/jq-tput-terminal.git ].\n"
+		echo -e "\n\tYou may be prompted to install GNU software if needed.\n\tYou may also get additional application updates from [ https://github.com/mezcel/jq-tput-terminal.git ].\n"
 
 		currentDirPath=$(dirname $0)
 
