@@ -45,8 +45,31 @@ function initializeFlags {
 	translation=1
 	isMenuOpen=0
 
+	echo "pauseFlag 0" > source/main-script/temp/localFlags
+	autoPilot=0
+	grep -v "autoPilot" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
+	echo "autoPilot 0 $(date)" >> source/main-script/temp/localFlags
+
+	## Autopilot
+	if [ ! -z "$inputTag" ]; then
+
+		case "$inputTag" in
+			"-a" | "-A" ) # menu
+				autoPilot=1
+
+				## focre latin text
+				translation=2
+				grep -v "autoPilot" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
+				echo "autoPilot 1 $(date)" >> source/main-script/temp/localFlags
+				;;
+			"-l" | "-L" ) # menu
+				translation=2
+				;;
+		esac
+	fi
+
 	## Set initial pulseaudio system volume
-	amixer set Master 33% </dev/null >/dev/null 2>&1
+	amixer set Master 30% </dev/null >/dev/null 2>&1
 
 	## determine mystery of the day
 	initializeFeastFlags

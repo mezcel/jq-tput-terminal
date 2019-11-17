@@ -126,6 +126,10 @@ function myAbout {
 	whiptail \
         --title "About" \
         --msgbox "$aboutText" 0 0
+
+    echo $BACKGROUNDCOLOR
+	clear
+
 }
 
 function splashScreen {
@@ -244,13 +248,13 @@ function welcomepage {
 	if [ $isTodayGood_Friday -eq 1 ]; then
 		echo "						This is the Good Friday:"
 		echo "						    Commemoration of the crucifixion of Jesus"
-										
+
 	fi
 
 	if [ $isTodayHoly_Saturday -eq 1 ]; then
 		echo "						This is the Holy Saturday:"
 		echo "						    Commemoration of the day that Jesus' body lay in the tomb"
-										
+
 	fi
 
 	if [ $isTodayJesus_Assension -eq 1 ]; then
@@ -310,13 +314,16 @@ function welcomepage {
 		Right or Left Keys | Navigate forward or backwards.
 		Down Key           | Open Language Translation Menu ( English NAB or Latin Vulgate )
 		Up Key             | Open the Main Menu
+
 		'q' or Esc Key     | terminate app ( or Ctrl + C )
 		'm' Key            | toggles Latin prayer audio (plays prayer only once)
+
+		Vim navigation keybindings will also work. ( h, j, k, l )
 
 
 	${MODE_BEGIN_UNDERLINE}Advice:${MODE_EXIT_UNDERLINE}
 
-		Pause after navigating to allow a moment for text querying to complete and display.
+		Pause after navigating to allow a moment for text querying and display rendering to complete.
 		Optimal Xterm Screen Dimentions: (Minimum) 140 cols x 40 lines
 	"
 
@@ -419,7 +426,10 @@ function howToPage {
 
 			$arrowRt | $returnKey | * )
 				## Start the bead sequence
-				autoPilot=0
+				if [ $autoPilot -ne 1 ]; then
+					autoPilot=0
+				fi
+
 				forceCrossBead
 				return
 				;;
@@ -493,22 +503,22 @@ function progressbars {
 		else
 			decDisp="$thisDecadeSet/10"
 		fi
-		
+
 		## Decade intro exception
 		if [ $mysteryProgress -eq 0 ]; then
-			if [ $initialHailMaryCounter -gt 0 ] && [ $initialHailMaryCounter -lt 4 ] ; then		
+			if [ $initialHailMaryCounter -gt 0 ] && [ $initialHailMaryCounter -lt 4 ] ; then
 				decDisp=" $initialHailMaryCounter/3 "
 			else
 				decDisp="intro"
-				
+
 				if [ $iconSequence -eq 2 ]; then
 					decDisp=" $thisDecadeSet/10"
 				fi
-			fi			
+			fi
 		fi
-		
+
 		# iconSequence=2
-		
+
 		stringLength=${#return_prayerName}
 		stringLength=$(( $stringLength + 1 ))
 		tputDecadeBarLabel=$( tput cup $[$( tput lines )-7] 0; printf "%${width}s" ""; tput cup $[$( tput lines )-7] 0; echo " Decade:  $decDisp	 $return_beadType" )$( tput cup $[$( tput lines )-7]  $[$( tput cols )-$stringLength]; echo $return_prayerName)
@@ -526,7 +536,7 @@ function progressbars {
 		else
 			mystDisp="$mysteryProgress/50"
 		fi
-		
+
 		stringLength=${#return_decadeName}
 		stringLength=$(( $stringLength + 1 ))
 		tputMysteryBarLabel=$( tput cup $[$( tput lines )-4] 0; printf "%${width}s" ""; tput cup $[$( tput lines )-4] 0; echo " Mystery: $mystDisp	 $return_mysteryName" )$( tput cup $[$( tput lines )-4] $[$( tput cols )-$stringLength]; echo $return_decadeName)
@@ -542,8 +552,6 @@ function progressbars {
 	fi
 
 }
-
-# iconSequence=0
 
 function beadProgress {
 	case $beadID in
@@ -602,7 +610,7 @@ function beadProgress {
 			stringSpaceCounter=0
             initialHailMaryCounter=0
             thisDecadeSet=0
-				
+
 			## used to flag intro or outro icon loop
 			## fwd dir from cross
 			# iconSequence=1
@@ -615,14 +623,14 @@ function beadProgress {
 				moddivision=$(( hailmaryCounter % 10 ))
 				if [ $moddivision -gt 0 ]; then
 					hailmaryCounter=$(( $hailmaryCounter - 1 ))
-				fi				
+				fi
             fi
 
             ;;
 
         4) ## string space
 			thisDecadeSet=10
-			
+
 			if [ $directionFwRw -eq 1 ]; then
 			## fwd
 				if [ $stringSpaceCounter -eq 0 ]; then
@@ -654,15 +662,15 @@ function beadProgress {
 						hailmaryCounter=$(( $hailmaryCounter + 1 ))
 					fi
 				fi
-            fi            
+            fi
 
             ;;
 
-        5)	## Mary Icon			
+        5)	## Mary Icon
 			if [ $iconSequence -ne 0 ]; then
 				stringSpaceCounter=0
 				iconSequence=2
-			else				
+			else
 				initialHailMaryCounter=3
 				hailmaryCounter=50
 				stringSpaceCounter=3

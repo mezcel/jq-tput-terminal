@@ -47,7 +47,7 @@ function decorativeColors {
 
 	## Blink
 	BLINKING=$(tput blink)
-	
+
 	HIDECURSOR=$(tput civis)
 	SHOWCURSOR=$(tput cnorm)
 }
