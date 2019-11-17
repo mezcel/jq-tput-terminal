@@ -35,7 +35,8 @@ This application aims to serve as a casually meditative intellectual & auditory 
 ### Launch Script:
 
 - (Main) CLI App: ```./bash-rosary``` or ```exec bash-rosary```
-    - Set the application to audio autopilot Latin mode: ```./bash-rosary -a``` or ```exec bash-rosary -a```
+    - Set the application to "audio autopilot Latin" mode: ```./bash-rosary -a``` or ```exec bash-rosary -A```
+    - Set the application to "Latin" mode: ```./bash-rosary -l``` or ```exec bash-rosary -L```
 - Automatically verify and add needed software that is missing on your system. ```./source/gnu/download-gnu-software``` (Called automatically from within App or you can run it manually)
 
 ### Runtime:

@@ -52,14 +52,20 @@ function initializeFlags {
 
 	## Autopilot
 	if [ ! -z "$inputTag" ]; then
-		if [ $inputTag == "-a" ] || [ $inputTag == "-A" ]; then
-			autoPilot=1
 
-			## focre latin text
-			translation=2
-			grep -v "autoPilot" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
-			echo "autoPilot 1 $(date)" >> source/main-script/temp/localFlags
-		fi
+		case "$inputTag" in
+			"-a" | "-A" ) # menu
+				autoPilot=1
+
+				## focre latin text
+				translation=2
+				grep -v "autoPilot" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
+				echo "autoPilot 1 $(date)" >> source/main-script/temp/localFlags
+				;;
+			"-l" | "-L" ) # menu
+				translation=2
+				;;
+		esac
 	fi
 
 	## Set initial pulseaudio system volume

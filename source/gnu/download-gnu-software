@@ -198,7 +198,7 @@ function tryAgainLater {
 
 function getLatestRepoUpdates {
 	# git remote update ## to bring remote refs up to date
-	echo "Importing updates from https://github.com/mezcel/jq-tput-terminal.git ..."
+	echo -e "Importing \"git pull\" updates from https://github.com/mezcel/jq-tput-terminal.git ...\n"
 	git pull
 }
 
