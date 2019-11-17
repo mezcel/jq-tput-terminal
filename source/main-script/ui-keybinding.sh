@@ -176,14 +176,18 @@ function afterUpDnMenu_autopilot {
 
 function musicalAutoPilot {
 
-	## focre latin text
-	#translation=2
-	#translationDB
-
 	## turn off user input, ctrl+c to exit
 	stty -echo
 
-	if [ ! -z $(command -v alsamixer) ]; then
+	## check if alsamixer is possible
+	isAlsaMixer=$(command -v alsamixer)
+	if [ -z $isAlsaMixer ]; then
+		isAlsaMixer=0;
+	else
+		isAlsaMixer=1;
+	fi
+
+	if [ $isAlsaMixer -eq 1 ]; then
 		setBeadAudio
 		ogg123 -q "$beadAudioFile" </dev/null >/dev/null 2>&1 &
 		sleep .5s
@@ -194,14 +198,6 @@ function musicalAutoPilot {
 
 		autoPilot=$(grep "autoPilot" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
 		isPauseFlag=$(grep "pauseFlag" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
-
-		## check if alsamixer is possible
-		isAlsaMixer=$(command -v alsamixer)
-		if [ -z $isAlsaMixer ]; then
-			isAlsaMixer=0;
-		else
-			isAlsaMixer=1;
-		fi
 
 		if [ $isPauseFlag -eq 0 ]; then
 
@@ -219,6 +215,8 @@ function musicalAutoPilot {
 				if [ $isAlsaMixer -eq 1 ]; then
 					setBeadAudio
 					ogg123 -q "$beadAudioFile" </dev/null >/dev/null 2>&1 &
+				else
+					sleep 5s
 				fi
 			fi
 

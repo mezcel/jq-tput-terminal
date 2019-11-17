@@ -19,7 +19,6 @@ This application aims to serve as a casually meditative intellectual & auditory 
 
 | Project Status | Development Version |
 | :--- | :--- |
-| Current master | v0.1.11.2 |
 | Current development branch | v0.1.12 |
 | Outdated Demo Preview ( rushed UI mechanics ) | v0.1.11 |
 | [![asciicast](https://asciinema.org/a/243201.svg)](https://asciinema.org/a/243201) | v0.1.11 |
@@ -36,7 +35,7 @@ This application aims to serve as a casually meditative intellectual & auditory 
 ### Launch Script:
 
 - (Main) CLI App: ```./bash-rosary``` or ```exec bash-rosary```
-    - Set application to audio autopilot mode: ```./bash-rosary -a``` or ```exec bash-rosary -a```
+    - Set the application to audio autopilot Latin mode: ```./bash-rosary -a``` or ```exec bash-rosary -a```
 - Automatically verify and add needed software that is missing on your system. ```./source/gnu/download-gnu-software``` (Called automatically from within App or you can run it manually)
 
 ### Runtime:
