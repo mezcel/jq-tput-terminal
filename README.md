@@ -35,14 +35,14 @@ This application aims to serve as a casually meditative intellectual & auditory 
 ### Launch Script:
 
 - (Main) CLI App: ```./bash-rosary``` or ```exec bash-rosary```
-    - Set the application to "audio autopilot Latin" mode: ```./bash-rosary -a``` or ```exec bash-rosary -A```
-    - Set the application to "Latin" mode: ```./bash-rosary -l``` or ```exec bash-rosary -L```
+    - Start the application in "audio autopilot Latin" mode: ```./bash-rosary -a``` or ```exec bash-rosary -A```
+    - Start the application in "Latin" mode: ```./bash-rosary -l``` or ```exec bash-rosary -L```
 - Automatically verify and add needed software that is missing on your system. ```./source/gnu/download-gnu-software``` (Called automatically from within App or you can run it manually)
 
 ### Runtime:
 
 * This application will perform a software update and a dependency requirements check upon startup and it will also automatically install any missing necessary software (internet is required). Xterm's minimum window size will be set at 140x40.
-* A deliberate and subtle screen flicker delay is used to emphasize transitions between bead progress.
+* There is a deliberate and pronounced screen flicker and delay between bead transitions.
 * The [alsa](http://alsa-project.org/main/index.php/Main_Page) or [pulseaudio](https://www.freedesktop.org/wiki/Software/PulseAudio/) must already be configured on your system for audio to work. (Audio may Require manual intervention.)
 * In audio autopilot mode, the default language will be Latin in order to match the Latin audio prayer chants.
 
@@ -78,9 +78,4 @@ This App was built around a slimmed down json database which was initially porte
 | Debian | Jq/gcc performed the best on Debian resulting in fast query processing | best |
 | [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) | All the GNU works, but other than testing, I did dot build it for WLS | slow |
 
-**Note:** Performance factor was gauged in respect to the specific Distro's pre-packaged gcc runtime, screen update, and database query delays. Performance can be automatically improved by simply reverting to an older "stable"/"legacy" version of gcc.
-
-* Debian and Archlinux are the primary target operating systems for this application.
-* Audio was only tested and confirmed to work on dedicated Debian systems.
-* Archlinux and WLS was slow mostly because they use the bleeding edge version of GCC as supposed to the minimal design of the older compilers.
-* My script is not the most efficient... but it is not the dominant cause of the apparent visual lag.
+**Note:** GCCv6 perfroms a lot faster than GCCv9 for this UseCase.

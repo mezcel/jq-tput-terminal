@@ -15,7 +15,9 @@ function download_ogg_media {
 	if [ $pingTest -eq 0 ]; then
 		## install from list, and install only if file does not exist
 		echo "Downloading any missing audio ..."
-		wget -q -nc -i $currentDirPath/ogg-list.txt -P $currentDirPath/
+		#wget -q -nc -i $currentDirPath/ogg-list.txt -P $currentDirPath/
+		wget -nv -nc -i $currentDirPath/ogg-list.txt -P $currentDirPath/
+
 		echo "Done checking for audio."
 	fi
 }
