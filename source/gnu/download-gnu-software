@@ -254,3 +254,4 @@ function download_gnu_software {
 
 my_titlebar "bash-rosary (install gnu software)"
 download_gnu_software
+
