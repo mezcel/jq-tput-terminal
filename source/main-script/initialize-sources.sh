@@ -19,6 +19,7 @@ function translationDB {
 }
 
 function initializeFlags {
+
 	# Save screen
 	tput smcup
 
@@ -82,12 +83,14 @@ function initializeFlags {
 }
 
 function mainInit {
-	#download_dependencies
 	launchXterm
 	resizeWindow
 }
 
 function myMian {
+
+	my_titlebar "bash-rosary"
+
 	resizeWindow
 
 	decorativeColors

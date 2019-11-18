@@ -155,6 +155,8 @@ function myAbout {
 }
 
 function splashScreen {
+	my_titlebar "bash-rosary"
+
 	echo "$CLR_ALL"
 	width=$( tput cols )
 	height=$( tput lines )
@@ -222,6 +224,9 @@ function mystery_Day {
 }
 
 function welcomepage {
+
+	my_titlebar "bash-rosary (preface)"
+
 	resizeWindow
 	clear
 
@@ -372,6 +377,8 @@ function forceCrossBead {
 }
 
 function howToPage {
+	my_titlebar "bash-rosary (guidance)"
+
 	kilall ogg123
 	resizeWindow
 	echo "${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"

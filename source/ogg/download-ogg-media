@@ -1,5 +1,7 @@
 #!/bin/bash
 
+my_titlebar "bash-rosary (install libre audio)"
+
 function download_ogg_media {
 	## Populate Dir with Audio for use within this app
 	currentDirPath=$(dirname $0)

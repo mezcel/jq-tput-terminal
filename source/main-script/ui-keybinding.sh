@@ -153,6 +153,7 @@ function arrowInputs {
 
 	# Restore screen
     #tput rmcup
+    re_clear_termainal
 }
 
 function afterUpDnMenu_autopilot {
@@ -177,6 +178,7 @@ function afterUpDnMenu_autopilot {
 }
 
 function musicalAutoPilot {
+
 	## turn off user input echo, ctrl+c to exit
 	stty -echo
 
@@ -284,11 +286,13 @@ function musicalAutoPilot {
 
 					if pgrep -x "ogg123" &>/dev/null
 					then
+						re_clear_termainal
 						killall ogg123 &>/dev/null && killall bash-rosary &>/dev/null
 					else
+						re_clear_termainal
 						killall bash-rosary &>/dev/null
 					fi
-					#exit
+					re_clear_termainal
 					;;
 			esac
 
@@ -307,17 +311,26 @@ function mainNavigation {
 	counterMAX=315
 
 	rosaryBeadID=$beadCounter
-	bundledDisplay
-	setBeadAudio
 
 	if [ -f source/main-script/temp/localFlags ]; then
 		autoPilot=$(grep "autoPilot" source/main-script/temp/localFlags | awk '{printf $2}')
+
+		if [ $autoPilot -eq 1 ]; then
+			my_titlebar "bash-rosary (Autopilot: Latin Chant)"
+		else
+			autoPilot=0
+			my_titlebar "bash-rosary"
+		fi
 	else
 		autoPilot=0
+		my_titlebar "bash-rosary"
 	fi
 
+	bundledDisplay
+	setBeadAudio
+
 	if [ $autoPilot -eq 0 ]; then
-		## Keyboard Controlls
+		## Keyboard Controls
 		arrowInputs
 	else
 		## Auto Pilot

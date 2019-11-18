@@ -2,6 +2,12 @@
 
 inputTag=$1
 
+function my_titlebar {
+	myTitle=$1
+	echo -e '\033k'$myTitle'\033\\'
+	#echo -e '\033]2;'$mytitle'\007'
+}
+
 function loadSourceScripts {
 	currentDirPath=$(dirname $0)
 
@@ -13,12 +19,17 @@ function loadSourceScripts {
 }
 
 function useTheLoadedSource {
+
+	my_titlebar "bash-rosary"
+
 	sleep 1s
 	mainInit
 	myMian
 }
 
 function installSoftwareMultimedia {
+	my_titlebar "jq-tput-terminal (installing software & audio)"
+
 	clear
 	echo "Checking internet connection ..."
 	sleep 3s
@@ -41,17 +52,15 @@ function installSoftwareMultimedia {
 	fi
 }
 
+function bash_rosary {
+	my_titlebar "jq-tput-terminal"
+
+	installSoftwareMultimedia
+	loadSourceScripts
+	useTheLoadedSource
+
+	re_clear_termainal
+}
+
 ## RUN APP
-
-installSoftwareMultimedia
-
-loadSourceScripts
-
-echo "$CLR_ALL $SHOWCURSOR"
-reset
-
-useTheLoadedSource
-
-## Reset the terminal
-tput cnorm
-reset
+bash_rosary

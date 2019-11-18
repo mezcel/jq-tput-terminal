@@ -1,5 +1,7 @@
 #!/bin/bash
 
+my_titlebar "bash-rosary (install gnu software)"
+
 ## Manual JQ package compile
 function compileJq {
 	## Manually compile jq if needed
