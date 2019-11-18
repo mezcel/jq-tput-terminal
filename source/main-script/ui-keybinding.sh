@@ -28,7 +28,6 @@ function beadFWD {
 	beadCounter=$((beadCounter+1))
 
 	rosaryBeadID=$beadCounter
-	# jqQuery
 	determine_what_to_query
 
 	if [ $beadCounter -eq $counterMAX ]; then
@@ -43,7 +42,6 @@ function beadREV {
 		beadCounter=$((beadCounter-1))
 
 		rosaryBeadID=$beadCounter
-		# jqQuery
 		determine_what_to_query
 	fi
 }
@@ -146,13 +144,16 @@ function arrowInputs {
 				unsetAutoPilotFlag
 				autoPilot=0
 				killAutopilot
+
+				re_clear_termainal
 				;;
 		esac
 
 	done
 
 	# Restore screen
-    tput rmcup
+    #tput rmcup
+    re_clear_termainal
 }
 
 function afterUpDnMenu_autopilot {
@@ -163,6 +164,7 @@ function afterUpDnMenu_autopilot {
 	hailmaryCounter=$(grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $3}')
 	thisDecadeSet=$(grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $4}')
 	mysteryProgress=$(grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $5}')
+	#sleep 1s
 
 	clear
 	blank_transition_display
@@ -170,13 +172,14 @@ function afterUpDnMenu_autopilot {
 	bundledDisplay
 	unsetPauseFlag
 	isPauseFlag=0
+	#sleep 1s
 	setBeadAudio
 
 }
 
 function musicalAutoPilot {
 
-	## turn off user input, ctrl+c to exit
+	## turn off user input echo, ctrl+c to exit
 	stty -echo
 
 	## check if alsamixer is possible
@@ -190,7 +193,13 @@ function musicalAutoPilot {
 	if [ $isAlsaMixer -eq 1 ]; then
 		setBeadAudio
 		ogg123 -q "$beadAudioFile" </dev/null >/dev/null 2>&1 &
-		sleep .5s
+		sleep .1s
+
+		## Wait for the Sugnum Crusis prayer to finish before continuing with user controls
+		while pgrep -x "ogg123" > /dev/null
+		do
+			isPauseFlag=0
+		done
 	fi
 
 	while [ $autoPilot -eq 1 ]
@@ -198,6 +207,11 @@ function musicalAutoPilot {
 
 		autoPilot=$(grep "autoPilot" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
 		isPauseFlag=$(grep "pauseFlag" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+		sleep 1s
+
+		if [ -z $isPauseFlag ]; then
+			isPauseFlag=0
+		fi
 
 		if [ $isPauseFlag -eq 0 ]; then
 
@@ -242,30 +256,17 @@ function musicalAutoPilot {
 
 					setPauseFlag
 					isPauseFlag=1
-					#positionLog
 
 					menuUPautopilot
 					afterUpDnMenu_autopilot
 
 					## hide cursor
-					tput civis
-					;;
-
-				$arrowDown | "s" | "S" | "k" | "K" ) # language toggle
-
-					setPauseFlag
-					isPauseFlag=1
-					#positionLog
-
-					menuDN
-					afterUpDnMenu_autopilot
-
-					## hide cursor
-					tput civis
+					#tput civis
 					;;
 
 				"q" | "Q" | $escKey ) # Force quit app and mplayer and xterm
 
+                    clear
 					width=$( tput cols )
 					height=$( tput lines )
 					str="Terminal Rosary using Jq and Bash"
@@ -279,17 +280,19 @@ function musicalAutoPilot {
 					tput cup $height $centerText
 					echo $str
 
-					read -t 3 -p "" exitVar
-					echo "$CLR_ALL"
-					reset
+					## Exit delay
+					read -t 3
+					re_clear_termainal
 
 					if pgrep -x "ogg123" &>/dev/null
 					then
+						re_clear_termainal
 						killall ogg123 &>/dev/null && killall bash-rosary &>/dev/null
 					else
+						re_clear_termainal
 						killall bash-rosary &>/dev/null
 					fi
-					#exit
+					re_clear_termainal
 					;;
 			esac
 
@@ -298,7 +301,6 @@ function musicalAutoPilot {
 			unsetAutoPilotFlag
 			autoPilot=0
 			killAutopilot
-			continue
 		fi
 
 	done
@@ -309,17 +311,26 @@ function mainNavigation {
 	counterMAX=315
 
 	rosaryBeadID=$beadCounter
-	bundledDisplay
-	setBeadAudio
 
 	if [ -f source/main-script/temp/localFlags ]; then
 		autoPilot=$(grep "autoPilot" source/main-script/temp/localFlags | awk '{printf $2}')
+
+		if [ $autoPilot -eq 1 ]; then
+			my_titlebar "bash-rosary (Autopilot: Latin Chant)"
+		else
+			autoPilot=0
+			my_titlebar "bash-rosary"
+		fi
 	else
 		autoPilot=0
+		my_titlebar "bash-rosary"
 	fi
 
+	bundledDisplay
+	setBeadAudio
+
 	if [ $autoPilot -eq 0 ]; then
-		## Keyboard Controlls
+		## Keyboard Controls
 		arrowInputs
 	else
 		## Auto Pilot

@@ -120,8 +120,31 @@ function tputStingVars {
 
 }
 
+function audio_credits {
+
+	FG_NoColor=$(tput sgr0)
+	FG_CYAN=$(tput setaf 6)
+	MODE_ENTER_STANDOUT=$(tput smso)
+	MODE_EXIT_STANDOUT=$(tput rmso)
+
+echo "$FG_CYAN
+Libre audio used in this application:
+- https://commons.wikimedia.org/wiki/File:${MODE_ENTER_STANDOUT}Schola_Gregoriana-Ave_Maria.ogg${MODE_EXIT_STANDOUT}
+- https://commons.wikimedia.org/wiki/File:${MODE_ENTER_STANDOUT}Schola_Gregoriana-Pater_Noster.ogg${MODE_EXIT_STANDOUT}
+- https://commons.wikimedia.org/wiki/File:${MODE_ENTER_STANDOUT}JOHN_MICHEL_CELLO-BACH_AVE_MARIA.ogg${MODE_EXIT_STANDOUT}
+- https://commons.wikimedia.org/wiki/File:${MODE_ENTER_STANDOUT}Byrd_4-Part_Mass_-_Credo.ogg${MODE_EXIT_STANDOUT}
+- https://commons.wikimedia.org/wiki/File:${MODE_ENTER_STANDOUT}Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg${MODE_EXIT_STANDOUT}
+- https://commons.wikimedia.org/wiki/File:${MODE_ENTER_STANDOUT}Schola_Gregoriana-Antiphona_et_Magnificat.ogg${MODE_EXIT_STANDOUT}
+- https://commons.wikimedia.org/wiki/File:${MODE_ENTER_STANDOUT}The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg${MODE_EXIT_STANDOUT}
+$FG_NoColor
+Press any key to continue, or wait 10s ...
+"
+
+	read -t 10 readPause
+}
+
 function myAbout {
-	aboutText="Author: \n    Mezcel (https://github.com/mezcel) \n    Wiki based on the 1st version (https://mezcel.wixsite.com/rosary)\n\nDescription:\n    This is a Rosary App for the Linux Bash terminal.\n    This app was developed on the default Xterm on Arch.\n    The best UI experience for this app is through a login console TTY CLI\n\n    This App is just a (personal) technical exercise. This App is a linguistic and scriptural \"reference\". \n\nSource Code:\n    git clone https://github.com/mezcel/jq-tput-terminal.git"
+	aboutText="Author: \n    Mezcel (https://github.com/mezcel) \n    Wiki based on the 1st version (https://mezcel.wixsite.com/rosary)\n\nDescription:\n    This is a Rosary App for the Linux Bash terminal.\n    This app was developed for Xterm on Archlinux & Debian.\n    The best UI experience for this app is through a login console TTY CLI\n\n    This App is just a (personal) technical exercise. This App is a linguistic and scriptural \"reference\". \n\nSource Code:\n    git clone https://github.com/mezcel/jq-tput-terminal.git\n\nLibre audio used in this application:\n- https://commons.wikimedia.org/wiki/File:Schola_Gregoriana-Ave_Maria.ogg\n- https://commons.wikimedia.org/wiki/File:Schola_Gregoriana-Pater_Noster.ogg\n- https://commons.wikimedia.org/wiki/File:JOHN_MICHEL_CELLO-BACH_AVE_MARIA.ogg\n- https://commons.wikimedia.org/wiki/File:Byrd_4-Part_Mass_-_Credo.ogg\n- https://commons.wikimedia.org/wiki/File:Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg\n- https://commons.wikimedia.org/wiki/File:Schola_Gregoriana-Antiphona_et_Magnificat.ogg\n- https://commons.wikimedia.org/wiki/File:The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg"
 
 	whiptail \
         --title "About" \
@@ -129,10 +152,11 @@ function myAbout {
 
     echo $BACKGROUNDCOLOR
 	clear
-
 }
 
 function splashScreen {
+	my_titlebar "bash-rosary"
+
 	echo "$CLR_ALL"
 	width=$( tput cols )
 	height=$( tput lines )
@@ -200,6 +224,9 @@ function mystery_Day {
 }
 
 function welcomepage {
+
+	my_titlebar "bash-rosary (preface)"
+
 	resizeWindow
 	clear
 
@@ -350,6 +377,8 @@ function forceCrossBead {
 }
 
 function howToPage {
+	my_titlebar "bash-rosary (guidance)"
+
 	kilall ogg123
 	resizeWindow
 	echo "${BACKGROUNDCOLOR}${FOREGROUNDCOLOR}"

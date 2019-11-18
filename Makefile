@@ -13,7 +13,7 @@ ogg:
 	#
 
 clean:
-	## removing any ogg audio, logs, temporary flags, and webscrape files
+	## remove any ogg audio, logs, temporary flags, and webscrape files
 	rm -rf source/ogg/*.ogg
 	rm -f source/gnu/installationLog
 	rm -f source/html/visitUsccbLog.txt

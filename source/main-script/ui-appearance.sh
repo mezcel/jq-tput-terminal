@@ -4,6 +4,7 @@
 ###################################################
 
 function decorativeColors {
+
 	## Forground Color using tput
 
 	FG_BLACK=$(tput setaf 0)
@@ -53,6 +54,7 @@ function decorativeColors {
 }
 
 function inputControlls {
+
 	arrowUp=$'\e[A'
 	arrowDown=$'\e[B'
 	arrowRt=$'\e[C'
@@ -63,6 +65,7 @@ function inputControlls {
 }
 
 function resizeWindow {
+
 	## Initial resize
 	## I designed this App with Xterm in mind. Other terminals may not look how I intended.
 	## Optimal desktop gui terminal Size
@@ -125,17 +128,9 @@ function launchXterm {
 		"linux" )	## login terminal
 					isLinuxTerminal=1
 					;;
-		* ) ## launch app through a new xterm
-			hostedDirPath=$(dirname $0)
-			xterm -geometry 140x40+0+0 -e "$hostedDirPath/xterm-launcher"
-			;;
 	esac
 
 }
-
-#
-# Ogg Audio File Paths
-#
 
 function setBeadAudio {
 	## prayerIndex
@@ -181,4 +176,12 @@ function setBeadAudio {
 			;;
 	esac
 
+}
+
+function re_clear_termainal {
+	tput sgr0
+	#tput clear
+	#tput cup 0 0 && tput ed
+	tput cnorm
+	reset
 }

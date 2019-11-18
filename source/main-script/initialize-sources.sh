@@ -19,6 +19,7 @@ function translationDB {
 }
 
 function initializeFlags {
+
 	# Save screen
 	tput smcup
 
@@ -45,7 +46,7 @@ function initializeFlags {
 	translation=1
 	isMenuOpen=0
 
-	echo "pauseFlag 0" > source/main-script/temp/localFlags
+	echo -e "## Temporary file used to save and retrieve variables during infinite while loops.\npauseFlag 0" > source/main-script/temp/localFlags
 	autoPilot=0
 	grep -v "autoPilot" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
 	echo "autoPilot 0 $(date)" >> source/main-script/temp/localFlags
@@ -56,6 +57,7 @@ function initializeFlags {
 		case "$inputTag" in
 			"-a" | "-A" ) # menu
 				autoPilot=1
+				isPauseFlag=0
 
 				## focre latin text
 				translation=2
@@ -69,7 +71,7 @@ function initializeFlags {
 	fi
 
 	## Set initial pulseaudio system volume
-	amixer set Master 30% </dev/null >/dev/null 2>&1
+	amixer set Master 20% </dev/null >/dev/null 2>&1
 
 	## determine mystery of the day
 	initializeFeastFlags
@@ -81,12 +83,14 @@ function initializeFlags {
 }
 
 function mainInit {
-	download_dependencies
 	launchXterm
 	resizeWindow
 }
 
 function myMian {
+
+	my_titlebar "bash-rosary"
+
 	resizeWindow
 
 	decorativeColors
