@@ -1,6 +1,10 @@
 #!/bin/bash
 
-my_titlebar "bash-rosary (install gnu software)"
+function my_titlebar {
+	myTitle=$1
+	#echo -e '\033k'$myTitle'\033\\'
+	echo -e '\033]2;'$myTitle'\007'
+}
 
 ## Manual JQ package compile
 function compileJq {
@@ -247,4 +251,6 @@ function download_gnu_software {
 }
 
 ## RUN
+
+my_titlebar "bash-rosary (install gnu software)"
 download_gnu_software
