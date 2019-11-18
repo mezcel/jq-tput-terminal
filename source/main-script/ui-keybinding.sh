@@ -144,13 +144,15 @@ function arrowInputs {
 				unsetAutoPilotFlag
 				autoPilot=0
 				killAutopilot
+
+				re_clear_termainal
 				;;
 		esac
 
 	done
 
 	# Restore screen
-    tput rmcup
+    #tput rmcup
 }
 
 function afterUpDnMenu_autopilot {
@@ -277,8 +279,7 @@ function musicalAutoPilot {
 					echo $str
 
 					read -t 3 -p "" exitVar
-					echo "$CLR_ALL $SHOWCURSOR $(reset)"
-					reset
+					re_clear_termainal
 
 					if pgrep -x "ogg123" &>/dev/null
 					then

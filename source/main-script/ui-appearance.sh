@@ -178,3 +178,11 @@ function setBeadAudio {
 	esac
 
 }
+
+function re_clear_termainal {
+	tput sgr0
+	tput clear
+	tput cup 0 0 && tput ed
+	tput cnorm
+	reset
+}

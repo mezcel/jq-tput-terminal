@@ -47,4 +47,10 @@ installSoftwareMultimedia
 
 loadSourceScripts
 
+echo "$CLR_ALL $SHOWCURSOR"
+reset
+
 useTheLoadedSource
+
+echo "$CLR_ALL $SHOWCURSOR"
+reset

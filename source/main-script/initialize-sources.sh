@@ -56,6 +56,7 @@ function initializeFlags {
 		case "$inputTag" in
 			"-a" | "-A" ) # menu
 				autoPilot=1
+				isPauseFlag=0
 
 				## focre latin text
 				translation=2
@@ -69,7 +70,7 @@ function initializeFlags {
 	fi
 
 	## Set initial pulseaudio system volume
-	amixer set Master 30% </dev/null >/dev/null 2>&1
+	amixer set Master 20% </dev/null >/dev/null 2>&1
 
 	## determine mystery of the day
 	initializeFeastFlags
