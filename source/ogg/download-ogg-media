@@ -1,27 +1,5 @@
 #!/bin/bash
 
-function audio_credits {
-
-	FG_NoColor=$(tput sgr0)
-	FG_CYAN=$(tput setaf 6)
-	MODE_ENTER_STANDOUT=$(tput smso)
-	MODE_EXIT_STANDOUT=$(tput rmso)
-
-echo "$FG_CYAN
-Libre audio used in this application:
-- https://commons.wikimedia.org/wiki/File:${MODE_ENTER_STANDOUT}Schola_Gregoriana-Ave_Maria.ogg${MODE_EXIT_STANDOUT}
-- https://commons.wikimedia.org/wiki/File:${MODE_ENTER_STANDOUT}Schola_Gregoriana-Pater_Noster.ogg${MODE_EXIT_STANDOUT}
-- https://commons.wikimedia.org/wiki/File:${MODE_ENTER_STANDOUT}JOHN_MICHEL_CELLO-BACH_AVE_MARIA.ogg${MODE_EXIT_STANDOUT}
-- https://commons.wikimedia.org/wiki/File:${MODE_ENTER_STANDOUT}Byrd_4-Part_Mass_-_Credo.ogg${MODE_EXIT_STANDOUT}
-- https://commons.wikimedia.org/wiki/File:${MODE_ENTER_STANDOUT}Petits_Chanteurs_de_Passy_-_Salve_Regina_de_Hermann_Contract.ogg${MODE_EXIT_STANDOUT}
-- https://commons.wikimedia.org/wiki/File:${MODE_ENTER_STANDOUT}Schola_Gregoriana-Antiphona_et_Magnificat.ogg${MODE_EXIT_STANDOUT}
-- https://commons.wikimedia.org/wiki/File:${MODE_ENTER_STANDOUT}The_Tudor_Consort_-_J_S_Bach_-_Magnificat_BWV_243_-_Gloria_Patri.ogg${MODE_EXIT_STANDOUT}
-$FG_NoColor
-Press any key to continue, or wait 10s ...
-"
-read -t 10 readPause
-}
-
 function download_ogg_media {
 	## Populate Dir with Audio for use within this app
 	currentDirPath=$(dirname $0)
@@ -34,9 +12,6 @@ function download_ogg_media {
 		wget -q -nc -i $currentDirPath/ogg-list.txt -P $currentDirPath/
 		echo "Done checking for audio."
 	fi
-
-
-	audio_credits
 }
 
 download_ogg_media

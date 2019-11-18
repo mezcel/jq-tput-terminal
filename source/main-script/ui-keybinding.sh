@@ -163,6 +163,7 @@ function afterUpDnMenu_autopilot {
 	hailmaryCounter=$(grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $3}')
 	thisDecadeSet=$(grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $4}')
 	mysteryProgress=$(grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $5}')
+	#sleep 1s
 
 	clear
 	blank_transition_display
@@ -170,13 +171,13 @@ function afterUpDnMenu_autopilot {
 	bundledDisplay
 	unsetPauseFlag
 	isPauseFlag=0
+	#sleep 1s
 	setBeadAudio
 
 }
 
 function musicalAutoPilot {
-
-	## turn off user input, ctrl+c to exit
+	## turn off user input echo, ctrl+c to exit
 	stty -echo
 
 	## check if alsamixer is possible
@@ -190,7 +191,13 @@ function musicalAutoPilot {
 	if [ $isAlsaMixer -eq 1 ]; then
 		setBeadAudio
 		ogg123 -q "$beadAudioFile" </dev/null >/dev/null 2>&1 &
-		sleep .5s
+		sleep .1s
+
+		## Wait for the Sugnum Crusis prayer to finish before continuing with user controls
+		while pgrep -x "ogg123" > /dev/null
+		do
+			isPauseFlag=0
+		done
 	fi
 
 	while [ $autoPilot -eq 1 ]
@@ -198,6 +205,11 @@ function musicalAutoPilot {
 
 		autoPilot=$(grep "autoPilot" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
 		isPauseFlag=$(grep "pauseFlag" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+		sleep 1s
+
+		if [ -z $isPauseFlag ]; then
+			isPauseFlag=0
+		fi
 
 		if [ $isPauseFlag -eq 0 ]; then
 
@@ -247,19 +259,7 @@ function musicalAutoPilot {
 					afterUpDnMenu_autopilot
 
 					## hide cursor
-					tput civis
-					;;
-
-				$arrowDown | "s" | "S" | "k" | "K" ) # language toggle
-
-					setPauseFlag
-					isPauseFlag=1
-
-					menuDN
-					afterUpDnMenu_autopilot
-
-					## hide cursor
-					tput civis
+					#tput civis
 					;;
 
 				"q" | "Q" | $escKey ) # Force quit app and mplayer and xterm
@@ -278,7 +278,8 @@ function musicalAutoPilot {
 					tput cup $height $centerText
 					echo $str
 
-					read -t 3 -p "" exitVar
+					## Exit delay
+					read -t 3
 					re_clear_termainal
 
 					if pgrep -x "ogg123" &>/dev/null
@@ -296,7 +297,6 @@ function musicalAutoPilot {
 			unsetAutoPilotFlag
 			autoPilot=0
 			killAutopilot
-			continue
 		fi
 
 	done

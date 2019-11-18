@@ -52,5 +52,6 @@ reset
 
 useTheLoadedSource
 
-echo "$CLR_ALL $SHOWCURSOR"
+## Reset the terminal
+tput cnorm
 reset

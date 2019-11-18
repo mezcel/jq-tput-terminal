@@ -257,8 +257,6 @@ function menuUPautopilot {
 		showonlineStatus=offline
 	fi
 
-	#clear
-
 	screenTitle="Terminal Rosary using Jq and Bash"
 	dialogTitle="Main Menu"
 	selectedMenuItem=$( dialog 2>&1 >/dev/tty \
@@ -349,46 +347,6 @@ function menuDN {
 	fi
 
 	unsetPauseFlag
-}
-
-function menuDNautopilot {
-	## English / Latin translation
-
-	if [ $translation == 1 ]; then
-		nabSwitch=ON
-		vulgateSwitch=OFF
-	else
-		nabSwitch=OFF
-		vulgateSwitch=ON
-	fi
-
-	screenTitle="Terminal Rosary using Jq and Bash"
-	dialogTitle="Language Selector"
-	selectedMenuTranslation=$( dialog 2>&1 >/dev/tty \
-		--backtitle "$screenTitle" \
-		--title "$dialogTitle" \
-		--ok-label "Ok" \
-		--cancel-label "Cancel" \
-		--radiolist "Switch language: \n\n Use space bar to toggle\n" 0 0 0 \
-		"1" "English - New American Bible" "$nabSwitch" \
-		"2"	"Latin - Vulgate" "$vulgateSwitch" ) || selectedMenuTranslation=$translation
-
-
-	translation=$selectedMenuTranslation
-	translationDB
-	jqQuery
-
-	echo "$STYLES_OFF $CLR_ALL $CLR_ALL_LINES $BACKGROUNDCOLOR $FOREGROUNDCOLOR"
-	clear
-
-	if [ $introFlag -eq 1 ]; then
-		howToPage
-	else
-		# bundledDisplay
-		resizeWindow
-		tputBeadDisplay
-		progressbars
-	fi
 }
 
 function prayerMenu {

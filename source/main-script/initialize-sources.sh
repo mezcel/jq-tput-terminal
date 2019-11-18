@@ -45,7 +45,7 @@ function initializeFlags {
 	translation=1
 	isMenuOpen=0
 
-	echo "pauseFlag 0" > source/main-script/temp/localFlags
+	echo -e "## Temporary file used to save and retrieve variables during infinite while loops.\npauseFlag 0" > source/main-script/temp/localFlags
 	autoPilot=0
 	grep -v "autoPilot" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
 	echo "autoPilot 0 $(date)" >> source/main-script/temp/localFlags
