@@ -501,6 +501,9 @@ function days_untill_Advent {
 
 	thisYear=$(date +%Y)
 	calday=$( cal 12 "$thisYear" | awk 'NF==7 && !/^Su/{print $1;exit}' )
+	if [ $calday -eq 8 ]; then
+		calday=1
+	fi
 	monthDay="120"$calday
 	adventDurration=$(( 25 - $calday ))
 
