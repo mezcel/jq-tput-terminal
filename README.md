@@ -1,14 +1,14 @@
 # jq-tput-terminal
 
-An English & Latin Scripture Rosary on BASH.
+An English & Latin Scripture Rosary for BASH, using jq and vorbis-tools.
 
 ## Description
 
 This is a BASH application which launches multiple "FLOSS" command line interface applications which perform the following tasks: *downloading dependencies, web scraping, file parsing, audio streaming, window scaling, and rendering text display*.
 
-This application aims to serve as a casually meditative intellectual & auditory experience.
+This application aims to serve as: a casual, meditative, intellectual, and auditory experience.
 
-### Primary Features:
+## Primary Features:
 
 | Content | Functionality |
 | :--- | :--- |
@@ -25,21 +25,21 @@ This application aims to serve as a casually meditative intellectual & auditory 
 
 ## Installation
 
-### Makefile:
+### Install using a Makefile:
 
 * **make** : download software and audio prerequisites
 * **make gnu** : download software prerequisites
 * **make ogg** : download audio prerequisites
 * **make clean** : remove application audio, temp files, and log files
 
-### Launch Script:
+### Install using launch script:
 
 - (Main) CLI App: ```./bash-rosary``` or ```exec bash-rosary```
     - Start the application in "audio autopilot Latin" mode: ```./bash-rosary -a``` or ```exec bash-rosary -A```
     - Start the application in "Latin" mode: ```./bash-rosary -l``` or ```exec bash-rosary -L```
 - Automatically verify and add needed software that is missing on your system. ```./source/gnu/download-gnu-software``` (Called automatically from within App or you can run it manually)
 
-### Runtime:
+### Runtime (builtin dependency installer):
 
 * This application will perform a software update and a dependency requirements check upon startup and it will also automatically install any missing necessary software (internet is required). Xterm's minimum window size will be set at 140x40.
 * There is a deliberate and pronounced screen flicker and delay between bead transitions.
@@ -48,7 +48,7 @@ This application aims to serve as a casually meditative intellectual & auditory 
 
 ---
 
-# Development Consideration
+# Development Considerations
 
 ## Use Case
 
@@ -57,7 +57,7 @@ This application aims to serve as a casually meditative intellectual & auditory 
 - Host on a ssh/ssl network.
 - For use as an educational quick reference (Catechism, linguistic, terminal cli, cultural history)
 
-## Dependency
+## GNU Dependency
 
 * Basic GNU Terminal Tools: [Bash](https://www.gnu.org/software/bash/), [ncurses, tput](https://ss64.com/bash/tput.html), wget, cal, bc, awk, & grep
 * [JQ](https://stedolan.github.io/jq) is a cross-platform C program which parses json script via command line terminal
@@ -65,9 +65,9 @@ This application aims to serve as a casually meditative intellectual & auditory 
 * [ogg123](https://xiph.org/vorbis) is a [ogg](https://xiph.org/vorbis) audio player which can run within terminal environment
 * [elinks](http://elinks.or.cz/) is a well-established feature-rich text mode web (HTTP/FTP/..) browser.
 
-This App was built around a slimmed down json database which was initially ported from [electron-container](https://github.com/mezcel/electron-container).
+> This App was built around a slimmed down json database which was initially ported from [electron-container](https://github.com/mezcel/electron-container).
 
-# Tested Runtime Environments:
+## Test cases & runtime environments:
 
 | Test Distro's | Development Environment Notes | Relative Performance |
 | :--- | :--- | :--- |
@@ -78,4 +78,4 @@ This App was built around a slimmed down json database which was initially porte
 | Debian | Jq/gcc performed the best on Debian resulting in fast query processing | best |
 | [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) | All the GNU works, but other than testing, I did dot build it for WLS | slow |
 
-**Note:** GCCv6 perfroms a lot faster than GCCv9 for this UseCase.
+> **Note:** GCCv6 perfroms a lot faster than GCCv9 for this UseCase.
