@@ -142,6 +142,7 @@ function setBeadAudio {
 	case $prayerIndex in
 		0 ) ## none
 			beadAudioFile="$currentDirPath/source/ogg/beep.ogg"
+			sleep 7s
 			;;
 		1 ) ## sign of the cross
 			beadAudioFile=$currentDirPath/source/ogg/'01 Sign of the cross.ogg'
@@ -173,6 +174,7 @@ function setBeadAudio {
 			;;
 		* ) ## none
 			beadAudioFile="$currentDirPath/source/ogg/beep.ogg"
+			sleep 7s
 			;;
 	esac
 
