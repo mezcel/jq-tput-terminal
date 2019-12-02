@@ -444,6 +444,10 @@ function howToPage {
 				rosaryJSON=`echo $hostedDirPath/json-db/rosaryJSON-vulgate.json`
 				translationName="Vulgate (Latin)"
 				autoPilot=1
+				# inputTag='-a'
+				#grep -v "autoPilot" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
+				#echo "autoPilot 1 $(date)" >> source/main-script/temp/localFlags
+				setAutoPilotFlag
 				forceCrossBead
 				return
 				;;

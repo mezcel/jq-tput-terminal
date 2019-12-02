@@ -18,6 +18,11 @@ function unsetPauseFlag {
 	echo "pauseFlag 0 $(date)" >> $currentDirPath/source/main-script/temp/localFlags
 }
 
+function setAutoPilotFlag {
+	grep -v "autoPilot" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
+	echo "autoPilot 1 $(date)" >> $currentDirPath/source/main-script/temp/localFlags
+}
+
 function unsetAutoPilotFlag {
 	grep -v "autoPilot" source/main-script/temp/localFlags > temp && mv temp source/main-script/temp/localFlags
 	echo "autoPilot 0 $(date)" >> $currentDirPath/source/main-script/temp/localFlags
