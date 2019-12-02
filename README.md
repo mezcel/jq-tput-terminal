@@ -78,4 +78,4 @@ This application aims to serve as: a casual, meditative, intellectual, and audit
 | Debian | Jq/gcc performed the best on Debian resulting in fast query processing | best |
 | [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) | All the GNU works, but other than testing, I did dot build it for WLS | slow |
 
-> **Note:** GCCv6 perfroms a lot faster than GCCv9 for this UseCase.
+> **Note:** GCCv6 performed a lot faster than newer GCC versions back when this app first started being developed.
