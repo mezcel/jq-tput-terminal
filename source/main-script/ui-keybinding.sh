@@ -164,11 +164,18 @@ function arrowInputs {
 function afterUpDnMenu_autopilot {
 	currentDirPath=$(dirname $0)
 
-	beadCounter=$(grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+	#beadCounter=$(grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+	#hailmaryCounter=$(grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $3}')
+	#thisDecadeSet=$(grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $4}')
+	#mysteryProgress=$(grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $5}')
+
+	beadCounter=$(awk '/positionLog/ {printf $2}' $currentDirPath/source/main-script/temp/localFlags)
+	hailmaryCounter=$(awk '/positionLog/ {printf $3}' $currentDirPath/source/main-script/temp/localFlags)
+	thisDecadeSet=$(awk '/positionLog/ {printf $4}' $currentDirPath/source/main-script/temp/localFlags)
+	mysteryProgress=$(awk '/positionLog/ {printf $5}' $currentDirPath/source/main-script/temp/localFlags)
+
 	rosaryBeadID=$beadCounter
-	hailmaryCounter=$(grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $3}')
-	thisDecadeSet=$(grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $4}')
-	mysteryProgress=$(grep "positionLog" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $5}')
+
 	#sleep 1s
 
 	clear
@@ -205,13 +212,19 @@ function musicalAutoPilot {
 		do
 			isPauseFlag=0
 		done
+	else
+		sleep 12s
 	fi
 
 	while [ $autoPilot -eq 1 ]
 	do
 
-		autoPilot=$(grep "autoPilot" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
-		isPauseFlag=$(grep "pauseFlag" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+		#autoPilot=$(grep "autoPilot" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+		#isPauseFlag=$(grep "pauseFlag" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+
+		autoPilot=$(awk '/autoPilot/ {printf $2}' $currentDirPath/source/main-script/temp/localFlags)
+		isPauseFlag=$(awk '/pauseFlag/ {printf $2}' $currentDirPath/source/main-script/temp/localFlags)
+
 		sleep 1s
 
 		if [ -z $isPauseFlag ]; then
@@ -224,7 +237,9 @@ function musicalAutoPilot {
 			then
 				currentDirPath=$(dirname $0)
 				blank_transition_display
-				autoPilot=$(grep "autoPilot" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+
+				#autoPilot=$(grep "autoPilot" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+				autoPilot=$(awk '/autoPilot/ {printf $2}' $currentDirPath/source/main-script/temp/localFlags)
 
 				beadFWD
 				positionLog
@@ -235,7 +250,7 @@ function musicalAutoPilot {
 					setBeadAudio
 					ogg123 -q "$beadAudioFile" </dev/null >/dev/null 2>&1 &
 				else
-					sleep 5s
+					sleep 25s
 				fi
 			fi
 
@@ -243,8 +258,11 @@ function musicalAutoPilot {
 
 	done & while read -sN1 key
 	do
-		autoPilot=$(grep "autoPilot" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
-		isPauseFlag=$(grep "pauseFlag" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+		#autoPilot=$(grep "autoPilot" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+		#isPauseFlag=$(grep "pauseFlag" $currentDirPath/source/main-script/temp/localFlags | awk '{printf $2}')
+
+		autoPilot=$(awk '/autoPilot/ {printf $2}' $currentDirPath/source/main-script/temp/localFlags)
+		isPauseFlag=$(awk '/pauseFlag/ {printf $2}' $currentDirPath/source/main-script/temp/localFlags)
 
 		if [ $autoPilot -eq 1 ] && [ $isPauseFlag -eq 0 ] ; then
 
