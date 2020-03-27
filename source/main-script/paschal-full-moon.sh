@@ -253,7 +253,7 @@ function calculate_Paschal_Full_Moon {
 	## Desired date - today
 	tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
 	daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
-	
+
 	if [ $daysUntill -lt 0 ]; then
 		nextYear=$(( $thisYear + 1 ))
 		thisYear=$nextYear
@@ -293,7 +293,7 @@ function days_untill_Holy_Thursday {
 
 	thisYear=$(date +%Y)
 	calculate_Paschal_Full_Moon
-	
+
 	daysUntill=$(( $daysUntillEaster - 3 ))
 	if [ $daysUntill -lt 0 ]; then
 		thisYear=$(( $thisYear + 1 ))
@@ -301,9 +301,9 @@ function days_untill_Holy_Thursday {
 		calculate_Paschal_Full_Moon
 		daysUntill=$(( $daysUntillEaster - 3 ))
 	fi
-	
+
 	daysUntillHolyThursday=$daysUntill
-	
+
 	if [ $daysUntillHolyThursday == 0 ]; then
 		isTodayHoly_Thursday=1
 	else
@@ -324,9 +324,9 @@ function days_untill_Good_Friday {
 		calculate_Paschal_Full_Moon
 		daysUntill=$(( $daysUntillEaster - 2 ))
 	fi
-	
+
 	daysUntillGoodFriday=$daysUntill
-	
+
 	if [ $daysUntillGoodFriday == 0 ]; then
 		isTodayGood_Friday=1
 	else
@@ -351,7 +351,7 @@ function days_untill_Easter_Eve {
 	fi
 
 	daysUntillHolySaturday=$(( $daysUntillEaster - 1 ))
-	
+
 	if [ $daysUntillHolySaturday == 0 ]; then
 		isTodayHoly_Saturday=1
 	else
@@ -367,7 +367,7 @@ function days_untill_Ash_Wednesday {
 
 	daysToRemove=$(( $daysToAdd - 46 ))
 	daysUntill=$(( ($(date --date="$tabulatedDate -$daysToRemove days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
-	
+
 	if [ $daysUntill -lt 0 ]; then
 		thisYear=$(( $thisYear + 1 ))
 
@@ -394,17 +394,17 @@ function days_untill_Jesus_Assension {
 
 	thisYear=$(date +%Y)
 	## calculate_Paschal_Full_Moon
-	
+
 	pfmTableDate
 	pfmTableMonth
 	pfmTableYear
 	pfmTableDecade
 	pfmTableCentury
 	pfmTableSum
-	
+
 	tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
 	daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
-	
+
 	if [ $daysUntill -lt 0 ]; then
 		daysToAdd=$(( $daysToAdd + 40 ))
 		daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
@@ -433,17 +433,17 @@ function days_untill_Pentecost {
 
 	thisYear=$(date +%Y)
 	# calculate_Paschal_Full_Moon
-	
+
 	pfmTableDate
 	pfmTableMonth
 	pfmTableYear
 	pfmTableDecade
 	pfmTableCentury
 	pfmTableSum
-	
+
 	tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
 	daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
-	
+
 	if [ $daysUntill -lt 0 ]; then
 		daysToAdd=$(( $daysToAdd + 49 ))
 		daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
@@ -469,7 +469,9 @@ function days_untill_Pentecost {
 	## Determine Easter Season
 	## 50 days after Easter up to Pentecost
 	if [ $daysUntillPentecost -gt 0 ] && [ $daysUntillPentecost -lt 50 ]; then
-		isEasterSeason=1
+		if [ $isLentSeasion -ne 1 ]; then
+			isEasterSeason=1
+		fi
 		isOrdinaryTime=0
 	else
 		isEasterSeason=0
@@ -841,7 +843,7 @@ function dispPieChart {
 	fi
 
 	read -p "[Enter]" -s enterVar
-	
+
 	echo $BACKGROUNDCOLOR
 	clear
 }
