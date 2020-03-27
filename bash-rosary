@@ -34,7 +34,7 @@ function installSoftwareMultimedia {
 	echo "Checking internet connection ..."
 	sleep 3s
 	myPingAddr=google.com
-	ping -c1 $myPingAddr &>/dev/null
+	sudo ping -c3 $myPingAddr &>/dev/null
 	pingFlag=$?
 	sleep 1s
 

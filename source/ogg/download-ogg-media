@@ -10,7 +10,7 @@ function download_ogg_media {
 	## Populate Dir with Audio for use within this app
 	currentDirPath=$(dirname $0)
 
-	ping -c3 google.com &>/dev/null
+	sudo ping -c3 google.com &>/dev/null
 	pingTest=$?
 	if [ $pingTest -eq 0 ]; then
 		## install from list, and install only if file does not exist

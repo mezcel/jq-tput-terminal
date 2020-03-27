@@ -139,7 +139,7 @@ function packageManagerSlapt {
 }
 
 function testPing {
-	ping -c1 $myPingAddr &>/dev/null
+	sudo ping -c3 $myPingAddr &>/dev/null
 	pingFlag=$?
 }
 
@@ -217,7 +217,7 @@ function download_gnu_software {
 	SHOWCURSOR=$(tput cnorm)
 
 	myPingAddr=google.com
-	ping -c1 $myPingAddr &>/dev/null
+	sudo ping -c3 $myPingAddr &>/dev/null
 	pingFlag=$?
 
 	if [ $pingFlag -eq 0 ]; then
@@ -254,4 +254,3 @@ function download_gnu_software {
 
 my_titlebar "bash-rosary (install gnu software)"
 download_gnu_software
-
