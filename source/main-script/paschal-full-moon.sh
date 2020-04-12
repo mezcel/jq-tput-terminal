@@ -61,7 +61,9 @@ function livingSeasonABC {
 ## PFM Table Calculations
 #
 
-function pfmTableDate {
+function pfmTableDate {	##(n/a)
+	## based on https://www.assa.org.au/edm
+
 	## Divide the current year by 19 and get the 1st 3 digits after the decimal
 
 	yearDiv3_decimal=$(echo "scale=3; $thisYear / 19" | bc)
@@ -95,7 +97,9 @@ function pfmTableDate {
 	pfmDate=${pmfArray[$wholeNum]}
 }
 
-function pfmTableMonth {
+function pfmTableMonth {	##(n/a)
+	## based on https://www.assa.org.au/edm
+
 	## determine month according to PMF Date
 	firstLetter=${pfmDate:0:1}
 
@@ -116,7 +120,9 @@ function pfmTableMonth {
 	fi
 }
 
-function pfmTableYear {
+function pfmTableYear {	##(n/a)
+	## based on https://www.assa.org.au/edm
+
 	## PFM Date for year (M=March, A=April)
 
 	case "$pmfDate" in
@@ -144,7 +150,9 @@ function pfmTableYear {
 	esac
 }
 
-function pfmTableDecade {
+function pfmTableDecade {	##(n/a)
+	## based on https://www.assa.org.au/edm
+
 	## Last 2 digits in the current year
 	## I am just going to use 18-21 and a few more future years just to fill it out
 
@@ -179,7 +187,9 @@ function pfmTableDecade {
 	esac
 }
 
-function pfmTableCentury {
+function pfmTableCentury {	##(n/a)
+	## based on https://www.assa.org.au/edm
+
 	## First 2 digits if current year
 	## I expect it will be 20 for the next +900 years... but the calander has changed more than once in the last 900 years
 	## There is a lookup table for this... but we do not need to do that, 20 is just 0
@@ -187,7 +197,9 @@ function pfmTableCentury {
 	centuryNo=0
 }
 
-function pfmTableSum {
+function pfmTableSum {	##(n/a)
+	## based on https://www.assa.org.au/edm
+
 	## Add results from all 3 tables
 	tableSum=$(( $annualNo + $centuryNo + $decadeNo ))
 
@@ -239,7 +251,9 @@ function days_Untill_Count {
 	fi
 }
 
-function calculate_Paschal_Full_Moon {
+function calculate_Paschal_Full_Moon_BACKUP {	##(n/a)
+	## based on https://www.assa.org.au/edm
+
 	## Easter
 
 	# thisYear=$(date +%Y)
@@ -263,6 +277,108 @@ function calculate_Paschal_Full_Moon {
 		pfmTableDecade
 		pfmTableCentury
 		pfmTableSum
+
+		tabulatedDate=$nextYear$virtualMonthNo$estimatedDay
+		daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+	fi
+
+	daysUntillEaster=$daysUntill
+	if [ $daysUntillEaster == 0 ]; then
+		isTodayEaster=1
+	else
+		isTodayEaster=0
+	fi
+
+	## Determine Lent Season
+
+	if [ $daysUntillEaster -gt 0 ] && [ $daysUntillEaster -le 46 ]; then
+		isLentSeasion=1
+	else
+		isLentSeasion=0
+	fi
+}
+
+function pfmAlgorithm {
+	## Anonymous Gregorian algorithm
+	## https://en.wikipedia.org/wiki/Computus
+	## https://www.assa.org.au/edm
+
+	thisYear=$(date +%Y)
+	last2numbers=${thisYear:${#thisYear}-2}
+
+	Y=$thisYear		## Y=$(date +%Y)
+	a=$(($Y % 19))
+	b=$(($Y / 100))
+	c=$(($Y % 100))
+	d=$(($b / 4))
+	e=$(($b % 4))
+	f=$(($b + 8))
+	f=$(($f / 25))
+	g=$(($b - $f + 1))
+	g=$(($g / 3))
+	h=$((19 * $a))
+	h=$(($h +b - $d - $g + 15))
+	h=$(($h % 30))
+	i=$(($c / 4))
+	k=$(($c % 4))
+	l_e=$((2 * $e))
+	l_i=$((2 * $i))
+	l=$((32 + $l_e + $l_i - $h -$k))
+	l=$(($l % 7))
+	m_h=$((11 * $h))
+	m_l=$((22 * $l))
+	m=$(($a + m_h + m_l))
+	m=$(($m / 451))
+	amonth=$((7 * $m))
+	amonth=$(($h + $l - $amonth + 114))
+	amonth=$(($amonth / 31))
+	aday=$((7 * $m))
+	aday=$(($h + $l - $aday + 114))
+	aday=$(($aday % 31))
+	aday=$(($aday + 1))
+
+	#GregorianEaster="$aday $amonth $Y"
+	pfmDate=$aday
+	estimatedDay=$aday
+
+	if [ ${#aday} -lt 2 ] ; then
+		aday=0$aday
+	fi
+
+	if [ ${#amonth} -lt 2 ] ; then
+		amonth=0$amonth
+	fi
+
+	virtualMonthNo=$amonth
+	daysToAdd=0
+}
+
+function calculate_Paschal_Full_Moon {
+	## Easter
+
+	# thisYear=$(date +%Y)
+	#pfmTableDate
+	#pfmTableMonth
+	#pfmTableYear
+	#pfmTableDecade
+	#pfmTableCentury
+	#pfmTableSum
+	pfmAlgorithm
+
+	## Desired date - today
+	tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
+	daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
+
+	if [ $daysUntill -lt 0 ]; then
+		nextYear=$(( $thisYear + 1 ))
+		thisYear=$nextYear
+		#pfmTableDate
+		#pfmTableMonth
+		#pfmTableYear
+		#pfmTableDecade
+		#pfmTableCentury
+		#pfmTableSum
+		pfmAlgorithm
 
 		tabulatedDate=$nextYear$virtualMonthNo$estimatedDay
 		daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
@@ -434,17 +550,18 @@ function days_untill_Pentecost {
 	thisYear=$(date +%Y)
 	# calculate_Paschal_Full_Moon
 
-	pfmTableDate
-	pfmTableMonth
-	pfmTableYear
-	pfmTableDecade
-	pfmTableCentury
-	pfmTableSum
+	#pfmTableDate
+	#pfmTableMonth
+	#pfmTableYear
+	#pfmTableDecade
+	#pfmTableCentury
+	#pfmTableSum
+	pfmAlgorithm
 
 	tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
 	daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
 
-	if [ $daysUntill -lt 0 ]; then
+	if [ $daysUntill -le 0 ]; then
 		daysToAdd=$(( $daysToAdd + 49 ))
 		daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
 	fi
