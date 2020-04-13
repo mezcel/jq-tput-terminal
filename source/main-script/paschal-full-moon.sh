@@ -257,12 +257,13 @@ function calculate_Paschal_Full_Moon_BACKUP {	##(n/a)
 	## Easter
 
 	# thisYear=$(date +%Y)
-	pfmTableDate
-	pfmTableMonth
-	pfmTableYear
-	pfmTableDecade
-	pfmTableCentury
-	pfmTableSum
+	#pfmTableDate
+	#pfmTableMonth
+	#pfmTableYear
+	#pfmTableDecade
+	#pfmTableCentury
+	#pfmTableSum
+	pfmAlgorithm
 
 	## Desired date - today
 	tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
@@ -271,12 +272,13 @@ function calculate_Paschal_Full_Moon_BACKUP {	##(n/a)
 	if [ $daysUntill -lt 0 ]; then
 		nextYear=$(( $thisYear + 1 ))
 		thisYear=$nextYear
-		pfmTableDate
-		pfmTableMonth
-		pfmTableYear
-		pfmTableDecade
-		pfmTableCentury
-		pfmTableSum
+		#pfmTableDate
+		#pfmTableMonth
+		#pfmTableYear
+		#pfmTableDecade
+		#pfmTableCentury
+		#pfmTableSum
+		pfmAlgorithm
 
 		tabulatedDate=$nextYear$virtualMonthNo$estimatedDay
 		daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
@@ -511,12 +513,13 @@ function days_untill_Jesus_Assension {
 	thisYear=$(date +%Y)
 	## calculate_Paschal_Full_Moon
 
-	pfmTableDate
-	pfmTableMonth
-	pfmTableYear
-	pfmTableDecade
-	pfmTableCentury
-	pfmTableSum
+	#pfmTableDate
+	#pfmTableMonth
+	#pfmTableYear
+	#pfmTableDecade
+	#pfmTableCentury
+	#pfmTableSum
+	pfmAlgorithm
 
 	tabulatedDate=$thisYear$virtualMonthNo$estimatedDay
 	daysUntill=$(( ($(date --date="$tabulatedDate +$daysToAdd days" +%s) - $(date --date="$(date +%F)" +%s) )/(60*60*24) ))
