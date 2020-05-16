@@ -1,0 +1,21 @@
+## ignore vscode settings
+.vscode
+
+## ignore downloaded audio files
+*.ogg
+*.oga
+*.mogg
+*.mp3
+*.wav
+*.flc
+*.mp4
+*.mid
+*.midi
+*.aiff
+*.m4a
+*.m4p
+*.wma
+*.cda
+*.aac
+*.raw
+*.webm
