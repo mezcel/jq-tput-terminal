@@ -19,3 +19,7 @@
 *.aac
 *.raw
 *.webm
+
+## ignore temp files
+source/gnu/installationLog
+source/main-script/temp/localFlags

@@ -39,7 +39,7 @@ This application aims to serve as: a casual, meditative, intellectual, and audit
     - Start the application in "Latin" mode: ```./bash-rosary -l``` or ```exec bash-rosary -L```
 - Automatically verify and add needed software that is missing on your system. ```./source/gnu/download-gnu-software``` (Called automatically from within App or you can run it manually)
 
-### Runtime (builtin dependency installer):
+### Run-time (builtin dependency installer):
 
 * This application will perform a software update and a dependency requirements check upon startup and it will also automatically install any missing necessary software (internet is required). Xterm's minimum window size will be set at 140x40.
 * There is a deliberate and pronounced screen flicker and delay between bead transitions.
@@ -67,7 +67,7 @@ This application aims to serve as: a casual, meditative, intellectual, and audit
 
 > This App was built around a slimmed down json database which was initially ported from [electron-container](https://github.com/mezcel/electron-container).
 
-## Test cases & runtime environments:
+## Test cases & run-time environments:
 
 | Test Distro's | Development Environment Notes | Relative Performance |
 | :--- | :--- | :--- |

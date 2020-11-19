@@ -1,252 +1,252 @@
 #!/bin/bash
 
 function my_titlebar {
-	myTitle=$1
-	#echo -e '\033k'$myTitle'\033\\'
-	echo -e '\033]2;'$myTitle'\007'
+    myTitle=$1
+    #echo -e '\033k'$myTitle'\033\\'
+    echo -e '\033]2;'$myTitle'\007'
 }
 
 ## Manual JQ package compile
 function compileJq {
-	## Manually compile jq if needed
+    ## Manually compile jq if needed
 
-	currentDirPath=$(dirname $0)
+    currentDirPath=$(dirname $0)
 
-	command -v jq
-	isJqInstalled=$?
-	if [ isJqInstalled -ne 0 ]; then
-		git clone https://github.com/stedolan/jq.git
+    command -v jq
+    isJqInstalled=$?
+    if [ isJqInstalled -ne 0 ]; then
+        git clone https://github.com/stedolan/jq.git
 
-		cd jq
+        cd jq
 
-		git submodule update --init # if building from git to get oniguruma
-		autoreconf -fi              # if building from git
-		./configure --with-oniguruma=builtin
-		make -j8
-		make check
+        git submodule update --init # if building from git to get oniguruma
+        autoreconf -fi              # if building from git
+        ./configure --with-oniguruma=builtin
+        make -j8
+        make check
 
-		## To build a statically linked version of jq, run:
-		make LDFLAGS=-all-static
+        ## To build a statically linked version of jq, run:
+        make LDFLAGS=-all-static
 
-		## After make finishes, you'll be able to use ./jq. You can also install it using:
-		sudo make install
-	fi
+        ## After make finishes, you'll be able to use ./jq. You can also install it using:
+        sudo make install
+    fi
 
 }
 
 ## Arch based distros
 function packageManagerPacman {
-	## Pacman in silen mode
-	#echo "package manager update ..."
-	#sudo pacman -Sy
+    ## Pacman in silent mode
+    #echo "package manager update ..."
+    #sudo pacman -Sy
 
-	declare -a missingPackageArr=()
-	count=0
+    declare -a missingPackageArr=()
+    count=0
 
-	## Check if required software is allready installed
-	## Add missing packages to an array of missing packages
-	currentDirPath=$(dirname $0)
-	while read linePackage
-	do
-	    count=$(( $count + 1 ))
-	    statusMsg=$(pacman -Qs $linePackage)
-	    isPackageMissing=$?
-	    if [ $isPackageMissing -eq 1 ]; then
-	        missingPackageArr+=($linePackage)
-	    fi
-	done < $currentDirPath/pacman_pkglist.txt
+    ## Check if required software is already installed
+    ## Add missing packages to an array of missing packages
+    currentDirPath=$(dirname $0)
+    while read linePackage
+    do
+        count=$(( $count + 1 ))
+        statusMsg=$(pacman -Qs $linePackage)
+        isPackageMissing=$?
+        if [ $isPackageMissing -eq 1 ]; then
+            missingPackageArr+=($linePackage)
+        fi
+    done < $currentDirPath/pacman_pkglist.txt
 
-	## Install only the missing packages
-	## -Sy install and sync. Needed for alsa and pulse audio to config properly ???
-	for (( i=1; i<${#missingPackageArr[@]}+1; i++ ));
-	do
-		# sudo pacman -S --needed ${missingPackageArr[$i-1]}
-		sudo pacman -Sy --needed --noconfirm ${missingPackageArr[$i-1]}
-		## make a confirmation log
-		echo "Performed pacman -S --needed ${missingPackageArr[$i-1]} on: $(date)" >> $currentDirPath/installationLog
-	done
+    ## Install only the missing packages
+    ## -Sy install and sync. Needed for alsa and pulse audio to configure properly ???
+    for (( i=1; i<${#missingPackageArr[@]}+1; i++ ));
+    do
+        # sudo pacman -S --needed ${missingPackageArr[$i-1]}
+        sudo pacman -Sy --needed --noconfirm ${missingPackageArr[$i-1]}
+        ## make a confirmation log
+        echo "Performed pacman -S --needed ${missingPackageArr[$i-1]} on: $(date)" >> $currentDirPath/installationLog
+    done
 
-	## ogg123 fix for alsa
-	sleep 2s
-	sudo sed -i -e 's/dev=default/#dev=default/g' /etc/libao.conf
+    ## ogg123 fix for alsa
+    sleep 2s
+    sudo sed -i -e 's/dev=default/#dev=default/g' /etc/libao.conf
 }
 
 ## Debian based distros
 function packageManagerDPKG {
-	## Debian Apt
-	# sudo apt-get update -qq
-	#echo "package manager update ..."
-	#sudo apt-get update
+    ## Debian Apt
+    # sudo apt-get update -qq
+    #echo "package manager update ..."
+    #sudo apt-get update
 
-	declare -a missingPackageArr=()
-	count=0
+    declare -a missingPackageArr=()
+    count=0
 
-	## Check if required software is allready installed
-	## Add missing packages to an array of missing packages
-	currentDirPath=$(dirname $0)
-	while read linePackage
-	do
-		count=$(( $count + 1 ))
-		statusMsg=$(dpkg -s $linePackage 2> /dev/null |  grep Status)
-		isPackageMissing=$?
-		if [ $isPackageMissing -eq 1 ]; then
-			missingPackageArr+=($linePackage)
-		fi
-	done < $currentDirPath/dpkg_pkglist.txt
+    ## Check if required software is already installed
+    ## Add missing packages to an array of missing packages
+    currentDirPath=$(dirname $0)
+    while read linePackage
+    do
+        count=$(( $count + 1 ))
+        statusMsg=$(dpkg -s $linePackage 2> /dev/null |  grep Status)
+        isPackageMissing=$?
+        if [ $isPackageMissing -eq 1 ]; then
+            missingPackageArr+=($linePackage)
+        fi
+    done < $currentDirPath/dpkg_pkglist.txt
 
-	## Install only the missing packages
-	for (( i=1; i<${#missingPackageArr[@]}+1; i++ ));
-	do
-	  sudo apt-get install  ${missingPackageArr[$i-1]}
-	  ## make a confirmation log
-	  echo "Performed apt-get install -y ${missingPackageArr[$i-1]} on: $(date)" >> $currentDirPath/installationLog
-	done
+    ## Install only the missing packages
+    for (( i=1; i<${#missingPackageArr[@]}+1; i++ ));
+    do
+      sudo apt-get install  ${missingPackageArr[$i-1]}
+      ## make a confirmation log
+      echo "Performed apt-get install -y ${missingPackageArr[$i-1]} on: $(date)" >> $currentDirPath/installationLog
+    done
 }
 
 ## Alpine Linux
 function packageManagerAlpine {
-	## Apk
-	sudo apk update
+    ## Apk
+    sudo apk update
 
-	# sudo apk add bash xterm grep sed wget gawk bc curl ncurses dialog jq gcc vorbis-tools elinks git
-	currentDirPath=$(dirname $0)
-	while read linePackage
-	do
-		sudo apk add $linePackage
-	done < $currentDirPath/pacman_pkglist.txt
+    # sudo apk add bash xterm grep sed wget gawk bc curl ncurses dialog jq gcc vorbis-tools elinks git
+    currentDirPath=$(dirname $0)
+    while read linePackage
+    do
+        sudo apk add $linePackage
+    done < $currentDirPath/pacman_pkglist.txt
 
-	## make a confirmation flag
-	currentDirPath=$(dirname $0)
-	echo "Installed using apk on $(date)" > $currentDirPath/installedFlag
+    ## make a confirmation flag
+    currentDirPath=$(dirname $0)
+    echo "Installed using apk on $(date)" > $currentDirPath/installedFlag
 }
 
 ## Slackware based distros
 function packageManagerSlapt {
-	## SlackApt
-	sudo slapt-get --update
+    ## SlackApt
+    sudo slapt-get --update
 
-	currentDirPath=$(dirname $0)
-	while read linePackage
-	do
-		sudo slapt-get --install $linePackage
-	done < $currentDirPath/dpkg_pkglist.txt
+    currentDirPath=$(dirname $0)
+    while read linePackage
+    do
+        sudo slapt-get --install $linePackage
+    done < $currentDirPath/dpkg_pkglist.txt
 
-	compileJq
+    compileJq
 
-	## make a confirmation flag
-	currentDirPath=$(dirname $0)
-	echo "Installed using slapt on $(date)" > $currentDirPath/installedFlag
+    ## make a confirmation flag
+    currentDirPath=$(dirname $0)
+    echo "Installed using slapt on $(date)" > $currentDirPath/installedFlag
 }
 
 function testPing {
-	sudo ping -c3 $myPingAddr &>/dev/null
-	pingFlag=$?
+    sudo ping -c3 $myPingAddr &>/dev/null
+    pingFlag=$?
 }
 
 function identifyPackageManager {
 
-	if [ -f /etc/os-release ]; then
-		distroName=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
-	fi
+    if [ -f /etc/os-release ]; then
+        distroName=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
+    fi
 
-	if [ -d /etc/dpkg ] ; then
-		distroType="Debian"
-		packageManager="apt"
-		myPingAddr="debian.org"
-		testPing
-		return
-	fi
+    if [ -d /etc/dpkg ] ; then
+        distroType="Debian"
+        packageManager="apt"
+        myPingAddr="debian.org"
+        testPing
+        return
+    fi
 
-	if [ -d /etc/pacman.d ] ; then
-		distroType="Arch"
-		packageManager="pacman"
-		myPingAddr="archlinux.org"
-		testPing
-		return
-	fi
+    if [ -d /etc/pacman.d ] ; then
+        distroType="Arch"
+        packageManager="pacman"
+        myPingAddr="archlinux.org"
+        testPing
+        return
+    fi
 
-	if [ -d /etc/apk ] ; then
-		distroType="Alpine"
-		packageManager="apk"
-		myPingAddr="alpinelinux.org"
-		testPing
-		return
-	fi
+    if [ -d /etc/apk ] ; then
+        distroType="Alpine"
+        packageManager="apk"
+        myPingAddr="alpinelinux.org"
+        testPing
+        return
+    fi
 
-	## if [ -d /etc/slapt-get ]; then
-	if [ -d /var/slapt-get ]; then
-		distroType="Slackware"
-		packageManager="slapt"
-		myPingAddr="slackware.com"
-		testPing
-		return
-	fi
+    ## if [ -d /etc/slapt-get ]; then
+    if [ -d /var/slapt-get ]; then
+        distroType="Slackware"
+        packageManager="slapt"
+        myPingAddr="slackware.com"
+        testPing
+        return
+    fi
 
 }
 
 function tryAgainLater {
-	clear
-	echo "This App will not install dependencies at this time.
+    clear
+    echo "This App will not install dependencies at this time.
 
-	No Internet. No online dependency installation
-	Ping tested on $myPingAddr
+    No Internet. No online dependency installation
+    Ping tested on $myPingAddr
 
-	You may have most of the dependancies anyway.
-	The ones you probably won't have are: ncurses, dialog, vorbis-tools, and jq
+    You may have most of the dependencies anyway.
+    The ones you probably won't have are: ncurses, dialog, vorbis-tools, and jq
 
 
-	"
-	echo "Press [enter] to exit. Connect to the internet and try again."
-	read
+    "
+    echo "Press [enter] to exit. Connect to the internet and try again."
+    read
 
-	exit
+    exit
 }
 
 function getLatestRepoUpdates {
-	# git remote update ## to bring remote refs up to date
-	echo -e "Importing \"git pull\" updates from https://github.com/mezcel/jq-tput-terminal.git ...\n"
-	git pull
+    # git remote update ## to bring remote refs up to date
+    echo -e "Importing \"git pull\" updates from https://github.com/mezcel/jq-tput-terminal.git ...\n"
+    git pull
 }
 
 function download_gnu_software {
 
-	MODE_BEGIN_UNDERLINE=$(tput smul)
-	MODE_EXIT_UNDERLINE=$(tput rmul)
-	BG_RED=$(tput setab 1)
-	FG_YELLOW=$(tput setaf 3)
-	SHOWCURSOR=$(tput cnorm)
+    MODE_BEGIN_UNDERLINE=$(tput smul)
+    MODE_EXIT_UNDERLINE=$(tput rmul)
+    BG_RED=$(tput setab 1)
+    FG_YELLOW=$(tput setaf 3)
+    SHOWCURSOR=$(tput cnorm)
 
-	myPingAddr=google.com
-	sudo ping -c3 $myPingAddr &>/dev/null
-	pingFlag=$?
+    myPingAddr=google.com
+    sudo ping -c3 $myPingAddr &>/dev/null
+    pingFlag=$?
 
-	if [ $pingFlag -eq 0 ]; then
-		getLatestRepoUpdates
+    if [ $pingFlag -eq 0 ]; then
+        getLatestRepoUpdates
 
-		identifyPackageManager
+        identifyPackageManager
 
-		case $packageManager in
-			"pacman")
-				packageManagerPacman
-				;;
-			"apt")
-				packageManagerDPKG
-				;;
-			"apk")
-				packageManagerAlpine
-				;;
-			"slapt")
-				packageManagerSlapt
-				;;
-			* )
-				echo ""
-				echo "${BG_RED}This application was built with ${MODE_BEGIN_UNDERLINE}Archlinux${MODE_EXIT_UNDERLINE} and ${MODE_BEGIN_UNDERLINE}Debian${MODE_EXIT_UNDERLINE} in mind. Minimal effort and minimal testing was spent on Alpine and Slackware, and that was back during the initial early groundbreaking stage of development. Any other additional operating system not mentioned here might not work as the developer intended. $FG_YELLOW $STYLES_OFF $SHOWCURSOR"
-				exit
-				;;
-		esac
-	else
-		tryAgainLater
-	fi
+        case $packageManager in
+            "pacman")
+                packageManagerPacman
+                ;;
+            "apt")
+                packageManagerDPKG
+                ;;
+            "apk")
+                packageManagerAlpine
+                ;;
+            "slapt")
+                packageManagerSlapt
+                ;;
+            * )
+                echo ""
+                echo "${BG_RED}This application was built with ${MODE_BEGIN_UNDERLINE}Archlinux${MODE_EXIT_UNDERLINE} and ${MODE_BEGIN_UNDERLINE}Debian${MODE_EXIT_UNDERLINE} in mind. Minimal effort and minimal testing was spent on Alpine and Slackware, and that was back during the initial early groundbreaking stage of development. Any other additional operating system not mentioned here might not work as the developer intended. $FG_YELLOW $STYLES_OFF $SHOWCURSOR"
+                exit
+                ;;
+        esac
+    else
+        tryAgainLater
+    fi
 
 }
 
