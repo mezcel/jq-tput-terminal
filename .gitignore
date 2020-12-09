@@ -23,3 +23,5 @@
 ## ignore temp files
 source/gnu/installationLog
 source/main-script/temp/localFlags
+source/html/mass-readings.html
+source/html/visitUsccbLog.txt
